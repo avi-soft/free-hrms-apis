@@ -1,0 +1,14 @@
+
+š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(œÁ®ïüÿÿÿÿJ$150a8afc-355e-45cc-bb64-26d345e59be2
+€
+java:S1854&"?Remove this useless assignment to local variable "authorities".(“Â±ŸşÿÿÿÿJ$fac4a906-d518-4b8e-8b63-889e95914c4e
+{
+java:S1854 "9Remove this useless assignment to local variable "roles".(Ôôıh8ôÄèø1J$91853356-c675-4f03-9f09-03b188d131f2
+˜
+java:S6201"\Replace this instanceof check and cast with 'instanceof JWTAuthentication jwtAuthentication'(àä³ÒJ$b123cdf6-fc4c-426f-8e9b-821467c19223
+x
+java:S2209"5Change this instance-reference to a static reference.(îÒÜã8ÒúÖèø1J$dd0bc34b-2093-47e9-924b-eea375e8aa71
+l
+java:S1481 "*Remove this unused "roles" local variable.(Ôôıh8øÄèø1J$041da36a-f335-4869-8fd8-865c1225eabf
+q
+java:S1481&"0Remove this unused "authorities" local variable.(“Â±ŸşÿÿÿÿJ$ac8d05db-fdd0-4de6-b352-aaf132967f30

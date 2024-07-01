@@ -1,0 +1,14 @@
+
+o
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ã´¦¢
+o
+java:S2293%"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ã´¦¢
+c
+java:S1192"HDefine a constant instead of duplicating this literal "success" 3 times.(©ùúşûÿÿÿÿ
+^
+java:S1192"HDefine a constant instead of duplicating this literal "message" 3 times.(ª€Ì
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿ
+i
+java:S1128"LRemove this unused import 'com.example.HRMSAvisoft.service.EmployeeService'.(üñÙ»8úœ½±ù1
+b
+java:S1128	"@Remove this unused import 'org.springframework.http.HttpStatus'.(íŸ¤Šúÿÿÿÿ8úœ½±ù1

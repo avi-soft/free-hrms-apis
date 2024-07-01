@@ -1,0 +1,14 @@
+
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ö»ûÿÿÿÿ8Şœåõ1J$e63c37bd-5815-47d9-998d-c5a7c8083d55
+}
+java:S6397"5Replace this character class by the character itself.(ğƒ“²üÿÿÿÿ8Æ„‚ù1J$67fe5715-6b2a-40f4-a8f3-0a148a09e819
+}
+java:S6397"5Replace this character class by the character itself.(ğƒ“²üÿÿÿÿ8Æ„‚ù1J$9cdbcff3-0405-43d8-84a1-16ead6f3c253
+„
+java:S6353"<Use concise character class syntax '\\d' instead of '[0-9]'.(ğƒ“²üÿÿÿÿ8ŸÆ„‚ù1J$9a477b46-7995-4af6-922d-52ceecbbccd1
+„
+java:S6353"<Use concise character class syntax '\\d' instead of '[0-9]'.(ğƒ“²üÿÿÿÿ8ŸÆ„‚ù1J$3f1cc68f-109d-4f08-86de-840d66e53008
+„
+java:S6353"<Use concise character class syntax '\\d' instead of '[0-9]'.(ğƒ“²üÿÿÿÿ8ŸÆ„‚ù1J$bf3818e5-757f-42e8-b780-fe8604ca86be
+“
+java:S1128	"KRemove this unused import 'org.springframework.security.core.parameters.P'.(Æ­Åıÿÿÿÿ8ùÊïçø1J$f468dd08-96c0-4839-a1d7-0e083a07e683

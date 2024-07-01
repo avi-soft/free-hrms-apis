@@ -1,0 +1,8 @@
+
+`
+java:S1192"JDefine a constant instead of duplicating this literal "leaveType" 3 times.(—ïßÀ
+c
+java:S1192"HDefine a constant instead of duplicating this literal "success" 7 times.(©ùúþûÿÿÿÿ
+^
+java:S1192"HDefine a constant instead of duplicating this literal "message" 7 times.(–ð’¥
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿ

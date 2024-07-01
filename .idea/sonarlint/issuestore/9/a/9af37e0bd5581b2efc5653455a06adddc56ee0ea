@@ -1,0 +1,25 @@
+
+	java:S112""FDefine and throw a dedicated exception instead of using a generic one.(–œíüÿÿÿÿ8—™äìü1J$b8f252a4-1afa-4c8a-b1af-8adbf4c17489
+‡	java:S112q"FDefine and throw a dedicated exception instead of using a generic one.(Î­ý 8öºŒêþ1J$c5325da1-a787-4cc3-844a-fa589a498deb
+
+java:S1192D"LDefine a constant instead of duplicating this literal "totalItems" 10 times.(—Ìž¯ùÿÿÿÿJ$f3dbbb51-8631-4220-a374-6d67d90fd8ab
+‰
+java:S1192'"HDefine a constant instead of duplicating this literal "Message" 4 times.(á¹õûÿÿÿÿJ$b154704c-4b23-4721-a159-475a267d4f12
+…
+java:S1192X"IDefine a constant instead of duplicating this literal "message" 11 times.(”¬ÔëJ$48c2c1e5-5e9f-480b-80c2-c50f29f7cb35
+„
+java:S1192("HDefine a constant instead of duplicating this literal "Success" 5 times.(ïôÄ¬J$89f73bc7-e72c-46e6-85d7-237c60d64ad3
+‰
+java:S1192B"NDefine a constant instead of duplicating this literal "leaveRequests" 4 times.(–ŠÊBJ$ee7b3077-0651-45c0-9267-d169fa85a80e
+Š
+java:S1192Y"IDefine a constant instead of duplicating this literal "success" 15 times.(©ùúþûÿÿÿÿJ$b300d1e8-137d-4405-a957-f2dd205faefe
+
+java:S1192E"LDefine a constant instead of duplicating this literal "totalPages" 10 times.(ôôçÕøÿÿÿÿJ$20ee90b2-d79e-4e42-a6a5-627d303fc2c5
+œ
+java:S11925"`Define a constant instead of duplicating this literal "Invalid page or size parameters" 5 times.(ºÉÞðJ$0dff4b82-2c86-4b9c-b8b1-777f24aaf4ad
+Ž
+java:S1192C"MDefine a constant instead of duplicating this literal "currentPage" 10 times.(ÍÂ©îÿÿÿÿÿJ$66078414-0e82-49d1-a070-2d5a09015422
+š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿJ$1a8d662f-e20e-4636-b3bd-a3dc33b863cb
+•
+java:S6204>"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹8ÿšäìü1J$35c323a4-b98b-4822-b9be-7ba76467d41b
+Ž	java:S100U"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(•ä¹ÞýÿÿÿÿJ$880755f0-4068-42f7-a667-348fb2315b0b

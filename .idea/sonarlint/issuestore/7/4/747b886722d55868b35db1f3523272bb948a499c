@@ -1,0 +1,26 @@
+
+‹
+java:S1192§"GDefine a constant instead of duplicating this literal "Status" 3 times.(–æ‰8´ê³¾ş1J$3b73f743-5135-4b84-bc24-52e057b922dc
+‘
+java:S1192ˆ"HDefine a constant instead of duplicating this literal "message" 5 times.(ó“Ïøÿÿÿÿ8´ê³¾ş1J$1fe0f6ac-fbe0-4510-9435-c086a3d39e31
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿ8¸ê³¾ş1J$62df670c-ccba-420f-81d0-cc41436ba159
+…
+java:S6813#"BRemove this field injection and use constructor injection instead.(êæÄŞ8ì³¾ş1J$2cca7d06-84e2-4131-bde1-8ae85ee52082
+…
+java:S6813&"BRemove this field injection and use constructor injection instead.(êæÄŞ8ì³¾ş1J$8456557f-8207-4e8a-98b8-6de6f11435ee
+•
+java:S6204X"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(œçÖß8ì³¾ş1J$25ac6daf-dde6-4def-a058-21d3f558583d
+y
+java:S1611:"6Remove the parentheses around the "employee" parameter(ïñÆá8˜ì³¾ş1J$fc558b6b-83de-4c0d-9566-f4e3feed87a7
+•
+java:S6204"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(œçÖß8å²õèş1J$58f6e52f-ae9b-410b-8f8d-0da34c692f44
+y
+java:S1611a"6Remove the parentheses around the "employee" parameter(ïñÆá8æ²õèş1J$ca62769e-249b-48cc-8756-62582048028a
+‰
+java:S1854¦"@Remove this useless assignment to local variable "responseData".(ìó£ºûÿÿÿÿ8¥ì³¾ş1J$9dff73f4-2767-4bec-b5d0-ca97fbdbf5ea
+z
+java:S1481¦"1Remove this unused "responseData" local variable.(ìó£ºûÿÿÿÿ8¦ì³¾ş1J$0a4dce9b-13bd-4e69-aa81-b1d380ff6491
+–
+java:S1871ë"MThis branch's code block is the same as the block for the branch on line 227.(ûÛŞœüÿÿÿÿ8­ì³¾ş1J$aae75cd3-a1cc-41b7-aa37-7391531e3c3c
+‘
+java:S1871ç"MThis branch's code block is the same as the block for the branch on line 227.(‰¯º¸8­ì³¾ş1J$edce91c2-7e5e-466f-b09e-090e46fe9ad9

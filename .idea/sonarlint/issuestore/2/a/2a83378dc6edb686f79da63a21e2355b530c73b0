@@ -1,0 +1,14 @@
+
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(œÁ®ïüÿÿÿÿ8ƒ÷æø1J$c3ecfd66-4f6c-4693-827a-584577b1ef63
+o
+java:S1602",Remove useless curly braces around statement(ÃÌö¹8ªƒ÷æø1J$92a63768-835a-41ff-ac6d-717d7a6b5155
+†
+java:S1128"DRemove this unused import 'jakarta.servlet.http.HttpServletRequest'.(õ38ÊÚèø1J$5907ab26-ec89-49fa-bb14-adbb89924815
+¦
+java:S1128"^Remove this unused import 'org.springframework.security.authentication.AuthenticationManager'.(ğş–şÿÿÿÿ8ÊÚèø1J$29805128-0ef4-4303-ad13-974609c5d5d4
+®
+java:S1128"fRemove this unused import 'org.springframework.security.authentication.AuthenticationManagerResolver'.(“ğÿÿÿÿÿ8ÊÚèø1J$69fa4eb9-ab0c-41dc-b2db-25706f03632c
+§
+java:S1128"dRemove this unused import 'org.springframework.security.web.authentication.AuthenticationConverter'.(–Šì¥8ÊÚèø1J$a57cab06-034b-49d3-a6c4-7225d18f84a7
+„
+java:S1068"<Remove this unused "jwtAuthenticationManager" private field.(ƒŒ”ªûÿÿÿÿ8­ƒ÷æø1J$863e38fe-14c9-4d70-9b33-98e2f4bde2b7
