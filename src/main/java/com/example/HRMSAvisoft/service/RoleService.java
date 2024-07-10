@@ -15,9 +15,8 @@ public class RoleService {
     RoleService(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
-    public Role addRole(String role)
+    public Role addRole(Role role)
     {
-        Role newRole = new Role(role);
-        return roleRepository.save(newRole);
+        return roleRepository.save(role);
     }
 }

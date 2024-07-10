@@ -26,7 +26,7 @@ public class EmergencyContactController {
     }
 
     @GetMapping("/employee/{employeeId}")
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+    @PreAuthorize("hasAuthority('GET_EMPLOYEE_EMERGENCY_CONTACT')")
     public ResponseEntity<Map<String, Object>> getEmergencyContactsOfEmployee(@PathVariable("employeeId") Long employeeId) throws EmployeeNotFoundException {
         List<EmergencyContact> emergencyContactsOfEmployee = emergencyContactService.getEmergencyContactsOfEmployee(employeeId);
         if (emergencyContactsOfEmployee.isEmpty()){
@@ -38,21 +38,21 @@ public class EmergencyContactController {
     }
 
     @PostMapping("/employee/{employeeId}")
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+    @PreAuthorize("hasAuthority('ADD_EMERGENCY_CONTACT')")
     public ResponseEntity<Map<String, Object>> addEmergencyContact(@RequestBody CreateEmergencyContactDTO createEmergencyContactDTO, @PathVariable("employeeId") Long employeeId)throws EmployeeNotFoundException {
         EmergencyContact newEmergencyContact = emergencyContactService.addEmergencyContact(createEmergencyContactDTO, employeeId);
         return ResponseEntity.status(201).body(Map.of("success", true, "message", "Emergency contact added", "emergencyContact", newEmergencyContact));
     }
 
     @PatchMapping("/{emergencyContactId}")
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+    @PreAuthorize("hasAuthority('UPDATE_EMERGENCY_CONTACT')")
     public ResponseEntity<Map<String, Object>> updateEmergencyContact(@RequestBody CreateEmergencyContactDTO createEmergencyContactDTO, @PathVariable("emergencyContactId") Long emergencyContactId)throws EntityNotFoundException {
         EmergencyContact updatedEmergencyContact = emergencyContactService.updateEmergencyContact(createEmergencyContactDTO, emergencyContactId);
         return ResponseEntity.status(204).body(Map.of("success", true, "message", "Emergency contact updated", "emergencyContact", updatedEmergencyContact));
     }
 
     @DeleteMapping("/{emergencyContactId}/{employeeId}")
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+    @PreAuthorize("hasAuthority('DELETE_EMERGENCY_CONTACT')")
     public ResponseEntity<Map<String, Object>> deleteEmergencyContact(@PathVariable("emergencyContactId") Long emergencyContactId, @PathVariable("employeeId") Long employeeId)throws EntityNotFoundException {
         emergencyContactService.deleteEmergencyContact(emergencyContactId, employeeId);
         return ResponseEntity.status(204).body(Map.of("success", true, "message","Emergency contact deleted"));

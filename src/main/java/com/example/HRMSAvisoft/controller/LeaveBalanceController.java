@@ -5,6 +5,7 @@ import com.example.HRMSAvisoft.entity.LeaveBalance;
 import com.example.HRMSAvisoft.service.LeaveBalanceService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -18,6 +19,8 @@ public class LeaveBalanceController {
         this.leaveBalanceService=leaveBalanceService;
         this.modelMapper=modelMapper;
     }
+
+    @PreAuthorize("hasAuthority('GET_LEAVE_BALANCE_FOR_ALL_EMPLOYEES')")
     @GetMapping("/{employeeId}")
     public ResponseEntity<Map<String,Object>> getLeaveBalanceForEmployee(@PathVariable long employeeId, @RequestBody String leaveType)throws Exception{
 

@@ -5,10 +5,13 @@ import com.example.HRMSAvisoft.service.AddressService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import utils.ResponseGenerator;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +20,13 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(value = HttpStatus.FORBIDDEN)
+    public ResponseEntity<Object> accessDeniedHandler()
+    {
+        return ResponseGenerator.generateResponse(HttpStatus.FORBIDDEN,false,"Access is denied for current user",null);
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String,Object>>handlesValidationErrors(MethodArgumentNotValidException exception) {
@@ -80,7 +90,4 @@ public class GlobalExceptionHandler {
         responseData.put("Success",false);
         return ResponseEntity.status(httpStatus).body(responseData);
     }
-
-
-
 }

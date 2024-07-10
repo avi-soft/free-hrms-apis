@@ -1,5 +1,6 @@
 package com.example.HRMSAvisoft.controller;
 
+import com.example.HRMSAvisoft.config.GlobalExceptionHandler;
 import com.example.HRMSAvisoft.dto.*;
 import com.example.HRMSAvisoft.entity.Employee;
 import com.example.HRMSAvisoft.entity.User;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.file.AccessDeniedException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,17 +45,17 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+    @PreAuthorize("hasAuthority('UPLOAD_EMPLOYEE_IMAGE')")
     @PostMapping("/{employeeId}/uploadImage")
-    public ResponseEntity<String> uploadProfileImage(@PathVariable("employeeId") Long employeeId, @RequestParam("file") MultipartFile file) throws EmployeeNotFoundException, IOException, NullPointerException, RuntimeException {
+    public ResponseEntity<String> uploadProfileImage(@PathVariable("employeeId") Long employeeId, @RequestParam("file") MultipartFile file) throws EmployeeNotFoundException, IOException, NullPointerException, RuntimeException ,AccessDeniedException{
         employeeService.uploadProfileImage(employeeId, file);
         String message = "{\"message\": \"Profile Uploaded Successfully\"}";
         return ResponseEntity.ok().body(message);
     }
 
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+    @PreAuthorize("hasAuthority('SEARCH_EMPLOYEE_BY_NAME')")
     @GetMapping("/searchEmployee")
-    public ResponseEntity<List<LoginUserResponseDTO>> searchEmployeesByName(@RequestParam("name") String name)throws IllegalArgumentException{
+    public ResponseEntity<List<LoginUserResponseDTO>> searchEmployeesByName(@RequestParam("name") String name)throws IllegalArgumentException,AccessDeniedException{
         List<Employee> searchedEmployees = employeeService.searchEmployeesByName(name);
         List<LoginUserResponseDTO> loginUserResponseDTOs = searchedEmployees.stream().map((employee)->{
             LoginUserResponseDTO loginUserResponseDTO = new LoginUserResponseDTO();
@@ -90,9 +92,9 @@ public class EmployeeController {
         return ResponseEntity.ok(loginUserResponseDTOs);
     }
 
-
+    @PreAuthorize("hasAuthority('SEARCH_EMPLOYEE_BY_MANAGER_ID')")
     @GetMapping("/searchByManager")
-    public ResponseEntity<List<LoginUserResponseDTO>> searchEmployeeByManagerId(@RequestParam("managerId") Long managerId)throws IllegalArgumentException{
+    public ResponseEntity<List<LoginUserResponseDTO>> searchEmployeeByManagerId(@RequestParam("managerId") Long managerId) throws IllegalArgumentException, AccessDeniedException {
         List<Employee> searchedEmployees = employeeService.searchEmployeeByManagerId(managerId);
         List<LoginUserResponseDTO> loginUserResponseDTOs = searchedEmployees.stream().map((employee)->{
             LoginUserResponseDTO loginUserResponseDTO = new LoginUserResponseDTO();
@@ -129,20 +131,19 @@ public class EmployeeController {
         return ResponseEntity.ok(loginUserResponseDTOs);
     }
 
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+    @PreAuthorize("hasAuthority('ADD_EMPLOYEE')")
     @PostMapping("/{employeeId}")
-    public ResponseEntity<Map<String, Object>> saveEmployeePersonalInfo(@PathVariable Long employeeId, @RequestBody  @Valid CreateEmployeeDTO createEmployee) throws EmployeeNotFoundException, EmployeeService.EmployeeCodeAlreadyExistsException {
+    public ResponseEntity<Map<String, Object>> saveEmployeePersonalInfo(@PathVariable Long employeeId, @RequestBody  @Valid CreateEmployeeDTO createEmployee) throws EmployeeNotFoundException, EmployeeService.EmployeeCodeAlreadyExistsException, AccessDeniedException {
         Employee newEmployee = employeeService.saveEmployeePersonalInfo(employeeId, createEmployee);
         return ResponseEntity.ok(Map.of("success", true, "message", "Employee created Successfully", "Employee", newEmployee));
     }
 
-
-  @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+  @PreAuthorize("hasAuthority('GET_ALL_EMPLOYEES')")
   @GetMapping("/getAllEmployees")
     public ResponseEntity<Map<String, Object>> getAllEmployees(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size,
-            @RequestParam(defaultValue = "employeeId") String sortBy) {
+            @RequestParam(defaultValue = "employeeId") String sortBy) throws AccessDeniedException {
 
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
         Page<Employee> pageOfEmployees = employeeService.getAllEmployees(pageable);
@@ -158,20 +159,18 @@ public class EmployeeController {
         return ResponseEntity.ok().body(responseData);
     }
 
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
-    @GetMapping("{employeeId}")
-    public ResponseEntity<Map<String,Object>> getEmployeeById(@PathVariable Long employeeId)throws NullPointerException,EmployeeNotFoundException, DataAccessException
-    {
+    @PreAuthorize("hasAuthority('FIND_EMPLOYEE_BY_ID')")
+    @GetMapping("/{employeeId}")
+    public ResponseEntity<Map<String,Object>> getEmployeeById(@PathVariable Long employeeId) throws NullPointerException, EmployeeNotFoundException, DataAccessException, AccessDeniedException {
         Employee employee= employeeService.getEmployeeById(employeeId);
         Map<String, Object> responseData = new HashMap<>();
         return ResponseEntity.ok().body(Map.of("Employee", employee, "message", "Employee retrieved Successfully", "Status", true));
 
     }
 
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+    @PreAuthorize("hasAuthority('UPDATE_EMPLOYEE_PERSONAL_DETAILS')")
     @PutMapping("/updatePersonalDetails/{employeeId}")
-    public ResponseEntity<Map<String ,Object>> updatePersonalDetails(@PathVariable Long employeeId, @RequestBody UpdatePersonalDetailsDTO updatePersonalDetails)throws NullPointerException,EmployeeNotFoundException
-        {
+    public ResponseEntity<Map<String ,Object>> updatePersonalDetails(@PathVariable Long employeeId, @RequestBody UpdatePersonalDetailsDTO updatePersonalDetails) throws NullPointerException, EmployeeNotFoundException, AccessDeniedException {
 
         Employee existingEmployee = employeeService.getEmployeeById(employeeId);
         existingEmployee.setFirstName(updatePersonalDetails.getFirstName());
@@ -184,10 +183,9 @@ public class EmployeeController {
         return ResponseEntity.ok().body(Map.of("UpdatedEmployee",savedEmployee , "message", "Personal Details Updated", "Status", true));
     }
     
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+    @PreAuthorize("hasAuthority('UPDATE_EMPLOYEE_COMPANY_DETAILS')")
     @PutMapping("/updateEmployeeDetails/{employeeId}")
-    public ResponseEntity<Map<String,Object>>updateEmployeeDetails(@PathVariable Long employeeId, @RequestBody UpdateEmployeeDetailsDTO updateEmployeeDetailsDTO)throws NullPointerException,EmployeeNotFoundException
-    {
+    public ResponseEntity<Map<String,Object>>updateEmployeeDetails(@PathVariable Long employeeId, @RequestBody UpdateEmployeeDetailsDTO updateEmployeeDetailsDTO) throws NullPointerException, EmployeeNotFoundException, AccessDeniedException {
         Employee existingEmployee = employeeService.getEmployeeById(employeeId);
         if(updateEmployeeDetailsDTO.getFirstName()!=null) existingEmployee.setFirstName(updateEmployeeDetailsDTO.getFirstName());
         if(updateEmployeeDetailsDTO.getLastName()!=null) existingEmployee.setLastName(updateEmployeeDetailsDTO.getLastName());
@@ -204,9 +202,6 @@ public class EmployeeController {
         return ResponseEntity.ok().body(Map.of("UpdatedEmployee",savedEmployee , "message", "Personal Details Updated", "Status", true));
 
     }
-
-
-
 
     @ExceptionHandler({
             IOException.class,
@@ -239,6 +234,11 @@ public class EmployeeController {
         else if (exception instanceof IOException) {
             message = "Failed to update Profile Image";
             status = HttpStatus.BAD_REQUEST;
+        }
+        else if(exception instanceof org.springframework.security.access.AccessDeniedException)
+        {
+            message="Acess is denied for current user";
+            status = HttpStatus.FORBIDDEN;
         }
         else{
             message = "something went wrong";

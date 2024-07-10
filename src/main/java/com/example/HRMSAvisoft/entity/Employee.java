@@ -3,10 +3,8 @@ package com.example.HRMSAvisoft.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +15,7 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @JsonFormat
+@Builder
 public class Employee {
 
     @Id

@@ -1,5 +1,6 @@
 package com.example.HRMSAvisoft.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +20,7 @@ public class Performance {
     private Long performanceId;
 
     @ManyToOne
+    @JsonIgnore
     private Employee employee;
 
     private String reviewDate;

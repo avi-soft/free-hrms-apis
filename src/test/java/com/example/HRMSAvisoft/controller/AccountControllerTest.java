@@ -70,8 +70,6 @@ public class AccountControllerTest {
         assertEquals(200, response.statusCode());
         String responseBody = response.body();
         System.out.println(responseBody);
-
-
     }
 
     @Test

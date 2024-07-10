@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static graphql.introspection.IntrospectionQueryBuilder.build;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EmployeeTests {
@@ -39,7 +40,7 @@ public class EmployeeTests {
         List<LeaveRequest> leaveRequests = new ArrayList<LeaveRequest>();
         List<LeaveBalance> leaveBalanceList = new ArrayList<LeaveBalance>();
 
-        Employee employeeByConstructor = new Employee(empId, employeeCode, firstName, lastName, contact, emergencyContacts, addresses, position, joinDate, gender, adhaarNumber, panNumber, uanNumber, profileImage, dateOfBirth, salary, department, performanceList, account, leaveRequests, leaveBalanceList);
+        Employee employeeByConstructor = Employee.builder().employeeId(empId).employeeCode(employeeCode).firstName(firstName).lastName(lastName).contact(contact).emergencyContacts(emergencyContacts).addresses(addresses).position(position).joinDate(joinDate).gender(gender).adhaarNumber(adhaarNumber).panNumber(panNumber).uanNumber(uanNumber).profileImage(profileImage).dateOfBirth(dateOfBirth).salary(salary).department(department).performanceList(performanceList).account(account).leaveBalances(leaveBalanceList).leaveRequests(leaveRequests).build();
 
         assertEquals(empId, employeeByConstructor.getEmployeeId());
         assertEquals(firstName, employeeByConstructor.getFirstName());

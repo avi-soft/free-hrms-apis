@@ -35,10 +35,7 @@ public class UserController {
 
 
     private UserService userService;
-
-
     private JWTService jwtService;
-
     private ModelMapper modelMapper;
     private LeaveBalanceService leaveBalanceService;
     public UserController(UserService userService, JWTService jwtService, ModelMapper modelMapper, LeaveBalanceService leaveBalanceService)
@@ -55,7 +52,7 @@ public class UserController {
     }
 
     @PostMapping("/saveUser")
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+    @PreAuthorize("hasAuthority('SAVE_USER')")
     public ResponseEntity<CreateUserResponseDTO>saveUser(@AuthenticationPrincipal User loggedInUser,
                                                          @RequestBody CreateUserDTO createUserDTO) throws IOException {
         Employee createdUserEmployee = userService.saveUser(createUserDTO, loggedInUser);
@@ -82,9 +79,9 @@ public class UserController {
             }
     )
     @PostMapping("/addNewUser")
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+    @PreAuthorize("hasAuthority('CREATE_NEW_USER')")
     public ResponseEntity<Map<String ,Object>>addNewUser(@AuthenticationPrincipal User loggedInUser,
-                                                         @RequestBody @Valid AddNewUserDTO addNewUserDTO)throws IOException,UserService.EmailAlreadyExistsException{
+                                                         @RequestBody @Valid AddNewUserDTO addNewUserDTO)throws IOException,UserService.EmailAlreadyExistsException {
         User createdUser=userService.addNewUser(addNewUserDTO,loggedInUser);
         NewUserResponseDTO newUser=new NewUserResponseDTO();
         newUser.setUserId(createdUser.getUserId());
@@ -147,7 +144,7 @@ public class UserController {
     }
 
     @Transactional
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+    @PreAuthorize("hasAuthority('DELETE_EMPLOYEE')")
     @DeleteMapping("/{userId}")
     public ResponseEntity deleteEmployee(@PathVariable("userId") Long userId)throws EmployeeNotFoundException {
         if(userService.deleteUser(userId))
@@ -155,7 +152,7 @@ public class UserController {
         else
             return ResponseEntity.status(500).body(null);
     }
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+    @PreAuthorize("hasAuthority('GET_ALL_USERS')")
     @GetMapping("/getAllUserInfo")
     public ResponseEntity<Map<String, Object>> getAllUserInfo(
             @RequestParam(defaultValue = "0") int page,
@@ -201,14 +198,14 @@ public class UserController {
     public ResponseEntity<ErrorResponseDTO> handleErrors(Exception exception){
         String message;
         HttpStatus status;
-         if(exception instanceof IllegalArgumentException){
+        if(exception instanceof IllegalArgumentException){
             message = exception.getMessage();
             status = HttpStatus.BAD_REQUEST;
         }
-         else if(exception instanceof EntityNotFoundException){
-             message = exception.getMessage();
-             status = HttpStatus.BAD_REQUEST;
-         }
+        else if(exception instanceof EntityNotFoundException){
+            message = exception.getMessage();
+            status = HttpStatus.BAD_REQUEST;
+        }
         else if(exception instanceof UserService.IllegalAccessRoleException){
             message = exception.getMessage();
             status = HttpStatus.UNAUTHORIZED;
@@ -235,5 +232,3 @@ public class UserController {
         return ResponseEntity.status(status).body(errorResponse);
     }
 }
-
-

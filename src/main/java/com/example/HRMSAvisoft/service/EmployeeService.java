@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -49,7 +50,7 @@ public class EmployeeService {
         this.cloudinary = cloudinary;
     }
 
-    public void uploadProfileImage(Long employeeId, MultipartFile file)throws EmployeeNotFoundException, IOException, NullPointerException, RuntimeException {
+    public void uploadProfileImage(Long employeeId, MultipartFile file)throws EmployeeNotFoundException, IOException, NullPointerException, RuntimeException ,AccessDeniedException{
         Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new EmployeeNotFoundException(employeeId));
 
         // Upload file to Cloudinary
@@ -68,7 +69,7 @@ public class EmployeeService {
     }
 
 
-    public List<Employee> searchEmployeesByName(String name)throws IllegalArgumentException{
+    public List<Employee> searchEmployeesByName(String name)throws IllegalArgumentException,AccessDeniedException{
         if(name.equals("") || name == null){
             throw new IllegalArgumentException("Search field empty");
         }
@@ -79,7 +80,7 @@ public class EmployeeService {
         return searchedEmployees;
     }
 
-    public Employee saveEmployeePersonalInfo(Long employeeId, CreateEmployeeDTO createEmployeeDTO)throws EmployeeNotFoundException, EmployeeCodeAlreadyExistsException{
+    public Employee saveEmployeePersonalInfo(Long employeeId, CreateEmployeeDTO createEmployeeDTO)throws EmployeeNotFoundException, EmployeeCodeAlreadyExistsException, AccessDeniedException {
 
         if (employeeRepository.existsByEmployeeCode(createEmployeeDTO.getEmployeeCode())) {
             throw new EmployeeCodeAlreadyExistsException("Employee code already exists: " + createEmployeeDTO.getEmployeeCode());
@@ -111,7 +112,7 @@ public class EmployeeService {
         return employeeRepository.save(employeeToAddInfo);
     }
 
-    public Page<Employee> getAllEmployees(Pageable pageable)throws DataAccessException
+    public Page<Employee> getAllEmployees(Pageable pageable)throws DataAccessException,AccessDeniedException
     {
        Page<Employee> pageOfEmployees= employeeRepository.findAll(pageable);
         if (pageOfEmployees.isEmpty() && pageable.getPageNumber() > 0) {
@@ -120,7 +121,7 @@ public class EmployeeService {
         }
         return pageOfEmployees;
     }
-    public Employee getEmployeeById(Long employeeId)throws EmployeeNotFoundException, NullPointerException
+    public Employee getEmployeeById(Long employeeId)throws EmployeeNotFoundException, NullPointerException,AccessDeniedException
     {
         Employee employee= employeeRepository.getByEmployeeId(employeeId);
         if(employee!=null)return employee;
@@ -129,13 +130,11 @@ public class EmployeeService {
         }
     }
 
-
-
-    public Employee updateEmployee(Employee updatedEmployee) {
+    public Employee updateEmployee(Employee updatedEmployee) throws AccessDeniedException {
         return employeeRepository.save(updatedEmployee);
     }
 
-    public List<Employee> searchEmployeeByManagerId(Long managerId){
+    public List<Employee> searchEmployeeByManagerId(Long managerId) throws AccessDeniedException{
         return employeeRepository.findEmployeesByManagerId(managerId);
     }
 
