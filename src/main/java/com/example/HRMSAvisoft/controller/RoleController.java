@@ -24,8 +24,8 @@ public class RoleController {
         this.roleService = roleService;
     }
     @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
-    @PostMapping("/addRole")
-    public ResponseEntity<Role> saveRole(@RequestBody String role) {
+    @PostMapping("/addRoleWithPrivileges")
+    public ResponseEntity<Role> addRoleWithPrivileges(@RequestBody Role role) {
         Role roleAdded =roleService.addRole(role);
         return ResponseEntity.status(HttpStatus.CREATED).body(roleAdded);
     }

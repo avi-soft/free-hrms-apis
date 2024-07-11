@@ -22,6 +22,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -101,7 +102,7 @@ public class EmployeeServiceTest {
 
     @Test
     @DisplayName("Test Update Employee")
-    public void testUpdateEmployee() {
+    public void testUpdateEmployee() throws AccessDeniedException {
         // Prepare mock data
         Employee existingEmployee = new Employee();
         existingEmployee.setEmployeeId(1L);
@@ -234,7 +235,7 @@ public class EmployeeServiceTest {
 
     @Test
     @DisplayName("test_return_matching_employees")
-    void test_returns_matching_employees() {
+    void test_returns_matching_employees() throws AccessDeniedException {
 
         String name = "John";
         List<Employee> expectedEmployees = new ArrayList<>();
