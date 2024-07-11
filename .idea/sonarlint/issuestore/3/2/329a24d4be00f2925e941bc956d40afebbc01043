@@ -1,13 +1,12 @@
 
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ8‡ÜäÂ‡2J$4f359c25-d658-4797-8062-4fd88206ee66
-š
-java:S3008"RRename this field "JWT_KEY" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(íŞƒ­ÿÿÿÿÿ8ğÜäÂ‡2J$18c162e8-4734-42b2-be2b-3eb714858101
-‚
-java:S1118":Add a private constructor to hide the implicit public one.(„É˜şüÿÿÿÿ8ôÜäÂ‡2J$41d5c071-11ed-4af2-8083-207bcf695832
-z
-java:S1135"2Complete the task associated to this TODO comment.(‘×¼•ùÿÿÿÿ8üÜäÂ‡2J$62051fe8-2f5d-47d9-9d1c-0508cc17c11c
-ƒ	java:S125#"<This block of commented-out lines of code should be removed.(Ñ·›¡ùÿÿÿÿ8…İäÂ‡2J$1f9d897c-6337-4e0c-934d-123bb8d07228
-•
-java:S6204("RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ş§ Ì8ß‚åÂ‡2J$c1883a1b-7e1d-46b0-87c3-e424cc028762
-€
-java:S1612("=Replace this lambda with method reference 'Object::toString'.(ş§ Ì8Ê¬åÂ‡2J$c7e4ba79-fa7c-48ea-a83b-5092ea4d2c98
+{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ8¿¨âŠ2
+t
+java:S3008"RRename this field "JWT_KEY" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(íŞƒ­ÿÿÿÿÿ8Ç¨âŠ2
+\
+java:S1118":Add a private constructor to hide the implicit public one.(„É˜şüÿÿÿÿ8Ê¨âŠ2
+T
+java:S1135"2Complete the task associated to this TODO comment.(‘×¼•ùÿÿÿÿ8Ì¨âŠ2
+]	java:S125!"<This block of commented-out lines of code should be removed.(Ñ·›¡ùÿÿÿÿ8Ò¨âŠ2
+]	java:S125'"<This block of commented-out lines of code should be removed.(›şì©ÿÿÿÿÿ8Ó¨âŠ2
+G	java:S1061"+Replace this use of System.out by a logger.(’îŒ8Û¨âŠ2
+X	java:S125N"<This block of commented-out lines of code should be removed.(Ã¾ç°8à¨âŠ2

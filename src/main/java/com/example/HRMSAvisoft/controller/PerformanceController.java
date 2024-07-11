@@ -32,6 +32,7 @@ public class PerformanceController {
     }
 
     @GetMapping("/employee/{employeeId}")
+    @PreAuthorize("hasAuthority('GET_ALL_PERFORMANCE_OF_EMPLOYEE')")
     public ResponseEntity<List<AllPerformanceOfEmployeeDTO>> getAllPerformanceOfEmployee(@PathVariable("employeeId") Long employeeId) throws EmployeeNotFoundException {
         List<Performance> performanceListOfEmployee = performanceService.getAllPerformanceOfEmployee(employeeId);
         List<AllPerformanceOfEmployeeDTO> allPerformanceOfEmployeeDTOs = performanceListOfEmployee.stream().map((performance)->{
@@ -52,6 +53,7 @@ public class PerformanceController {
     }
 
     @PostMapping("")
+    @PreAuthorize("hasAuthority('ADD_EMPLOYEE_PERFORMANCE')")
     public ResponseEntity<Map<String, Object>> addPerformanceOfEmployee(@PathParam("employeeId") Long employeeId, @PathParam("reviewerId") Long reviewerId, @RequestBody CreatePerformanceDTO createPerformanceDTO)throws EmployeeNotFoundException, IllegalAccessException{
         Performance newPerformanceRecord = performanceService.addPerformanceOfEmployee(employeeId, reviewerId, createPerformanceDTO);
         AllPerformanceOfEmployeeDTO allPerformanceOfEmployeeDTO = new AllPerformanceOfEmployeeDTO();
@@ -68,7 +70,7 @@ public class PerformanceController {
         return ResponseEntity.status(201).body(Map.of("success", true, "message", "performance record added", "performance", allPerformanceOfEmployeeDTO));
     }
 
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+    @PreAuthorize("hasAuthority('GET_ALL_PERFORMANCES')")
     @GetMapping("")
     public ResponseEntity<Map<String, Object>> getAllPerformance(){
         List<Performance> allPerformance = performanceService.getAllPerformance();
@@ -92,6 +94,7 @@ public class PerformanceController {
     }
 
     @GetMapping("/reviewer/{reviewerId}")
+    @PreAuthorize("hasAuthority('GET_PERFORMANCE_BY_REVIEWER')")
     public ResponseEntity<Map<String, Object>> getPerformanceByReviewer(@PathVariable("reviewerId") Long reviewerId)throws  EntityNotFoundException{
         List<Performance> performanceListOfReviewer = performanceService.getPerformanceByReviewer(reviewerId);
         List<AllPerformanceOfEmployeeDTO> allPerformanceOfEmployeeDTOs = performanceListOfReviewer.stream().map((performance)->{
@@ -112,15 +115,14 @@ public class PerformanceController {
         return ResponseEntity.status(200).body(Map.of("success",true, "message","performance fetched successfully", "performanceList", allPerformanceOfEmployeeDTOs));
     }
 
-
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+    @PreAuthorize("hasAuthority('UPDATE_EMPLOYEE_PERFORMANCE')")
     @PatchMapping("")
     public ResponseEntity<Map<String, Object>> updatePerformanceOfEmployee(@AuthenticationPrincipal User loggedInUser, @RequestParam("performanceId") Long performanceId, @RequestBody CreatePerformanceDTO createPerformanceDTO)throws EntityNotFoundException, IllegalAccessException {
         Performance updatedPerformance = performanceService.updatePerformanceOfEmployee(loggedInUser, performanceId, createPerformanceDTO);
         return ResponseEntity.status(204).body(Map.of("success",true, "message", "Performance updated successfully.", "performance", updatedPerformance));
     }
 
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+    @PreAuthorize("hasAuthority('DELETE_PERFORMANCE_RECORD')")
     @DeleteMapping("")
     public ResponseEntity deletePerformanceRecord(@AuthenticationPrincipal User loggedInUser, @RequestParam("performanceId") Long performanceId)throws IllegalAccessException{
         performanceService.deletePerformanceRecord(loggedInUser, performanceId);

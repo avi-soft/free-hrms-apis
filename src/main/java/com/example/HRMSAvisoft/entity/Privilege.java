@@ -1,10 +1,6 @@
 package com.example.HRMSAvisoft.entity;
 
-public enum Privilege
-{
-    CREATE_ROLE,
-    UPDATE_ROLE,
-
+public enum Privilege {
     ADD_EMPLOYEE,
     UPLOAD_EMPLOYEE_IMAGE,
     GET_ALL_EMPLOYEES,
@@ -37,7 +33,6 @@ public enum Privilege
     GET_PERFORMANCE_BY_REVIEWER,
     DELETE_PERFORMANCE_RECORD,
 
-
     SAVE_USER,
     CREATE_NEW_USER,
     DELETE_EMPLOYEE,
@@ -58,6 +53,9 @@ public enum Privilege
     GET_ALL_LEAVE_TYPES,
     GET_LEAVE_TYPE,
 
-    GET_LEAVE_BALANCE_FOR_ALL_EMPLOYEES
+    GET_LEAVE_BALANCE_FOR_ALL_EMPLOYEES,
+
+    CREATE_ROLE,
+    UPDATE_ROLE
 }
 

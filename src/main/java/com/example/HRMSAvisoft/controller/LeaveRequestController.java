@@ -29,7 +29,8 @@ public class LeaveRequestController
         this.leaveService=leaveService;
         this.modelMapper=modelMapper;
     }
-    @PreAuthorize("hasAuthority('Role_Employee')")
+
+    @PreAuthorize("hasAuthority('CREATE_LEAVE_REQUEST')")
     @PostMapping("/{employeeId}/leaveRequest")
     public ResponseEntity<Map<String,Object>>createLeaveRequest(@PathVariable Long employeeId, @RequestBody LeaveRequestDTO leaveRequestDTO)throws Exception{
         Map<String,Object>response=new HashMap<>();
@@ -43,9 +44,9 @@ public class LeaveRequestController
         response.put("Message","Unexpected Error occurred");
         response.put("Success",false);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-
     }
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+
+    @PreAuthorize("hasAuthority('GET_ALL_LEAVE_REQUESTS')")
     @GetMapping("/getLeaveRequests")
     public ResponseEntity<Map<String,Object>>getLeaveRequests(@RequestParam (defaultValue = "0")int page,@RequestParam(defaultValue = "10")int size){
         Map<String, Object>response =new HashMap<>();
@@ -77,10 +78,9 @@ public class LeaveRequestController
         response.put("Success", true);
 
         return ResponseEntity.ok(response);
-
-
     }
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+
+    @PreAuthorize("hasAuthority('DECLINE_LEAVE_REQUEST')")
     @PatchMapping("/declineLeaveRequest/{id}")
     public ResponseEntity<Map<String,Object>>DeclineLeaveRequest(@PathVariable Long id)throws LeaveRequestNotFoundException {
         leaveService.declineLeaveRequest(id);
@@ -90,7 +90,7 @@ public class LeaveRequestController
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+    @PreAuthorize("hasAuthority('APPROVE_LEAVE_REQUEST')")
     @PatchMapping("/{leaveRequestId}/approve")
     public ResponseEntity<Map<String, Object>> approveLeaveRequest(@PathVariable Long leaveRequestId) {
         Map<String, Object> response = new HashMap<>();
@@ -107,7 +107,8 @@ public class LeaveRequestController
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }
-    @PreAuthorize("hasAnyAuthority('Role_Employee','Role_Superadmin','Role_Admin')")
+
+    @PreAuthorize("hasAuthority('GET_LEAVE_REQUEST_OF_EMPLOYEE')")
     @GetMapping("getLeaveRequestsForEmployee/{employeeId}")
     public ResponseEntity<Map<String,Object>>getLeaveRequestForEmployee(@PathVariable Long employeeId
             ,@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "5") int  size) throws  Exception{
@@ -141,7 +142,8 @@ public class LeaveRequestController
 
         return ResponseEntity.ok(response);
     }
-    @PreAuthorize("hasAnyAuthority('Role_Employee','Role_Superadmin','Role_Admin')")
+
+    @PreAuthorize("hasAuthority('GET_PENDING_LEAVE_REQUEST_OF_EMPLOYEE')")
     @GetMapping("/pendingLeaveRequestsForEmployee")
     public ResponseEntity<Map<String, Object>> getPendingLeaveRequestsForEmployee(
             @RequestParam Long employeeId,
@@ -180,7 +182,8 @@ public class LeaveRequestController
 
         return ResponseEntity.ok(response);
     }
-    @PreAuthorize("hasAnyAuthority('Role_Employee','Role_Superadmin','Role_Admin')")
+
+    @PreAuthorize("hasAuthority('GET_APPROVED_REQUEST_OF_EMPLOYEE')")
     @GetMapping("/approvedLeaveRequestsForEmployee")
     public ResponseEntity<Map<String, Object>> getApprovedLeaveRequestsForEmployee(
             @RequestParam Long employeeId,
@@ -219,7 +222,8 @@ public class LeaveRequestController
 
         return ResponseEntity.ok(response);
     }
-    @PreAuthorize("hasAnyAuthority('Role_Employee','Role_Superadmin','Role_Admin')")
+
+    @PreAuthorize("hasAuthority('GET_DECLINED_REQUEST_OF_EMPLOYEE')")
     @GetMapping("/declinedLeaveRequestsForEmployee")
     public ResponseEntity<Map<String, Object>> getDeclinedLeaveRequestsForEmployee(
             @RequestParam Long employeeId,

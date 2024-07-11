@@ -1,16 +1,16 @@
 
-š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(œÁ®ïüÿÿÿÿJ$a3c11a83-3499-4519-b141-2282a4b2b833
-½
-java:S1186F"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(áíäúJ$4c016288-c1d8-4807-b296-e66c3c002d5c
-~
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞJ$46e9afa7-ec9f-47ba-ae69-44f300a5faa9
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(œÁ®ïüÿÿÿÿ8÷€ÚŠ2J$d1552005-4b07-4785-b25e-cf381ef1f023
+Ä
+java:S1186F"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(áíäú8ÿ€ÚŠ2J$16b9c787-844e-4c26-b499-cac46822607b
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8€ÚŠ2J$fe72ca1b-8636-4690-8f12-1b1f823e8a77
 t
-java:S1948",Make "userEntity" transient or serializable.(Ììà³ıÿÿÿÿ8¢»Ùèø1J$d3788110-cc1e-4135-952e-ced33ccd78e7
+java:S1948",Make "userEntity" transient or serializable.(Ììà³ıÿÿÿÿ8ÚŠ2J$69a3ca68-1215-433c-be04-5d0a100e15dc
 t
-java:S1948",Make "jwtService" transient or serializable.(í¾Ûüøÿÿÿÿ8‚¤©Ã‡2J$9da199e0-93f9-42aa-b9bc-4327370dda4f
+java:S1948",Make "jwtService" transient or serializable.(í¾Ûüøÿÿÿÿ8ÚŠ2J$6e152779-f648-4b57-b24b-134aabdc34b1
 x
-java:S2209"5Change this instance-reference to a static reference.(ºÈº•8¤©Ã‡2J$16b58eb7-3c8b-405f-870a-0da5819ef95a
-
-java:S6204#"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹J$9d7ffced-e8df-4495-a0d3-ed3719c3005a
-
-java:S1612""HReplace this lambda with method reference 'SimpleGrantedAuthority::new'.(ÇŸ×¸úÿÿÿÿ8í¶¾‘ˆ2J$f24e37b3-9742-41f0-8572-2ba83a8c06b4
+java:S2209"5Change this instance-reference to a static reference.(ºÈº•8†ÚŠ2J$eaaa5a3d-0a4b-498c-89a3-f35aa8d928d8
+•
+java:S6204#"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹8‡ÚŠ2J$a72e1bb3-cd40-458b-a621-c85a7d3bcc98
+‹
+java:S1612""HReplace this lambda with method reference 'SimpleGrantedAuthority::new'.(°Öæå8ˆÚŠ2J$85690a0c-dfea-4287-9825-62e62b44799e

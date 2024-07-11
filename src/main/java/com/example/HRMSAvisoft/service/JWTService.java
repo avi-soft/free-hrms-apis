@@ -8,10 +8,8 @@ import com.example.HRMSAvisoft.entity.Role;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -28,17 +26,28 @@ public class JWTService {
     private static Algorithm algorithm = Algorithm.HMAC256(JWT_KEY);
 
     public static String createJWT(Long userId, Set<Role> roles){
-
+        List<Role> rolesList = new ArrayList<>(roles);
         Date issuedAt = new Date();
         Date expiresAt = new Date(issuedAt.getTime() + EXPIRATION_TIME_MILLIS); // Set expiry time
 
 //        List<String> roleNames = roles.stream()    // List<String> privilegeNames = roles.getPrivileges().stream().map(privilege -> return privilege).collect(Collectores.toList());
 //                .map(Role::getRole).collect(Collectors.toList());
 
-        List<Role> rolesList = new ArrayList<>(roles);
 
-        List<String> privilegeList = rolesList.get(0).getPrivilegeList().stream().map(privilege -> privilege.toString()).collect(Collectors.toList());
+        List<String> privilegeList = rolesList.get(0).getPrivilege().stream().map(privilege -> privilege.toString()).collect(Collectors.toList());
 
+//        System.out.println( rolesList.get(0).toString());
+//        List<String> privilegeNames = rolesList.get(0).getPrivilege().stream().map(privilege->privilege.toString()).collect(Collectors.toList());
+
+        List<String> privilegeNames = new ArrayList<>();
+        if (!roles.isEmpty()) {
+            privilegeNames = rolesList.get(0).getPrivilege().stream().map(privilege -> privilege.toString()).collect(Collectors.toList());
+        }
+
+
+        for(int i = 0; i < privilegeNames.size(); ++i){
+            System.out.println(privilegeNames.get(i));
+        }
         return JWT.create()
                 .withSubject(userId.toString())
                 .withClaim("roles", privilegeList)
@@ -65,4 +74,10 @@ public class JWTService {
         Claim rolesClaim = jwt.getClaim("roles");
         return rolesClaim.asList(String.class);
     }
+
+//    public static List<String> retrievePrivileges(String jwtString) {
+//        DecodedJWT jwt = retrieveJWT(jwtString);
+//        Claim privilegesClaim = jwt.getClaim("privileges");
+//        return privilegesClaim.asList(String.class);
+//    }
 }

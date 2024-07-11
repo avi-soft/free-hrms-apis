@@ -51,18 +51,16 @@ public class RoleController {
             IllegalArgumentException.class
     })
 
-    public ResponseEntity<ErrorResponseDTO> handleErrors(Exception exception){
+    public ResponseEntity<ErrorResponseDTO> handleErrors(Exception exception) {
         String message;
         HttpStatus status;
-        if(exception instanceof RoleService.RoleAlreadyExistsException) {
+        if (exception instanceof RoleService.RoleAlreadyExistsException) {
             message = exception.getMessage();
             status = HttpStatus.BAD_REQUEST;
-        }
-        else if(exception instanceof IllegalArgumentException){
+        } else if (exception instanceof IllegalArgumentException) {
             message = exception.getMessage();
             status = HttpStatus.BAD_REQUEST;
-        }
-        else{
+        } else {
             message = "something went wrong";
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
