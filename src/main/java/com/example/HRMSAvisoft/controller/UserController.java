@@ -40,6 +40,7 @@ public class UserController {
     private JWTService jwtService;
 
     private ModelMapper modelMapper;
+
     private LeaveBalanceService leaveBalanceService;
     public UserController(UserService userService, JWTService jwtService, ModelMapper modelMapper, LeaveBalanceService leaveBalanceService)
     {
@@ -103,6 +104,8 @@ public class UserController {
     public ResponseEntity<Map<String, Object>> userLogin(@RequestBody LoginUserDTO loginUserDTO)throws EntityNotFoundException, IllegalArgumentException, UserService.WrongPasswordCredentialsException, UserService.IllegalAccessRoleException {
         User loggedInUser = userService.userLogin(loginUserDTO);
 
+        String token = null;
+
         LoginUserResponseDTO userResponse = new LoginUserResponseDTO();
         if(loggedInUser!=null) {
             userResponse.setUserId(loggedInUser.getUserId());
@@ -133,10 +136,13 @@ public class UserController {
             userResponse.setDateOfBirth(employee.getDateOfBirth());
             userResponse.setAccount(employee.getAccount());
             userResponse.setSalary(employee.getSalary());
+
+            //genereate token
+            token = JWTService.createJWT(loggedInUser.getUserId(), loggedInUser.getRoles());
+
         }
 
 
-        String token = JWTService.createJWT(loggedInUser.getUserId(), loggedInUser.getRoles());
 
         Map<String, Object> response = new HashMap<String, Object>();
         response.put("message", "Login Successful");

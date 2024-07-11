@@ -3,6 +3,7 @@ package com.example.HRMSAvisoft.service;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.example.HRMSAvisoft.entity.Privilege;
 import com.example.HRMSAvisoft.entity.Role;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -33,7 +34,8 @@ public class JWTServiceTests {
     public void test_generate_valid_token() {
         Long userId = 123L;
         Set<Role> roles = new HashSet<>();
-        roles.add(new Role("admin"));
+        roles.add(new Role("admin", new HashSet<Privilege>() {
+        }));
 
         String jwt = JWTService.createJWT(userId, roles);
 
@@ -45,7 +47,7 @@ public class JWTServiceTests {
     public void test_expiry_time_correct() {
         Long userId = 123L;
         Set<Role> roles = new HashSet<>();
-        roles.add(new Role("admin"));
+        roles.add(new Role("admin", new HashSet<Privilege>()));
 
         String jwt = JWTService.createJWT(userId, roles);
 
@@ -98,7 +100,7 @@ public class JWTServiceTests {
 
         Long userId = 123L;
         Set<Role> roles = new HashSet<>();
-        roles.add(new Role("admin"));
+        roles.add(new Role("admin", new HashSet<Privilege>()));
 
         String jwt = jwtService.createJWT(userId, roles);
 
@@ -113,7 +115,7 @@ public class JWTServiceTests {
 
         Long userId = 123L;
         Set<Role> roles = new HashSet<>();
-        roles.add(new Role("admin"));
+        roles.add(new Role("admin", new HashSet<Privilege>()));
 
         String jwt = jwtService.createJWT(userId, roles);
 

@@ -1,15 +1,17 @@
 package com.example.HRMSAvisoft.controller;
 
+import com.example.HRMSAvisoft.dto.ErrorResponseDTO;
 import com.example.HRMSAvisoft.entity.Role;
 import com.example.HRMSAvisoft.service.RoleService;
+import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/role")
@@ -23,10 +25,50 @@ public class RoleController {
         this.modelMapper = modelMapper;
         this.roleService = roleService;
     }
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
-    @PostMapping("/addRole")
-    public ResponseEntity<Role> saveRole(@RequestBody String role) {
-        Role roleAdded =roleService.addRole(role);
-        return ResponseEntity.status(HttpStatus.CREATED).body(roleAdded);
+
+    @GetMapping("")
+    public ResponseEntity<List<Role>> getRoles(){
+        List<Role> roles = roleService.getRoles();
+        return ResponseEntity.status(HttpStatus.OK).body(roles);
+    }
+
+    @PreAuthorize("hasAnyAuthority('CREATE_ROLE')")
+    @PostMapping("")
+    public ResponseEntity<Map<String, Object>> saveRole(@RequestBody Role role) throws RoleService.RoleAlreadyExistsException, IllegalArgumentException {
+        Role roleAdded = roleService.addRole(role);
+        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("success",true, "message", "Role updated successfully.", "role", roleAdded));
+    }
+
+    @PreAuthorize("hasAnyAuthority('UPDATE_ROLE')")
+    @PatchMapping("")
+    public ResponseEntity updateRole(@RequestBody Role role) throws EntityNotFoundException, IllegalArgumentException{
+        roleService.updateRole(role);
+        return ResponseEntity.status(204).body(null);
+    }
+
+    @ExceptionHandler({
+            RoleService.RoleAlreadyExistsException.class,
+            IllegalArgumentException.class
+    })
+
+    public ResponseEntity<ErrorResponseDTO> handleErrors(Exception exception){
+        String message;
+        HttpStatus status;
+        if(exception instanceof RoleService.RoleAlreadyExistsException) {
+            message = exception.getMessage();
+            status = HttpStatus.BAD_REQUEST;
+        }
+        else if(exception instanceof IllegalArgumentException){
+            message = exception.getMessage();
+            status = HttpStatus.BAD_REQUEST;
+        }
+        else{
+            message = "something went wrong";
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        ErrorResponseDTO errorResponse = ErrorResponseDTO.builder()
+                .message(message)
+                .build();
+        return ResponseEntity.status(status).body(errorResponse);
     }
 }

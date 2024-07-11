@@ -130,11 +130,11 @@ public class UserService {
         if(loggedInUser == null){
             throw new EntityNotFoundException("User with email " + loginUserDTO.getEmail()+" not found");
         }
-        Role roleUserWantToLoginWith = roleRepository.getByRole(loginUserDTO.getRole());
-
-        if(!loggedInUser.getRoles().contains(roleUserWantToLoginWith)){
-            throw new IllegalAccessRoleException(loginUserDTO.getEmail(), loginUserDTO.getRole());
-        }
+//        Role roleUserWantToLoginWith = roleRepository.getByRole(loginUserDTO.getRole());
+//
+//        if(!loggedInUser.getRoles().contains(roleUserWantToLoginWith)){
+//            throw new IllegalAccessRoleException(loginUserDTO.getEmail(), loginUserDTO.getRole());
+//        }
         else if(passwordEncoder.matches(loginUserDTO.getPassword(), loggedInUser.getPassword())){
             return loggedInUser;
         }
@@ -142,11 +142,6 @@ public class UserService {
             throw new WrongPasswordCredentialsException(loggedInUser.getEmail());
         }
     }
-
-//    @Transactional
-//    public boolean deleteEmployeeById(Long employeeId) throws EmployeeNotFoundException {
-//
-//    }
 
     public static class IllegalAccessRoleException extends IllegalAccessException{
         public IllegalAccessRoleException(String email, String role){

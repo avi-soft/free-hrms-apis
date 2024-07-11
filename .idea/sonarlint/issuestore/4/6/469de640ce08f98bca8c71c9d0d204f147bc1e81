@@ -1,19 +1,19 @@
 
-g	java:S1124"FDefine and throw a dedicated exception instead of using a generic one.(÷ÍÍæøÿÿÿÿ8Šˆ ©ü1
-‹
-java:S1488N"iImmediately return this expression instead of assigning it to the temporary variable "searchedEmployees".(÷ò…Ÿûÿÿÿÿ8’ˆ ©ü1
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ÐœÏùÿÿÿÿ8ÁƒÐû1J$f0de1012-c05c-46d6-977c-5bccb4111949
-Z
-java:S2589H"8Remove this expression which always evaluates to "false"(Šú¦éúÿÿÿÿ8ûˆ ©ü1
-_
-java:S6813&"BRemove this field injection and use constructor injection instead.(êæÄÞ8‚‰ ©ü1
-_
-java:S6813)"BRemove this field injection and use constructor injection instead.(êæÄÞ8‚‰ ©ü1
+	java:S1124"FDefine and throw a dedicated exception instead of using a generic one.(÷ÍÍæøÿÿÿÿ8Šˆ ©ü1J$53193cd0-dd84-4043-a2b2-05c2cd3418b4
+±
+java:S1488N"iImmediately return this expression instead of assigning it to the temporary variable "searchedEmployees".(÷ò…Ÿûÿÿÿÿ8’ˆ ©ü1J$7900b160-6e46-4c5a-b16f-50dfb9faeb05
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ÐœÏùÿÿÿÿ8ÁƒÐû1J$21daac9b-9ca1-4221-8ae8-545e6eef94cc
+€
+java:S2589H"8Remove this expression which always evaluates to "false"(Šú¦éúÿÿÿÿ8ûˆ ©ü1J$e37e09a6-64c0-4bfd-92b8-a2be139a6801
+…
+java:S6813&"BRemove this field injection and use constructor injection instead.(êæÄÞ8‚‰ ©ü1J$e46854be-fc90-49b9-b606-b245091e43f5
+…
+java:S6813)"BRemove this field injection and use constructor injection instead.(êæÄÞ8‚‰ ©ü1J$ae28c5e8-80b1-43f6-a986-44f6e21a4bb4
 ˆ
-java:S1128"@Remove this unused import 'com.example.HRMSAvisoft.entity.User'.(ÎÜ¬úÿÿÿÿ8Šø…Ðû1J$55eeaf93-f4fa-4747-83b7-81f37ec2f5e3
+java:S1128"@Remove this unused import 'com.example.HRMSAvisoft.entity.User'.(ÎÜ¬úÿÿÿÿ8Šø…Ðû1J$3d629911-acf7-488e-a645-6d9bcb29c90e
 †
-java:S1128">Remove this unused import 'jakarta.persistence.EntityManager'.(·ïŸéúÿÿÿÿ8Šø…Ðû1J$fc903ea7-2c2e-482a-97b9-041da72b8238
+java:S1128">Remove this unused import 'jakarta.persistence.EntityManager'.(·ïŸéúÿÿÿÿ8Šø…Ðû1J$547dd950-a22a-45b1-96f1-0ee6522a6315
 ‹
-java:S1128"HRemove this unused import 'jakarta.persistence.EntityNotFoundException'.(†œþè8‹ø…Ðû1J$1be370c1-df38-489f-bb1e-ad95709e5f21
+java:S1128"HRemove this unused import 'jakarta.persistence.EntityNotFoundException'.(†œþè8‹ø…Ðû1J$0f4c26cf-38a5-47cb-a3a0-a9b3b3433ac1
 y
-java:S1128"6Remove this unused import 'jakarta.persistence.Query'.(³¸³æ8‹ø…Ðû1J$aa4d20b6-2758-467d-90b7-11386cd77d11
+java:S1128"6Remove this unused import 'jakarta.persistence.Query'.(³¸³æ8‹ø…Ðû1J$4b4246b2-260b-4fd6-ade3-927730e9e666

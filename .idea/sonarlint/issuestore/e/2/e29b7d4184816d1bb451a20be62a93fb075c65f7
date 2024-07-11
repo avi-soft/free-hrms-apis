@@ -1,25 +1,27 @@
 
 Ÿ
-java:S14884"\Immediately return this expression instead of assigning it to the temporary variable "user".(Ã“Ä8´øÕ˜ş1J$df2c2fc9-739a-4158-a418-c73cf9b63d0e
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ8ãÊìü1J$3d9192fc-6a1c-4ed1-b8d9-3a4efe7c291e
+java:S14884"\Immediately return this expression instead of assigning it to the temporary variable "user".(Ã“Ä8´øÕ˜ş1J$fc06181e-a6f9-464b-8dad-8be99a1b3f1e
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ8ãÊìü1J$6418032c-36ee-4dd6-9789-24c3df8158c1
 …
-java:S6813'"BRemove this field injection and use constructor injection instead.(êæÄŞ8ÓøÕ˜ş1J$bcb60265-ed42-47a4-8860-e63f05375d82
+java:S6813'"BRemove this field injection and use constructor injection instead.(êæÄŞ8ÓøÕ˜ş1J$5f68f665-31c6-406f-850d-a83ad593877c
 ˆ
-java:S1124!"EReorder the modifiers to comply with the Java Language Specification.(Œ…½8ØøÕ˜ş1J$74e21afa-08cd-4b4f-98d8-52b31c9f2bca
+java:S1124!"EReorder the modifiers to comply with the Java Language Specification.(Œ…½8ØøÕ˜ş1J$0eb88d1c-a0ed-469a-b13e-3545dba1c3dc
 
-java:S1124#"EReorder the modifiers to comply with the Java Language Specification.(„ªµÑÿÿÿÿÿ8ØøÕ˜ş1J$0788d887-e505-45b9-8cd9-70bed94c205a
+java:S1124#"EReorder the modifiers to comply with the Java Language Specification.(„ªµÑÿÿÿÿÿ8ØøÕ˜ş1J$2b3e6d93-eded-40a9-b480-4a59ff3d32ef
 ˆ
-java:S1124%"EReorder the modifiers to comply with the Java Language Specification.(éöï8ØøÕ˜ş1J$6d88d4b1-9321-43e5-9355-2dbaa9e92e89
+java:S1124%"EReorder the modifiers to comply with the Java Language Specification.(éöï8ØøÕ˜ş1J$148e61d1-8297-4afa-ba80-01b1395c231c
 ‡
-java:S1124*"EReorder the modifiers to comply with the Java Language Specification.(ªµêS8ÙøÕ˜ş1J$0fe3d91c-9dcd-42aa-852c-bddf0cf688de
+java:S1124*"EReorder the modifiers to comply with the Java Language Specification.(ªµêS8ÙøÕ˜ş1J$03168461-1368-41d0-b36f-dd8bea90f052
 ´
-java:S11308"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(ØıÂ°úÿÿÿÿ8ÛøÕ˜ş1J$5bf0cb52-1e8e-4938-b69d-486d0969c5a7
+java:S11308"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(ØıÂ°úÿÿÿÿ8ÛøÕ˜ş1J$026be5f5-67a1-47fb-a722-7576dc9a8ee1
 ´
-java:S1130a"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(áı§¨ûÿÿÿÿ8àøÕ˜ş1J$cb3ce74a-641a-4c66-891c-34ac0f8276d3
-„	java:S125“"<This block of commented-out lines of code should be removed.(™ªï®ÿÿÿÿÿ8çøÕ˜ş1J$e51a5e7c-9296-44a7-930c-b9f272c56f71
+java:S1130a"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(áı§¨ûÿÿÿÿ8àøÕ˜ş1J$637975ed-65c3-498a-bcb4-2adb89bd55bc
+¼
+java:S1130x"ŸRemove the declaration of thrown exception 'com.example.HRMSAvisoft.service.UserService$IllegalAccessRoleException', as it cannot be thrown from method's body.(ˆØ¡)8º¿ôÜ‰2
+X	java:S125…"<This block of commented-out lines of code should be removed.(ò¢şG8Á¿ôÜ‰2
 Ù
-java:S1130"”Remove the declaration of thrown exception 'com.example.HRMSAvisoft.exception.EmployeeNotFoundException', as it cannot be thrown from method's body.(‰Ô˜‘8èøÕ˜ş1J$a1a23812-6853-496b-b948-06053f42fa03
+java:S1130˜"”Remove the declaration of thrown exception 'com.example.HRMSAvisoft.exception.EmployeeNotFoundException', as it cannot be thrown from method's body.(‰Ô˜‘8èøÕ˜ş1J$6afdcbc9-4eaa-49e0-bbb3-050c5711c5d6
 
-java:S1144«";Remove this unused private "enableForeignKeyChecks" method.(æÔæ8îøÕ˜ş1J$59a23f34-ca62-488b-ac79-123193da1c17
+java:S1144¦";Remove this unused private "enableForeignKeyChecks" method.(æÔæ8îøÕ˜ş1J$75f4e9f6-6c8a-4c03-805f-7dafffacade2
 €
-java:S1144°"<Remove this unused private "disableForeignKeyChecks" method.(¢Õ”×8îøÕ˜ş1J$a948ed88-a208-4480-ac2e-a195be4689f9
+java:S1144«"<Remove this unused private "disableForeignKeyChecks" method.(¢Õ”×8îøÕ˜ş1J$0298aa2c-d455-411e-8eb7-9f10a92893e5

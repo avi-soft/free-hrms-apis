@@ -137,7 +137,7 @@ public class EmployeeController {
     }
 
 
-  @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+  @PreAuthorize("hasAuthority('GET_ALL_EMPLOYEES')")
   @GetMapping("/getAllEmployees")
     public ResponseEntity<Map<String, Object>> getAllEmployees(
             @RequestParam(defaultValue = "0") int page,
@@ -158,7 +158,7 @@ public class EmployeeController {
         return ResponseEntity.ok().body(responseData);
     }
 
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+    @PreAuthorize("hasAuthority('FIND_EMPLOYEE_BY_ID')")
     @GetMapping("{employeeId}")
     public ResponseEntity<Map<String,Object>> getEmployeeById(@PathVariable Long employeeId)throws NullPointerException,EmployeeNotFoundException, DataAccessException
     {
@@ -168,7 +168,7 @@ public class EmployeeController {
 
     }
 
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+    @PreAuthorize("hasAnyAuthority('Role_Employee')")
     @PutMapping("/updatePersonalDetails/{employeeId}")
     public ResponseEntity<Map<String ,Object>> updatePersonalDetails(@PathVariable Long employeeId, @RequestBody UpdatePersonalDetailsDTO updatePersonalDetails)throws NullPointerException,EmployeeNotFoundException
         {
@@ -199,13 +199,11 @@ public class EmployeeController {
         if(updateEmployeeDetailsDTO.getUanNumber()!=null)existingEmployee.setUanNumber(updateEmployeeDetailsDTO.getUanNumber());
         if(updateEmployeeDetailsDTO.getPanNumber()!=null)existingEmployee.setPanNumber(updateEmployeeDetailsDTO.getPanNumber());
         if(updateEmployeeDetailsDTO.getPosition()!=null)existingEmployee.setPosition(updateEmployeeDetailsDTO.getPosition());
-        if(updateEmployeeDetailsDTO.getSalary()!=0)existingEmployee.setSalary(  BigDecimal.valueOf(updateEmployeeDetailsDTO.getSalary()));
+        if(updateEmployeeDetailsDTO.getSalary()!=0)existingEmployee.setSalary(BigDecimal.valueOf(updateEmployeeDetailsDTO.getSalary()));
         Employee savedEmployee = employeeService.updateEmployee(existingEmployee);
         return ResponseEntity.ok().body(Map.of("UpdatedEmployee",savedEmployee , "message", "Personal Details Updated", "Status", true));
 
     }
-
-
 
 
     @ExceptionHandler({

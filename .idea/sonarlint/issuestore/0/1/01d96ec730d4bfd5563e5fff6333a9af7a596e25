@@ -1,14 +1,14 @@
 
-š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(œÁ®ïüÿÿÿÿJ$150a8afc-355e-45cc-bb64-26d345e59be2
+š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(œÁ®ïüÿÿÿÿJ$1e1c5d81-e209-4beb-98d7-15f5419e8320
 €
-java:S1854&"?Remove this useless assignment to local variable "authorities".(“Â±ŸşÿÿÿÿJ$fac4a906-d518-4b8e-8b63-889e95914c4e
+java:S1854&"?Remove this useless assignment to local variable "authorities".(“Â±ŸşÿÿÿÿJ$41ce908c-2982-4744-a8fd-17bb03661880
 {
-java:S1854 "9Remove this useless assignment to local variable "roles".(Ôôıh8ôÄèø1J$91853356-c675-4f03-9f09-03b188d131f2
+java:S1854 "9Remove this useless assignment to local variable "roles".(Ôôıh8ôÄèø1J$06a523ce-1533-4e09-bddc-7cc696900052
 ˜
-java:S6201"\Replace this instanceof check and cast with 'instanceof JWTAuthentication jwtAuthentication'(àä³ÒJ$b123cdf6-fc4c-426f-8e9b-821467c19223
+java:S6201"\Replace this instanceof check and cast with 'instanceof JWTAuthentication jwtAuthentication'(àä³ÒJ$205b62d7-3ab4-4d1e-bf31-92be1384d238
 x
-java:S2209"5Change this instance-reference to a static reference.(îÒÜã8ÒúÖèø1J$dd0bc34b-2093-47e9-924b-eea375e8aa71
+java:S2209"5Change this instance-reference to a static reference.(îÒÜã8ÒúÖèø1J$b4879094-f1b1-40d4-962f-f7680d2de050
 l
-java:S1481 "*Remove this unused "roles" local variable.(Ôôıh8øÄèø1J$041da36a-f335-4869-8fd8-865c1225eabf
+java:S1481 "*Remove this unused "roles" local variable.(Ôôıh8øÄèø1J$27e381f0-d0a5-46e0-8a8a-3953d15c9e26
 q
-java:S1481&"0Remove this unused "authorities" local variable.(“Â±ŸşÿÿÿÿJ$ac8d05db-fdd0-4de6-b352-aaf132967f30
+java:S1481&"0Remove this unused "authorities" local variable.(“Â±ŸşÿÿÿÿJ$44aeb9d7-2bf0-4db2-bbdb-904d783a2458
