@@ -138,10 +138,6 @@ public class EmployeeController {
         return ResponseEntity.ok(Map.of("success", true, "message", "Employee created Successfully", "Employee", newEmployee));
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> dd36d7d9813985ac67fd93478a6793f39026691f
   @PreAuthorize("hasAuthority('GET_ALL_EMPLOYEES')")
   @GetMapping("/getAllEmployees")
     public ResponseEntity<Map<String, Object>> getAllEmployees(
@@ -164,25 +160,16 @@ public class EmployeeController {
     }
 
     @PreAuthorize("hasAuthority('FIND_EMPLOYEE_BY_ID')")
-<<<<<<< HEAD
-    @GetMapping("{employeeId}")
-    public ResponseEntity<Map<String,Object>> getEmployeeById(@PathVariable Long employeeId)throws NullPointerException,EmployeeNotFoundException, DataAccessException
-    {
-=======
     @GetMapping("/{employeeId}")
     public ResponseEntity<Map<String,Object>> getEmployeeById(@PathVariable Long employeeId) throws NullPointerException, EmployeeNotFoundException, DataAccessException, AccessDeniedException {
->>>>>>> dd36d7d9813985ac67fd93478a6793f39026691f
         Employee employee= employeeService.getEmployeeById(employeeId);
         Map<String, Object> responseData = new HashMap<>();
         return ResponseEntity.ok().body(Map.of("Employee", employee, "message", "Employee retrieved Successfully", "Status", true));
 
     }
 
-<<<<<<< HEAD
-    @PreAuthorize("hasAnyAuthority('Role_Employee')")
-=======
+
     @PreAuthorize("hasAuthority('UPDATE_EMPLOYEE_PERSONAL_DETAILS')")
->>>>>>> dd36d7d9813985ac67fd93478a6793f39026691f
     @PutMapping("/updatePersonalDetails/{employeeId}")
     public ResponseEntity<Map<String ,Object>> updatePersonalDetails(@PathVariable Long employeeId, @RequestBody UpdatePersonalDetailsDTO updatePersonalDetails) throws NullPointerException, EmployeeNotFoundException, AccessDeniedException {
 
@@ -217,10 +204,6 @@ public class EmployeeController {
 
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> dd36d7d9813985ac67fd93478a6793f39026691f
     @ExceptionHandler({
             IOException.class,
             RuntimeException.class,
