@@ -61,8 +61,13 @@ public class Employee {
     @ManyToOne
     private Department department;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<Performance> performanceList = new ArrayList<Performance>();
+    @OneToMany(mappedBy = "reviewer",cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Performance> reviewedPerformances = new ArrayList<Performance>();
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Performance> performanceList = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Payroll> payrollList = new ArrayList<Payroll>();

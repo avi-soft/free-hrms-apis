@@ -20,13 +20,15 @@ public class Performance {
     private Long performanceId;
 
     @ManyToOne
+    @JoinColumn(name = "employee_employee_id")
     @JsonIgnore
     private Employee employee;
 
     private String reviewDate;
 
-    @ManyToOne()
-    @JoinColumn(name = "reviewerId", referencedColumnName = "employeeId")
+    @ManyToOne
+    @JoinColumn(name = "reviewer_id", referencedColumnName = "employeeId")
+    @JsonIgnore
     private Employee reviewer;
 
     @Enumerated(EnumType.STRING)
