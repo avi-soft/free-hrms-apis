@@ -6,6 +6,9 @@ import lombok.*;
 import java.util.HashSet;
 import java.util.Set;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -16,9 +19,11 @@ import java.util.Set;
 public class Role {
     @Id
     private String role;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "roles_privileges", joinColumns = @JoinColumn(name = "role"))
     @Enumerated(EnumType.STRING)
     @Column(name = "privilege")
+
     private Set<Privilege> privilege = new HashSet<>();
 }

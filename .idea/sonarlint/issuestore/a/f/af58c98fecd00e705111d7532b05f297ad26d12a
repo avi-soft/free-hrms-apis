@@ -1,4 +1,4 @@
 
-š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿJ$10a27969-0c4a-4689-8f03-3dc7e14fb14c
-u
-java:S1128"SRemove this unused import 'org.springframework.beans.factory.annotation.Autowired'.(¡¸Îùÿÿÿÿ8«åàèø1
+¥
+java:S1488"]Immediately return this expression instead of assigning it to the temporary variable "roles".(÷Œ—Ãøÿÿÿÿ8ÛˆèŠ2J$553e5de8-54a6-4706-9abf-67cd99a90915
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ8ŞˆèŠ2J$ed00ce6f-82f4-43d3-8f82-0e6783031d1e

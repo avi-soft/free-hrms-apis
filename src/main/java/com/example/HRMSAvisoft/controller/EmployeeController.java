@@ -168,6 +168,7 @@ public class EmployeeController {
 
     }
 
+
     @PreAuthorize("hasAuthority('UPDATE_EMPLOYEE_PERSONAL_DETAILS')")
     @PutMapping("/updatePersonalDetails/{employeeId}")
     public ResponseEntity<Map<String ,Object>> updatePersonalDetails(@PathVariable Long employeeId, @RequestBody UpdatePersonalDetailsDTO updatePersonalDetails) throws NullPointerException, EmployeeNotFoundException, AccessDeniedException {
@@ -197,7 +198,7 @@ public class EmployeeController {
         if(updateEmployeeDetailsDTO.getUanNumber()!=null)existingEmployee.setUanNumber(updateEmployeeDetailsDTO.getUanNumber());
         if(updateEmployeeDetailsDTO.getPanNumber()!=null)existingEmployee.setPanNumber(updateEmployeeDetailsDTO.getPanNumber());
         if(updateEmployeeDetailsDTO.getPosition()!=null)existingEmployee.setPosition(updateEmployeeDetailsDTO.getPosition());
-        if(updateEmployeeDetailsDTO.getSalary()!=0)existingEmployee.setSalary(  BigDecimal.valueOf(updateEmployeeDetailsDTO.getSalary()));
+        if(updateEmployeeDetailsDTO.getSalary()!=0)existingEmployee.setSalary(BigDecimal.valueOf(updateEmployeeDetailsDTO.getSalary()));
         Employee savedEmployee = employeeService.updateEmployee(existingEmployee);
         return ResponseEntity.ok().body(Map.of("UpdatedEmployee",savedEmployee , "message", "Personal Details Updated", "Status", true));
 

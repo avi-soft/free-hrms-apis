@@ -8,8 +8,10 @@ import com.example.HRMSAvisoft.entity.Role;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import java.util.*;
 import java.util.stream.Collectors;
+
 
 @Transactional
 @Service
@@ -28,8 +30,11 @@ public class JWTService {
         Date issuedAt = new Date();
         Date expiresAt = new Date(issuedAt.getTime() + EXPIRATION_TIME_MILLIS); // Set expiry time
 
-        List<String> roleNames = roles.stream()
-                .map(Role::getRole).collect(Collectors.toList());
+//        List<String> roleNames = roles.stream()    // List<String> privilegeNames = roles.getPrivileges().stream().map(privilege -> return privilege).collect(Collectores.toList());
+//                .map(Role::getRole).collect(Collectors.toList());
+
+
+        List<String> privilegeList = rolesList.get(0).getPrivilege().stream().map(privilege -> privilege.toString()).collect(Collectors.toList());
 
 //        System.out.println( rolesList.get(0).toString());
 //        List<String> privilegeNames = rolesList.get(0).getPrivilege().stream().map(privilege->privilege.toString()).collect(Collectors.toList());
@@ -45,9 +50,7 @@ public class JWTService {
         }
         return JWT.create()
                 .withSubject(userId.toString())
-                .withClaim("roles", privilegeNames)
-//                .withClaim("roles", roleNames)
-//                .withClaim("privileges", privilegeNames)
+                .withClaim("roles", privilegeList)
                 .withIssuedAt(issuedAt)
                 .withExpiresAt(expiresAt)
                 .sign(algorithm);

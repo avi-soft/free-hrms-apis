@@ -4,8 +4,11 @@ package com.example.HRMSAvisoft.controller;
 import com.example.HRMSAvisoft.dto.CreateUserDTO;
 import com.example.HRMSAvisoft.dto.LoginUserDTO;
 import com.example.HRMSAvisoft.entity.Employee;
+import com.example.HRMSAvisoft.entity.Privilege;
+import com.example.HRMSAvisoft.entity.Role;
 import com.example.HRMSAvisoft.entity.User;
 import com.example.HRMSAvisoft.service.JWTService;
+import com.example.HRMSAvisoft.service.LeaveBalanceService;
 import com.example.HRMSAvisoft.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +16,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +26,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import java.util.HashSet;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -40,6 +46,9 @@ class UserControllerTest {
     private UserService userService;
     @MockBean
     private JWTService jwtService;
+
+    @MockBean
+    private LeaveBalanceService leaveBalanceService;
 
     @InjectMocks
     private UserController userController;
@@ -81,6 +90,8 @@ class UserControllerTest {
         User mockUser = new User();
         mockUser.setUserId(1L);
         mockUser.setEmail("test@example.com");
+        Role mockRole = new Role("Superadmin", new HashSet<Privilege>());
+        mockUser.getRoles().add(mockRole);
 
         Employee mockEmployee = new Employee();
         mockEmployee.setFirstName("John");
@@ -101,8 +112,6 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.loginUser.firstName").value("John"))
                 .andExpect(jsonPath("$.loginUser.lastName").value("Doe"));
     }
-
-
 
 }
 

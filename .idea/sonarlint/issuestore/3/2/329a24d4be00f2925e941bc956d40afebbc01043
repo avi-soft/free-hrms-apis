@@ -1,8 +1,12 @@
 
-š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿJ$94ab76cf-0da0-4e36-aa5f-1b5f427fb247
-“
-java:S3008"RRename this field "JWT_KEY" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(íŞƒ­ÿÿÿÿÿJ$dc711600-cf28-41a7-ac25-d6427191608c
-{
-java:S1118":Add a private constructor to hide the implicit public one.(„É˜şüÿÿÿÿJ$968f32dc-f55d-4ad2-862c-b37c3dac9695
-s
-java:S1135"2Complete the task associated to this TODO comment.(‘×¼•ùÿÿÿÿJ$5f15d526-c1d1-46d2-b27d-9092f8c9d6ca
+{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ8¿¨âŠ2
+t
+java:S3008"RRename this field "JWT_KEY" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(íŞƒ­ÿÿÿÿÿ8Ç¨âŠ2
+\
+java:S1118":Add a private constructor to hide the implicit public one.(„É˜şüÿÿÿÿ8Ê¨âŠ2
+T
+java:S1135"2Complete the task associated to this TODO comment.(‘×¼•ùÿÿÿÿ8Ì¨âŠ2
+]	java:S125!"<This block of commented-out lines of code should be removed.(Ñ·›¡ùÿÿÿÿ8Ò¨âŠ2
+]	java:S125'"<This block of commented-out lines of code should be removed.(›şì©ÿÿÿÿÿ8Ó¨âŠ2
+G	java:S1061"+Replace this use of System.out by a logger.(’îŒ8Û¨âŠ2
+X	java:S125N"<This block of commented-out lines of code should be removed.(Ã¾ç°8à¨âŠ2

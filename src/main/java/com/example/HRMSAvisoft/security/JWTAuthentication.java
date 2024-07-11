@@ -29,6 +29,7 @@ public class JWTAuthentication implements Authentication {
 
         // Extract roles from JWT claims
         List<String> roles = jwtService.retrieveRoles(jwt);
+
         return roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role))// prefix role is a convention in spring security
                 .collect(Collectors.toList());

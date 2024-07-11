@@ -1,4 +1,8 @@
 
-š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿJ$def7bbbe-70c9-43e9-923f-2d203dcef54a
-p
-java:S1068"/Remove this unused "modelMapper" private field.(«ŞËãşÿÿÿÿJ$78a9889a-a25e-4d66-8cfb-993d1e492eb9
+Q
+java:S3740,"/Provide the parametrized type for this generic.(µûñ®şÿÿÿÿ8ùÑÊŠ2
+{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿ8üÑÊŠ2
+n
+java:S1871<"LThis branch's code block is the same as the block for the branch on line 57.(—¯Áùüÿÿÿÿ8¬ÒÊŠ2
+Q
+java:S1068"/Remove this unused "modelMapper" private field.(«ŞËãşÿÿÿÿ8±ÒÊŠ2

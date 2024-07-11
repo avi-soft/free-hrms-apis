@@ -1,8 +1,6 @@
 package com.example.HRMSAvisoft.entity;
 
-
-public enum Privilege
-{
+public enum Privilege {
     ADD_EMPLOYEE,
     UPLOAD_EMPLOYEE_IMAGE,
     GET_ALL_EMPLOYEES,
