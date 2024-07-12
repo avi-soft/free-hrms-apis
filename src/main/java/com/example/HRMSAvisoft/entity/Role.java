@@ -24,6 +24,5 @@ public class Role {
     @CollectionTable(name = "roles_privileges", joinColumns = @JoinColumn(name = "role"))
     @Enumerated(EnumType.STRING)
     @Column(name = "privilege")
-
     private Set<Privilege> privilege = new HashSet<>();
 }

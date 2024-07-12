@@ -48,18 +48,16 @@ public class RoleService {
     public void updateRole(Role role) throws EntityNotFoundException, IllegalArgumentException{
         Role roleToUpdate = roleRepository.findById(role.getRole()).orElseThrow((()-> new EntityNotFoundException(role.getRole()+ " role not found")));
 
+        roleToUpdate.getPrivilege().clear();
+
         for (Privilege privilege : role.getPrivilege()) {
             if (Privilege.valueOf(privilege.name()) != null) {
-                if(!roleToUpdate.getPrivilege().contains(privilege)) {
-                    roleToUpdate.getPrivilege().add(privilege);
-                }
-                else{
-                    throw new IllegalArgumentException(privilege + " already exists with this role.");
-                }
+                roleToUpdate.getPrivilege().add(privilege);
             } else {
                 throw new IllegalArgumentException("Invalid privilege: " + privilege);
             }
         }
+        roleRepository.save(roleToUpdate);
     }
 
     public static class RoleAlreadyExistsException extends RuntimeException{

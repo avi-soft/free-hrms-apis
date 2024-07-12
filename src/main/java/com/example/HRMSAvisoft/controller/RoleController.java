@@ -36,10 +36,10 @@ public class RoleController {
     @PostMapping("")
     public ResponseEntity<Map<String, Object>> saveRole(@RequestBody Role role) throws RoleService.RoleAlreadyExistsException, IllegalArgumentException {
         Role roleAdded = roleService.addRole(role);
-        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("success",true, "message", "Role updated successfully.", "role", roleAdded));
+        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("success",true, "message", "Role created successfully.", "role", roleAdded));
     }
 
-    @PreAuthorize("hasAnyAuthority('UPDATE_ROLE')")
+//    @PreAuthorize("hasAnyAuthority('UPDATE_ROLE')")
     @PatchMapping("")
     public ResponseEntity updateRole(@RequestBody Role role) throws EntityNotFoundException, IllegalArgumentException{
         roleService.updateRole(role);

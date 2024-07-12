@@ -56,6 +56,7 @@ public enum Privilege {
     GET_LEAVE_BALANCE_FOR_ALL_EMPLOYEES,
 
     CREATE_ROLE,
-    UPDATE_ROLE
+    UPDATE_ROLE,
+    DELETE_ROLE
 }
 
