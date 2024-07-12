@@ -1,27 +1,27 @@
 
-s
-java:S3740"/Provide the parametrized type for this generic.(«µœƒ8á«Ğ‰Š2J$43d90983-e9b9-4ddb-bd6d-913d74fc0ff2
-œ
-java:S2293`"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ã´¦¢8¡¸Ë‰Š2J$2328f501-dc38-42fd-9c1a-93a56f0c67d6
-
-java:S2293“"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ã´¦¢8¡¸Ë‰Š2J$cecd4720-a98c-4d55-b01f-290727cdadde
-‹
-java:S1192a"HDefine a constant instead of duplicating this literal "message" 3 times.(ã¢‡¦8¢¸Ë‰Š2J$7ba9ca9d-40e3-4b81-a88e-a13c31cca5cf
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿ8§¸Ë‰Š2J$6ce6ecd1-426b-4301-8594-010ea01d1d1e
-„	java:S125¼"<This block of commented-out lines of code should be removed.(«ÀÔßùÿÿÿÿ8Ø¸Ë‰Š2J$8cb2796b-c58b-4f1d-9ceb-6e0fd36bea37
-‘
-java:S1871Ö"MThis branch's code block is the same as the block for the branch on line 210.(úø¶Ì8Ù¸Ë‰Š2J$9d63b6e3-3df9-4385-bce7-7d7a50f504f7
-‘
-java:S1871Ş"MThis branch's code block is the same as the block for the branch on line 210.(™ÃÇä8Ù¸Ë‰Š2J$12b330d7-b76d-44e4-92bf-d94a13c4ad90
-‘
-java:S1871æ"MThis branch's code block is the same as the block for the branch on line 210.(ø±èò8Ù¸Ë‰Š2J$e4fdd9b6-2869-4139-b9bd-26364f661c6b
-p
-java:S1128"NRemove this unused import 'com.example.HRMSAvisoft.repository.UserRepository'.(À™ô¡øÿÿÿÿ8‡ÓØ‰Š2
-u
-java:S1128"SRemove this unused import 'org.springframework.beans.factory.annotation.Autowired'.(¡¸Îùÿÿÿÿ8‡ÓØ‰Š2
-{
-java:S1128"YRemove this unused import 'org.springframework.security.crypto.password.PasswordEncoder'.(‰¡ßáÿÿÿÿÿ8‡ÓØ‰Š2
+M
+java:S3740"/Provide the parametrized type for this generic.(«µœƒ8ÔÄïµŠ2
 v
-java:S1068)".Remove this unused "jwtService" private field.(Ğ´ë™øÿÿÿÿ8İ¸Ë‰Š2J$34856d19-6430-49b1-816c-9118b302453c
-r
-java:S1068*"/Remove this unused "modelMapper" private field.(¸ı½8İ¸Ë‰Š2J$8aa1a3a0-6b85-472e-820a-0b617b535c3a
+java:S2293`"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ã´¦¢8ÕÄïµŠ2
+w
+java:S2293“"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ã´¦¢8ÕÄïµŠ2
+e
+java:S1192a"HDefine a constant instead of duplicating this literal "message" 3 times.(ã¢‡¦8ÖÄïµŠ2
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿ8§¸Ë‰Š2J$87eaf3c8-0cd5-40e9-b388-1768434429f0
+^	java:S125¼"<This block of commented-out lines of code should be removed.(«ÀÔßùÿÿÿÿ8‹ÅïµŠ2
+k
+java:S1871æ"MThis branch's code block is the same as the block for the branch on line 210.(ø±èò8ŒÅïµŠ2
+k
+java:S1871Ö"MThis branch's code block is the same as the block for the branch on line 210.(úø¶Ì8ŒÅïµŠ2
+k
+java:S1871Ş"MThis branch's code block is the same as the block for the branch on line 210.(™ÃÇä8ŒÅïµŠ2
+p
+java:S1128"NRemove this unused import 'com.example.HRMSAvisoft.repository.UserRepository'.(À™ô¡øÿÿÿÿ8ÅïµŠ2
+u
+java:S1128"SRemove this unused import 'org.springframework.beans.factory.annotation.Autowired'.(¡¸Îùÿÿÿÿ8ÅïµŠ2
+{
+java:S1128"YRemove this unused import 'org.springframework.security.crypto.password.PasswordEncoder'.(‰¡ßáÿÿÿÿÿ8ÅïµŠ2
+P
+java:S1068)".Remove this unused "jwtService" private field.(Ğ´ë™øÿÿÿÿ8ÅïµŠ2
+L
+java:S1068*"/Remove this unused "modelMapper" private field.(¸ı½8ÅïµŠ2
