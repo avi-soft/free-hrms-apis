@@ -15,6 +15,7 @@
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/entity/Gender.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/dto/NewUserResponseDTO.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/dto/AddNewUserDTO.java
+/home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/entity/Privilege.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/entity/LeaveType.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/entity/LeaveRequest.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/controller/EmployeeController.java
@@ -74,6 +75,7 @@
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/dto/UpdatePersonalDetailsDTO.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/entity/Payroll.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/entity/User.java
+/home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/utils/ResponseGenerator.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/dto/LoginUserDTO.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/security/JWTAuthenticationConverter.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/entity/Rating.java
