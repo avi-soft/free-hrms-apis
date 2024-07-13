@@ -7,6 +7,14 @@ java:S1118":Add a private constructor to hide the implicit public one.(„É˜şüÿÿ
 T
 java:S1135"2Complete the task associated to this TODO comment.(‘×¼•ùÿÿÿÿ8Ì¨âŠ2
 ]	java:S125!"<This block of commented-out lines of code should be removed.(Ñ·›¡ùÿÿÿÿ8Ò¨âŠ2
+t
+java:S6204%"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(·…ı÷ıÿÿÿÿ8˜ÜÖ·Š2
+_
+java:S1612%"=Replace this lambda with method reference 'Object::toString'.(·…ı÷ıÿÿÿÿ8§ÜÖ·Š2
 ]	java:S125'"<This block of commented-out lines of code should be removed.(›şì©ÿÿÿÿÿ8Ó¨âŠ2
+t
+java:S6204,"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(¢õ¶²üÿÿÿÿ8«ÜÖ·Š2
+_
+java:S1612,"=Replace this lambda with method reference 'Object::toString'.(¢õ¶²üÿÿÿÿ8¬ÜÖ·Š2
 G	java:S1061"+Replace this use of System.out by a logger.(’îŒ8Û¨âŠ2
 X	java:S125N"<This block of commented-out lines of code should be removed.(Ã¾ç°8à¨âŠ2

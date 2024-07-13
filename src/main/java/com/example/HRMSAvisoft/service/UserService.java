@@ -71,8 +71,10 @@ public class UserService {
         DateTimeFormatter createdAtFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         newUser.setCreatedAt(createdAt.format(createdAtFormatter));
 
-        Role roleToAdd = roleRepository.getByRole(createUserDTO.getRole());
-        newUser.getRoles().add(roleToAdd);
+        Role roleToAdd = roleRepository.getByRole(createUserDTO.getRole()).orElse(null);
+        if(roleToAdd != null) {
+            newUser.getRoles().add(roleToAdd);
+        }
 
         // make employee instance corresponding to the user and set some data of employee
 
@@ -108,8 +110,11 @@ public class UserService {
         DateTimeFormatter createdAtFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         newUser.setCreatedAt(createdAt.format(createdAtFormatter));
 
-        Role roleToAdd = roleRepository.getByRole(addNewUserDTO.getRole());
-        newUser.getRoles().add(roleToAdd);
+        Role roleToAdd = roleRepository.getByRole(addNewUserDTO.getRole()).orElse(null);
+        if(roleToAdd != null) {
+            newUser.getRoles().add(roleToAdd);
+        }
+
         Employee employee=new Employee();
         Employee savedEmployee = employeeRepository.save(employee);
 

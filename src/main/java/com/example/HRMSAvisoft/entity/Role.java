@@ -18,6 +18,10 @@ import java.util.Set;
 @Table(name = "roles")
 public class Role {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
+    private Long roleId;
+
     private String role;
 
     @ElementCollection(fetch = FetchType.EAGER)

@@ -25,7 +25,7 @@ public class RoleService {
     }
 
     public Role addRole(Role role) throws RoleAlreadyExistsException, IllegalArgumentException{
-        Role existingRole = roleRepository.findById(role.getRole()).orElse(null);
+        Role existingRole = roleRepository.getByRole(role.getRole()).orElse(null);
 
         if(existingRole != null){
             throw new RoleAlreadyExistsException(role.getRole() + " role already exists");
@@ -45,10 +45,20 @@ public class RoleService {
         return roleRepository.save(newRole);
     }
 
-    public void updateRole(Role role) throws EntityNotFoundException, IllegalArgumentException{
-        Role roleToUpdate = roleRepository.findById(role.getRole()).orElseThrow((()-> new EntityNotFoundException(role.getRole()+ " role not found")));
+    public void updateRole(Role role, Long roleId) throws EntityNotFoundException, IllegalArgumentException{
+        Role roleToUpdate = roleRepository.findById(roleId).orElseThrow((()-> new EntityNotFoundException("Role not found")));
 
-        roleToUpdate.getPrivilege().clear();
+        if (role.getRole() != null && !role.getRole().isEmpty() && !role.getRole().equals(roleToUpdate.getRole())) {
+            Role newRole = roleRepository.getByRole(role.getRole()).orElse(null);
+            if(newRole != null){
+                throw new RoleAlreadyExistsException("Role by name " + role.getRole()+ " already exists.");
+            }
+            else{
+                roleToUpdate.setRole(role.getRole());
+            }
+        }
+
+            roleToUpdate.getPrivilege().clear();
 
         for (Privilege privilege : role.getPrivilege()) {
             if (Privilege.valueOf(privilege.name()) != null) {
