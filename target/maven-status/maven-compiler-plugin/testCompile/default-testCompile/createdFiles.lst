@@ -1,6 +1,5 @@
 com/example/HRMSAvisoft/config/TestSecurityConfig.class
 com/example/HRMSAvisoft/entity/PerformanceTests.class
-com/example/HRMSAvisoft/entity/RoleTest.class
 com/example/HRMSAvisoft/entity/DepartmentTests.class
 com/example/HRMSAvisoft/service/AccountServiceTests.class
 com/example/HRMSAvisoft/service/JWTServiceTests.class

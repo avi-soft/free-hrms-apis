@@ -73,6 +73,7 @@ public class UserService {
 
         Role roleToAdd = roleRepository.getByRole(createUserDTO.getRole()).orElse(null);
         if(roleToAdd != null) {
+            newUser.getRoles().clear();
             newUser.getRoles().add(roleToAdd);
         }
 
@@ -112,6 +113,7 @@ public class UserService {
 
         Role roleToAdd = roleRepository.getByRole(addNewUserDTO.getRole()).orElse(null);
         if(roleToAdd != null) {
+            newUser.getRoles().clear();
             newUser.getRoles().add(roleToAdd);
         }
 

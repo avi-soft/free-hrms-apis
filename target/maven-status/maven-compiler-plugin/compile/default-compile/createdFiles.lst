@@ -14,6 +14,7 @@ com/example/HRMSAvisoft/controller/LeaveRequestController.class
 com/example/HRMSAvisoft/service/UserService$EmailAlreadyExistsException.class
 com/example/HRMSAvisoft/entity/Performance.class
 com/example/HRMSAvisoft/service/UserService.class
+com/example/HRMSAvisoft/entity/Privilege.class
 com/example/HRMSAvisoft/HrmsAvisoftApplication.class
 com/example/HRMSAvisoft/repository/PerformanceRepository.class
 com/example/HRMSAvisoft/controller/PerformanceController.class
@@ -21,6 +22,7 @@ com/example/HRMSAvisoft/repository/LeaveRequestRepository.class
 com/example/HRMSAvisoft/entity/Zipcode.class
 com/example/HRMSAvisoft/controller/AccountController.class
 com/example/HRMSAvisoft/entity/AddressType.class
+com/example/HRMSAvisoft/entity/Role$RoleBuilder.class
 com/example/HRMSAvisoft/service/UserService$WrongPasswordCredentialsException.class
 com/example/HRMSAvisoft/dto/LoginUserResponseDTO.class
 com/example/HRMSAvisoft/repository/AddressRepository.class
@@ -63,6 +65,7 @@ com/example/HRMSAvisoft/dto/LoginUserDTO.class
 com/example/HRMSAvisoft/security/SecurityConfig.class
 com/example/HRMSAvisoft/config/SwaggerConfiguration.class
 com/example/HRMSAvisoft/dto/CreateEmergencyContactDTO.class
+com/example/HRMSAvisoft/entity/Employee$EmployeeBuilder.class
 com/example/HRMSAvisoft/service/LeaveTypeService.class
 com/example/HRMSAvisoft/dto/UpdateEmployeeDetailsDTO.class
 com/example/HRMSAvisoft/dto/ErrorResponseDTO.class
@@ -91,11 +94,13 @@ com/example/HRMSAvisoft/security/JWTAuthenticationFilter.class
 com/example/HRMSAvisoft/repository/UserRepository.class
 com/example/HRMSAvisoft/entity/Role.class
 com/example/HRMSAvisoft/controller/EmergencyContactController.class
+utils/ResponseGenerator.class
 com/example/HRMSAvisoft/exception/InsufficientLeaveBalanceException.class
 com/example/HRMSAvisoft/entity/Payroll.class
 com/example/HRMSAvisoft/dto/AllPerformanceOfEmployeeDTO.class
 com/example/HRMSAvisoft/dto/CreateUserDTO.class
 com/example/HRMSAvisoft/entity/Address.class
+com/example/HRMSAvisoft/service/RoleService$RoleAlreadyExistsException.class
 com/example/HRMSAvisoft/service/DepartmentService.class
 com/example/HRMSAvisoft/exception/EmergencyContactNotFoundException.class
 com/example/HRMSAvisoft/security/JWTAuthenticationManager.class

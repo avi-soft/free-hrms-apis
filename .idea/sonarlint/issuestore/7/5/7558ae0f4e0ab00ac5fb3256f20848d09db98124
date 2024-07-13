@@ -1,27 +1,27 @@
 
 s
-java:S3740"/Provide the parametrized type for this generic.(«µœƒ8ÔÄïµŠ2J$de9ce06d-c1c4-4884-8a2e-2bcbaf8f0518
+java:S3740"/Provide the parametrized type for this generic.(«µœƒ8ÔÄïµŠ2J$d98762de-0e26-467d-9217-3b4879ab4260
 œ
-java:S2293`"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ã´¦¢8ÕÄïµŠ2J$a651be63-395a-4a11-b7dd-4b4687341b06
+java:S2293`"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ã´¦¢8ÕÄïµŠ2J$d4b0b9ce-005f-49dc-9dd9-d316f9aeb14e
 
-java:S2293“"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ã´¦¢8ÕÄïµŠ2J$1fdc1dba-3ae2-4f6b-8002-ac20fc97f3bc
+java:S2293“"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ã´¦¢8ÕÄïµŠ2J$5b133e58-ae0b-4b50-bca5-462c2a86c534
 ‹
-java:S1192a"HDefine a constant instead of duplicating this literal "message" 3 times.(ã¢‡¦8ÖÄïµŠ2J$3f33d040-8ecd-4844-af9c-c6643d0f9eef
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿ8§¸Ë‰Š2J$e0df6f72-7b1d-44b2-9692-a2ba8fc2c7c5
-„	java:S125¼"<This block of commented-out lines of code should be removed.(«ÀÔßùÿÿÿÿ8‹ÅïµŠ2J$396f116a-986b-45f3-a252-19dd8c7c2e6e
+java:S1192a"HDefine a constant instead of duplicating this literal "message" 3 times.(ã¢‡¦8ÖÄïµŠ2J$ce1ff2b7-4bcc-458a-aba9-2a47229e66c3
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿ8§¸Ë‰Š2J$c59ad538-a93a-4071-bf40-6c57a297f7fc
+„	java:S125¼"<This block of commented-out lines of code should be removed.(«ÀÔßùÿÿÿÿ8‹ÅïµŠ2J$f8f373b2-1ecb-4126-a7dd-e2b2d5369450
 ‘
-java:S1871æ"MThis branch's code block is the same as the block for the branch on line 210.(ø±èò8ŒÅïµŠ2J$db0b4b4a-cd01-475e-813e-32256a09a9c8
+java:S1871æ"MThis branch's code block is the same as the block for the branch on line 210.(ø±èò8ŒÅïµŠ2J$9004d068-1c87-4d41-94dc-e2d297806464
 ‘
-java:S1871Ö"MThis branch's code block is the same as the block for the branch on line 210.(úø¶Ì8ŒÅïµŠ2J$c89707ca-169e-4387-b2ad-1d3a2523da9a
+java:S1871Ş"MThis branch's code block is the same as the block for the branch on line 210.(™ÃÇä8ŒÅïµŠ2J$2225bdee-4bf4-4c70-be28-7fb464e6c087
 ‘
-java:S1871Ş"MThis branch's code block is the same as the block for the branch on line 210.(™ÃÇä8ŒÅïµŠ2J$3aaa8e65-261a-4666-afa1-058d9e50d481
+java:S1871Ö"MThis branch's code block is the same as the block for the branch on line 210.(úø¶Ì8ŒÅïµŠ2J$2c84875f-16de-448c-8275-e2343e18357a
 –
-java:S1128"NRemove this unused import 'com.example.HRMSAvisoft.repository.UserRepository'.(À™ô¡øÿÿÿÿ8ÅïµŠ2J$04d12ea8-c53d-4802-a7b2-98096357d481
+java:S1128"NRemove this unused import 'com.example.HRMSAvisoft.repository.UserRepository'.(À™ô¡øÿÿÿÿ8ÅïµŠ2J$da074f3b-a187-48b9-995a-7fbfc2c78952
 ›
-java:S1128"SRemove this unused import 'org.springframework.beans.factory.annotation.Autowired'.(¡¸Îùÿÿÿÿ8ÅïµŠ2J$c1b6c042-9971-4dc2-b27a-2db0fd40e149
+java:S1128"SRemove this unused import 'org.springframework.beans.factory.annotation.Autowired'.(¡¸Îùÿÿÿÿ8ÅïµŠ2J$70888e2e-23c5-47f7-9480-a9943b2c8774
 ¡
-java:S1128"YRemove this unused import 'org.springframework.security.crypto.password.PasswordEncoder'.(‰¡ßáÿÿÿÿÿ8ÅïµŠ2J$ec1fc094-ee1a-4d7f-8fe6-8446c89e98ac
+java:S1128"YRemove this unused import 'org.springframework.security.crypto.password.PasswordEncoder'.(‰¡ßáÿÿÿÿÿ8ÅïµŠ2J$10635847-c1a1-4be8-93b4-870e8edd6e92
 v
-java:S1068)".Remove this unused "jwtService" private field.(Ğ´ë™øÿÿÿÿ8ÅïµŠ2J$cbc0ad5a-c843-4f2c-bfc1-4658dc0edd7c
+java:S1068)".Remove this unused "jwtService" private field.(Ğ´ë™øÿÿÿÿ8ÅïµŠ2J$98534e55-6ca6-4e8d-ba6a-a975f9d25435
 r
-java:S1068*"/Remove this unused "modelMapper" private field.(¸ı½8ÅïµŠ2J$06d96b1e-8275-4766-a66a-b5d20a4df98c
+java:S1068*"/Remove this unused "modelMapper" private field.(¸ı½8ÅïµŠ2J$1946dfb8-03ca-4039-af29-1f31a17f3eac

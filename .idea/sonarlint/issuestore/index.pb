@@ -256,3 +256,9 @@ k
 	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 n
 >src/main/java/com/example/HRMSAvisoft/dto/LeaveRequestDTO.java,6/e/6eeff84e4cafd3feb283b545bfce2627466e7ce6
+r
+Bsrc/test/java/com/example/HRMSAvisoft/service/RoleServiceTest.java,1/5/15a13593c604ca164796b56be9f09cfe58338833
+k
+;src/test/java/com/example/HRMSAvisoft/entity/RoleTests.java,b/8/b847cce45d94f9d51f2b4bdc3f500ce3030f8430
+j
+:src/test/java/com/example/HRMSAvisoft/entity/RoleTest.java,b/5/b5140dca5eab0981a2d41464abc0b23b3b79619d
