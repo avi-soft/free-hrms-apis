@@ -1,4 +1,6 @@
 
 
-java:S1488"]Immediately return this expression instead of assigning it to the temporary variable "roles".(÷Œ—Ãøÿÿÿÿ8²íşŠ2
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ8Œ“ŸÓŠ2J$96af473f-fc28-43b8-8e8d-84d7a49f451b
+java:S1488"]Immediately return this expression instead of assigning it to the temporary variable "roles".(÷Œ—Ãøÿÿÿÿ8™°ÿ€‹2
+{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ8œ°ÿ€‹2
+_
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8¶°ÿ€‹2

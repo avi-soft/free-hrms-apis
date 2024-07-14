@@ -159,8 +159,8 @@ public class UserService {
     public boolean deleteUser(Long userId)throws EmployeeNotFoundException {
 
 
-            User userToDelete = userRepository.findById(userId).orElseThrow(()-> new EntityNotFoundException("User not found"));
-            userRepository.delete(userToDelete);
+        User userToDelete = userRepository.findById(userId).orElseThrow(()-> new EntityNotFoundException("User not found"));
+        userRepository.delete(userToDelete);
 
         return true;
     }
