@@ -27,6 +27,13 @@ public class GlobalExceptionHandler {
     {
         return ResponseGenerator.generateResponse(HttpStatus.FORBIDDEN,false,"Access is denied for current user",null);
     }
+    
+    @ExceptionHandler(EntityNotFoundException.class)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public ResponseEntity<Object> entityNotFoundException()
+    {
+        return ResponseGenerator.generateResponse(HttpStatus.NOT_FOUND,false,"Entity does not exists",null);
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String,Object>>handlesValidationErrors(MethodArgumentNotValidException exception) {

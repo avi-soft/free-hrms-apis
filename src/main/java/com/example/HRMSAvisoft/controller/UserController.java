@@ -4,6 +4,7 @@ import com.example.HRMSAvisoft.dto.*;
 import com.example.HRMSAvisoft.entity.Employee;
 import com.example.HRMSAvisoft.entity.User;
 import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
+import com.example.HRMSAvisoft.repository.UserRepository;
 import com.example.HRMSAvisoft.service.JWTService;
 import com.example.HRMSAvisoft.service.LeaveBalanceService;
 import com.example.HRMSAvisoft.service.UserService;
@@ -12,6 +13,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -80,7 +83,7 @@ public class UserController {
             }
     )
     @PostMapping("/addNewUser")
-    @PreAuthorize("hasAuthority('CREATE_NEW_USER')")
+//    @PreAuthorize("hasAuthority('CREATE_NEW_USER')")
     public ResponseEntity<Map<String ,Object>>addNewUser(@AuthenticationPrincipal User loggedInUser,
                                                          @RequestBody @Valid AddNewUserDTO addNewUserDTO)throws IOException,UserService.EmailAlreadyExistsException {
         User createdUser=userService.addNewUser(addNewUserDTO,loggedInUser);
