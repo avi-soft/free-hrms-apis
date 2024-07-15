@@ -1,12 +1,10 @@
 
-<<<<<<< HEAD
 ¥
-java:S1488"]Immediately return this expression instead of assigning it to the temporary variable "roles".(÷Œ—Ãøÿÿÿÿ8Š“ŸÓŠ2J$7f3641a2-1b24-4f57-8623-5a2b22180eac
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ÐœÏùÿÿÿÿ8Œ“ŸÓŠ2J$1d2d559a-a4c1-41ae-a026-f9bf01ce8f79
-=======
-
-java:S1488"]Immediately return this expression instead of assigning it to the temporary variable "roles".(÷Œ—Ãøÿÿÿÿ8™°ÿ€‹2
-{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ÐœÏùÿÿÿÿ8œ°ÿ€‹2
-_
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ8¶°ÿ€‹2
->>>>>>> 2af1fd0029d855c53f297fcc66100f77055d5c39
+java:S1488"]Immediately return this expression instead of assigning it to the temporary variable "roles".(÷Œ—Ãøÿÿÿÿ8Úî ±‹2J$9a263e16-732e-4ed2-9283-17d1912f63c6
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ÐœÏùÿÿÿÿ8Üî ±‹2J$7596048e-d928-4e64-b915-d2c3af84d387
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ8úî ±‹2J$7730b8df-bb42-47d4-86d6-8b3a2be2b9b4
+m
+java:S1764$"KCorrect one of the identical sub-expressions on both sides of operator "||"(’œ­½úÿÿÿÿ8‚œ£±‹2
+’
+java:S1128"JRemove this unused import 'com.example.HRMSAvisoft.dto.ChangeUserRoleDTO'.(ÜÁî”üÿÿÿÿ8™¸¡±‹2J$06a8bb43-7051-40da-a6a1-69244c11415d
