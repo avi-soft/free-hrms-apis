@@ -56,6 +56,7 @@ public class RoleControllerTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         role = new Role();
+        role.setRoleId(1L);
         role.setRole(roleName);
         role.setPrivilege(privileges);
     }
@@ -71,7 +72,7 @@ public class RoleControllerTest {
                         .content(objectMapper.writeValueAsString(role)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.success").value(true))
-                .andExpect(jsonPath("$.message").value("Role updated successfully."))
+                .andExpect(jsonPath("$.message").value("Role created successfully."))
                 .andExpect(jsonPath("$.role.role").value(roleName));
     }
 
@@ -94,13 +95,11 @@ public class RoleControllerTest {
     public void testUpdateRole() throws Exception {
         // Mock the addRole method to return a valid role
         when(roleService.addRole(any(Role.class))).thenReturn(role);
-
-        // Initialize the roleToUpdate with the returned role from addRole
         Role roleToUpdate = roleService.addRole(role);
         roleToUpdate.setRole("Manager");
+        doNothing().when(roleService).updateRole(any(Role.class), eq(1L));
 
-        doNothing().when(roleService).updateRole(any(Role.class),1L);
-        mockMvc.perform(patch("/api/v1/role", roleToUpdate.getRole())
+        mockMvc.perform(patch("/api/v1/role/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(roleToUpdate)))
                 .andExpect(status().isNoContent());
@@ -133,5 +132,23 @@ public class RoleControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    @WithMockUser(authorities = "DELETE_ROLE")
+    @DisplayName("testDeleteRole")
+    public void testDeleteRole() throws Exception {
+        when(roleService.deleteRole(role.getRoleId())).thenReturn(role);
+
+        // Act & Assert: Perform the DELETE request and verify the response
+        mockMvc.perform(delete("/api/v1/role/{roleId}", role.getRoleId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.isSuccess").value(true))
+                .andExpect(jsonPath("$.message").value("Role is Deleted successfully"))
+                .andExpect(jsonPath("$.data.roleId").value(role.getRoleId()))
+                .andExpect(jsonPath("$.data.role").value("Admin"));
+
+        // Verify: Ensure the deleteRole method was called with the correct argument
+        verify(roleService, times(1)).deleteRole(role.getRoleId());
+    }
 }
 
