@@ -1,18 +1,24 @@
 package com.example.HRMSAvisoft.service;
 
+import com.example.HRMSAvisoft.controller.RoleJsonReader;
 import com.example.HRMSAvisoft.entity.Privilege;
 import com.example.HRMSAvisoft.entity.Role;
+import com.example.HRMSAvisoft.entity.User;
 import com.example.HRMSAvisoft.repository.RoleRepository;
+import com.example.HRMSAvisoft.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.IOException;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,21 +32,37 @@ public class RoleServiceTest {
     @Mock
     RoleRepository roleRepository;
 
+    Role role;
+    RoleJsonReader jsonReader = new RoleJsonReader();
+    Map<String, Object> dataMap = jsonReader.readFile("Role");
+    String roleName = (String) dataMap.get("role");
+    Set<Privilege> privileges = (HashSet) dataMap.get("privilege");
+
+    RoleServiceTest() throws IOException {
+    }
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+        role = new Role();
+        role.setRoleId(1L);
+        role.setRole(roleName);
+        role.setPrivilege(privileges);
+    }
+
     @Test
     @DisplayName("returns_list_of_roles_when_roles_exist")
     public void returns_list_of_roles_when_roles_exist() {
         RoleRepository roleRepository = Mockito.mock(RoleRepository.class);
         RoleService roleService = new RoleService(roleRepository);
-
-        List<Role> mockRoles = Arrays.asList(new Role(1L, "Admin", new HashSet<>()), new Role(2L, "User", new HashSet<>()));
+        List<Role> mockRoles = Arrays.asList(role);
         Mockito.when(roleRepository.findAll()).thenReturn(mockRoles);
 
         List<Role> roles = roleService.getRoles();
 
         assertNotNull(roles);
-        assertEquals(2, roles.size());
+        assertEquals(1, roles.size());
         assertEquals("Admin", roles.get(0).getRole());
-        assertEquals("User", roles.get(1).getRole());
     }
 
     @Test
@@ -76,20 +98,15 @@ public class RoleServiceTest {
         RoleRepository roleRepository = Mockito.mock(RoleRepository.class);
         RoleService roleService = new RoleService(roleRepository);
 
-        Role role = new Role();
-        role.setRoleId(1L);
-        role.setRole("ADMIN");
-        role.setPrivilege(Set.of(Privilege.ADD_EMPLOYEE, Privilege.UPDATE_EMPLOYEE_COMPANY_DETAILS));
-
-        Mockito.when(roleRepository.getByRole("ADMIN")).thenReturn(Optional.empty());
+        Mockito.when(roleRepository.getByRole("Admin")).thenReturn(Optional.empty());
         Mockito.when(roleRepository.save(Mockito.any(Role.class))).thenReturn(role);
 
         Role result = roleService.addRole(role);
 
         assertNotNull(result);
-        assertEquals("ADMIN", result.getRole());
-        assertTrue(result.getPrivilege().contains(Privilege.ADD_EMPLOYEE));
-        assertTrue(result.getPrivilege().contains(Privilege.UPDATE_EMPLOYEE_COMPANY_DETAILS));
+        assertEquals("Admin", result.getRole());
+        assertTrue(result.getPrivilege().contains(Privilege.GET_ALL_EMPLOYEES));
+        assertTrue(result.getPrivilege().contains(Privilege.FIND_EMPLOYEE_BY_ID));
     }
 
     @Test
@@ -98,14 +115,12 @@ public class RoleServiceTest {
         RoleRepository roleRepository = Mockito.mock(RoleRepository.class);
         RoleService roleService = new RoleService(roleRepository);
 
-        Role existingRole = new Role();
-        existingRole.setRoleId(1L);
-        existingRole.setRole("MANAGER");
+        Role existingRole = role;
 
-        Mockito.when(roleRepository.getByRole("MANAGER")).thenReturn(Optional.of(existingRole));
+        Mockito.when(roleRepository.getByRole("Admin")).thenReturn(Optional.of(existingRole));
 
         Role newRole = new Role();
-        newRole.setRole("MANAGER");
+        newRole.setRole("Admin");
 
         assertThrows(RoleService.RoleAlreadyExistsException.class, () -> {
             roleService.addRole(newRole);
@@ -137,10 +152,7 @@ public class RoleServiceTest {
         RoleRepository roleRepository = Mockito.mock(RoleRepository.class);
         RoleService roleService = new RoleService(roleRepository);
 
-        Role existingRole = new Role();
-        existingRole.setRoleId(1L);
-        existingRole.setRole("ADMIN");
-        existingRole.setPrivilege(new HashSet<>(Arrays.asList(Privilege.ADD_EMPLOYEE)));
+        Role existingRole = role;
 
         Role updatedRole = new Role();
         updatedRole.setRoleId(1L);
@@ -161,10 +173,7 @@ public class RoleServiceTest {
         RoleRepository roleRepository = Mockito.mock(RoleRepository.class);
         RoleService roleService = new RoleService(roleRepository);
 
-        Role existingRole = new Role();
-        existingRole.setRoleId(1L);
-        existingRole.setRole("ADMIN");
-        existingRole.setPrivilege(new HashSet<>(Arrays.asList(Privilege.ADD_EMPLOYEE, Privilege.GET_ALL_EMPLOYEES)));
+        Role existingRole = role;
 
         Role updatedRole = new Role();
         updatedRole.setRole("ADMIN");
@@ -195,4 +204,67 @@ public class RoleServiceTest {
             roleService.updateRole(nonExistentRole, 1L);
         });
     }
+
+    @Test
+    @DisplayName("testDeleteRoleWithExistingRole")
+    public void testDeleteRoleWithExistingRole() {
+        RoleRepository roleRepository = Mockito.mock(RoleRepository.class);
+        UserRepository userRepository = Mockito.mock(UserRepository.class);
+        RoleService roleService = new RoleService(roleRepository);
+        roleService.userRepository = userRepository;
+
+        Role roleToDelete = role;
+
+        User user = new User();
+        user.setUserId(1L);
+        user.setRoles(new HashSet<>(Collections.singletonList(roleToDelete)));
+
+        Mockito.when(roleRepository.findById(1L)).thenReturn(Optional.of(roleToDelete));
+        Mockito.when(userRepository.findByRoles(roleToDelete)).thenReturn(Collections.singletonList(user));
+
+        Role deletedRole = roleService.deleteRole(1L);
+
+        assertNotNull(deletedRole);
+        assertEquals(roleToDelete.getRoleId(), deletedRole.getRoleId());
+        assertEquals(roleToDelete.getRole(), deletedRole.getRole());
+    }
+
+    @Test
+    @DisplayName("testDeleteRoleWhenRoleDoesNotExist")
+    public void testDeleteRoleWhenRoleDoesNotExist() {
+        RoleRepository roleRepository = Mockito.mock(RoleRepository.class);
+        RoleService roleService = new RoleService(roleRepository);
+
+        Mockito.when(roleRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(EntityNotFoundException.class, () -> {
+            roleService.deleteRole(1L);
+        });
+    }
+
+    @Test
+    @DisplayName("testDeleteRoleWhenUserHasNoRoles")
+    public void testDeleteRoleWhenUserHasNoRoles() {
+        RoleRepository roleRepository = Mockito.mock(RoleRepository.class);
+        UserRepository userRepository = Mockito.mock(UserRepository.class);
+        RoleService roleService = new RoleService(roleRepository);
+        roleService.userRepository = userRepository;
+
+        Role roleToDelete = role;
+
+        User user = new User();
+        user.setUserId(1L);
+        user.setRoles(new HashSet<>());
+
+        Mockito.when(roleRepository.findById(1L)).thenReturn(Optional.of(roleToDelete));
+        Mockito.when(userRepository.findByRoles(roleToDelete)).thenReturn(Collections.singletonList(user));
+
+        Role deletedRole = roleService.deleteRole(1L);
+
+        assertNotNull(deletedRole);
+        assertEquals(roleToDelete.getRoleId(), deletedRole.getRoleId());
+        assertEquals(roleToDelete.getRole(), deletedRole.getRole());
+
+    }
+
 }

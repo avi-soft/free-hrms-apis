@@ -1,5 +1,6 @@
 package com.example.HRMSAvisoft.service;
 
+import com.example.HRMSAvisoft.dto.ChangeUserRoleDTO;
 import com.example.HRMSAvisoft.entity.Privilege;
 import com.example.HRMSAvisoft.entity.Role;
 import com.example.HRMSAvisoft.entity.User;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -63,8 +65,6 @@ public class RoleService {
                 roleToUpdate.setRole(role.getRole());
             }
         }
-
-
         roleToUpdate.getPrivilege().clear();
 
         for (Privilege privilege : role.getPrivilege()) {
@@ -79,8 +79,8 @@ public class RoleService {
     }
 
     @Transactional
-    public Role deleteRole(Role role) throws EntityNotFoundException {
-        Role roleToDelete = roleRepository.getByRole(role.getRole()).orElseThrow((()-> new EntityNotFoundException(role.getRole()+ " role not found")));
+    public Role deleteRole(Long roleId) throws EntityNotFoundException {
+        Role roleToDelete = roleRepository.findById(roleId).orElseThrow((()-> new EntityNotFoundException(roleId+ "not found")));
         List<User> usersWithRole = userRepository.findByRoles(roleToDelete);
         for (User user : usersWithRole) {
             user.getRoles().remove(roleToDelete);
@@ -89,6 +89,18 @@ public class RoleService {
         roleToDelete.getPrivilege().clear();
         roleRepository.delete(roleToDelete);
         return roleToDelete;
+    }
+
+    public Role changeRoleOfUser(Long userId, Long oldRoleId,Long newRoleId) throws EntityNotFoundException,IllegalArgumentException, UserService.UserNotFoundException
+    {
+        User userWhoseRoleToChange= userRepository.findById(userId).orElseThrow(()-> new EntityNotFoundException("User not found"));
+        Set<Role> roles = userWhoseRoleToChange.getRoles();
+        Role oldRole = roleRepository.findById(oldRoleId).orElseThrow(() -> new EntityNotFoundException("Old role not found for user"));
+        Role newRole = roleRepository.findById(newRoleId).orElseThrow(() -> new EntityNotFoundException("New role not found"));
+            roles.remove(oldRole);
+            roles.add(newRole);
+            userRepository.save(userWhoseRoleToChange);
+            return newRole;
     }
 
     public static class RoleAlreadyExistsException extends RuntimeException{

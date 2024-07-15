@@ -1,6 +1,5 @@
 package com.example.HRMSAvisoft.repository;
 
-import com.example.HRMSAvisoft.controller.JsonReader;
 import com.example.HRMSAvisoft.controller.RoleJsonReader;
 import com.example.HRMSAvisoft.entity.Privilege;
 import com.example.HRMSAvisoft.entity.Role;
@@ -12,12 +11,10 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.*;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -45,6 +42,7 @@ class RoleRepositoryTest
     void setUp() {
         MockitoAnnotations.openMocks(this);
         role = new Role();
+        role.setRoleId(1L);
         role.setRole(roleName);
         role.setPrivilege(privileges);
     }
@@ -62,7 +60,7 @@ class RoleRepositoryTest
     public void getByRole()
     {
         List<Role> roles = roleRepository.findAll();
-        Role roleToFind = roles.get(0);
+        Role roleToFind = roles.get(1);
         Assertions.assertThat(role.getRole()).isEqualTo(roleToFind.getRole());
     }
 
@@ -72,12 +70,11 @@ class RoleRepositoryTest
     {
         roleRepository.save(role);
         List<Role> roles = roleRepository.findAll();
-        assertThat(roles.get(0).getRole()).isEqualTo(role.getRole());
+        assertThat(roles.get(1).getRole()).isEqualTo(role.getRole());
     }
 
     @Test
     @DisplayName("deleteRole")
-    @Transactional
     public void deleteRole()
     {
         Role savedRole = roleRepository.save(role);
@@ -87,7 +84,7 @@ class RoleRepositoryTest
         roleRepository.delete(savedRole);
 
         // Verify that the role no longer exists
-        Optional<Role> deletedRole = roleRepository.getByRole(savedRole.getRole());
+        Optional<Role> deletedRole = roleRepository.findById(role.getRoleId());
         assertFalse(deletedRole.isPresent());
     }
 
