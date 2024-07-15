@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 com/example/HRMSAvisoft/config/TestSecurityConfig.class
 com/example/HRMSAvisoft/entity/PerformanceTests.class
 com/example/HRMSAvisoft/entity/DepartmentTests.class
@@ -26,3 +27,38 @@ com/example/HRMSAvisoft/service/EmployeeServiceTest.class
 com/example/HRMSAvisoft/entity/EmployeeTests.class
 com/example/HRMSAvisoft/controller/EmergencyContactControllerTests.class
 com/example/HRMSAvisoft/repository/PerformanceRespositoryTests.class
+=======
+com\example\HRMSAvisoft\controller\JsonReader.class
+com\example\HRMSAvisoft\repository\DepartmentRepositoryTests.class
+com\example\HRMSAvisoft\service\EmergencyContactServiceTests.class
+com\example\HRMSAvisoft\controller\EmergencyContactControllerTests.class
+com\example\HRMSAvisoft\controller\EmployeeControllerTest.class
+com\example\HRMSAvisoft\entity\UserTests.class
+com\example\HRMSAvisoft\entity\DepartmentTests.class
+com\example\HRMSAvisoft\controller\RoleJsonReader.class
+com\example\HRMSAvisoft\repository\EmergencyContactRepositoryTests.class
+com\example\HRMSAvisoft\service\AddressServiceTest.class
+com\example\HRMSAvisoft\entity\PerformanceTests.class
+com\example\HRMSAvisoft\HrmsAvisoftApplicationTests.class
+com\example\HRMSAvisoft\repository\RoleRepositoryTest.class
+com\example\HRMSAvisoft\service\AccountServiceTests.class
+com\example\HRMSAvisoft\controller\DepartmentControllerTests.class
+com\example\HRMSAvisoft\repository\EmployeeRepositoryTests.class
+com\example\HRMSAvisoft\service\JWTServiceTests.class
+com\example\HRMSAvisoft\service\UserServiceTest.class
+com\example\HRMSAvisoft\service\EmployeeServiceTest.class
+com\example\HRMSAvisoft\controller\AddressControllerTest.class
+com\example\HRMSAvisoft\controller\PerformanceControllerTests.class
+com\example\HRMSAvisoft\entity\EmployeeTests.class
+com\example\HRMSAvisoft\config\TestSecurityConfig.class
+com\example\HRMSAvisoft\entity\RoleTest.class
+com\example\HRMSAvisoft\controller\AccountControllerTest.class
+com\example\HRMSAvisoft\service\RoleServiceTest.class
+com\example\HRMSAvisoft\controller\RoleControllerTest.class
+com\example\HRMSAvisoft\controller\UserControllerTest.class
+com\example\HRMSAvisoft\service\PerformanceServiceTests.class
+com\example\HRMSAvisoft\repository\UserRepositoryTests.class
+com\example\HRMSAvisoft\entity\EmergencyContactTests.class
+com\example\HRMSAvisoft\repository\PerformanceRespositoryTests.class
+com\example\HRMSAvisoft\service\DepartmentServiceTests.class
+>>>>>>> 01ccb4ecab0a7a4b5a3d1027e922094b3acf2aca

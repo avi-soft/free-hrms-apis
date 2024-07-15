@@ -57,6 +57,8 @@ public enum Privilege {
 
     CREATE_ROLE,
     UPDATE_ROLE,
-    DELETE_ROLE
+    DELETE_ROLE,
+    CHANGE_USER_ROLE,
+    GET_ALL_ROLES
 }
 

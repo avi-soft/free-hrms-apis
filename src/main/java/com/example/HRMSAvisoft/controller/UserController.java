@@ -83,7 +83,7 @@ public class UserController {
             }
     )
     @PostMapping("/addNewUser")
-//    @PreAuthorize("hasAuthority('CREATE_NEW_USER')")
+    @PreAuthorize("hasAuthority('CREATE_NEW_USER')")
     public ResponseEntity<Map<String ,Object>>addNewUser(@AuthenticationPrincipal User loggedInUser,
                                                          @RequestBody @Valid AddNewUserDTO addNewUserDTO)throws IOException,UserService.EmailAlreadyExistsException {
         User createdUser=userService.addNewUser(addNewUserDTO,loggedInUser);

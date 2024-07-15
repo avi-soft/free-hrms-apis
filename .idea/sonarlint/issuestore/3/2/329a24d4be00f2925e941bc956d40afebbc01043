@@ -1,20 +1,20 @@
 
-{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ8¿¨âŠ2
-t
-java:S3008"RRename this field "JWT_KEY" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(íŞƒ­ÿÿÿÿÿ8Ç¨âŠ2
-\
-java:S1118":Add a private constructor to hide the implicit public one.(„É˜şüÿÿÿÿ8Ê¨âŠ2
-T
-java:S1135"2Complete the task associated to this TODO comment.(‘×¼•ùÿÿÿÿ8Ì¨âŠ2
-]	java:S125!"<This block of commented-out lines of code should be removed.(Ñ·›¡ùÿÿÿÿ8Ò¨âŠ2
-t
-java:S6204%"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(·…ı÷ıÿÿÿÿ8˜ÜÖ·Š2
-_
-java:S1612%"=Replace this lambda with method reference 'Object::toString'.(·…ı÷ıÿÿÿÿ8§ÜÖ·Š2
-]	java:S125'"<This block of commented-out lines of code should be removed.(›şì©ÿÿÿÿÿ8Ó¨âŠ2
-t
-java:S6204,"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(¢õ¶²üÿÿÿÿ8«ÜÖ·Š2
-_
-java:S1612,"=Replace this lambda with method reference 'Object::toString'.(¢õ¶²üÿÿÿÿ8¬ÜÖ·Š2
-G	java:S1061"+Replace this use of System.out by a logger.(’îŒ8Û¨âŠ2
-X	java:S125N"<This block of commented-out lines of code should be removed.(Ã¾ç°8à¨âŠ2
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ8¿¨âŠ2J$c2f95d35-2bef-4de4-9a6f-e5635ffad28a
+š
+java:S3008"RRename this field "JWT_KEY" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(íŞƒ­ÿÿÿÿÿ8Ç¨âŠ2J$02dcc91e-a19b-4e06-9aff-00a1f1a827dc
+‚
+java:S1118":Add a private constructor to hide the implicit public one.(„É˜şüÿÿÿÿ8Ê¨âŠ2J$9693b950-33b5-4fb1-801c-3e1e0c56c123
+z
+java:S1135"2Complete the task associated to this TODO comment.(‘×¼•ùÿÿÿÿ8Ì¨âŠ2J$194770db-1a2e-45cd-9cbc-6126cc89c756
+ƒ	java:S125!"<This block of commented-out lines of code should be removed.(Ñ·›¡ùÿÿÿÿ8Ò¨âŠ2J$6a56f712-4e3d-4a76-b88c-709fa329d4c2
+š
+java:S6204%"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(·…ı÷ıÿÿÿÿ8˜ÜÖ·Š2J$cf552547-2d58-4d79-bcd7-ebeff1e78c3f
+…
+java:S1612%"=Replace this lambda with method reference 'Object::toString'.(·…ı÷ıÿÿÿÿ8§ÜÖ·Š2J$60358922-4fb9-4b5b-8dc8-4c89a7b3a918
+ƒ	java:S125'"<This block of commented-out lines of code should be removed.(›şì©ÿÿÿÿÿ8Ó¨âŠ2J$fb58682e-0782-4d6b-aa13-1857366dcc2a
+š
+java:S6204,"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(¢õ¶²üÿÿÿÿ8«ÜÖ·Š2J$a7a53420-cefd-4497-ab32-e06f4f184883
+…
+java:S1612,"=Replace this lambda with method reference 'Object::toString'.(¢õ¶²üÿÿÿÿ8¬ÜÖ·Š2J$a8798df5-e2db-48b9-825d-83cb39e7972e
+m	java:S1061"+Replace this use of System.out by a logger.(’îŒ8Û¨âŠ2J$626eb3f4-95d0-46fb-8508-1d9003fefe43
+~	java:S125N"<This block of commented-out lines of code should be removed.(Ã¾ç°8à¨âŠ2J$5b8fbada-d05b-4aeb-82d2-0ab1012eea2c

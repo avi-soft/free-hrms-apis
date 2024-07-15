@@ -1,5 +1,6 @@
 package com.example.HRMSAvisoft.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,6 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Table(name = "roles")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

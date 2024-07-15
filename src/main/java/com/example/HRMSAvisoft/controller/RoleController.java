@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import utils.ResponseGenerator;
 
 import java.util.List;
 import java.util.Map;
@@ -26,24 +27,41 @@ public class RoleController {
         this.roleService = roleService;
     }
 
+    @PreAuthorize("hasAnyAuthority('GET_ALL_ROLES')")
     @GetMapping("")
     public ResponseEntity<List<Role>> getRoles(){
         List<Role> roles = roleService.getRoles();
         return ResponseEntity.status(HttpStatus.OK).body(roles);
     }
 
-//    @PreAuthorize("hasAnyAuthority('CREATE_ROLE')")
+    @PreAuthorize("hasAnyAuthority('CREATE_ROLE')")
     @PostMapping("")
     public ResponseEntity<Map<String, Object>> saveRole(@RequestBody Role role) throws RoleService.RoleAlreadyExistsException, IllegalArgumentException {
         Role roleAdded = roleService.addRole(role);
         return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("success",true, "message", "Role created successfully.", "role", roleAdded));
     }
 
-//    @PreAuthorize("hasAnyAuthority('UPDATE_ROLE')")
+    @PreAuthorize("hasAnyAuthority('UPDATE_ROLE')")
     @PatchMapping("/{roleId}")
     public ResponseEntity updateRole(@RequestBody Role role, @PathVariable Long roleId) throws EntityNotFoundException, IllegalArgumentException{
         roleService.updateRole(role, roleId);
         return ResponseEntity.status(204).body(null);
+    }
+
+    @PreAuthorize("hasAnyAuthority('DELETE_ROLE')")
+    @DeleteMapping("/{roleId}")
+    public ResponseEntity<Object> deleteRole(@PathVariable Long roleId) throws EntityNotFoundException
+    {
+        Role deletedRole=roleService.deleteRole(roleId);
+        return ResponseGenerator.generateResponse(HttpStatus.OK,true,"Role is Deleted successfully",deletedRole);
+    }
+
+    @PreAuthorize("hasAnyAuthority('CHANGE_USER_ROLE')")
+    @PatchMapping("/changeRole/{userId}/{oldRoleId}/{newRoleId}")
+    public ResponseEntity<Object> changeRoleOfUser(@PathVariable Long userId, @PathVariable Long oldRoleId,@PathVariable Long newRoleId)
+    {
+        Role changedRole = roleService.changeRoleOfUser(userId,oldRoleId,newRoleId);
+        return ResponseGenerator.generateResponse(HttpStatus.OK,true,"Role of User is changed with new Role",changedRole);
     }
 
     @ExceptionHandler({
