@@ -91,6 +91,7 @@ class UserControllerTest {
         mockUser.setUserId(1L);
         mockUser.setEmail("test@example.com");
 
+
         Role mockRole = new Role(1L,"Superadmin", new HashSet<Privilege>());
         mockUser.getRoles().add(mockRole);
 

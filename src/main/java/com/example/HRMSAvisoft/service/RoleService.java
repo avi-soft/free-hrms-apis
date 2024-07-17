@@ -34,6 +34,9 @@ public class RoleService {
     }
 
     public Role addRole(Role role) throws RoleAlreadyExistsException, IllegalArgumentException{
+        if(role.getRole().isEmpty() || role.getRole().equals("") || role.getRole().isEmpty()){
+            throw new IllegalArgumentException("Role cannot be empty");
+        }
         Role existingRole = roleRepository.getByRole(role.getRole()).orElse(null);
 
         if(existingRole != null){
