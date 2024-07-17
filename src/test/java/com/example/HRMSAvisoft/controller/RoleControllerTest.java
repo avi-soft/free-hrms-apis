@@ -150,5 +150,44 @@ public class RoleControllerTest {
         // Verify: Ensure the deleteRole method was called with the correct argument
         verify(roleService, times(1)).deleteRole(role.getRoleId());
     }
+
+    @Test
+    @WithMockUser(authorities = "CHANGE_USER_ROLE")
+    void changeRoleOfUserTest() throws Exception {
+        Long userId = 1L;
+        Long oldRoleId = 2L;
+        Long newRoleId = 3L;
+
+        Role changedRole = new Role();
+        changedRole.setRoleId(newRoleId);
+        changedRole.setRole("NewRole");
+
+        when(roleService.changeRoleOfUser(userId, oldRoleId, newRoleId)).thenReturn(changedRole);
+
+        mockMvc.perform(patch("/api/v1/role/changeRole/{userId}/{oldRoleId}/{newRoleId}", userId, oldRoleId, newRoleId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.isSuccess").value(true))
+                .andExpect(jsonPath("$.message").value("Role of User is changed with new Role"))
+                .andExpect(jsonPath("$.data.roleId").value(newRoleId))
+                .andExpect(jsonPath("$.data.role").value("NewRole"));
+
+        verify(roleService, times(1)).changeRoleOfUser(userId, oldRoleId, newRoleId);
+    }
+    @Test
+    @WithMockUser(authorities = "ASSIGN_ROLE_TO_USER")
+    void assignRoleToUserTest() throws Exception {
+        Long userId = 1L;
+        when(roleService.assignRoleToExistingUser(userId, role.getRoleId())).thenReturn(role);
+        mockMvc.perform(patch("/api/v1/role/{userId}/assignRole/{roleId}", userId, role.getRoleId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.isSuccess").value(true))
+                .andExpect(jsonPath("$.message").value("Role is assigned to User successfully"))
+                .andExpect(jsonPath("$.data.roleId").value(role.getRoleId()))
+                .andExpect(jsonPath("$.data.role").value("Admin"));
+        verify(roleService, times(1)).assignRoleToExistingUser(userId, role.getRoleId());
+    }
+
 }
 

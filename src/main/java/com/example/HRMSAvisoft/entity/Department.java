@@ -26,5 +26,4 @@ public class Department {
     @ManyToOne(fetch =  FetchType.EAGER)
     @JoinColumn(name = "managerId")
     private Employee manager;
-
 }

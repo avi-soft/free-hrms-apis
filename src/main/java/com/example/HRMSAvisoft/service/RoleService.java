@@ -23,8 +23,9 @@ public class RoleService {
     @Autowired
     UserRepository userRepository;
 
-    RoleService(RoleRepository roleRepository) {
+    RoleService(RoleRepository roleRepository,  UserRepository userRepository) {
         this.roleRepository = roleRepository;
+        this.userRepository=userRepository;
     }
 
     public List<Role> getRoles() {
@@ -101,6 +102,16 @@ public class RoleService {
             roles.add(newRole);
             userRepository.save(userWhoseRoleToChange);
             return newRole;
+    }
+
+    public Role assignRoleToExistingUser(Long userId, Long roleId) throws EntityNotFoundException,IllegalArgumentException, UserService.UserNotFoundException
+    {
+        User userToWhomAssignRole= userRepository.findById(userId).orElseThrow(()-> new EntityNotFoundException("User not found"));
+        Set<Role> roles = userToWhomAssignRole.getRoles();
+        Role role = roleRepository.findById(roleId).orElseThrow(() -> new EntityNotFoundException("Old role not found for user"));
+            roles.add(role);
+            userRepository.save(userToWhomAssignRole);
+            return role;
     }
 
     public static class RoleAlreadyExistsException extends RuntimeException{
