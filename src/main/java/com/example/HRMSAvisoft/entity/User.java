@@ -3,7 +3,9 @@ package com.example.HRMSAvisoft.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -40,7 +42,7 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_role", joinColumns = @JoinColumn(name = "userId", referencedColumnName = "userId"),
-            inverseJoinColumns = @JoinColumn(name = "role", referencedColumnName = "role") )
+            inverseJoinColumns = @JoinColumn(name = "roleId", referencedColumnName = "roleId") )
     Set<Role> roles = new HashSet<Role>();
 
 

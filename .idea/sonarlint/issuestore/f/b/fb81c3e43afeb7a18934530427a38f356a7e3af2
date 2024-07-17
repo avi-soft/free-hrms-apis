@@ -1,22 +1,22 @@
 
 w
-java:S3740}"/Provide the parametrized type for this generic.(¿õãêşÿÿÿÿ8¬¸¦‘ü1J$d445ea70-a733-4496-b9c5-d3e5096089e3
-‹
-java:S1192D"HDefine a constant instead of duplicating this literal "success" 4 times.( èß¼8¢ıÁèş1J$46658bfe-dc93-46d3-85e1-8a8277d60a65
-‹
-java:S1192D"HDefine a constant instead of duplicating this literal "message" 4 times.( èß¼8¡ıÁèş1J$5af08508-b0c5-46e8-8490-b96a121bc8f1
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿ8—ğ¡‘ü1J$2ec6374f-183a-4542-aa7a-68332540a04b
-•
-java:S62042"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(œçÖß8½şÁèş1J$3ecb3c8b-1fd1-49b1-83bc-37597d595a10
-|
-java:S1611%"9Remove the parentheses around the "performance" parameter(ÉÍĞô8¾şÁèş1J$8dc441c6-7e4a-45a0-a5f9-8ee3673e4947
-•
-java:S6204Y"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(œçÖß8ÃşÁèş1J$4cd90c67-cb12-4826-8615-b110fd03853f
-
-java:S1611L"9Remove the parentheses around the "performance" parameter(íÙƒæşÿÿÿÿ8ÄşÁèş1J$9f4235ca-77c6-4e0d-bee1-997db6eecf82
-•
-java:S6204n"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(œçÖß8ÇşÁèş1J$30c4644c-542e-4405-b74a-0ace933ca1f7
-|
-java:S1611a"9Remove the parentheses around the "performance" parameter(íì«û8ÇşÁèş1J$4ae003c4-58f2-4d4b-88bc-ae89d269eb5d
+java:S3740"/Provide the parametrized type for this generic.(¿õãêşÿÿÿÿ8¬¸¦‘ü1J$d6ab81fe-0a18-486b-9217-643a955ac733
+e
+java:S1192F"HDefine a constant instead of duplicating this literal "success" 4 times.( èß¼8‰˜Âû‹2
+e
+java:S1192F"HDefine a constant instead of duplicating this literal "message" 4 times.( èß¼8‰˜Âû‹2
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿ8—ğ¡‘ü1J$e6620cdf-7739-4a17-9194-b20fe055954b
+o
+java:S62043"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(œçÖß8»˜Âû‹2
+V
+java:S1611&"9Remove the parentheses around the "performance" parameter(ÉÍĞô8¼˜Âû‹2
+o
+java:S6204["RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(œçÖß8Å˜Âû‹2
+[
+java:S1611N"9Remove the parentheses around the "performance" parameter(íÙƒæşÿÿÿÿ8Æ˜Âû‹2
+o
+java:S6204q"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(œçÖß8É˜Âû‹2
+V
+java:S1611d"9Remove the parentheses around the "performance" parameter(íì«û8Ê˜Âû‹2
 ‘
-java:S1871’"MThis branch's code block is the same as the block for the branch on line 140.(ƒÉ³¯8©»¦‘ü1J$fa64a650-26ec-4d5b-8b3a-dbbbcd6769a0
+java:S1871”"MThis branch's code block is the same as the block for the branch on line 142.(ƒÉ³¯8„ÿäº‰2J$138c3e43-13bf-4b10-bde8-da9fea8ed4b0

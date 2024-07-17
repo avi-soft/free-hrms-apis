@@ -71,8 +71,11 @@ public class UserService {
         DateTimeFormatter createdAtFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         newUser.setCreatedAt(createdAt.format(createdAtFormatter));
 
-        Role roleToAdd = roleRepository.getByRole(createUserDTO.getRole());
-        newUser.getRoles().add(roleToAdd);
+        Role roleToAdd = roleRepository.getByRole(createUserDTO.getRole()).orElse(null);
+        if(roleToAdd != null) {
+            newUser.getRoles().clear();
+            newUser.getRoles().add(roleToAdd);
+        }
 
         // make employee instance corresponding to the user and set some data of employee
 
@@ -108,8 +111,12 @@ public class UserService {
         DateTimeFormatter createdAtFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         newUser.setCreatedAt(createdAt.format(createdAtFormatter));
 
-        Role roleToAdd = roleRepository.getByRole(addNewUserDTO.getRole());
-        newUser.getRoles().add(roleToAdd);
+        Role roleToAdd = roleRepository.getByRole(addNewUserDTO.getRole()).orElse(null);
+        if(roleToAdd != null) {
+            newUser.getRoles().clear();
+            newUser.getRoles().add(roleToAdd);
+        }
+
         Employee employee=new Employee();
         Employee savedEmployee = employeeRepository.save(employee);
 
@@ -130,11 +137,11 @@ public class UserService {
         if(loggedInUser == null){
             throw new EntityNotFoundException("User with email " + loginUserDTO.getEmail()+" not found");
         }
-        Role roleUserWantToLoginWith = roleRepository.getByRole(loginUserDTO.getRole());
-
-        if(!loggedInUser.getRoles().contains(roleUserWantToLoginWith)){
-            throw new IllegalAccessRoleException(loginUserDTO.getEmail(), loginUserDTO.getRole());
-        }
+//        Role roleUserWantToLoginWith = roleRepository.getByRole(loginUserDTO.getRole());
+//
+//        if(!loggedInUser.getRoles().contains(roleUserWantToLoginWith)){
+//            throw new IllegalAccessRoleException(loginUserDTO.getEmail(), loginUserDTO.getRole());
+//        }
         else if(passwordEncoder.matches(loginUserDTO.getPassword(), loggedInUser.getPassword())){
             return loggedInUser;
         }
@@ -142,11 +149,6 @@ public class UserService {
             throw new WrongPasswordCredentialsException(loggedInUser.getEmail());
         }
     }
-
-//    @Transactional
-//    public boolean deleteEmployeeById(Long employeeId) throws EmployeeNotFoundException {
-//
-//    }
 
     public static class IllegalAccessRoleException extends IllegalAccessException{
         public IllegalAccessRoleException(String email, String role){
@@ -157,8 +159,8 @@ public class UserService {
     public boolean deleteUser(Long userId)throws EmployeeNotFoundException {
 
 
-            User userToDelete = userRepository.findById(userId).orElseThrow(()-> new EntityNotFoundException("User not found"));
-            userRepository.delete(userToDelete);
+        User userToDelete = userRepository.findById(userId).orElseThrow(()-> new EntityNotFoundException("User not found"));
+        userRepository.delete(userToDelete);
 
         return true;
     }

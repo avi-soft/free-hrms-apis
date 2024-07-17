@@ -1,25 +1,27 @@
 
 Ÿ
-java:S14884"\Immediately return this expression instead of assigning it to the temporary variable "user".(Ã“Ä8´øÕ˜ş1J$df2c2fc9-739a-4158-a418-c73cf9b63d0e
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ8ãÊìü1J$3d9192fc-6a1c-4ed1-b8d9-3a4efe7c291e
+java:S14884"\Immediately return this expression instead of assigning it to the temporary variable "user".(Ã“Ä8¯“ù€‹2J$83024d11-4506-4787-a6b9-113bb655b339
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ8´“ù€‹2J$7c47de5b-409c-406f-b19c-f16b6ada4e3c
 …
-java:S6813'"BRemove this field injection and use constructor injection instead.(êæÄŞ8ÓøÕ˜ş1J$bcb60265-ed42-47a4-8860-e63f05375d82
+java:S6813'"BRemove this field injection and use constructor injection instead.(êæÄŞ8ã“ù€‹2J$726e6c85-58da-4c9e-8d46-aca720d55a9a
 ˆ
-java:S1124!"EReorder the modifiers to comply with the Java Language Specification.(Œ…½8ØøÕ˜ş1J$74e21afa-08cd-4b4f-98d8-52b31c9f2bca
+java:S1124!"EReorder the modifiers to comply with the Java Language Specification.(Œ…½8è“ù€‹2J$4d7bc056-b8e7-41ca-ad0d-a3fafc0cb6bd
 
-java:S1124#"EReorder the modifiers to comply with the Java Language Specification.(„ªµÑÿÿÿÿÿ8ØøÕ˜ş1J$0788d887-e505-45b9-8cd9-70bed94c205a
+java:S1124#"EReorder the modifiers to comply with the Java Language Specification.(„ªµÑÿÿÿÿÿ8è“ù€‹2J$7cc84460-ab98-4a34-bddf-ef1b2c222149
 ˆ
-java:S1124%"EReorder the modifiers to comply with the Java Language Specification.(éöï8ØøÕ˜ş1J$6d88d4b1-9321-43e5-9355-2dbaa9e92e89
+java:S1124%"EReorder the modifiers to comply with the Java Language Specification.(éöï8è“ù€‹2J$01149258-0da3-49e3-afdf-883a9be5abce
 ‡
-java:S1124*"EReorder the modifiers to comply with the Java Language Specification.(ªµêS8ÙøÕ˜ş1J$0fe3d91c-9dcd-42aa-852c-bddf0cf688de
+java:S1124*"EReorder the modifiers to comply with the Java Language Specification.(ªµêS8é“ù€‹2J$fc6c2247-dfdb-4371-a030-9a057e7f884d
 ´
-java:S11308"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(ØıÂ°úÿÿÿÿ8ÛøÕ˜ş1J$5bf0cb52-1e8e-4938-b69d-486d0969c5a7
+java:S11308"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(ØıÂ°úÿÿÿÿ8í“ù€‹2J$0864c70f-c246-4238-bd35-ba97390caa14
 ´
-java:S1130a"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(áı§¨ûÿÿÿÿ8àøÕ˜ş1J$cb3ce74a-641a-4c66-891c-34ac0f8276d3
-„	java:S125“"<This block of commented-out lines of code should be removed.(™ªï®ÿÿÿÿÿ8çøÕ˜ş1J$e51a5e7c-9296-44a7-930c-b9f272c56f71
+java:S1130d"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(áı§¨ûÿÿÿÿ8ö“ù€‹2J$b91f21d6-e418-4b65-bc22-48327dac795d
+â
+java:S1130"ŸRemove the declaration of thrown exception 'com.example.HRMSAvisoft.service.UserService$IllegalAccessRoleException', as it cannot be thrown from method's body.(ˆØ¡)8ù“ù€‹2J$4b8e9f04-4173-4070-88d7-ed6efa11b5c9
+~	java:S125Œ"<This block of commented-out lines of code should be removed.(ò¢şG8ü“ù€‹2J$aa89c1ad-f7ff-4fbc-aba4-ba18498d795c
 Ù
-java:S1130"”Remove the declaration of thrown exception 'com.example.HRMSAvisoft.exception.EmployeeNotFoundException', as it cannot be thrown from method's body.(‰Ô˜‘8èøÕ˜ş1J$a1a23812-6853-496b-b948-06053f42fa03
-
-java:S1144«";Remove this unused private "enableForeignKeyChecks" method.(æÔæ8îøÕ˜ş1J$59a23f34-ca62-488b-ac79-123193da1c17
-€
-java:S1144°"<Remove this unused private "disableForeignKeyChecks" method.(¢Õ”×8îøÕ˜ş1J$a948ed88-a208-4480-ac2e-a195be4689f9
+java:S1130Ÿ"”Remove the declaration of thrown exception 'com.example.HRMSAvisoft.exception.EmployeeNotFoundException', as it cannot be thrown from method's body.(‰Ô˜‘8ı“ù€‹2J$d408827d-4add-459c-bcb6-aacba94f7c95
+Y
+java:S1144­";Remove this unused private "enableForeignKeyChecks" method.(æÔæ8¶ö­‹2
+Z
+java:S1144²"<Remove this unused private "disableForeignKeyChecks" method.(¢Õ”×8¶ö­‹2

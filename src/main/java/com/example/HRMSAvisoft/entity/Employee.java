@@ -3,10 +3,8 @@ package com.example.HRMSAvisoft.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +15,7 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @JsonFormat
+@Builder
 public class Employee {
 
     @Id
@@ -62,8 +61,13 @@ public class Employee {
     @ManyToOne
     private Department department;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<Performance> performanceList = new ArrayList<Performance>();
+    @OneToMany(mappedBy = "reviewer",cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Performance> reviewedPerformances = new ArrayList<Performance>();
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Performance> performanceList = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Payroll> payrollList = new ArrayList<Payroll>();

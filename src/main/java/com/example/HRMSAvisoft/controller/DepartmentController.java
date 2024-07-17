@@ -30,7 +30,7 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+    @PreAuthorize("hasAuthority('GETALL_DEPARTMENTS')")
     @GetMapping("")
     public ResponseEntity<List<DepartmentsResponseDTO>> getAllDepartments() {
         List<Department> departments = departmentService.getAllDepartments();
@@ -51,21 +51,21 @@ public class DepartmentController {
     }
 
     @PostMapping("")
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+    @PreAuthorize("hasAuthority('ADD_DEPARTMENT')")
     public ResponseEntity<Map<String,Object>> addDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO) throws EmployeeNotFoundException, EmergencyContactService.ValidationException {
         Department createdDepartment = departmentService.addDepartment(createDepartmentDTO);
         return ResponseEntity.status(201).body(Map.of("success", true, "message", "Department created successfully", "Department", createdDepartment));
     }
 
     @PatchMapping("/{departmentId}")
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+    @PreAuthorize("hasAuthority('UPDATE_DEPARTMENT')")
     public ResponseEntity<Map<String,Object>> updateDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO, @PathVariable("departmentId") Long departmentId) throws EmployeeNotFoundException, DepartmentService.DepartmentNotFoundException {
         Department updatedDepartment = departmentService.updateDepartment(createDepartmentDTO, departmentId);
         return ResponseEntity.status(204).body(Map.of("success", true, "message", "Department updated successfully", "Department", updatedDepartment));
     }
 
     @DeleteMapping("/{departmentId}")
-    @PreAuthorize("hasAnyAuthority('Role_Superadmin','Role_Admin')")
+    @PreAuthorize("hasAuthority('DELETE_DEPARTMENT')")
     public ResponseEntity<Map<String, Object>> deleteDepartment(@PathVariable("departmentId") Long departmentId)throws DepartmentService.DepartmentNotFoundException {
         departmentService.deleteDepartment(departmentId);
         return ResponseEntity.status(204).body(Map.of("success", true, "message", "Department deleted successfully"));

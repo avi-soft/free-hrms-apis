@@ -3,6 +3,7 @@ package com.example.HRMSAvisoft.service;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.example.HRMSAvisoft.entity.Privilege;
 import com.example.HRMSAvisoft.entity.Role;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -11,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import java.util.*;
 
+import static com.example.HRMSAvisoft.entity.Privilege.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class JWTServiceTests {
@@ -27,25 +29,37 @@ public class JWTServiceTests {
         MockitoAnnotations.initMocks(this);
     }
 
+@Test
+@DisplayName("test_generate_valid_token")
+public void test_generate_valid_token() {
+    Long userId = 123L;
+    Set<Role> roles = new HashSet<>();
 
-    @Test
-    @DisplayName("test_generate_valid_token")
-    public void test_generate_valid_token() {
-        Long userId = 123L;
-        Set<Role> roles = new HashSet<>();
-        roles.add(new Role("admin"));
 
-        String jwt = JWTService.createJWT(userId, roles);
+    // Create a Role with privileges
+    Role adminRole = Role.builder()
+            .role("Admin")
+            .privilege(new HashSet<>(Arrays.asList(ADD_EMPLOYEE, FIND_EMPLOYEE_BY_ID, SEARCH_EMPLOYEE_BY_NAME)))
+            .build();
 
-        assertNotNull(jwt);
-    }
+    roles.add(adminRole);
+
+    String jwt = JWTService.createJWT(userId, roles);
+
+    assertNotNull(jwt);
+}
 
     @Test
     @DisplayName("test_expiry_time_correct")
     public void test_expiry_time_correct() {
         Long userId = 123L;
         Set<Role> roles = new HashSet<>();
-        roles.add(new Role("admin"));
+
+        Role adminRole = Role.builder()
+                .role("Admin")
+                .privilege(new HashSet<>(Arrays.asList(ADD_EMPLOYEE, FIND_EMPLOYEE_BY_ID, SEARCH_EMPLOYEE_BY_NAME)))
+                .build();
+        roles.add(adminRole);
 
         String jwt = JWTService.createJWT(userId, roles);
 
@@ -98,7 +112,12 @@ public class JWTServiceTests {
 
         Long userId = 123L;
         Set<Role> roles = new HashSet<>();
-        roles.add(new Role("admin"));
+
+        Role adminRole = Role.builder()
+                .role("Admin")
+                .privilege(new HashSet<>(Arrays.asList(ADD_EMPLOYEE, FIND_EMPLOYEE_BY_ID, SEARCH_EMPLOYEE_BY_NAME)))
+                .build();
+        roles.add(adminRole);
 
         String jwt = jwtService.createJWT(userId, roles);
 
@@ -108,20 +127,23 @@ public class JWTServiceTests {
     }
 
     @Test
-    @DisplayName("test_RetrieveRoles")
-    public void testRetrieveRoles() {
+    @DisplayName("test_RetrievePrivileges")
+    public void testRetrievePrivileges() {
 
         Long userId = 123L;
         Set<Role> roles = new HashSet<>();
-        roles.add(new Role("admin"));
+
+        Role adminRole = Role.builder()
+                .role("Admin")
+                .privilege(new HashSet<>(Arrays.asList(ADD_EMPLOYEE)))
+                .build();
+        roles.add(adminRole);
 
         String jwt = jwtService.createJWT(userId, roles);
 
 
-        List<String> rolesFromToken = jwtService.retrieveRoles(jwt);
-
-        assertEquals(1, rolesFromToken.size());
-        assertEquals("admin", rolesFromToken.get(0));
+        List<String> privilegesFromToken = jwtService.retrieveRoles(jwt);
+        assertEquals("ADD_EMPLOYEE", privilegesFromToken.get(0));
     }
 
 }

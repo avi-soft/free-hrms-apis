@@ -1,0 +1,9 @@
+
+`	java:S112)"FDefine and throw a dedicated exception instead of using a generic one.(ââÖÈøÿÿÿÿ
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ
+f
+java:S3655,"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(á÷ëÓ
+R
+java:S1854*"<Remove this useless assignment to local variable "employee".(™ú¨¶
+C
+java:S1481*"-Remove this unused "employee" local variable.(™ú¨¶

@@ -4,6 +4,7 @@ import com.example.HRMSAvisoft.entity.LeaveType;
 import com.example.HRMSAvisoft.service.LeaveTypeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -18,6 +19,8 @@ public class LeaveTypeController {
     public LeaveTypeController(LeaveTypeService leaveTypeService) {
         this.leaveTypeService = leaveTypeService;
     }
+
+    @PreAuthorize("hasAuthority('ADD_LEAVE_TYPE')")
     @PostMapping("addLeaveType")
     public ResponseEntity<Map<String,Object>> addLeaveType(@RequestBody LeaveType leaveType) {
         LeaveType createdLeaveType = leaveTypeService.addLeaveType(leaveType);
@@ -28,6 +31,8 @@ public class LeaveTypeController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
     }
+
+    @PreAuthorize("hasAuthority('REMOVE_LEAVE_TYPE')")
     @DeleteMapping("/{leaveType}")
     public ResponseEntity<Map<String,Object>> removeLeaveType(@PathVariable String leaveType) {
         leaveTypeService.removeLeaveType(leaveType);
@@ -36,6 +41,8 @@ public class LeaveTypeController {
         response.put("success", true);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
+    @PreAuthorize("hasAuthority('UPDATE_LEAVE_TYPE')")
     @PutMapping("/update/{leaveType}")
     public ResponseEntity<Map<String, Object>> updateLeaveType(@PathVariable String leaveType, @RequestBody LeaveType updatedLeaveType) {
         LeaveType updated = leaveTypeService.updateLeaveType(leaveType, updatedLeaveType);
@@ -51,6 +58,8 @@ public class LeaveTypeController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
     }
+
+    @PreAuthorize("hasAuthority('GET_ALL_LEAVE_TYPES')")
     @GetMapping
     public ResponseEntity<Map<String, Object>> getAllLeaveTypes() {
         List<LeaveType> leaveTypes = leaveTypeService.getAllLeaveTypes();
@@ -61,6 +70,7 @@ public class LeaveTypeController {
         return ResponseEntity.ok(response);
     }
 
+    @PreAuthorize("hasAuthority('GET_LEAVE_TYPE')")
     @GetMapping("/{leaveType}")
     public ResponseEntity<Map<String, Object>> getLeaveType(@PathVariable String leaveType) {
         LeaveType leaveTypeObj = leaveTypeService.getLeaveType(leaveType);
