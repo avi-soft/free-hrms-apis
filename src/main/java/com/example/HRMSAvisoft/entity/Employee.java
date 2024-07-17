@@ -84,5 +84,3 @@ public class Employee {
     @JsonIgnore
     private List<LeaveBalance> leaveBalances = new ArrayList<>();
 }
-
-
