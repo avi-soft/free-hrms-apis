@@ -57,7 +57,7 @@ public class RoleService {
         return roleRepository.save(newRole);
     }
 
-    public void updateRole(Role role, Long roleId) throws EntityNotFoundException, IllegalArgumentException{
+    public Role updateRole(Role role, Long roleId) throws EntityNotFoundException, IllegalArgumentException{
         Role roleToUpdate = roleRepository.findById(roleId).orElseThrow((()-> new EntityNotFoundException("Role not found")));
 
         if (role.getRole() != null && !role.getRole().isEmpty() && !role.getRole().equals(roleToUpdate.getRole())) {
@@ -78,7 +78,7 @@ public class RoleService {
                 throw new IllegalArgumentException("Invalid privilege: " + privilege);
             }
         }
-        roleRepository.save(roleToUpdate);
+        return roleRepository.save(roleToUpdate);
 
     }
 

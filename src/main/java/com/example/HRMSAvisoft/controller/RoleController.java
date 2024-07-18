@@ -43,9 +43,9 @@ public class RoleController {
 
     @PreAuthorize("hasAnyAuthority('UPDATE_ROLE')")
     @PatchMapping("/{roleId}")
-    public ResponseEntity updateRole(@RequestBody Role role, @PathVariable Long roleId) throws EntityNotFoundException, IllegalArgumentException{
-        roleService.updateRole(role, roleId);
-        return ResponseEntity.status(204).body(null);
+    public ResponseEntity<Object> updateRole(@RequestBody Role role, @PathVariable Long roleId) throws EntityNotFoundException, IllegalArgumentException{
+        Role updatedRole = roleService.updateRole(role, roleId);
+        return ResponseGenerator.generateResponse(HttpStatus.OK, true, "Role Updated successfully.",updatedRole);
     }
 
     @PreAuthorize("hasAnyAuthority('DELETE_ROLE')")
