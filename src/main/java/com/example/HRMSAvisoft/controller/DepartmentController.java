@@ -8,6 +8,7 @@ import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
 import com.example.HRMSAvisoft.service.DepartmentService;
 import com.example.HRMSAvisoft.service.EmergencyContactService;
 import com.example.HRMSAvisoft.service.EmployeeService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -31,9 +32,9 @@ public class DepartmentController {
     }
 
     @PreAuthorize("hasAuthority('GETALL_DEPARTMENTS')")
-    @GetMapping("")
-    public ResponseEntity<List<DepartmentsResponseDTO>> getAllDepartments() {
-        List<Department> departments = departmentService.getAllDepartments();
+    @GetMapping("/{organizationId}")
+    public ResponseEntity<List<DepartmentsResponseDTO>> getAllDepartments(@PathVariable("organizationId") Long organizationId) {
+        List<Department> departments = departmentService.getAllDepartments(organizationId);
         List<DepartmentsResponseDTO> departmentsResponseDTOS = departments.stream().map(department ->{
             DepartmentsResponseDTO departmentsResponseDTO = new DepartmentsResponseDTO();
             departmentsResponseDTO.setDepartmentId(department.getDepartmentId());
@@ -50,10 +51,10 @@ public class DepartmentController {
         return ResponseEntity.ok(departmentsResponseDTOS);
     }
 
-    @PostMapping("")
+    @PostMapping("/{organizationId}")
     @PreAuthorize("hasAuthority('ADD_DEPARTMENT')")
-    public ResponseEntity<Map<String,Object>> addDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO) throws EmployeeNotFoundException, EmergencyContactService.ValidationException {
-        Department createdDepartment = departmentService.addDepartment(createDepartmentDTO);
+    public ResponseEntity<Map<String,Object>> addDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO, @PathVariable("organizationId") Long organizationId) throws EmployeeNotFoundException, EntityNotFoundException {
+        Department createdDepartment = departmentService.addDepartment(createDepartmentDTO, organizationId);
         return ResponseEntity.status(201).body(Map.of("success", true, "message", "Department created successfully", "Department", createdDepartment));
     }
 
@@ -80,6 +81,10 @@ public class DepartmentController {
         String message;
         HttpStatus status;
         if(exception instanceof EmployeeNotFoundException) {
+            message = exception.getMessage();
+            status = HttpStatus.NOT_FOUND;
+        }
+        else if (exception instanceof EntityNotFoundException){
             message = exception.getMessage();
             status = HttpStatus.NOT_FOUND;
         }

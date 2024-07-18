@@ -43,9 +43,9 @@ public class RoleController {
 
 //    @PreAuthorize("hasAnyAuthority('UPDATE_ROLE')")
     @PatchMapping("/{roleId}")
-    public ResponseEntity updateRole(@RequestBody Role role, @PathVariable Long roleId) throws EntityNotFoundException, IllegalArgumentException{
-        roleService.updateRole(role, roleId);
-        return ResponseEntity.status(204).body(null);
+    public ResponseEntity<Object> updateRole(@RequestBody Role role, @PathVariable Long roleId) throws EntityNotFoundException, IllegalArgumentException{
+        Role updatedRole = roleService.updateRole(role, roleId);
+        return ResponseGenerator.generateResponse(HttpStatus.OK, true, "Role Updated successfully.",updatedRole);
     }
 
     @PreAuthorize("hasAnyAuthority('DELETE_ROLE')")
@@ -62,6 +62,13 @@ public class RoleController {
     {
         Role changedRole = roleService.changeRoleOfUser(userId,oldRoleId,newRoleId);
         return ResponseGenerator.generateResponse(HttpStatus.OK,true,"Role of User is changed with new Role",changedRole);
+    }
+    @PreAuthorize("hasAnyAuthority('ASSIGN_ROLE_TO_USER')")
+    @PatchMapping("/{userId}/assignRole/{roleId}")
+    public ResponseEntity<Object> assignRoleToExistingUser(@PathVariable Long userId, @PathVariable Long roleId)
+    {
+        Role changedRole = roleService.assignRoleToExistingUser(userId,roleId);
+        return ResponseGenerator.generateResponse(HttpStatus.OK,true,"Role is assigned to User successfully",changedRole);
     }
 
     @ExceptionHandler({

@@ -262,3 +262,7 @@ j
 :src/test/java/com/example/HRMSAvisoft/entity/RoleTest.java,b/5/b5140dca5eab0981a2d41464abc0b23b3b79619d
 Z
 *src/main/java/utils/ResponseGenerator.java,1/9/1912685bb7b4ca20f714f6900e7c4a84628124f1
+n
+>src/main/java/com/example/HRMSAvisoft/entity/Organization.java,c/1/c169fa6f5c283ff30d454148821fbe26f833b6e2
+|
+Lsrc/main/java/com/example/HRMSAvisoft/repository/OrganizationRepository.java,4/d/4d63c1c5514b7d0911ee0d8c2fbe33117461a9a6

@@ -44,6 +44,7 @@ com/example/HRMSAvisoft/controller/RoleController.class
 com/example/HRMSAvisoft/dto/CreateUserResponseDTO.class
 com/example/HRMSAvisoft/exception/OverlappingLeaveRequestException.class
 com/example/HRMSAvisoft/service/AddressService.class
+com/example/HRMSAvisoft/repository/OrganizationRepository.class
 com/example/HRMSAvisoft/dto/NewUserResponseDTO.class
 com/example/HRMSAvisoft/service/LeaveBalanceService.class
 com/example/HRMSAvisoft/dto/AddNewUserDTO.class
@@ -71,6 +72,8 @@ com/example/HRMSAvisoft/service/LeaveTypeService.class
 com/example/HRMSAvisoft/dto/UpdateEmployeeDetailsDTO.class
 com/example/HRMSAvisoft/dto/ErrorResponseDTO.class
 com/example/HRMSAvisoft/dto/CreatePerformanceDTO.class
+com/example/HRMSAvisoft/entity/Organization.class
+com/example/HRMSAvisoft/entity/Organization$OrganizationBuilder.class
 com/example/HRMSAvisoft/service/PerformanceService.class
 com/example/HRMSAvisoft/controller/DepartmentController.class
 com/example/HRMSAvisoft/repository/LeaveBalanceRepository.class

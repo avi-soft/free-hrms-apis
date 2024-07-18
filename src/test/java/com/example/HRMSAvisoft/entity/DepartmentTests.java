@@ -15,10 +15,11 @@ public class DepartmentTests {
         Long departmentId = 1L;
         String department = "MERN";
         String description = "MERN department";
+        Organization organization = new Organization();
 
         Employee manager = new Employee();
 
-        Department newDepartment = new Department(departmentId, department, description, manager);
+        Department newDepartment = new Department(departmentId, department, description, organization, manager);
 
         assertNotNull(newDepartment);
         assertEquals(departmentId, newDepartment.getDepartmentId());

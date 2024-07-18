@@ -3,9 +3,12 @@ package com.example.HRMSAvisoft.service;
 import com.example.HRMSAvisoft.dto.CreateDepartmentDTO;
 import com.example.HRMSAvisoft.entity.Department;
 import com.example.HRMSAvisoft.entity.Employee;
+import com.example.HRMSAvisoft.entity.Organization;
 import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
 import com.example.HRMSAvisoft.repository.DepartmentRepository;
 import com.example.HRMSAvisoft.repository.EmployeeRepository;
+import com.example.HRMSAvisoft.repository.OrganizationRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,22 +23,29 @@ public class DepartmentService {
 
     private final EmployeeRepository employeeRepository;
 
-    DepartmentService(DepartmentRepository departmentRepository, EmployeeRepository employeeRepository) {
+    private final OrganizationRepository organizationRepository;
+
+    DepartmentService(DepartmentRepository departmentRepository, EmployeeRepository employeeRepository, OrganizationRepository organizationRepository) {
         this.departmentRepository = departmentRepository;
         this.employeeRepository = employeeRepository;
+        this.organizationRepository = organizationRepository;
     }
 
-    public List<Department> getAllDepartments() {
-        return departmentRepository.findAll();
+    public List<Department> getAllDepartments(Long organizationId) {
+        return departmentRepository.findAllByOrganizationId(organizationId);
     }
 
-    public Department addDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO) throws EmployeeNotFoundException {
+    public Department addDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO, Long organizationId) throws EmployeeNotFoundException, EntityNotFoundException {
         Employee manager = employeeRepository.findById(createDepartmentDTO.getManagerId()).orElseThrow(()-> new EmployeeNotFoundException(createDepartmentDTO.getManagerId()));
+        Organization organization = organizationRepository.findById(organizationId).orElseThrow(()-> new EntityNotFoundException("Organization not found"));
+
         Department newDepartment = new Department();
         newDepartment.setDepartment(createDepartmentDTO.getDepartment());
         newDepartment.setDescription(createDepartmentDTO.getDescription());
         newDepartment.setManager(manager);
-
+        newDepartment.setOrganization(organization);
+        organization.getDepartments().add(newDepartment);
+        organizationRepository.save(organization);
         return departmentRepository.save(newDepartment);
     }
 
@@ -55,8 +65,14 @@ public class DepartmentService {
         return departmentRepository.save(departmentFoundById);
     }
 
+    @Transactional
     public void deleteDepartment(Long departmentId)throws DepartmentNotFoundException{
         Department departmentToDelete = departmentRepository.findById(departmentId).orElseThrow(()-> new DepartmentNotFoundException(departmentId));
+
+        if (departmentToDelete.getOrganization() != null) {
+            departmentToDelete.getOrganization().getDepartments().remove(departmentToDelete);
+            organizationRepository.save(departmentToDelete.getOrganization());
+        }
 
         List<Employee> employees = employeeRepository.findByDepartment(departmentToDelete);
         for (Employee employee : employees) {

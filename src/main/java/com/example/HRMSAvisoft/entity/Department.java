@@ -23,8 +23,12 @@ public class Department {
 
     private String description;
 
+    // One-to-One mapping with Organization
+    @OneToOne(fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "organization_id", referencedColumnName = "organizationId")
+    private Organization organization;
+
     @ManyToOne(fetch =  FetchType.EAGER)
     @JoinColumn(name = "managerId")
     private Employee manager;
-
 }
