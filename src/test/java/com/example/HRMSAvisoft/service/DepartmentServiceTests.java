@@ -3,9 +3,11 @@ package com.example.HRMSAvisoft.service;
 import com.example.HRMSAvisoft.dto.CreateDepartmentDTO;
 import com.example.HRMSAvisoft.entity.Department;
 import com.example.HRMSAvisoft.entity.Employee;
+import com.example.HRMSAvisoft.entity.Organization;
 import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
 import com.example.HRMSAvisoft.repository.DepartmentRepository;
 import com.example.HRMSAvisoft.repository.EmployeeRepository;
+import com.example.HRMSAvisoft.repository.OrganizationRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,6 +30,8 @@ public class DepartmentServiceTests {
 
     @Mock
     DepartmentRepository departmentRepository;
+    @Mock
+    OrganizationRepository organizationRepository;
 
     @InjectMocks
     DepartmentService departmentService;
@@ -36,13 +40,13 @@ public class DepartmentServiceTests {
     @DisplayName("test_getAllEmergencyContacts")
     void testGetAllEmergencyContacts(){
         List<Department> expectedDepartments = new ArrayList<>();
-        expectedDepartments.add(new Department(1L, "Department 1", "Description 1", new Employee()));
-        expectedDepartments.add(new Department(2L, "Department 2", "Description 2", new Employee()));
-        expectedDepartments.add(new Department(3L, "Department 3", "Description 3", new Employee()));
+        expectedDepartments.add(new Department(1L, "Department 1", "Description 1", new Organization(), new Employee()));
+        expectedDepartments.add(new Department(2L, "Department 2", "Description 2", new Organization(), new Employee()));
+        expectedDepartments.add(new Department(3L, "Department 3", "Description 3", new Organization(), new Employee()));
 
         when(departmentRepository.findAll()).thenReturn(expectedDepartments);
 
-        List<Department> actualDepartments = departmentService.getAllDepartments();
+        List<Department> actualDepartments = departmentService.getAllDepartments(1L);
 
         assertEquals(expectedDepartments, actualDepartments);
     }
@@ -65,9 +69,9 @@ public class DepartmentServiceTests {
         Mockito.when(employeeRepository.findById(1L)).thenReturn(Optional.of(manager));
         Mockito.when(departmentRepository.save(Mockito.any(Department.class))).thenReturn(new Department());
 
-        DepartmentService departmentService = new DepartmentService(departmentRepository, employeeRepository);
+        DepartmentService departmentService = new DepartmentService(departmentRepository, employeeRepository, organizationRepository);
 
-        Department result = departmentService.addDepartment(createDepartmentDTO);
+        Department result = departmentService.addDepartment(createDepartmentDTO, 1L);
 
         assertNotNull(result);
     }
@@ -79,7 +83,7 @@ public class DepartmentServiceTests {
         EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
 
         // Create DepartmentService object with mock repositories
-        DepartmentService departmentService = new DepartmentService(departmentRepository, employeeRepository);
+        DepartmentService departmentService = new DepartmentService(departmentRepository, employeeRepository, organizationRepository);
 
         // Create test data
         CreateDepartmentDTO createDepartmentDTO = new CreateDepartmentDTO();
