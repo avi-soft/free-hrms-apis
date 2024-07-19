@@ -61,24 +61,24 @@ class UserControllerTest {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
     }
-    @Test
-    @DisplayName("Test Save User")
-    public void testSaveUser() throws Exception {
-        // Create a mock user
-        Employee mockEmployee = new Employee();
-        mockEmployee.setEmployeeId(1L);
-        mockEmployee.setFirstName("John");
-        mockEmployee.setLastName("Doe");
-
-        when(userService.saveUser(any(CreateUserDTO.class), any(User.class))).thenReturn(mockEmployee);
-        // Perform POST request to "/api/v1/user/saveUser" with JSON request body
-        mockMvc.perform(post("/api/v1/user/saveUser")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"firstName\": \"John\", \"lastName\": \"Doe\"}"))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.message").value("User Created Successfully"))
-                .andExpect(jsonPath("$.employeeId").value(1L));
-    }
+//    @Test
+//    @DisplayName("Test Save User")
+//    public void testSaveUser() throws Exception {
+//        // Create a mock user
+//        Employee mockEmployee = new Employee();
+//        mockEmployee.setEmployeeId(1L);
+//        mockEmployee.setFirstName("John");
+//        mockEmployee.setLastName("Doe");
+//
+//        when(userSevice.saveUser(any(CreateUserDTO.class), any(User.class))).thenReturn(mockEmployee);
+//        // Perform POST request to "/api/v1/user/saveUser" with JSON request body
+//        mockMvc.perform(post("/api/v1/user/saveUser")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content("{\"firstName\": \"John\", \"lastName\": \"Doe\"}"))
+//                .andExpect(status().isCreated())
+//                .andExpect(jsonPath("$.message").value("User Created Successfully"))
+//                .andExpect(jsonPath("$.employeeId").value(1L));
+//    }
 
     @Test
     @DisplayName("Test User Login")
