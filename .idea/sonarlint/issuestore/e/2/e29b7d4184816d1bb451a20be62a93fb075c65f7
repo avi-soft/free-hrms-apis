@@ -1,27 +1,25 @@
 
-Ÿ
-java:S14884"\Immediately return this expression instead of assigning it to the temporary variable "user".(Ã“Ä8¯“ù€‹2J$83024d11-4506-4787-a6b9-113bb655b339
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ8´“ù€‹2J$7c47de5b-409c-406f-b19c-f16b6ada4e3c
-…
-java:S6813'"BRemove this field injection and use constructor injection instead.(êæÄŞ8ã“ù€‹2J$726e6c85-58da-4c9e-8d46-aca720d55a9a
-ˆ
-java:S1124!"EReorder the modifiers to comply with the Java Language Specification.(Œ…½8è“ù€‹2J$4d7bc056-b8e7-41ca-ad0d-a3fafc0cb6bd
-
-java:S1124#"EReorder the modifiers to comply with the Java Language Specification.(„ªµÑÿÿÿÿÿ8è“ù€‹2J$7cc84460-ab98-4a34-bddf-ef1b2c222149
-ˆ
-java:S1124%"EReorder the modifiers to comply with the Java Language Specification.(éöï8è“ù€‹2J$01149258-0da3-49e3-afdf-883a9be5abce
-‡
-java:S1124*"EReorder the modifiers to comply with the Java Language Specification.(ªµêS8é“ù€‹2J$fc6c2247-dfdb-4371-a030-9a057e7f884d
-´
-java:S11308"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(ØıÂ°úÿÿÿÿ8í“ù€‹2J$0864c70f-c246-4238-bd35-ba97390caa14
-´
-java:S1130d"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(áı§¨ûÿÿÿÿ8ö“ù€‹2J$b91f21d6-e418-4b65-bc22-48327dac795d
-â
-java:S1130"ŸRemove the declaration of thrown exception 'com.example.HRMSAvisoft.service.UserService$IllegalAccessRoleException', as it cannot be thrown from method's body.(ˆØ¡)8ù“ù€‹2J$4b8e9f04-4173-4070-88d7-ed6efa11b5c9
-~	java:S125Œ"<This block of commented-out lines of code should be removed.(ò¢şG8ü“ù€‹2J$aa89c1ad-f7ff-4fbc-aba4-ba18498d795c
+y
+java:S14889"\Immediately return this expression instead of assigning it to the temporary variable "user".(Ã“Ä8ÒÙ˜ÕŒ2
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ8´“ù€‹2J$bd507e1e-9b1f-4a53-aecf-0e9c281e5698
+_
+java:S6813+"BRemove this field injection and use constructor injection instead.(êæÄŞ8îÙ˜ÕŒ2
+b
+java:S1124$"EReorder the modifiers to comply with the Java Language Specification.(Œ…½8ôÙ˜ÕŒ2
+g
+java:S1124%"EReorder the modifiers to comply with the Java Language Specification.(ëÀ·§úÿÿÿÿ8õÙ˜ÕŒ2
+g
+java:S1124'"EReorder the modifiers to comply with the Java Language Specification.(„ªµÑÿÿÿÿÿ8õÙ˜ÕŒ2
+b
+java:S1124)"EReorder the modifiers to comply with the Java Language Specification.(éöï8õÙ˜ÕŒ2
+a
+java:S1124."EReorder the modifiers to comply with the Java Language Specification.(ªµêS8öÙ˜ÕŒ2
+ã
+java:S1130‰"ŸRemove the declaration of thrown exception 'com.example.HRMSAvisoft.service.UserService$IllegalAccessRoleException', as it cannot be thrown from method's body.(ˆØ¡)8ù“ù€‹2J$5e8876a4-165b-4f4e-b285-58b44da8b4e0
+~	java:S125–"<This block of commented-out lines of code should be removed.(ò¢şG8ü“ù€‹2J$21aad94f-85e0-451d-abc3-70f6f331f839
 Ù
-java:S1130Ÿ"”Remove the declaration of thrown exception 'com.example.HRMSAvisoft.exception.EmployeeNotFoundException', as it cannot be thrown from method's body.(‰Ô˜‘8ı“ù€‹2J$d408827d-4add-459c-bcb6-aacba94f7c95
-Y
-java:S1144­";Remove this unused private "enableForeignKeyChecks" method.(æÔæ8¶ö­‹2
-Z
-java:S1144²"<Remove this unused private "disableForeignKeyChecks" method.(¢Õ”×8¶ö­‹2
+java:S1130©"”Remove the declaration of thrown exception 'com.example.HRMSAvisoft.exception.EmployeeNotFoundException', as it cannot be thrown from method's body.(‰Ô˜‘8ı“ù€‹2J$752be5af-62f0-404a-a5e5-e1d89aa9da7e
+
+java:S1144·";Remove this unused private "enableForeignKeyChecks" method.(æÔæ8¶ö­‹2J$5003537e-30d0-4603-a098-cb7ab1dc4540
+€
+java:S1144¼"<Remove this unused private "disableForeignKeyChecks" method.(¢Õ”×8¶ö­‹2J$d4ff1d75-4355-4a20-a7df-7255c90618ca

@@ -266,3 +266,5 @@ n
 >src/main/java/com/example/HRMSAvisoft/entity/Organization.java,c/1/c169fa6f5c283ff30d454148821fbe26f833b6e2
 |
 Lsrc/main/java/com/example/HRMSAvisoft/repository/OrganizationRepository.java,4/d/4d63c1c5514b7d0911ee0d8c2fbe33117461a9a6
+|
+Lsrc/main/java/com/example/HRMSAvisoft/controller/OrganizationController.java,6/0/60173ea111258edad5d1a2814a3998d6e1c9ede6
