@@ -1,19 +1,19 @@
 
-‹
-java:S1192:"HDefine a constant instead of duplicating this literal "success" 3 times.(À€¨8æÚÇ¶ş1J$97d4c43b-175d-4a42-9d1c-fe2699e078f9
-‹
-java:S1192:"HDefine a constant instead of duplicating this literal "message" 3 times.(À€¨8ëÚÇ¶ş1J$1d6d668a-63cb-4174-a0e3-888e7bbbdbaa
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿ8ÓÄÇ¶ş1J$6003b4c9-e5ce-49a2-8854-5f6265938ca5
-¡
-java:S62041"^Replace this usage of 'Stream.collect(Collectors.toUnmodifiableList())' with 'Stream.toList()'(¯ÕÀ»8·´Ê¶ş1J$52bf811f-06fc-4fe1-b9dd-e21622774f88
-
-java:S1871W"LThis branch's code block is the same as the block for the branch on line 83.(úø¶Ì8§ŞâŒ2J$44f9f172-0cb0-438a-8c20-0d1606eb7c7d
+e
+java:S1192:"HDefine a constant instead of duplicating this literal "success" 3 times.(À€¨8ËÊ­Œ2
+e
+java:S1192:"HDefine a constant instead of duplicating this literal "message" 3 times.(À€¨8ÌÊ­Œ2
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿ8ÓÄÇ¶ş1J$76e4e8c9-50e9-46cd-a43d-db4927ce67a8
+{
+java:S62041"^Replace this usage of 'Stream.collect(Collectors.toUnmodifiableList())' with 'Stream.toList()'(¯ÕÀ»8ŞÊ­Œ2
 ”
-java:S1871["LThis branch's code block is the same as the block for the branch on line 83.(ç¬Ø±úÿÿÿÿ8ÆÇ¶ş1J$637046ca-867b-493e-9fdb-7db63ed36a8f
+java:S1871["LThis branch's code block is the same as the block for the branch on line 83.(ç¬Ø±úÿÿÿÿ8ÆÇ¶ş1J$2eae8a74-b541-4713-bab0-2f271039ea82
+i
+java:S1871W"LThis branch's code block is the same as the block for the branch on line 83.(úø¶Ì8€Ë­Œ2
 v
-java:S1128	"TRemove this unused import 'com.example.HRMSAvisoft.service.EmergencyContactService'.(ëñíâşÿÿÿÿ8©ùÆƒŒ2
+java:S1128	"TRemove this unused import 'com.example.HRMSAvisoft.service.EmergencyContactService'.(ëñíâşÿÿÿÿ8…Ë­Œ2
 i
 java:S1128
-"LRemove this unused import 'com.example.HRMSAvisoft.service.EmployeeService'.(üñÙ»8«ùÆƒŒ2
+"LRemove this unused import 'com.example.HRMSAvisoft.service.EmployeeService'.(üñÙ»8†Ë­Œ2
 M
-java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8«ùÆƒŒ2
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8†Ë­Œ2

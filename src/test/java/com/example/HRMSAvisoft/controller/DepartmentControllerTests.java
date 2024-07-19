@@ -4,6 +4,7 @@ import com.example.HRMSAvisoft.config.TestSecurityConfig;
 import com.example.HRMSAvisoft.dto.CreateDepartmentDTO;
 import com.example.HRMSAvisoft.entity.Department;
 import com.example.HRMSAvisoft.entity.Employee;
+import com.example.HRMSAvisoft.entity.Organization;
 import com.example.HRMSAvisoft.repository.DepartmentRepository;
 import com.example.HRMSAvisoft.repository.EmployeeRepository;
 import com.example.HRMSAvisoft.service.DepartmentService;
@@ -70,10 +71,10 @@ public class DepartmentControllerTests {
     @DisplayName("test_getAllDepartments")
     void testGetAllDepartments() throws Exception {
         List<Department> departmentsList = new ArrayList<>();
-        departmentsList.add(new Department(1L, "Mern", "Mern department", new Employee()));
-        departmentsList.add(new Department(2L, "Java", "Java department", new Employee()));
+        departmentsList.add(new Department(1L, "Mern", "Mern department", new Organization(), new Employee()));
+        departmentsList.add(new Department(2L, "Java", "Java department", new Organization(), new Employee()));
 
-        when(departmentService.getAllDepartments()).thenReturn(departmentsList);
+        when(departmentService.getAllDepartments(1L)).thenReturn(departmentsList);
 
         this.mockMvc.perform(get(getAllDepartmentsUrl))
                 .andDo(print())
@@ -90,7 +91,7 @@ public class DepartmentControllerTests {
 
         Department mockDepartment = new Department();
 
-        when(departmentService.addDepartment(any(CreateDepartmentDTO.class))).thenReturn(mockDepartment);
+        when(departmentService.addDepartment(any(CreateDepartmentDTO.class), 1L)).thenReturn(mockDepartment);
 
         this.mockMvc.perform(post(addDepartmentUrl)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -103,7 +104,7 @@ public class DepartmentControllerTests {
     @DisplayName("test_deleteDepartment")
     void testDeleteDepartment() throws Exception {
         Employee manager = new Employee();
-        Department mockDepartment = new Department(1L, "DEVOPS", "Devops department at avisoft", manager);
+        Department mockDepartment = new Department(1L, "DEVOPS", "Devops department at avisoft", new Organization(), manager);
         when(departmentRepository.findById(1L)).thenReturn(Optional.of(mockDepartment));
 
         this.mockMvc.perform(delete(deleteDepartmentUrl, 1L)
