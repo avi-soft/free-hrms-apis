@@ -55,11 +55,11 @@ public class UserController {
         return "Hello ";
     }
 
-    @PostMapping("/saveUser")
+    @PostMapping("/saveUser/{organizationId}")
     @PreAuthorize("hasAuthority('SAVE_USER')")
     public ResponseEntity<CreateUserResponseDTO>saveUser(@AuthenticationPrincipal User loggedInUser,
-                                                         @RequestBody CreateUserDTO createUserDTO) throws IOException {
-        Employee createdUserEmployee = userService.saveUser(createUserDTO, loggedInUser);
+                                                         @RequestBody CreateUserDTO createUserDTO,@PathVariable Long organizationId) throws IOException {
+        Employee createdUserEmployee = userService.saveUser(createUserDTO, loggedInUser,organizationId);
         CreateUserResponseDTO createUserResponseDTO = new CreateUserResponseDTO();
         createUserResponseDTO.setMessage("User Created Successfully");
         createUserResponseDTO.setEmployeeId(createdUserEmployee.getEmployeeId());
@@ -82,11 +82,11 @@ public class UserController {
                     )
             }
     )
-    @PostMapping("/addNewUser")
+    @PostMapping("/addNewUser/{organizationId}")
     @PreAuthorize("hasAuthority('CREATE_NEW_USER')")
     public ResponseEntity<Map<String ,Object>>addNewUser(@AuthenticationPrincipal User loggedInUser,
-                                                         @RequestBody @Valid AddNewUserDTO addNewUserDTO)throws IOException,UserService.EmailAlreadyExistsException {
-        User createdUser=userService.addNewUser(addNewUserDTO,loggedInUser);
+                                                         @RequestBody @Valid AddNewUserDTO addNewUserDTO,@PathVariable Long organizationId)throws IOException,UserService.EmailAlreadyExistsException {
+        User createdUser=userService.addNewUser(addNewUserDTO,loggedInUser,organizationId);
         NewUserResponseDTO newUser=new NewUserResponseDTO();
         newUser.setUserId(createdUser.getUserId());
         newUser.setEmail(createdUser.getEmail());

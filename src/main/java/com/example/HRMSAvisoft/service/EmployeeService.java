@@ -92,7 +92,6 @@ public class EmployeeService {
             employeeToAddInfo.setDepartment(departmentOfEmployee);
 
         }
-
         employeeToAddInfo.setFirstName(createEmployeeDTO.getFirstName());
         employeeToAddInfo.setLastName(createEmployeeDTO.getLastName());
         employeeToAddInfo.setContact(createEmployeeDTO.getContact());
@@ -143,12 +142,10 @@ public class EmployeeService {
         return Pattern.matches(pattern, term);
     }
 
-
     public static class EmployeeCodeAlreadyExistsException extends RuntimeException{
         public EmployeeCodeAlreadyExistsException(String message) {
             super(message);
         }
     }
-
 
 }
