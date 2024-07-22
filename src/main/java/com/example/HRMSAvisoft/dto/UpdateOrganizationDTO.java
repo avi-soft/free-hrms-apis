@@ -23,12 +23,8 @@ public class UpdateOrganizationDTO
     @Size(min=1,max = 50,message = "min character is 1 and maximum characters can be upto 50")
     @Pattern(regexp = "^[^\\s].*$", message = "Name of organization cannot be empty")
     private String organizationName;
-    private String organizationImage;
 
     @Size(min=1,max =200,message = "min character is 1 and maximum characters can be upto 200 for Description of Organization")
     @Pattern(regexp = "^[^\\s].*$", message = "Description of organization cannot be empty")
     private String organizationDescription;
-
-    private List<Department> departments = new ArrayList<>();
-    private List<User> users = new ArrayList<>();
 }
