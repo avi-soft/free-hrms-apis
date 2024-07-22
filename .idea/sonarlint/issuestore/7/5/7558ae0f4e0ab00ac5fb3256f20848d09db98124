@@ -10,11 +10,17 @@ java:S1192a"HDefine a constant instead of duplicating this literal "message" 3 
 ¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿ8§¸Ë‰Š2J$7ff94346-2100-48e7-90f7-1d054c3a2e2d
 „	java:S125¼"<This block of commented-out lines of code should be removed.(«ÀÔßùÿÿÿÿ8‹ÅïµŠ2J$596475d3-adfc-4bb7-b8b4-d89478d0068a
 ‘
-java:S1871Ö"MThis branch's code block is the same as the block for the branch on line 210.(úø¶Ì8ŒÅïµŠ2J$bdcc22f5-d5a7-4a7c-88cd-f945909165b2
+java:S1871æ"MThis branch's code block is the same as the block for the branch on line 210.(ø±èò8ŒÅïµŠ2J$a78cd8eb-e6a2-475c-a7ba-72807bdd02b3
 ‘
 java:S1871Þ"MThis branch's code block is the same as the block for the branch on line 210.(™ÃÇä8ŒÅïµŠ2J$dfa8c269-8df4-45a1-ac49-0fe3db4ecbae
 ‘
-java:S1871æ"MThis branch's code block is the same as the block for the branch on line 210.(ø±èò8ŒÅïµŠ2J$a78cd8eb-e6a2-475c-a7ba-72807bdd02b3
+java:S1871Ö"MThis branch's code block is the same as the block for the branch on line 210.(úø¶Ì8ŒÅïµŠ2J$bdcc22f5-d5a7-4a7c-88cd-f945909165b2
+p
+java:S1128"NRemove this unused import 'com.example.HRMSAvisoft.repository.UserRepository'.(À™ô¡øÿÿÿÿ8­Ç¶Š2
+u
+java:S1128"SRemove this unused import 'org.springframework.beans.factory.annotation.Autowired'.(¡ž¸Îùÿÿÿÿ8­Ç¶Š2
+{
+java:S1128"YRemove this unused import 'org.springframework.security.crypto.password.PasswordEncoder'.(‰¡ßáÿÿÿÿÿ8®Ç¶Š2
 v
 java:S1068)".Remove this unused "jwtService" private field.(Ð´ë™øÿÿÿÿ8ÅïµŠ2J$2b4fb0a8-1107-425c-aea0-ea1703644dde
 r

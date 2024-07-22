@@ -1,6 +1,10 @@
 
-t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿ
-g
-java:S1871H"LThis branch's code block is the same as the block for the branch on line 69.(—¯Áùüÿÿÿÿ
-J
-java:S1068"/Remove this unused "modelMapper" private field.(«ŞËãşÿÿÿÿ
+š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿJ$02360e79-fe98-4e0f-9f4f-0d29f90578d8
+İ
+java:S1130&"”Remove the declaration of thrown exception 'com.example.HRMSAvisoft.exception.EmployeeNotFoundException', as it cannot be thrown from method's body.(ğƒó©ùÿÿÿÿ8¼àÙŠ2J$bcb9cbfd-2dba-42d5-991d-7837abe9928d
+ 
+java:S1130&"~Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException' which is a subclass of 'java.io.IOException'.(ğƒó©ùÿÿÿÿ8ŸÌÿÆ2
+
+java:S1871U"LThis branch's code block is the same as the block for the branch on line 82.(—¯ÁùüÿÿÿÿJ$e2441f89-f80f-4de5-9897-08a15dbdc0c4
+p
+java:S1068"/Remove this unused "modelMapper" private field.(«ŞËãşÿÿÿÿJ$1031e2c5-1527-46fa-a2a9-830fc6705659

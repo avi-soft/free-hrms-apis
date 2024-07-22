@@ -4,6 +4,7 @@ import com.example.HRMSAvisoft.dto.AddNewOrganizationDTO;
 import com.example.HRMSAvisoft.dto.ErrorResponseDTO;
 import com.example.HRMSAvisoft.dto.UpdateOrganizationDTO;
 import com.example.HRMSAvisoft.entity.Organization;
+import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
 import com.example.HRMSAvisoft.service.OrganizationService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -12,8 +13,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import utils.ResponseGenerator;
 
+import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @RestController
@@ -28,6 +32,15 @@ public class OrganizationController {
         this.modelMapper = modelMapper;
         this.organizationService = organizationService;
     }
+
+//    @PreAuthorize("hasAuthority('UPLOAD_ORGANIZATION_IMAGE')")
+    @PostMapping("/{organizationId}/uploadImage")
+    public ResponseEntity<String> uploadOrganizationImage(@PathVariable("organizationId") Long organizationId, @RequestParam("file") MultipartFile file) throws EmployeeNotFoundException, IOException, NullPointerException, RuntimeException , AccessDeniedException {
+        organizationService.uploadOrganizationImage(organizationId, file);
+        String message = "{\"message\": \"Profile Uploaded Successfully\"}";
+        return ResponseEntity.ok().body(message);
+    }
+
 
     @PreAuthorize("hasAnyAuthority('GET_ALL_ORGANIZATIONS')")
     @GetMapping("")

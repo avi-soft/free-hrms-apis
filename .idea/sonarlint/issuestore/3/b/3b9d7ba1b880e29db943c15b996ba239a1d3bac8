@@ -1,8 +1,8 @@
 
 œ
-java:S2293."YReplace the type specification in this constructor call with the diamond operator ("<>").(çŞ¶8İó®¸‡2J$5a4df4c3-56e5-43ff-8678-97458f3257fb
-š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(—üïïøÿÿÿÿJ$fd2777db-5a46-4438-a604-187811e431cf
+java:S2293."YReplace the type specification in this constructor call with the diamond operator ("<>").(çŞ¶8İó®¸‡2J$2383287b-653d-4a37-afbd-26f73f4193fa
+š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(—üïïøÿÿÿÿJ$2260bf8b-4cbe-4934-bb99-2d3c64b05302
 s
-java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8—ÃïµŠ2J$fe653b5b-e8b5-4f99-9e00-c110ef719de7
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8—ÃïµŠ2J$89663839-4276-44ae-a03b-0f98090ffded
 s
-java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8—ÃïµŠ2J$12e3614f-4909-482c-b0c0-6708be246882
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8—ÃïµŠ2J$043a4f18-4e83-41a0-840e-055a1cee5981

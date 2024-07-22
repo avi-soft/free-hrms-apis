@@ -10,8 +10,12 @@ _
 java:S6813("BRemove this field injection and use constructor injection instead.(êæÄŞ8ÔüŠ2
  
 java:S11302"~Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException' which is a subclass of 'java.io.IOException'.(Ë«‡·ùÿÿÿÿ8İüŠ2
+o
+java:S6204Z"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(œçÖß8ƒÎ¤‰2
 S
 java:S1611<"6Remove the parentheses around the "employee" parameter(ïñÆá8ãüŠ2
+p
+java:S6204"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(œçÖß8¦Î¤‰2
 S
 java:S1611c"6Remove the parentheses around the "employee" parameter(ïñÆá8ïüŠ2
 c
@@ -22,3 +26,5 @@ p
 java:S1871ç"MThis branch's code block is the same as the block for the branch on line 223.(ûÛŞœüÿÿÿÿ8–üŠ2
 k
 java:S1871ã"MThis branch's code block is the same as the block for the branch on line 223.(‰¯º¸8—üŠ2
+t
+java:S1128"RRemove this unused import 'com.example.HRMSAvisoft.config.GlobalExceptionHandler'.(ô˜±òúÿÿÿÿ8éÎ¤‰2

@@ -44,7 +44,10 @@ public class DepartmentController {
             departmentsResponseDTO.setManagerEmployeeCode(department.getManager().getEmployeeCode());
             departmentsResponseDTO.setManagerFirstName(department.getManager().getFirstName());
             departmentsResponseDTO.setManagerLastName(department.getManager().getLastName());
-
+            departmentsResponseDTO.setOrganizationId(department.getOrganization().getOrganizationId());
+            departmentsResponseDTO.setOrganizationName(department.getOrganization().getOrganizationName());
+            departmentsResponseDTO.setOrganizationDescription(department.getOrganization().getOrganizationDescription());
+            departmentsResponseDTO.setOrganizationImage(department.getOrganization().getOrganizationImage());
             return departmentsResponseDTO;
         }).collect(Collectors.toUnmodifiableList());
 
@@ -55,14 +58,26 @@ public class DepartmentController {
     @PreAuthorize("hasAuthority('ADD_DEPARTMENT')")
     public ResponseEntity<Map<String,Object>> addDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO, @PathVariable("organizationId") Long organizationId) throws EmployeeNotFoundException, EntityNotFoundException {
         Department createdDepartment = departmentService.addDepartment(createDepartmentDTO, organizationId);
-        return ResponseEntity.status(201).body(Map.of("success", true, "message", "Department created successfully", "Department", createdDepartment));
+        DepartmentsResponseDTO departmentsResponseDTO = new DepartmentsResponseDTO();
+        departmentsResponseDTO.setDepartmentId(createdDepartment.getDepartmentId());
+        departmentsResponseDTO.setDescription(createdDepartment.getDescription());
+        departmentsResponseDTO.setDepartment(createdDepartment.getDepartment());
+        departmentsResponseDTO.setManagerId(createdDepartment.getManager().getEmployeeId());
+        departmentsResponseDTO.setManagerEmployeeCode(createdDepartment.getManager().getEmployeeCode());
+        departmentsResponseDTO.setManagerFirstName(createdDepartment.getManager().getFirstName());
+        departmentsResponseDTO.setManagerLastName(createdDepartment.getManager().getLastName());
+        departmentsResponseDTO.setOrganizationId(createdDepartment.getOrganization().getOrganizationId());
+        departmentsResponseDTO.setOrganizationName(createdDepartment.getOrganization().getOrganizationName());
+        departmentsResponseDTO.setOrganizationDescription(createdDepartment.getOrganization().getOrganizationDescription());
+        departmentsResponseDTO.setOrganizationImage(createdDepartment.getOrganization().getOrganizationImage());
+        return ResponseEntity.status(201).body(Map.of("success", true, "message", "Department created successfully", "Department", departmentsResponseDTO));
     }
 
     @PatchMapping("/{departmentId}")
     @PreAuthorize("hasAuthority('UPDATE_DEPARTMENT')")
     public ResponseEntity<Map<String,Object>> updateDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO, @PathVariable("departmentId") Long departmentId) throws EmployeeNotFoundException, DepartmentService.DepartmentNotFoundException {
         Department updatedDepartment = departmentService.updateDepartment(createDepartmentDTO, departmentId);
-        return ResponseEntity.status(204).body(Map.of("success", true, "message", "Department updated successfully", "Department", updatedDepartment));
+        return ResponseEntity.status(204).body(Map.of("success", true, "message", "Department updated successfully"));
     }
 
     @DeleteMapping("/{departmentId}")

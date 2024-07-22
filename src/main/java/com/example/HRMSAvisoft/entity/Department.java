@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -23,9 +25,8 @@ public class Department {
 
     private String description;
 
-    // One-to-One mapping with Organization
-    @OneToOne(fetch = FetchType.EAGER, orphanRemoval = true)
-    @JoinColumn(name = "organization_id", referencedColumnName = "organizationId")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "organization_id", nullable = false)
     private Organization organization;
 
     @ManyToOne(fetch =  FetchType.EAGER)

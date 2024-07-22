@@ -27,4 +27,12 @@ public class DepartmentsResponseDTO {
 
     private String managerLastName;
 
+    private Long organizationId;
+
+    private String organizationName;
+
+    private String organizationImage;
+
+    private String organizationDescription;
+
 }

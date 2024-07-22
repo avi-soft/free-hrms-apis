@@ -45,7 +45,7 @@ public class DepartmentService {
         newDepartment.setManager(manager);
         newDepartment.setOrganization(organization);
         organization.getDepartments().add(newDepartment);
-        organizationRepository.save(organization);
+//        organizationRepository.save(organization);
         return departmentRepository.save(newDepartment);
     }
 
