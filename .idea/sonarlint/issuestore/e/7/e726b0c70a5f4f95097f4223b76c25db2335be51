@@ -1,11 +1,11 @@
 
-b	java:S112%"FDefine and throw a dedicated exception instead of using a generic one.(™ÓÏó8îöÈ2
+ˆ	java:S112%"FDefine and throw a dedicated exception instead of using a generic one.(™ÓÏó8îöÈ2J$cc845e5b-d8c1-49fa-a57a-a971a0b5f4e2
 ¦
-java:S14888"eImmediately return this expression instead of assigning it to the temporary variable "organizations".(ÚÏÀµÿÿÿÿÿJ$084d3bba-619f-4d07-b882-7f5b688a9c4a
-š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿJ$695f74d1-a7c1-4aa7-be45-e9648358545b
+java:S14888"eImmediately return this expression instead of assigning it to the temporary variable "organizations".(ÚÏÀµÿÿÿÿÿJ$e78f8405-8655-419e-b1fc-37a4aaf7a086
+š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿJ$c87b797e-ed34-44cb-b83e-82c6dfbfe481
+Á
+java:S1130%"~Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException' which is a subclass of 'java.io.IOException'.(™ÓÏó8‚÷È2J$b5c2d17b-acb6-4ff1-96fb-2527f0351a7f
+Œ
+java:S1128"DRemove this unused import 'com.example.HRMSAvisoft.entity.Employee'.(¹³çÂúÿÿÿÿ8‹÷È2J$d754035c-a6d1-45e7-8877-81290fa8428e
 ›
-java:S1130%"~Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException' which is a subclass of 'java.io.IOException'.(™ÓÏó8‚÷È2
-f
-java:S1128"DRemove this unused import 'com.example.HRMSAvisoft.entity.Employee'.(¹³çÂúÿÿÿÿ8‹÷È2
-u
-java:S1128	"XRemove this unused import 'com.example.HRMSAvisoft.exception.EmployeeNotFoundException'.(ğü‘‡8‹÷È2
+java:S1128	"XRemove this unused import 'com.example.HRMSAvisoft.exception.EmployeeNotFoundException'.(ğü‘‡8‹÷È2J$3ba9a834-047c-426b-aa66-53cf54aa5fea

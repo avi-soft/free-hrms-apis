@@ -25,6 +25,7 @@ public class DepartmentTests {
         assertEquals(departmentId, newDepartment.getDepartmentId());
         assertEquals(department, newDepartment.getDepartment());
         assertEquals(description, newDepartment.getDescription());
+        assertNotNull(newDepartment.getOrganization());
     }
 
     @Test
@@ -34,6 +35,7 @@ public class DepartmentTests {
         String department = "MERN";
         String description = "MERN department";
         Employee manager = new Employee();
+        Organization newOrganization = new Organization();
 
         Department newDepartment = new Department();
 
@@ -41,12 +43,13 @@ public class DepartmentTests {
         newDepartment.setDepartment(department);
         newDepartment.setDescription( description );
         newDepartment.setManager( manager );
+        newDepartment.setOrganization(newOrganization);
 
         assertNotNull(newDepartment);
         assertEquals(departmentId, newDepartment.getDepartmentId());
         assertEquals(department, newDepartment.getDepartment());
         assertEquals(description, newDepartment.getDescription());
-
+        assertEquals(newOrganization, newDepartment.getOrganization());
 
     }
 

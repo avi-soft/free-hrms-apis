@@ -7,6 +7,7 @@
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/controller/RoleControllerTest.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/controller/UserControllerTest.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/repository/EmployeeRepositoryTests.java
+/home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/entity/OrganizationTest.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/controller/JsonReader.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/service/PerformanceServiceTests.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/entity/EmergencyContactTests.java
