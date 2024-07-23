@@ -70,7 +70,7 @@ public class OrganizationService {
         Organization organizationToUpdate = organizationRepository.findById(organizationId).orElseThrow((()-> new EntityNotFoundException("Organization not found")));
 
         Organization existingOrganization = organizationRepository.getByOrganizationName(organizationDTO.getOrganizationName()).orElse(null);
-        if(existingOrganization != null){
+        if(existingOrganization != null && !Objects.equals(existingOrganization.getOrganizationId(), organizationId)){
             throw new OrganizationAlreadyExistsException(existingOrganization.getOrganizationName() + " organization already exists");
         }
 
