@@ -1,16 +1,23 @@
 
-e
-java:S1192I"HDefine a constant instead of duplicating this literal "success" 3 times.(£¼Œ8«õÈ2
-e
-java:S1192I"HDefine a constant instead of duplicating this literal "message" 3 times.(£¼Œ8«õÈ2
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿ8Ø·Æ‰2J$9a8f64b4-b736-497c-a8ac-d8259ab3a6c9
-{
-java:S62044"^Replace this usage of 'Stream.collect(Collectors.toUnmodifiableList())' with 'Stream.toList()'(¯ÕÀ»8ÄõÈ2
-b
-java:S1854O"ERemove this useless assignment to local variable "updatedDepartment".(¦íÑÁ8ÏõÈ2
-S
-java:S1481O"6Remove this unused "updatedDepartment" local variable.(¦íÑÁ8ÓõÈ2
+‹
+java:S1192J"HDefine a constant instead of duplicating this literal "success" 3 times.(£¼Œ8«õÈ2J$d90963d2-1d27-4112-8f5d-6823f98ff99a
+‹
+java:S1192J"HDefine a constant instead of duplicating this literal "message" 3 times.(£¼Œ8«õÈ2J$9ca0f1f1-5a04-45f8-807c-5e2436761d5c
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿ8Ø·Æ‰2J$379b9a94-a6af-4f32-bc54-4a176474655a
+¡
+java:S62045"^Replace this usage of 'Stream.collect(Collectors.toUnmodifiableList())' with 'Stream.toList()'(¯ÕÀ»8ÄõÈ2J$a3db1211-128c-4088-be99-cd320ab97113
+ˆ
+java:S1854P"ERemove this useless assignment to local variable "updatedDepartment".(¦íÑÁ8ÏõÈ2J$23e8736d-2ca2-4db2-b19b-55f9a4cfbdee
+y
+java:S1481P"6Remove this unused "updatedDepartment" local variable.(¦íÑÁ8ÓõÈ2J$9e1611b3-fa95-45af-a325-a79475222314
 
-java:S1871f"LThis branch's code block is the same as the block for the branch on line 98.(úø¶Ì8ø·Æ‰2J$6430a04d-43f1-4fd3-88fc-395ab958ea55
+java:S1871g"LThis branch's code block is the same as the block for the branch on line 99.(úø¶Ì8ø·Æ‰2J$0518e40a-a3ed-4b53-8919-4729eb800d2b
 ”
-java:S1871j"LThis branch's code block is the same as the block for the branch on line 98.(ç¬Ø±úÿÿÿÿ8ù·Æ‰2J$2b30a322-5d1a-4630-957d-27586128772b
+java:S1871k"LThis branch's code block is the same as the block for the branch on line 99.(ç¬Ø±úÿÿÿÿ8ù·Æ‰2J$52c93345-48e6-4ceb-bcd7-d1c5d2407d48
+œ
+java:S1128	"TRemove this unused import 'com.example.HRMSAvisoft.service.EmergencyContactService'.(ëñíâşÿÿÿÿ8º·ú2J$1369ff5b-120e-46dd-91ad-7c1f9a7071c9
+
+java:S1128
+"LRemove this unused import 'com.example.HRMSAvisoft.service.EmployeeService'.(üñÙ»8º·ú2J$ff595ab9-0205-40d9-b85f-c1376bfe3adc
+s
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8º·ú2J$950af0f2-e3d3-428f-b5bd-9ea97142d702

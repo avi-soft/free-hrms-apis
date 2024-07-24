@@ -276,3 +276,7 @@ t
 Dsrc/main/java/com/example/HRMSAvisoft/dto/UpdateOrganizationDTO.java,7/1/71c968ff661945fed519ad7d042084b8d0a56f9c
 t
 Dsrc/main/java/com/example/HRMSAvisoft/dto/AddNewOrganizationDTO.java,6/6/668f7111ecfa44bf275d0eeb800d7424b6756797
+t
+Dsrc/test/java/com/example/HRMSAvisoft/controller/RoleJsonReader.java,e/4/e43cf65441f5b3c8ea3fb851a80aa1b4a93bf6fd
+Å
+Qsrc/test/java/com/example/HRMSAvisoft/repository/OrganizationRepositoryTests.java,5/e/5e770638d2967a644359b4035250fa5097084312

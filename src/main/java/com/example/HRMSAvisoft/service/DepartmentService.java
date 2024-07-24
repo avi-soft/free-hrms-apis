@@ -62,6 +62,12 @@ public class DepartmentService {
             Employee manager = employeeRepository.findById(createDepartmentDTO.getManagerId()).orElseThrow(()-> new EmployeeNotFoundException(createDepartmentDTO.getManagerId()));
             departmentFoundById.setManager(manager);
         }
+        if(createDepartmentDTO.getOrganizationId() != null){
+            Organization organization = organizationRepository.findById(createDepartmentDTO.getOrganizationId()).orElseThrow(()-> new EntityNotFoundException("Organization not found"));
+            departmentFoundById.setOrganization(organization);
+            organization.getDepartments().remove(departmentFoundById);
+            organizationRepository.save(organization);
+        }
         return departmentRepository.save(departmentFoundById);
     }
 
