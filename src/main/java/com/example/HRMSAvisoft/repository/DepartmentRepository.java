@@ -7,9 +7,12 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
     @Query("SELECT d FROM Department d WHERE d.organization.organizationId = :organizationId")
     List<Department> findAllByOrganizationId(@Param("organizationId") Long organizationId);
+
+    Optional<Department> findByDepartment(String department);
 }
