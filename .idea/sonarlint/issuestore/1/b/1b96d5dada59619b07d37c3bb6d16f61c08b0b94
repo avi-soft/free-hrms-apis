@@ -1,8 +1,8 @@
 
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ÐœÏùÿÿÿÿ8ô€”ÉŽ2J$27f1e6e3-7b34-419f-8bd1-4de8fde7059d
-ž
-java:S2259<"VA "NullPointerException" could be thrown; "existingDepartmentByName" is nullable here.(‰ÁêÈùÿÿÿÿ8ÏÝÝÉŽ2J$f3e3956a-4d28-43e0-8458-f6ea0c4ff7e5
-
-java:S2589<"7Remove this expression which always evaluates to "true"(‰ÁêÈùÿÿÿÿ8¼ÍÀÉŽ2J$e757ef74-6cb6-4f28-b537-4ebe82c7b9d2
-Â
-java:S2159<"zRemove this call to "equals"; comparisons against null always return false; consider using '== null' to check for nullity.(‰ÁêÈùÿÿÿÿ8ÿºÁÉŽ2J$6a3ccfba-4b4d-4268-9554-d1fc82a61089
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ÐœÏùÿÿÿÿ8ô€”ÉŽ2J$3df71bc2-b9e5-4bc2-afcf-1f5a2923461f
+x
+java:S2259<"VA "NullPointerException" could be thrown; "existingDepartmentByName" is nullable here.(‰ÁêÈùÿÿÿÿ8›æóÉŽ2
+Y
+java:S2589<"7Remove this expression which always evaluates to "true"(‰ÁêÈùÿÿÿÿ8œæóÉŽ2
+œ
+java:S2159<"zRemove this call to "equals"; comparisons against null always return false; consider using '== null' to check for nullity.(‰ÁêÈùÿÿÿÿ8£æóÉŽ2
