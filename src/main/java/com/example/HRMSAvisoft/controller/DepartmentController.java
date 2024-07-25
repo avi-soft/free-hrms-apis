@@ -9,6 +9,7 @@ import com.example.HRMSAvisoft.service.DepartmentService;
 import com.example.HRMSAvisoft.service.EmergencyContactService;
 import com.example.HRMSAvisoft.service.EmployeeService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -56,7 +57,7 @@ public class DepartmentController {
 
     @PostMapping("/{organizationId}")
     @PreAuthorize("hasAuthority('ADD_DEPARTMENT')")
-    public ResponseEntity<Map<String,Object>> addDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO, @PathVariable("organizationId") Long organizationId) throws EmployeeNotFoundException, EntityNotFoundException {
+    public ResponseEntity<Map<String,Object>> addDepartment(@Valid @RequestBody CreateDepartmentDTO createDepartmentDTO, @PathVariable("organizationId") Long organizationId) throws EmployeeNotFoundException, EntityNotFoundException, DepartmentService.DepartmentAlreadyExistsException {
         Department createdDepartment = departmentService.addDepartment(createDepartmentDTO, organizationId);
         DepartmentsResponseDTO departmentsResponseDTO = new DepartmentsResponseDTO();
         departmentsResponseDTO.setDepartmentId(createdDepartment.getDepartmentId());
@@ -75,16 +76,16 @@ public class DepartmentController {
 
     @PatchMapping("/{departmentId}")
     @PreAuthorize("hasAuthority('UPDATE_DEPARTMENT')")
-    public ResponseEntity<Map<String,Object>> updateDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO, @PathVariable("departmentId") Long departmentId) throws EmployeeNotFoundException, DepartmentService.DepartmentNotFoundException {
+    public ResponseEntity<Map<String,Object>> updateDepartment(@Valid @RequestBody CreateDepartmentDTO createDepartmentDTO, @PathVariable("departmentId") Long departmentId) throws EmployeeNotFoundException, DepartmentService.DepartmentNotFoundException, DepartmentService.DepartmentAlreadyExistsException {
         Department updatedDepartment = departmentService.updateDepartment(createDepartmentDTO, departmentId);
-        return ResponseEntity.status(204).body(Map.of("success", true, "message", "Department updated successfully"));
+        return ResponseEntity.status(200).body(Map.of("success", true, "message", "Department updated successfully"));
     }
 
     @DeleteMapping("/{departmentId}")
     @PreAuthorize("hasAuthority('DELETE_DEPARTMENT')")
     public ResponseEntity<Map<String, Object>> deleteDepartment(@PathVariable("departmentId") Long departmentId)throws DepartmentService.DepartmentNotFoundException {
         departmentService.deleteDepartment(departmentId);
-        return ResponseEntity.status(204).body(Map.of("success", true, "message", "Department deleted successfully"));
+        return ResponseEntity.status(200).body(Map.of("success", true, "message", "Department deleted successfully"));
     }
 
     @ExceptionHandler({
@@ -106,6 +107,10 @@ public class DepartmentController {
        else if (exception instanceof DepartmentService.DepartmentNotFoundException){
            message = exception.getMessage();
            status = HttpStatus.NOT_FOUND;
+        }
+        else if (exception instanceof DepartmentService.DepartmentAlreadyExistsException){
+            message = exception.getMessage();
+            status = HttpStatus.BAD_REQUEST;
         }
         else{
             message = "something went wrong";
