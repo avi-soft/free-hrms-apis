@@ -90,6 +90,7 @@ public class DepartmentController {
 
     @ExceptionHandler({
             EmployeeNotFoundException.class,
+            DepartmentService.DepartmentNotFoundException.class,
             DepartmentService.DepartmentNotFoundException.class
     })
 
@@ -100,6 +101,10 @@ public class DepartmentController {
             message = exception.getMessage();
             status = HttpStatus.NOT_FOUND;
         }
+        else if (exception instanceof DepartmentService.DepartmentAlreadyExistsException){
+            message = exception.getMessage();
+            status = HttpStatus.BAD_REQUEST;
+        }
         else if (exception instanceof EntityNotFoundException){
             message = exception.getMessage();
             status = HttpStatus.NOT_FOUND;
@@ -107,10 +112,6 @@ public class DepartmentController {
        else if (exception instanceof DepartmentService.DepartmentNotFoundException){
            message = exception.getMessage();
            status = HttpStatus.NOT_FOUND;
-        }
-        else if (exception instanceof DepartmentService.DepartmentAlreadyExistsException){
-            message = exception.getMessage();
-            status = HttpStatus.BAD_REQUEST;
         }
         else{
             message = "something went wrong";
