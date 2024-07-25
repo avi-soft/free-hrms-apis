@@ -21,6 +21,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -93,16 +94,19 @@ public class RoleControllerTest {
     @WithMockUser(authorities = "UPDATE_ROLE")
     @DisplayName("testUpdateRole")
     public void testUpdateRole() throws Exception {
-        // Mock the addRole method to return a valid role
-        when(roleService.addRole(any(Role.class))).thenReturn(role);
-        Role roleToUpdate = roleService.addRole(role);
+        // Given
+        Role roleToUpdate = new Role();
+        roleToUpdate.setRoleId(1L);
         roleToUpdate.setRole("Manager");
         doNothing().when(roleService).updateRole(any(Role.class), eq(1L));
 
         mockMvc.perform(patch("/api/v1/role/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(roleToUpdate)))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.message").value("Role Updated successfully."))
+                .andExpect(jsonPath("$.role.role").value("Manager"));
     }
 
     @Test
