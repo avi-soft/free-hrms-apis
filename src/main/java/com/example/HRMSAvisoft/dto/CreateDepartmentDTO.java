@@ -19,7 +19,7 @@ public class CreateDepartmentDTO {
     String department;
 
     @Size(min=1,max = 50,message = "min character is 1 and maximum characters can be upto 50")
-    @Pattern(regexp = "^[^\\s].*$", message = "Invalid department description")
+    @Pattern(regexp = "^(?=\\s*\\S)(?:[\\s\\S]{1,200})$", message = "Invalid department description")
     String description;
 
     Long managerId;

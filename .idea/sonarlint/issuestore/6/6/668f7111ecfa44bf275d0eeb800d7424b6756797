@@ -1,16 +1,18 @@
 
-š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ö»ûÿÿÿÿJ$ff759b4e-3120-431f-af1a-f0ad2da8f10f
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ö»ûÿÿÿÿ8ÌÁ‘î2J$e5e051da-3246-4cd2-9e80-464f769f9b85
+p
+java:S6395!"-Unwrap this unnecessarily grouped subpattern.(¸á“‚8ÚÁ‘î2J$a0b7cb1a-c991-41a7-ab2c-0df0a301099f
 
-java:S1128"FRemove this unused import 'com.example.HRMSAvisoft.entity.Department'.(¢î‡±üÿÿÿÿ8À¦ñ2J$d8a8d570-318f-48d6-8d29-a5b9523e17f5
+java:S1128"FRemove this unused import 'com.example.HRMSAvisoft.entity.Department'.(¢î‡±üÿÿÿÿ8èÁ‘î2J$616f7cb8-adbe-4361-bb87-fea33dfe8a72
 ˆ
-java:S1128"@Remove this unused import 'com.example.HRMSAvisoft.entity.User'.(ÎÜ¬úÿÿÿÿ8À¦ñ2J$4abcf2d8-7ce5-4f0f-a793-eed4b4b6e608
-}
-java:S1128"<Remove this unused import 'jakarta.persistence.CascadeType'.(ÃÃÊŠúÿÿÿÿJ$8a0ef1ce-0329-4dd8-9b5e-670d2d305b22
-{
-java:S1128":Remove this unused import 'jakarta.persistence.FetchType'.(ŠÂ¤ŠûÿÿÿÿJ$de9e59f3-d76a-4cec-9a56-985dc2db819c
-{
-java:S1128":Remove this unused import 'jakarta.persistence.OneToMany'.( ëîéúÿÿÿÿJ$fee5e30f-af46-4fee-a86f-0427309cc3fe
+java:S1128"@Remove this unused import 'com.example.HRMSAvisoft.entity.User'.(ÎÜ¬úÿÿÿÿ8èÁ‘î2J$58ef8272-5dcf-47d9-96d4-fe94086377b0
+„
+java:S1128"<Remove this unused import 'jakarta.persistence.CascadeType'.(ÃÃÊŠúÿÿÿÿ8èÁ‘î2J$c2c9810d-6734-4f37-89ed-51c4547755ca
+‚
+java:S1128":Remove this unused import 'jakarta.persistence.FetchType'.(ŠÂ¤Šûÿÿÿÿ8èÁ‘î2J$fe6d4bde-93fd-4dc3-8246-2217dbc6d23d
+‚
+java:S1128":Remove this unused import 'jakarta.persistence.OneToMany'.( ëîéúÿÿÿÿ8èÁ‘î2J$e4a3645e-a9c3-45e2-bb86-aacd93aff21e
 s
-java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8Á¦ñ2J$6bd5e15b-57ec-4dd8-a70c-47da70f22a26
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8èÁ‘î2J$4a71c422-535f-4219-9211-99b0c19fe86d
 s
-java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8Á¦ñ2J$4161f181-9336-45df-bbc9-6145e5b08c9b
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8éÁ‘î2J$174ddcb4-059f-49f0-9b27-15648f1e658e
