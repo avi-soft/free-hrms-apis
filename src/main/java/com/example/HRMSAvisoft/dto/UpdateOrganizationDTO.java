@@ -25,6 +25,6 @@ public class UpdateOrganizationDTO
     private String organizationName;
 
     @Size(min=1,max =200,message = "min character is 1 and maximum characters can be upto 200 for Description of Organization")
-    @Pattern(regexp = "^[^\\s].*$", message = "Description of organization cannot be empty")
+    @Pattern(regexp = "^(?=\\s*\\S)(?:[\\s\\S]{1,200})$", message = "Description of organization cannot be empty")
     private String organizationDescription;
 }
