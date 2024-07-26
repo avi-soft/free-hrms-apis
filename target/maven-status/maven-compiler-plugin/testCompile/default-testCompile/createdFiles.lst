@@ -29,6 +29,7 @@ com/example/HRMSAvisoft/controller/EmployeeControllerTest.class
 com/example/HRMSAvisoft/controller/DepartmentControllerTests.class
 com/example/HRMSAvisoft/service/EmployeeServiceTest.class
 com/example/HRMSAvisoft/entity/EmployeeTests.class
+com/example/HRMSAvisoft/repository/OrganizationRepositoryTests.class
 com/example/HRMSAvisoft/service/RoleServiceTest.class
 com/example/HRMSAvisoft/controller/EmergencyContactControllerTests.class
 com/example/HRMSAvisoft/repository/PerformanceRespositoryTests.class

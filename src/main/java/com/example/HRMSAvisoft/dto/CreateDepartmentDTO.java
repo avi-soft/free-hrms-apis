@@ -26,7 +26,6 @@ public class CreateDepartmentDTO {
 
     Long managerId;
 
-
     Long organizationId;
 
 }

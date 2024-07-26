@@ -91,7 +91,7 @@ public class DepartmentController {
     @ExceptionHandler({
             EmployeeNotFoundException.class,
             DepartmentService.DepartmentNotFoundException.class,
-            DepartmentService.DepartmentNotFoundException.class
+            DepartmentService.DepartmentAlreadyExistsException.class
     })
 
     public ResponseEntity<ErrorResponseDTO> handleErrors(Exception exception){

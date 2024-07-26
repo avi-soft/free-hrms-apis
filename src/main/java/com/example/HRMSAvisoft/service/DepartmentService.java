@@ -41,7 +41,7 @@ public class DepartmentService {
 
         Department newDepartment = new Department();
         Department existingDepartmentByName = departmentRepository.findByDepartment(createDepartmentDTO.getDepartment()).orElse(null);
-        if(existingDepartmentByName != null){
+        if(existingDepartmentByName != null && existingDepartmentByName.getOrganization().getOrganizationId()==organizationId){
             throw new DepartmentAlreadyExistsException(createDepartmentDTO.getDepartment());
         }
         newDepartment.setDepartment(createDepartmentDTO.getDepartment());
