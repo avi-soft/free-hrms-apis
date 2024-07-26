@@ -1,12 +1,12 @@
 
 e
-java:S1192%"HDefine a constant instead of duplicating this literal "message" 9 times.(‚ÌÃÂ8 Ö¾Š2
+java:S1192,"HDefine a constant instead of duplicating this literal "message" 9 times.(‚ÌÃÂ8 Ö¾Š2
 e
-java:S1192'"HDefine a constant instead of duplicating this literal "Success" 3 times.(ãÑø¯8 Ö¾Š2
+java:S1192."HDefine a constant instead of duplicating this literal "Success" 3 times.(ãÑø¯8 Ö¾Š2
 •	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(îñ©…J$e7ee7b7a-9126-4ede-b1b4-ae0750bdbb5e
 t
-java:S6204#"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(Ï¸©Ìÿÿÿÿÿ8ŞÖ¾Š2
-i
-java:S18719"LThis branch's code block is the same as the block for the branch on line 53.(úø¶Ì8éÖ¾Š2
+java:S6204*"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(Ï¸©Ìÿÿÿÿÿ8ŞÖ¾Š2
 n
-java:S1871A"LThis branch's code block is the same as the block for the branch on line 61.(ÒÌâ–øÿÿÿÿ8êÖ¾Š2
+java:S1871H"LThis branch's code block is the same as the block for the branch on line 68.(ÒÌâ–øÿÿÿÿ8êÖ¾Š2
+i
+java:S1871@"LThis branch's code block is the same as the block for the branch on line 60.(úø¶Ì8éÖ¾Š2

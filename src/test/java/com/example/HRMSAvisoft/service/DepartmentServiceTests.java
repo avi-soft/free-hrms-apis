@@ -83,7 +83,7 @@ public class DepartmentServiceTests {
 
     @Test
     @DisplayName("test_add_department_success")
-    public void test_add_department_success() throws EmployeeNotFoundException {
+    public void test_add_department_success() throws EmployeeNotFoundException, DepartmentService.DepartmentAlreadyExistsException {
         DepartmentRepository departmentRepository = mock(DepartmentRepository.class);
         EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
         OrganizationRepository organizationRepository = mock(OrganizationRepository.class);
@@ -144,7 +144,7 @@ public class DepartmentServiceTests {
 
     @Test
     @DisplayName("test_update_department_name_and_description")
-    public void test_update_department_name_and_description() throws EmployeeNotFoundException, DepartmentService.DepartmentNotFoundException {
+    public void test_update_department_name_and_description() throws EmployeeNotFoundException, DepartmentService.DepartmentNotFoundException, DepartmentService.DepartmentAlreadyExistsException {
         DepartmentRepository departmentRepository = mock(DepartmentRepository.class);
         EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
         OrganizationRepository organizationRepository = mock(OrganizationRepository.class);
@@ -170,7 +170,7 @@ public class DepartmentServiceTests {
 
     @Test
     @DisplayName("test_update_department_manager")
-    public void test_update_department_manager() throws EmployeeNotFoundException, DepartmentService.DepartmentNotFoundException {
+    public void test_update_department_manager() throws EmployeeNotFoundException, DepartmentService.DepartmentNotFoundException, DepartmentService.DepartmentAlreadyExistsException {
         DepartmentRepository departmentRepository = mock(DepartmentRepository.class);
         EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
         OrganizationRepository organizationRepository = mock(OrganizationRepository.class);

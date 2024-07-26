@@ -1,2 +1,8 @@
 
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ÐœÏùÿÿÿÿ8†þôÂŽ2J$ff97493a-cccc-4619-ba35-ff4deda03884
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ÐœÏùÿÿÿÿ8ô€”ÉŽ2J$3df71bc2-b9e5-4bc2-afcf-1f5a2923461f
+x
+java:S2259<"VA "NullPointerException" could be thrown; "existingDepartmentByName" is nullable here.(‰ÁêÈùÿÿÿÿ8›æóÉŽ2
+Y
+java:S2589<"7Remove this expression which always evaluates to "true"(‰ÁêÈùÿÿÿÿ8œæóÉŽ2
+œ
+java:S2159<"zRemove this call to "equals"; comparisons against null always return false; consider using '== null' to check for nullity.(‰ÁêÈùÿÿÿÿ8£æóÉŽ2
