@@ -58,7 +58,7 @@ public class DepartmentService {
         Department existingDepartmentByName = departmentRepository.findByDepartmentAndOrganization(createDepartmentDTO.getDepartment(), departmentFoundById.getOrganization().getOrganizationId()).orElse(null);
 
        if (createDepartmentDTO.getOrganizationId() != null) {
-            if(departmentFoundById.getOrganization().getOrganizationId() != createDepartmentDTO.getOrganizationId()) {
+            if(!departmentFoundById.getOrganization().getOrganizationId().equals(createDepartmentDTO.getOrganizationId())) {
                 Department sameDepartmentInOtherOrganization = departmentRepository.findByDepartmentAndOrganization(createDepartmentDTO.getDepartment(), createDepartmentDTO.getOrganizationId()).orElse(null);
                 if (sameDepartmentInOtherOrganization != null) {
                     throw new DepartmentAlreadyExistsException(createDepartmentDTO.getDepartment());
