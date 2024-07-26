@@ -41,7 +41,7 @@ public class DepartmentService {
 
         Department newDepartment = new Department();
         Department existingDepartmentByName = departmentRepository.findByDepartment(createDepartmentDTO.getDepartment()).orElse(null);
-        if(existingDepartmentByName != null){
+        if(existingDepartmentByName != null && existingDepartmentByName.getOrganization().getOrganizationId()==organizationId){
             throw new DepartmentAlreadyExistsException(createDepartmentDTO.getDepartment());
         }
         newDepartment.setDepartment(createDepartmentDTO.getDepartment());
@@ -55,7 +55,7 @@ public class DepartmentService {
     public Department updateDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO, Long departmentId)throws  DepartmentNotFoundException, EmployeeNotFoundException, DepartmentAlreadyExistsException{
         Department departmentFoundById = departmentRepository.findById(departmentId).orElseThrow(()-> new DepartmentNotFoundException(departmentId));
         Department existingDepartmentByName = departmentRepository.findByDepartment(createDepartmentDTO.getDepartment()).orElse(null);
-        if(existingDepartmentByName != null && !existingDepartmentByName.getDepartment().equals(createDepartmentDTO.getDepartment())){
+        if(existingDepartmentByName != null && !departmentFoundById.getDepartment().equals(createDepartmentDTO.getDepartment())){
             throw new DepartmentAlreadyExistsException(createDepartmentDTO.getDepartment());
         }
 
