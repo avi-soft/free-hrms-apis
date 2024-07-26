@@ -14,14 +14,12 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CreateDepartmentDTO {
 
-    @NotNull(message = "Name of Department cannot be empty")
     @Size(min=1,max = 50,message = "min character is 1 and maximum characters can be upto 50")
-    @Pattern(regexp = "^[^\\s].*$", message = "Name of department cannot be empty")
+    @Pattern(regexp = "^[^\\s].*$", message = "Invalid department name")
     String department;
 
-    @NotNull(message = "Name of Department cannot be empty")
     @Size(min=1,max = 50,message = "min character is 1 and maximum characters can be upto 50")
-    @Pattern(regexp = "^[^\\s].*$", message = "Name of department cannot be empty")
+    @Pattern(regexp = "^[^\\s].*$", message = "Invalid department description")
     String description;
 
     Long managerId;

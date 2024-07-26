@@ -25,12 +25,12 @@ public class AddNewOrganizationDTO
     private Long organizationId;
     @NotNull(message = "Name of Organization cannot be null")
     @Size(min=1,max = 50,message = "min character is 1 and maximum characters can be upto 50")
-    @Pattern(regexp = "^[^\\s].*$", message = "Name of organization cannot be empty")
+    @Pattern(regexp = "^[^\\s].*$", message = "Invalid organization name")
     private String organizationName;
 
     @NotNull(message = "Description of Organization cannot be null")
     @Size(min=1,max =200,message = "min character is 1 and maximum characters can be upto 200 for Description of Organization")
-    @Pattern(regexp = "^[^\\s].*$", message = "Description of organization cannot be empty")
+    @Pattern(regexp = "^[^\\s].*$", message = "Invalid organization description")
     private String organizationDescription;
 
 }

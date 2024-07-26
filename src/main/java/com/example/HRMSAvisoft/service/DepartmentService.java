@@ -40,8 +40,8 @@ public class DepartmentService {
         Organization organization = organizationRepository.findById(organizationId).orElseThrow(()-> new EntityNotFoundException("Organization not found"));
 
         Department newDepartment = new Department();
-        Department existingDepartmentByName = departmentRepository.findByDepartment(createDepartmentDTO.getDepartment()).orElse(null);
-        if(existingDepartmentByName != null && existingDepartmentByName.getOrganization().getOrganizationId()==organizationId){
+        Department existingDepartmentByName = departmentRepository.findByDepartmentAndOrganization(createDepartmentDTO.getDepartment(), organizationId).orElse(null);
+        if(existingDepartmentByName != null){
             throw new DepartmentAlreadyExistsException(createDepartmentDTO.getDepartment());
         }
         newDepartment.setDepartment(createDepartmentDTO.getDepartment());
@@ -55,9 +55,9 @@ public class DepartmentService {
     public Department updateDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO, Long departmentId)throws  DepartmentNotFoundException, EmployeeNotFoundException, DepartmentAlreadyExistsException{
         Department departmentFoundById = departmentRepository.findById(departmentId).orElseThrow(()-> new DepartmentNotFoundException(departmentId));
 
-        Department existingDepartmentByName = departmentRepository.findByDepartment(createDepartmentDTO.getDepartment()).orElse(null);
+        Department existingDepartmentByName = departmentRepository.findByDepartmentAndOrganization(createDepartmentDTO.getDepartment(), departmentFoundById.getOrganization().getOrganizationId()).orElse(null);
 
-        if(!existingDepartmentByName.equals(null) && !departmentFoundById.getDepartment().equals(createDepartmentDTO.getDepartment())){
+        if(existingDepartmentByName != null && !departmentFoundById.getDepartment().equals(createDepartmentDTO.getDepartment())){
             throw new DepartmentAlreadyExistsException(createDepartmentDTO.getDepartment());
         }
 

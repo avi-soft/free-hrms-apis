@@ -1,16 +1,16 @@
 
-š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ö»ûÿÿÿÿJ$acf85d95-7574-4648-a85a-8963e7e5edb4
-h
-java:S1128"FRemove this unused import 'com.example.HRMSAvisoft.entity.Department'.(¢î‡±üÿÿÿÿ8À¦ñ2
-b
-java:S1128"@Remove this unused import 'com.example.HRMSAvisoft.entity.User'.(ÎÜ¬úÿÿÿÿ8À¦ñ2
+š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ö»ûÿÿÿÿJ$ff759b4e-3120-431f-af1a-f0ad2da8f10f
+
+java:S1128"FRemove this unused import 'com.example.HRMSAvisoft.entity.Department'.(¢î‡±üÿÿÿÿ8À¦ñ2J$d8a8d570-318f-48d6-8d29-a5b9523e17f5
+ˆ
+java:S1128"@Remove this unused import 'com.example.HRMSAvisoft.entity.User'.(ÎÜ¬úÿÿÿÿ8À¦ñ2J$4abcf2d8-7ce5-4f0f-a793-eed4b4b6e608
 }
-java:S1128"<Remove this unused import 'jakarta.persistence.CascadeType'.(ÃÃÊŠúÿÿÿÿJ$f8980f58-16dc-4743-a510-8a5864280ed6
+java:S1128"<Remove this unused import 'jakarta.persistence.CascadeType'.(ÃÃÊŠúÿÿÿÿJ$8a0ef1ce-0329-4dd8-9b5e-670d2d305b22
 {
-java:S1128":Remove this unused import 'jakarta.persistence.FetchType'.(ŠÂ¤ŠûÿÿÿÿJ$438783b9-d3b8-4eaf-aa6c-37730e1b7d00
+java:S1128":Remove this unused import 'jakarta.persistence.FetchType'.(ŠÂ¤ŠûÿÿÿÿJ$de9e59f3-d76a-4cec-9a56-985dc2db819c
 {
-java:S1128":Remove this unused import 'jakarta.persistence.OneToMany'.( ëîéúÿÿÿÿJ$c9a739ac-6da1-4a72-8939-8b0e1e5f2bf4
-M
-java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8Á¦ñ2
-M
-java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8Á¦ñ2
+java:S1128":Remove this unused import 'jakarta.persistence.OneToMany'.( ëîéúÿÿÿÿJ$fee5e30f-af46-4fee-a86f-0427309cc3fe
+s
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8Á¦ñ2J$6bd5e15b-57ec-4dd8-a70c-47da70f22a26
+s
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8Á¦ñ2J$4161f181-9336-45df-bbc9-6145e5b08c9b
