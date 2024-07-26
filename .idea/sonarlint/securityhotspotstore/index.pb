@@ -280,3 +280,5 @@ t
 Dsrc/test/java/com/example/HRMSAvisoft/controller/RoleJsonReader.java,e/4/e43cf65441f5b3c8ea3fb851a80aa1b4a93bf6fd
 Å
 Qsrc/test/java/com/example/HRMSAvisoft/repository/OrganizationRepositoryTests.java,5/e/5e770638d2967a644359b4035250fa5097084312
+p
+@src/main/java/com/example/HRMSAvisoft/dto/ChangeUserRoleDTO.java,e/3/e3f93be079929480635442d340453299b4c91507

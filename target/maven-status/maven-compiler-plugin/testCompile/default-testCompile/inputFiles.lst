@@ -15,6 +15,7 @@
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/service/EmergencyContactServiceTests.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/controller/AddressControllerTest.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/entity/EmployeeTests.java
+/home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/repository/OrganizationRepositoryTests.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/repository/EmergencyContactRepositoryTests.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/entity/UserTests.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/controller/EmergencyContactControllerTests.java

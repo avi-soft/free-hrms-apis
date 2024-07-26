@@ -106,6 +106,7 @@ com/example/HRMSAvisoft/dto/AddNewOrganizationDTO$AddNewOrganizationDTOBuilder.c
 com/example/HRMSAvisoft/entity/Role.class
 com/example/HRMSAvisoft/controller/EmergencyContactController.class
 utils/ResponseGenerator.class
+com/example/HRMSAvisoft/service/DepartmentService$DepartmentAlreadyExistsException.class
 com/example/HRMSAvisoft/exception/InsufficientLeaveBalanceException.class
 com/example/HRMSAvisoft/entity/Payroll.class
 com/example/HRMSAvisoft/dto/AllPerformanceOfEmployeeDTO.class
