@@ -116,7 +116,7 @@ public class UserController {
             userResponse.setEmployeeId(employee.getEmployeeId());
             userResponse.setFirstName(employee.getFirstName());
             userResponse.setLastName(employee.getLastName());
-            userResponse.setContact(employee.getContact());
+//            userResponse.setContact(employee.getContact());
             if(employee.getDepartment() != null) {
                 userResponse.setDepartment(employee.getDepartment().getDepartment());
                 userResponse.setDepartmentId(employee.getDepartment().getDepartmentId());
@@ -124,18 +124,18 @@ public class UserController {
                 userResponse.setManagerId(employee.getDepartment().getManager().getEmployeeId());
             }
             userResponse.setEmployeeCode(employee.getEmployeeCode());
-            userResponse.setAdhaarNumber(employee.getAdhaarNumber());
-            userResponse.setPanNumber(employee.getPanNumber());
-            userResponse.setUanNumber(employee.getUanNumber());
+//            userResponse.setAdhaarNumber(employee.getAdhaarNumber());
+//            userResponse.setPanNumber(employee.getPanNumber());
+//            userResponse.setUanNumber(employee.getUanNumber());
             userResponse.setAddresses(employee.getAddresses());
-            userResponse.setPosition(employee.getPosition());
-            userResponse.setJoinDate(employee.getJoinDate());
-            userResponse.setGender(employee.getGender());
+//            userResponse.setPosition(employee.getPosition());
+//            userResponse.setJoinDate(employee.getJoinDate());
+//            userResponse.setGender(employee.getGender());
             String userProfileImage = userResponse.getProfileImage() == null ? "https://api.dicebear.com/5.x/initials/svg?seed="+userResponse.getFirstName()+" "+userResponse.getLastName() : userResponse.getProfileImage();
             userResponse.setProfileImage(userProfileImage);
-            userResponse.setDateOfBirth(employee.getDateOfBirth());
+//            userResponse.setDateOfBirth(employee.getDateOfBirth());
             userResponse.setAccount(employee.getAccount());
-            userResponse.setSalary(employee.getSalary());
+//            userResponse.setSalary(employee.getSalary());
 
             //genereate token
             token = JWTService.createJWT(loggedInUser.getUserId(), loggedInUser.getRoles());
