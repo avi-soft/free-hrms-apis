@@ -1,33 +1,30 @@
 
-ˆ	java:S1125"FDefine and throw a dedicated exception instead of using a generic one.(‹—¢¹8ƒÖÃŠ2J$b83aa1a6-835c-4c19-b9bb-26c81621aa1f
+ˆ	java:S112;"FDefine and throw a dedicated exception instead of using a generic one.(‹—¢¹8×­Á¼2J$95489a08-e362-424e-91c5-4788e376d1c8
 ±
-java:S1488O"iImmediately return this expression instead of assigning it to the temporary variable "searchedEmployees".(÷ò…Ÿûÿÿÿÿ8’ˆ ©ü1J$8cf3dd68-ac35-4ec8-9ccb-378dc5b2d9e5
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ8ÁƒĞû1J$9fda2b11-32f7-4673-802f-c9e50f419c60
+java:S1488U"iImmediately return this expression instead of assigning it to the temporary variable "searchedEmployees".(÷ò…Ÿûÿÿÿÿ8Ú­Á¼2J$3d0c7fef-5daa-4f2e-a8cc-661ca46a4f35
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ8Ü­Á¼2J$d96093a1-b513-455c-8582-14c7204613cf
 €
-java:S2589I"8Remove this expression which always evaluates to "false"(Šú¦éúÿÿÿÿ8ûˆ ©ü1J$f9fe8ecd-6fdb-4e97-a37a-45919072016f
+java:S2589O"8Remove this expression which always evaluates to "false"(Šú¦éúÿÿÿÿ8é­Á¼2J$f68bb3a3-51c7-40cd-82f2-556e58f21696
 …
-java:S6813'"BRemove this field injection and use constructor injection instead.(êæÄŞ8‚‰ ©ü1J$8820d80e-b0a1-403b-bc61-6a8bc19a14b8
+java:S6813$"BRemove this field injection and use constructor injection instead.(êæÄŞ8ë­Á¼2J$fc30bd76-1a26-44ce-a3b2-f5abc944cd88
 …
-java:S6813*"BRemove this field injection and use constructor injection instead.(êæÄŞ8‚‰ ©ü1J$fcde2f45-fe70-4dbf-a4fa-9d2357e5774c
+java:S6813'"BRemove this field injection and use constructor injection instead.(êæÄŞ8ë­Á¼2J$1c2f1cf7-274b-427e-b08f-d8d09529f592
+…
+java:S6813*"BRemove this field injection and use constructor injection instead.(êæÄŞ8ë­Á¼2J$68801b36-d669-4218-a411-b897ceefd5b1
+…
+java:S6813-"BRemove this field injection and use constructor injection instead.(êæÄŞ8ë­Á¼2J$dd116005-00f9-4415-b302-72cbdc0a7ec1
+…
+java:S68130"BRemove this field injection and use constructor injection instead.(êæÄŞ8ë­Á¼2J$81481d15-729f-486a-addb-e6f1aa62842f
 Á
-java:S11305"~Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException' which is a subclass of 'java.io.IOException'.(‹—¢¹8ÏÖÃŠ2J$4df2a784-55c9-41df-a7b6-b274138eea14
+java:S1130;"~Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException' which is a subclass of 'java.io.IOException'.(‹—¢¹8ï­Á¼2J$fd8c4f19-45f9-4296-80d3-837f99a8de34
 ¿
-java:S1130H"|Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException', as it cannot be thrown from method's body.(ôì²8ÔÖÃŠ2J$177ba607-9df2-4f71-a27c-f09e47fc280c
-Ä
-java:S1130S"|Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException', as it cannot be thrown from method's body.(Ê´ù¬ıÿÿÿÿ8ÛÖÃŠ2J$5b58c2aa-98af-4188-8eb3-4148129272e5
-¿
-java:S1130r"|Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException', as it cannot be thrown from method's body.(ª‡8áÖÃŠ2J$93a62823-4d56-4c86-8b68-d1f81bc2457e
-¾
-java:S1130{"|Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException', as it cannot be thrown from method's body.(›ğ¤B8æÖÃŠ2J$683d7cdc-7210-4898-b823-e0106b38999e
-Å
-java:S1130„"|Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException', as it cannot be thrown from method's body.(÷èœÎúÿÿÿÿ8çÖÃŠ2J$7980cbeb-37e9-473e-9513-eb4d74ea3ee7
+java:S1130N"|Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException', as it cannot be thrown from method's body.(ôì²8ñ­Á¼2J$48b8cb06-1885-43e0-bca6-714d722396c9
+~	java:S125e"<This block of commented-out lines of code should be removed.(Æ»Öô8õ­Á¼2J$c3277120-295b-4f6b-9c4c-bc0a4b485cd0
 À
-java:S1130ˆ"|Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException', as it cannot be thrown from method's body.(ËÆ‘ô8èÖÃŠ2J$942a9326-ac29-41ff-89a3-947e476bbd65
-ˆ
-java:S1128"@Remove this unused import 'com.example.HRMSAvisoft.entity.User'.(ÎÜ¬úÿÿÿÿ8Šø…Ğû1J$6f212332-2249-47b7-8ade-3523208b09d3
-†
-java:S1128">Remove this unused import 'jakarta.persistence.EntityManager'.(·ïŸéúÿÿÿÿ8Šø…Ğû1J$70c052d0-7d8c-4da9-89e6-fdef8374cb64
-‹
-java:S1128"HRemove this unused import 'jakarta.persistence.EntityNotFoundException'.(†œşè8‹ø…Ğû1J$b8b90d0b-5c5a-4f1e-8025-10baebd5b33d
-y
-java:S1128"6Remove this unused import 'jakarta.persistence.Query'.(³¸³æ8‹ø…Ğû1J$0da60599-1cf4-4be7-bd85-ea56ba312c56
+java:S1130‹"|Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException', as it cannot be thrown from method's body.(ª‡8ø­Á¼2J$9f33c63e-55fc-4647-9ff1-934d47bbc563
+¿
+java:S1130”"|Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException', as it cannot be thrown from method's body.(›ğ¤B8ù­Á¼2J$90b7bbc0-7dbd-4de0-bc02-6a3515321a72
+Å
+java:S1130"|Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException', as it cannot be thrown from method's body.(÷èœÎúÿÿÿÿ8ú­Á¼2J$74d66ad6-b6c7-4746-b0cc-727380a54165
+À
+java:S1130¡"|Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException', as it cannot be thrown from method's body.(ËÆ‘ô8û­Á¼2J$dddc3c68-98b2-4fb9-8b79-4533559ff3a0

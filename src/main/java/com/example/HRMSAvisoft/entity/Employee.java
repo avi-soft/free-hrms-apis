@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Getter
 @Setter
@@ -92,4 +89,21 @@ public class Employee {
     @MapKeyJoinColumn(name = "attribute_id")
     @Column(name = "attribute_value")
     private Map<EmployeeAttribute, String> attributes = new HashMap<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "employee_designation",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "designation_id")
+    )
+    private List<Designation> designations = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "employee_skill",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "skill_id")
+    )
+    private List<Skill> skills = new ArrayList<>();
+
 }

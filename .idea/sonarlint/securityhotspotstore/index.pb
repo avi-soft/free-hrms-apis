@@ -300,3 +300,9 @@ o
 ?src/main/java/com/example/HRMSAvisoft/service/SkillService.java,6/d/6d4c60a72682307e39fb0beab0ba3b5c888f5859
 u
 Esrc/main/java/com/example/HRMSAvisoft/repository/SkillRepository.java,2/4/2446f9e1668c8a1781cf3eca349d2098dd68edb3
+Å
+Qsrc/main/java/com/example/HRMSAvisoft/controller/EmployeeAttributeController.java,4/7/474b05f434ba50c6842ccc7753fe12f760a3c132
+{
+Ksrc/main/java/com/example/HRMSAvisoft/service/EmployeeAttributeService.java,8/d/8d8027aadbb26e9698a5c1e5bb4e7e79bbd68a25
+Å
+Qsrc/main/java/com/example/HRMSAvisoft/repository/EmployeeAttributeRepository.java,6/8/68e21c4d7382ff1a1da8ae2867ddf611ec73790b

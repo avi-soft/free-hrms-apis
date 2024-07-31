@@ -143,9 +143,9 @@ public class EmployeeControllerTest {
         existingEmployee.setEmployeeId(employeeId);
         existingEmployee.setFirstName("OldFirst");
         existingEmployee.setLastName("OldLast");
-        existingEmployee.setGender(Gender.FEMALE);
-        existingEmployee.setContact("OldContact");
-        existingEmployee.setDateOfBirth("1990-02-02");
+//        existingEmployee.setGender(Gender.FEMALE);
+//        existingEmployee.setContact("OldContact");
+//        existingEmployee.setDateOfBirth("1990-02-02");
 
 
         when(employeeService.getEmployeeById(employeeId)).thenReturn(existingEmployee);
