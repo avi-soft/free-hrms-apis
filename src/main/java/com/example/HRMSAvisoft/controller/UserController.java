@@ -109,7 +109,7 @@ public class UserController {
         LoginUserResponseDTO userResponse = new LoginUserResponseDTO();
         if(loggedInUser!=null) {
             userResponse.setUserId(loggedInUser.getUserId());
-            userResponse.setEmail(loggedInUser.getEmail());
+//            userResponse.setEmail(loggedInUser.getEmail());
             userResponse.setRoles(loggedInUser.getRoles());
             userResponse.setCreatedAt(loggedInUser.getCreatedAt());
             Employee employee = loggedInUser.getEmployee();
@@ -134,7 +134,7 @@ public class UserController {
             String userProfileImage = userResponse.getProfileImage() == null ? "https://api.dicebear.com/5.x/initials/svg?seed="+userResponse.getFirstName()+" "+userResponse.getLastName() : userResponse.getProfileImage();
             userResponse.setProfileImage(userProfileImage);
 //            userResponse.setDateOfBirth(employee.getDateOfBirth());
-            userResponse.setAccount(employee.getAccount());
+//            userResponse.setAccount(employee.getAccount());
 //            userResponse.setSalary(employee.getSalary());
 
             //genereate token

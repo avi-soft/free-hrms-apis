@@ -18,15 +18,17 @@ public class CreateEmployeeDTO {
     private String lastName;
     private Long departmentId;
     private String employeeCode;
-    private String contact;
-    private Position position;
-    private String joinDate;
-    private Gender gender;
-    private String adhaarNumber;
-    private String panNumber;
-    private String uanNumber;
-    private String dateOfBirth;
-    private BigDecimal salary;
+//    private String contact;
+//    private Position position;
+//    private String joinDate;
+//    private Gender gender;
+//    private String adhaarNumber;
+//    private String panNumber;
+//    private String uanNumber;
+//    private String dateOfBirth;
+//    private BigDecimal salary;
+
+
 }
 
 

@@ -47,6 +47,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(status).body(responseData);
     }
 
+    @ExceptionHandler(AttributeKeyDoesNotExistException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<Map<String, Object>> handleAttributeKeyDoesNotExistException(AttributeKeyDoesNotExistException exception) {
+        Map<String, Object> responseData = new HashMap<>();
+        responseData.put("message", exception.getMessage());
+        responseData.put("Success", false);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseData);
+    }
+
     @ExceptionHandler({
            EmployeeNotFoundException.class,
             NullPointerException.class,
