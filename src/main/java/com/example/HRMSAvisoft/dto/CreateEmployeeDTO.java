@@ -1,5 +1,6 @@
 package com.example.HRMSAvisoft.dto;
 
+import com.example.HRMSAvisoft.entity.Designation;
 import com.example.HRMSAvisoft.entity.Gender;
 import com.example.HRMSAvisoft.entity.Position;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,6 +29,8 @@ public class CreateEmployeeDTO {
     private String uanNumber;
     private String dateOfBirth;
     private BigDecimal salary;
+    private List<String> designationList;
+    private List<String> skillList;
 }
 
 

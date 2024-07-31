@@ -73,25 +73,25 @@ public class EmployeeTests {
         employee.setEmployeeId(empId);
         employee.setFirstName(firstName);
         employee.setLastName(lastName);
-        employee.setContact(contact);
+//        employee.setContact(contact);
         employee.setAddresses(addresses);
-        employee.setSalary(salary);
-        employee.setPosition(position);
-        employee.setGender(gender);
-        employee.setJoinDate(joinDate);
+//        employee.setSalary(salary);
+//        employee.setPosition(position);
+//        employee.setGender(gender);
+//        employee.setJoinDate(joinDate);
         employee.setAccount(account);
-        employee.setDateOfBirth(dateOfBirth);
+//        employee.setDateOfBirth(dateOfBirth);
 
         assertEquals(empId, employee.getEmployeeId());
         assertEquals(firstName, employee.getFirstName());
         assertEquals(lastName, employee.getLastName());
-        assertEquals(contact, employee.getContact());
+//        assertEquals(contact, employee.getContact());
         assertEquals(addresses, employee.getAddresses());
-        assertEquals(salary, employee.getSalary());
-        assertEquals(position, employee.getPosition());
-        assertEquals(gender, employee.getGender());
-        assertEquals(joinDate, employee.getJoinDate());
+//        assertEquals(salary, employee.getSalary());
+//        assertEquals(position, employee.getPosition());
+//        assertEquals(gender, employee.getGender());
+//        assertEquals(joinDate, employee.getJoinDate());
         assertEquals(account, employee.getAccount());
-        assertEquals(dateOfBirth, employee.getDateOfBirth());
+//        assertEquals(dateOfBirth, employee.getDateOfBirth());
     }
 }

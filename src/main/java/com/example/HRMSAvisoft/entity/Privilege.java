@@ -71,6 +71,7 @@ public enum Privilege {
     DELETE_EMPLOYEE_ATTRIBUTE,
     GET_ALL_EMPLOYEE_ATTRIBUTES,
 
+    //Personal Profile
     ADD_DESIGNATION,
     UPDATE_DESIGNATION,
     DELETE_DESIGNATION,
@@ -80,5 +81,6 @@ public enum Privilege {
     UPDATE_SKILL,
     DELETE_SKILL,
     GET_ALL_SKILL
+
 }
 
