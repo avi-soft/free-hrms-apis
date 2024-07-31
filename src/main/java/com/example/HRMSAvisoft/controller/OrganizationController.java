@@ -73,7 +73,9 @@ public class OrganizationController {
 
     @ExceptionHandler({
             OrganizationService.OrganizationAlreadyExistsException.class,
-            IllegalArgumentException.class
+            IllegalArgumentException.class,
+            IllegalStateException.class,
+            EntityNotFoundException.class,
     })
 
     public ResponseEntity<ErrorResponseDTO> handleErrors(Exception exception) {
@@ -82,7 +84,16 @@ public class OrganizationController {
         if (exception instanceof OrganizationService.OrganizationAlreadyExistsException) {
             message = exception.getMessage();
             status = HttpStatus.BAD_REQUEST;
-        } else if (exception instanceof IllegalArgumentException) {
+        }
+        else if (exception instanceof IllegalStateException) {
+        message = exception.getMessage();
+        status = HttpStatus.BAD_REQUEST;
+        }
+        else if (exception instanceof EntityNotFoundException) {
+            message = exception.getMessage();
+            status = HttpStatus.BAD_REQUEST;
+        }
+        else if (exception instanceof IllegalArgumentException) {
             message = exception.getMessage();
             status = HttpStatus.BAD_REQUEST;
         } else {

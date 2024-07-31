@@ -5,10 +5,7 @@ import com.cloudinary.utils.ObjectUtils;
 import com.example.HRMSAvisoft.dto.CreateEmployeeDTO;
 import com.example.HRMSAvisoft.entity.*;
 import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
-import com.example.HRMSAvisoft.repository.DepartmentRepository;
-import com.example.HRMSAvisoft.repository.EmployeeAttributeRepository;
-import com.example.HRMSAvisoft.repository.EmployeeRepository;
-import com.example.HRMSAvisoft.repository.UserRepository;
+import com.example.HRMSAvisoft.repository.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.Query;
@@ -35,6 +32,12 @@ public class EmployeeService {
     private  Cloudinary cloudinary;
 
     private  EmployeeRepository employeeRepository;
+
+    @Autowired
+    private DesignationRepository designationRepository;
+
+    @Autowired
+    private SkillRepository skillRepository;
 
     @Autowired
     private EmployeeAttributeRepository employeeAttributeRepository;
@@ -83,7 +86,7 @@ public class EmployeeService {
         return searchedEmployees;
     }
 
-    public Employee saveEmployeePersonalInfo(Long employeeId, CreateEmployeeDTO createEmployeeDTO,Map<String, String> attributes)throws EmployeeNotFoundException, EmployeeCodeAlreadyExistsException, AccessDeniedException {
+    public Employee saveEmployeePersonalInfo(Long employeeId, CreateEmployeeDTO createEmployeeDTO,Map<String, String> attributes)throws EmployeeNotFoundException, EmployeeCodeAlreadyExistsException, AccessDeniedException, EntityNotFoundException{
 
         if (employeeRepository.existsByEmployeeCode(createEmployeeDTO.getEmployeeCode())) {
             throw new EmployeeCodeAlreadyExistsException("Employee code already exists: " + createEmployeeDTO.getEmployeeCode());
@@ -113,6 +116,14 @@ public class EmployeeService {
         employeeToAddInfo.setEmployeeCode(createEmployeeDTO.getEmployeeCode());
         employeeToAddInfo.setFirstName(createEmployeeDTO.getFirstName());
         employeeToAddInfo.setLastName(createEmployeeDTO.getLastName());
+        for(String designation : createEmployeeDTO.getDesignationList()){
+            Designation designationToAdd = designationRepository.findByDesignation(designation).orElseThrow(()->new EntityNotFoundException("Designation "+ designation + " not found"));
+            employeeToAddInfo.getDesignations().add(designationToAdd);
+        }
+        for(String skill : createEmployeeDTO.getSkillList()){
+            Skill skillToAdd = skillRepository.findBySkill(skill).orElseThrow(()->new EntityNotFoundException("Skill "+ skill + " not found"));
+            employeeToAddInfo.getSkills().add(skillToAdd);
+        }
         // Create a list of EmployeeAttributeValue
         Map<EmployeeAttribute, String> employeeAttributes = attributes.entrySet().stream()
                 .collect(Collectors.toMap(
