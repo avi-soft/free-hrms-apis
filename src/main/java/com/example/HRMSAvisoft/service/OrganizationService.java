@@ -52,6 +52,7 @@ public class OrganizationService {
         organizationRepository.save(organization);
     }
 
+
     public List<Organization> getOrganizations() {
         List<Organization> organizations = organizationRepository.findAll();
         return organizations;
@@ -95,5 +96,7 @@ public class OrganizationService {
             super(message);
         }
     }
-}
+
+    }
+
 

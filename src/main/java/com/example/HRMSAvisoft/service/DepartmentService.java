@@ -55,15 +55,17 @@ public class DepartmentService {
     public Department updateDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO, Long departmentId)throws  DepartmentNotFoundException, EmployeeNotFoundException, DepartmentAlreadyExistsException{
         Department departmentFoundById = departmentRepository.findById(departmentId).orElseThrow(()-> new DepartmentNotFoundException(departmentId));
 
+        if (createDepartmentDTO.getOrganizationId() != null) {
+            if(!departmentFoundById.getOrganization().getOrganizationId().equals(createDepartmentDTO.getOrganizationId())) {
+                Department sameDepartmentInOtherOrganization = departmentRepository.findByDepartmentAndOrganization(createDepartmentDTO.getDepartment(), createDepartmentDTO.getOrganizationId()).orElse(null);
+                if (sameDepartmentInOtherOrganization != null) {
+                    throw new DepartmentAlreadyExistsException(createDepartmentDTO.getDepartment());
+                }
+            }
+        }
+
         Department existingDepartmentByName = departmentRepository.findByDepartmentAndOrganization(createDepartmentDTO.getDepartment(), departmentFoundById.getOrganization().getOrganizationId()).orElse(null);
 
-        if(createDepartmentDTO.getOrganizationId() != null){
-            Department sameDepartmentInOtherOrganization = departmentRepository.findByDepartmentAndOrganization(createDepartmentDTO.getDepartment(), createDepartmentDTO.getOrganizationId()).orElse(null);
-            if(sameDepartmentInOtherOrganization != null){
-                throw new DepartmentAlreadyExistsException(createDepartmentDTO.getDepartment());
-            }
-
-        }
         if(existingDepartmentByName != null && !departmentFoundById.getDepartment().equals(createDepartmentDTO.getDepartment())){
             throw new DepartmentAlreadyExistsException(createDepartmentDTO.getDepartment());
         }
