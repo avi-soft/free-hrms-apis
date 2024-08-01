@@ -308,3 +308,17 @@ Ksrc/main/java/com/example/HRMSAvisoft/service/EmployeeAttributeService.java,8/
 Qsrc/main/java/com/example/HRMSAvisoft/repository/EmployeeAttributeRepository.java,6/8/68e21c4d7382ff1a1da8ae2867ddf611ec73790b
 s
 Csrc/main/java/com/example/HRMSAvisoft/entity/EmployeeAttribute.java,2/0/202b745a6e55cdb833c114d00d724842b13cebfe
+e
+5src/main/java/utils/EmployeeAttributesSerializer.java,2/4/24534a4dc048160d1748e060b6b72c8b8ee6fc87
+ƒ
+Ssrc/main/java/com/example/HRMSAvisoft/controller/DepartmentAttributeController.java,1/a/1a58cdd5a4c19a3404e1a3515de842aff0a76e50
+}
+Msrc/main/java/com/example/HRMSAvisoft/service/DepartmentAttributeService.java,1/c/1c5ced2e7e62e760dbc7a0e0c232bc22178d94c9
+ƒ
+Ssrc/main/java/com/example/HRMSAvisoft/repository/DepartmentAttributeRepository.java,a/a/aafa228931f9f8614db9493816dad146ea647353
+n
+>src/main/java/com/example/HRMSAvisoft/attribute/Attribute.java,5/4/54f1f932fe11ce36359b93166def36fdc3ad2e64
+x
+Hsrc/main/java/com/example/HRMSAvisoft/attribute/DepartmentAttribute.java,f/e/fe938bbe7462a0591a0cc211b822fd6244374cd8
+]
+-src/main/java/utils/AttributesSerializer.java,d/7/d7cb4345366a4391fd054cc5f22a79386d7f9a2b

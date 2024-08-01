@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -23,9 +25,13 @@ public class Organization
     private String organizationImage;
     private String organizationDescription;
 
-    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    private List<Department> departments = new ArrayList<>();
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "organization_department",
+            joinColumns = @JoinColumn(name = "organization_id"),
+            inverseJoinColumns = @JoinColumn(name = "department_id")
+    )
+    private Set<Department> departments = new HashSet<>();
 
     @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonIgnore

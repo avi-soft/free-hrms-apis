@@ -1,13 +1,16 @@
 
-œ
-java:S2293!"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÕÄŞã8óÁ¼2J$66e6520a-c44b-4811-83fa-56f9bf7fafd4
-¡
-java:S2293$"YReplace the type specification in this constructor call with the diamond operator ("<>").(ú‡ÍÇıÿÿÿÿ8óÁ¼2J$13eca2da-eb67-41fd-962c-812377a0fdfa
-¡
-java:S2293?"YReplace the type specification in this constructor call with the diamond operator ("<>").(è“É÷úÿÿÿÿ8óÁ¼2J$c5d4ff9a-1cb4-457c-9fda-30b494313751
-¡
-java:S2293F"YReplace the type specification in this constructor call with the diamond operator ("<>").(ş±ªÁøÿÿÿÿ8óÁ¼2J$40a938fb-7654-4773-8c20-fcaddd40b9ee
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(—üïïøÿÿÿÿ8ôÁ¼2J$cd4878c9-1c71-4893-9870-487e6b1bebc3
-}	java:S125"<This block of commented-out lines of code should be removed.(ñê¿8øÁ¼2J$ff5b9cfa-d491-4f27-8b35-8fd0efab8728
-~	java:S125'"<This block of commented-out lines of code should be removed.(æü¬–8ûÁ¼2J$31b3b997-7f6e-44a1-a7cb-258b441b37fb
-ƒ	java:S1256"<This block of commented-out lines of code should be removed.(ÜºŸ‰üÿÿÿÿ8ûÁ¼2J$4c6e4e1f-56a0-460e-a737-a5bfd878c8f0
+v
+java:S2293$"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÕÄŞã8ŠÁàä2
+{
+java:S2293'"YReplace the type specification in this constructor call with the diamond operator ("<>").(ú‡ÍÇıÿÿÿÿ8‹Áàä2
+{
+java:S2293B"YReplace the type specification in this constructor call with the diamond operator ("<>").(è“É÷úÿÿÿÿ8‹Áàä2
+{
+java:S2293I"YReplace the type specification in this constructor call with the diamond operator ("<>").(ş±ªÁøÿÿÿÿ8‹Áàä2
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(—üïïøÿÿÿÿ8ôÁ¼2J$3c3ceb4a-6a06-4351-b9c6-a47b4dab6bc4
+W	java:S125!"<This block of commented-out lines of code should be removed.(ñê¿8•Áàä2
+X	java:S125*"<This block of commented-out lines of code should be removed.(æü¬–8—Áàä2
+X	java:S1251"<This block of commented-out lines of code should be removed.(œÍŸâ8˜Áàä2
+]	java:S1259"<This block of commented-out lines of code should be removed.(ÜºŸ‰üÿÿÿÿ8˜Áàä2
+m
+java:S1128"KRemove this unused import 'com.fasterxml.jackson.annotation.JsonAnyGetter'.(‹¿«™ùÿÿÿÿ8ŸÁàä2
