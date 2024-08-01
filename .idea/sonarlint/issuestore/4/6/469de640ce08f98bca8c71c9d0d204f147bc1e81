@@ -19,6 +19,8 @@ java:S68130"BRemove this field injection and use constructor injection instead.
 java:S1130;"~Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException' which is a subclass of 'java.io.IOException'.(‹—¢¹8ï­Á¼2J$fd8c4f19-45f9-4296-80d3-837f99a8de34
 ¿
 java:S1130N"|Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException', as it cannot be thrown from method's body.(ôì²8ñ­Á¼2J$48b8cb06-1885-43e0-bca6-714d722396c9
+
+java:S1130Y"|Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException', as it cannot be thrown from method's body.(ÈÈè¥üÿÿÿÿ8¾…ä2
 ~	java:S125e"<This block of commented-out lines of code should be removed.(Æ»Öô8õ­Á¼2J$c3277120-295b-4f6b-9c4c-bc0a4b485cd0
 À
 java:S1130‹"|Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException', as it cannot be thrown from method's body.(ª‡8ø­Á¼2J$9f33c63e-55fc-4647-9ff1-934d47bbc563
@@ -28,3 +30,7 @@ java:S1130”"|Remove the declaration of thrown exception 'java.nio.file.AccessD
 java:S1130"|Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException', as it cannot be thrown from method's body.(÷èœÎúÿÿÿÿ8ú­Á¼2J$74d66ad6-b6c7-4746-b0cc-727380a54165
 À
 java:S1130¡"|Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException', as it cannot be thrown from method's body.(ËÆ‘ô8û­Á¼2J$dddc3c68-98b2-4fb9-8b79-4533559ff3a0
+`
+java:S1128	">Remove this unused import 'jakarta.persistence.EntityManager'.(·ïŸéúÿÿÿÿ8­¾…ä2
+S
+java:S1128"6Remove this unused import 'jakarta.persistence.Query'.(³¸³æ8­¾…ä2
