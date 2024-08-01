@@ -27,6 +27,7 @@
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/repository/EmergencyContactRepository.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/dto/CreateUserResponseDTO.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/dto/ChangeUserRoleDTO.java
+/home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/utils/AttributesSerializer.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/repository/OrganizationRepository.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/dto/AddAccountDTO.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/utils/EmployeeAttributesSerializer.java
@@ -68,6 +69,7 @@
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/scheduler/leaveRequestScheduler.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/entity/Zipcode.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/entity/Gender.java
+/home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/attribute/DepartmentAttribute.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/entity/LeaveType.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/repository/EmployeeAttributeRepository.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/controller/DepartmentController.java
@@ -76,6 +78,7 @@
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/service/LeaveTypeService.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/repository/EmployeeRepository.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/entity/LeaveStatus.java
+/home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/repository/DepartmentAttributeRepository.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/entity/Skill.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/controller/AddressController.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/entity/Employee.java
@@ -92,6 +95,7 @@
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/dto/AllPerformanceOfEmployeeDTO.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/controller/EmergencyContactController.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/dto/CreateEmergencyContactDTO.java
+/home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/controller/DepartmentAttributeController.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/dto/LeaveRequestDTO.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/exception/OverlappingLeaveRequestException.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/dto/UpdateOrganizationDTO.java
@@ -105,6 +109,7 @@
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/dto/UpdatePersonalDetailsDTO.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/entity/Payroll.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/entity/User.java
+/home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/service/DepartmentAttributeService.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/security/JWTAuthenticationConverter.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/entity/Rating.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/dto/LeaveBalanceDTO.java
@@ -113,3 +118,4 @@
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/exception/EmergencyContactNotFoundException.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/entity/Account.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/exception/EmployeeNotFoundException.java
+/home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/main/java/com/example/HRMSAvisoft/attribute/Attribute.java

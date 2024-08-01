@@ -4,6 +4,7 @@ import com.example.HRMSAvisoft.dto.CreateDepartmentDTO;
 import com.example.HRMSAvisoft.dto.DepartmentsResponseDTO;
 import com.example.HRMSAvisoft.dto.ErrorResponseDTO;
 import com.example.HRMSAvisoft.entity.Department;
+import com.example.HRMSAvisoft.exception.AttributeKeyDoesNotExistException;
 import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
 import com.example.HRMSAvisoft.service.DepartmentService;
 import com.example.HRMSAvisoft.service.EmergencyContactService;
@@ -32,33 +33,33 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
-    @PreAuthorize("hasAuthority('GETALL_DEPARTMENTS')")
-    @GetMapping("/{organizationId}")
-    public ResponseEntity<List<DepartmentsResponseDTO>> getAllDepartments(@PathVariable("organizationId") Long organizationId) {
-        List<Department> departments = departmentService.getAllDepartments(organizationId);
-        List<DepartmentsResponseDTO> departmentsResponseDTOS = departments.stream().map(department ->{
-            DepartmentsResponseDTO departmentsResponseDTO = new DepartmentsResponseDTO();
-            departmentsResponseDTO.setDepartmentId(department.getDepartmentId());
-            departmentsResponseDTO.setDescription(department.getDescription());
-            departmentsResponseDTO.setDepartment(department.getDepartment());
-            departmentsResponseDTO.setManagerId(department.getManager().getEmployeeId());
-            departmentsResponseDTO.setManagerEmployeeCode(department.getManager().getEmployeeCode());
-            departmentsResponseDTO.setManagerFirstName(department.getManager().getFirstName());
-            departmentsResponseDTO.setManagerLastName(department.getManager().getLastName());
-            departmentsResponseDTO.setOrganizationId(department.getOrganization().getOrganizationId());
-            departmentsResponseDTO.setOrganizationName(department.getOrganization().getOrganizationName());
-            departmentsResponseDTO.setOrganizationDescription(department.getOrganization().getOrganizationDescription());
-            departmentsResponseDTO.setOrganizationImage(department.getOrganization().getOrganizationImage());
-            return departmentsResponseDTO;
-        }).collect(Collectors.toUnmodifiableList());
-
-        return ResponseEntity.ok(departmentsResponseDTOS);
-    }
-
-    @PostMapping("/{organizationId}")
+//    @PreAuthorize("hasAuthority('GETALL_DEPARTMENTS')")
+//    @GetMapping("/{organizationId}")
+//    public ResponseEntity<List<DepartmentsResponseDTO>> getAllDepartments(@PathVariable("organizationId") Long organizationId) {
+//        List<Department> departments = departmentService.getAllDepartments(organizationId);
+//        List<DepartmentsResponseDTO> departmentsResponseDTOS = departments.stream().map(department ->{
+//            DepartmentsResponseDTO departmentsResponseDTO = new DepartmentsResponseDTO();
+//            departmentsResponseDTO.setDepartmentId(department.getDepartmentId());
+//            departmentsResponseDTO.setDescription(department.getDescription());
+//            departmentsResponseDTO.setDepartment(department.getDepartment());
+//            departmentsResponseDTO.setManagerId(department.getManager().getEmployeeId());
+//            departmentsResponseDTO.setManagerEmployeeCode(department.getManager().getEmployeeCode());
+//            departmentsResponseDTO.setManagerFirstName(department.getManager().getFirstName());
+//            departmentsResponseDTO.setManagerLastName(department.getManager().getLastName());
+////            departmentsResponseDTO.setOrganizationId(department.getOrganization().getOrganizationId());
+////            departmentsResponseDTO.setOrganizationName(department.getOrganization().getOrganizationName());
+////            departmentsResponseDTO.setOrganizationDescription(department.getOrganization().getOrganizationDescription());
+////            departmentsResponseDTO.setOrganizationImage(department.getOrganization().getOrganizationImage());
+//            return departmentsResponseDTO;
+//        }).collect(Collectors.toUnmodifiableList());
+//
+//        return ResponseEntity.ok(departmentsResponseDTOS);
+//    }
+//
+    @PostMapping("")
     @PreAuthorize("hasAuthority('ADD_DEPARTMENT')")
-    public ResponseEntity<Map<String,Object>> addDepartment(@Valid @RequestBody CreateDepartmentDTO createDepartmentDTO, @PathVariable("organizationId") Long organizationId) throws EmployeeNotFoundException, EntityNotFoundException, DepartmentService.DepartmentAlreadyExistsException {
-        Department createdDepartment = departmentService.addDepartment(createDepartmentDTO, organizationId);
+    public ResponseEntity<Map<String,Object>> addDepartment(@Valid @RequestBody CreateDepartmentDTO createDepartmentDTO, @RequestParam Map<String, String> attributes) throws EmployeeNotFoundException, EntityNotFoundException, DepartmentService.DepartmentAlreadyExistsException, AttributeKeyDoesNotExistException {
+        Department createdDepartment = departmentService.addDepartment(createDepartmentDTO, attributes);
         DepartmentsResponseDTO departmentsResponseDTO = new DepartmentsResponseDTO();
         departmentsResponseDTO.setDepartmentId(createdDepartment.getDepartmentId());
         departmentsResponseDTO.setDescription(createdDepartment.getDescription());
@@ -67,10 +68,10 @@ public class DepartmentController {
         departmentsResponseDTO.setManagerEmployeeCode(createdDepartment.getManager().getEmployeeCode());
         departmentsResponseDTO.setManagerFirstName(createdDepartment.getManager().getFirstName());
         departmentsResponseDTO.setManagerLastName(createdDepartment.getManager().getLastName());
-        departmentsResponseDTO.setOrganizationId(createdDepartment.getOrganization().getOrganizationId());
-        departmentsResponseDTO.setOrganizationName(createdDepartment.getOrganization().getOrganizationName());
-        departmentsResponseDTO.setOrganizationDescription(createdDepartment.getOrganization().getOrganizationDescription());
-        departmentsResponseDTO.setOrganizationImage(createdDepartment.getOrganization().getOrganizationImage());
+//        departmentsResponseDTO.setOrganizationId(createdDepartment.getOrganization().getOrganizationId());
+//        departmentsResponseDTO.setOrganizationName(createdDepartment.getOrganization().getOrganizationName());
+//        departmentsResponseDTO.setOrganizationDescription(createdDepartment.getOrganization().getOrganizationDescription());
+//        departmentsResponseDTO.setOrganizationImage(createdDepartment.getOrganization().getOrganizationImage());
         return ResponseEntity.status(201).body(Map.of("success", true, "message", "Department created successfully", "Department", departmentsResponseDTO));
     }
 
@@ -91,7 +92,8 @@ public class DepartmentController {
     @ExceptionHandler({
             EmployeeNotFoundException.class,
             DepartmentService.DepartmentNotFoundException.class,
-            DepartmentService.DepartmentAlreadyExistsException.class
+            DepartmentService.DepartmentAlreadyExistsException.class,
+            AttributeKeyDoesNotExistException.class
     })
 
     public ResponseEntity<ErrorResponseDTO> handleErrors(Exception exception){
@@ -102,6 +104,10 @@ public class DepartmentController {
             status = HttpStatus.NOT_FOUND;
         }
         else if (exception instanceof DepartmentService.DepartmentAlreadyExistsException){
+            message = exception.getMessage();
+            status = HttpStatus.BAD_REQUEST;
+        }
+        else if (exception instanceof AttributeKeyDoesNotExistException){
             message = exception.getMessage();
             status = HttpStatus.BAD_REQUEST;
         }

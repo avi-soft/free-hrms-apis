@@ -1,4 +1,12 @@
 
-r
-java:S1066;"/Merge this if statement with the enclosing one.(™¶×‚8¿Ã¯õ2J$b9d7ee12-bde9-4bfb-b8dd-b049ba165c94
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ8ÁÃ¯õ2J$5ed7bdb2-9316-4343-ade1-c3453835fd2f
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ8µËÄï2J$9e246789-f98f-4d68-a4ec-6c2a3572365e
+]	java:S125("<This block of commented-out lines of code should be removed.(ıÌæÌüÿÿÿÿ8Ä‡üõ2
+]
+java:S1854v"@Remove this useless assignment to local variable "organization".(¸ÏÇˆ8Ì‡üõ2
+Î
+java:S1130Q"«Remove the declaration of thrown exception 'com.example.HRMSAvisoft.service.DepartmentService$DepartmentAlreadyExistsException', as it cannot be thrown from method's body.(¼Òˆ­ûÿÿÿÿ8Î‡üõ2
+X	java:S125T"<This block of commented-out lines of code should be removed.(öÁı±8Ğ‡üõ2
+N
+java:S1481v"1Remove this unused "organization" local variable.(¸ÏÇˆ8Ó‡üõ2
+X	java:S125w"<This block of commented-out lines of code should be removed.(ÂÇÒ†8Ô‡üõ2
+Y	java:S125€"<This block of commented-out lines of code should be removed.(ïÌ”8Ö‡üõ2

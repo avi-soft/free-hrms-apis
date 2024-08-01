@@ -1,6 +1,4 @@
 
 ;
-java:S1700"Rename field "department"(š…¡êûÿÿÿÿ8¦÷È2
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(—üïïøÿÿÿÿ8ŞÍŒ2J$7a3b5dbc-1d85-4cd7-8b12-1340b1964ea5
-M
-java:S1128	"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8«÷È2
+java:S1700"Rename field "department"(š…¡êûÿÿÿÿ8ö‡üõ2
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(—üïïøÿÿÿÿ8ŞÍŒ2J$dbcfa801-43e8-4860-8d1d-32a2ec2c4292
