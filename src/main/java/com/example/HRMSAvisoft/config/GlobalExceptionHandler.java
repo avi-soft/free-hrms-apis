@@ -47,6 +47,13 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(status).body(responseData);
     }
 
+    @ExceptionHandler(AttributeKeyDoesNotExistException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity <Object> handleAttributeKeyDoesNotExistException(AttributeKeyDoesNotExistException exception)
+    {
+        return ResponseGenerator.generateResponse(HttpStatus.FORBIDDEN,false,"Access is denied for current user",null);
+    }
+
     @ExceptionHandler({
            EmployeeNotFoundException.class,
             NullPointerException.class,

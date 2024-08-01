@@ -1,9 +1,12 @@
 package com.example.HRMSAvisoft.entity;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.*;
+import utils.EmployeeAttributesSerializer;
 
 import java.util.*;
 
@@ -40,8 +43,8 @@ public class Employee {
     //
     //    private String joinDate;
     //
-    //    @Enumerated(EnumType.STRING)
-    //    private Gender gender;
+        @Enumerated(EnumType.STRING)
+        private Gender gender;
     //
     //    private String adhaarNumber;
     //
@@ -88,6 +91,7 @@ public class Employee {
     )
     @MapKeyJoinColumn(name = "attribute_id")
     @Column(name = "attribute_value")
+    @JsonSerialize(using = EmployeeAttributesSerializer.class)
     private Map<EmployeeAttribute, String> attributes = new HashMap<>();
 
     @ManyToMany

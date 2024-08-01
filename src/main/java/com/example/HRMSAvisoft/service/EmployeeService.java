@@ -4,6 +4,7 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.example.HRMSAvisoft.dto.CreateEmployeeDTO;
 import com.example.HRMSAvisoft.entity.*;
+import com.example.HRMSAvisoft.exception.AttributeKeyDoesNotExistException;
 import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
 import com.example.HRMSAvisoft.repository.*;
 import jakarta.persistence.EntityManager;
@@ -86,8 +87,13 @@ public class EmployeeService {
         return searchedEmployees;
     }
 
-    public Employee saveEmployeePersonalInfo(Long employeeId, CreateEmployeeDTO createEmployeeDTO,Map<String, String> attributes)throws EmployeeNotFoundException, EmployeeCodeAlreadyExistsException, AccessDeniedException, EntityNotFoundException{
-
+    public Employee saveEmployeePersonalInfo(Long employeeId, CreateEmployeeDTO createEmployeeDTO,Map<String, String> attributes)throws EmployeeNotFoundException, EmployeeCodeAlreadyExistsException, AccessDeniedException,AttributeKeyDoesNotExistException, EntityNotFoundException{
+        attributes.forEach((k,v)->{
+            EmployeeAttribute employeeAttribute = employeeAttributeRepository.findByAttributeKey(k).orElse(null);
+            if(employeeAttribute == null){
+                throw new AttributeKeyDoesNotExistException("Attribute "+ k + " does not exist");
+            }
+        });
         if (employeeRepository.existsByEmployeeCode(createEmployeeDTO.getEmployeeCode())) {
             throw new EmployeeCodeAlreadyExistsException("Employee code already exists: " + createEmployeeDTO.getEmployeeCode());
         }

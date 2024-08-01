@@ -1,8 +1,0 @@
-{
-  "role": "Admin",
-  "privilege": [
-    "GET_ALL_EMPLOYEES",
-    "FIND_EMPLOYEE_BY_ID",
-    "ADD_ADDRESS"
-  ]
-}
