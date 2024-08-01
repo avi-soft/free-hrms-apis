@@ -1,4 +1,18 @@
 
 t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ö»ûÿÿÿÿ
+W	java:S125"<This block of commented-out lines of code should be removed.(ñê¿8ì†¯ä2
+o
+java:S1128"MRemove this unused import 'com.example.HRMSAvisoft.entity.EmployeeAttribute'.(›ŸĞëúÿÿÿÿ8í†¯ä2
+d
+java:S1128"BRemove this unused import 'com.example.HRMSAvisoft.entity.Gender'.(¯ê¾ßùÿÿÿÿ8í†¯ä2
+v
+java:S1128"TRemove this unused import 'com.fasterxml.jackson.databind.annotation.JsonSerialize'.(ÖÎèöúÿÿÿÿ8î†¯ä2
+a
+java:S1128
+"?Remove this unused import 'utils.EmployeeAttributesSerializer'.(£Íˆ×ıÿÿÿÿ8î†¯ä2
+P
+java:S1128".Remove this unused import 'java.util.HashMap'.(™˜”€ùÿÿÿÿ8î†¯ä2
 F
-java:S1128	"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ
+L
+java:S1128"*Remove this unused import 'java.util.Map'.(¼è½Òşÿÿÿÿ8î†¯ä2

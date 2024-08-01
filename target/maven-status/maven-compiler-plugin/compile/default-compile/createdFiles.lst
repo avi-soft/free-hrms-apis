@@ -81,6 +81,7 @@ com/example/HRMSAvisoft/repository/DesignationRepository.class
 com/example/HRMSAvisoft/config/SwaggerConfiguration.class
 com/example/HRMSAvisoft/dto/CreateEmergencyContactDTO.class
 com/example/HRMSAvisoft/entity/Employee$EmployeeBuilder.class
+utils/EmployeeAttributesSerializer.class
 com/example/HRMSAvisoft/dto/AddNewOrganizationDTO.class
 com/example/HRMSAvisoft/service/LeaveTypeService.class
 com/example/HRMSAvisoft/dto/UpdateEmployeeDetailsDTO.class
@@ -110,6 +111,7 @@ com/example/HRMSAvisoft/dto/ErrorResponseDTO$ErrorResponseDTOBuilder.class
 com/example/HRMSAvisoft/service/JWTService.class
 com/example/HRMSAvisoft/controller/UserController.class
 com/example/HRMSAvisoft/service/LeaveService.class
+com/example/HRMSAvisoft/exception/AttributeKeyDoesNotExistException.class
 com/example/HRMSAvisoft/dto/AddAccountDTO.class
 com/example/HRMSAvisoft/scheduler/LeaveBalanceScheduler.class
 com/example/HRMSAvisoft/controller/LeaveTypeController.class

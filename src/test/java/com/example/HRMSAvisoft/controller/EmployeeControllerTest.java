@@ -135,9 +135,7 @@ public class EmployeeControllerTest {
         UpdatePersonalDetailsDTO updatePersonalDetails = new UpdatePersonalDetailsDTO();
         updatePersonalDetails.setFirstName("John");
         updatePersonalDetails.setLastName("Doe");
-        updatePersonalDetails.setGender(Gender.MALE);
-        updatePersonalDetails.setContact("1234567890");
-        updatePersonalDetails.setDateOfBirth("1990-01-01");
+
 
         Employee existingEmployee = new Employee();
         existingEmployee.setEmployeeId(employeeId);
@@ -181,12 +179,7 @@ public class EmployeeControllerTest {
         UpdateEmployeeDetailsDTO updateEmployeeDetailsDTO = new UpdateEmployeeDetailsDTO();
         updateEmployeeDetailsDTO.setFirstName("John");
         updateEmployeeDetailsDTO.setLastName("Doe");
-        updateEmployeeDetailsDTO.setContact("1234567890");
-        updateEmployeeDetailsDTO.setGender(Gender.MALE);
-        updateEmployeeDetailsDTO.setDateOfBirth("25/02/2001");
-        updateEmployeeDetailsDTO.setJoinDate("24/01/2024");
-        updateEmployeeDetailsDTO.setPosition(Position.DEVELOPER);
-        updateEmployeeDetailsDTO.setSalary(50000);
+
 
         Employee existingEmployee = new Employee();
         existingEmployee.setEmployeeId(employeeId);
