@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,6 +28,8 @@ public class CreateEmployeeDTO {
 //    private String uanNumber;
 //    private String dateOfBirth;
 //    private BigDecimal salary;
+    private List<String> designationList;
+    private List<String> skillList;
 
 
 }

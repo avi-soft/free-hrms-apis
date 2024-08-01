@@ -49,11 +49,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AttributeKeyDoesNotExistException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<Map<String, Object>> handleAttributeKeyDoesNotExistException(AttributeKeyDoesNotExistException exception) {
-        Map<String, Object> responseData = new HashMap<>();
-        responseData.put("message", exception.getMessage());
-        responseData.put("Success", false);
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseData);
+    public ResponseEntity <Object> handleAttributeKeyDoesNotExistException(AttributeKeyDoesNotExistException exception)
+    {
+        return ResponseGenerator.generateResponse(HttpStatus.FORBIDDEN,false,"Access is denied for current user",null);
     }
 
     @ExceptionHandler({

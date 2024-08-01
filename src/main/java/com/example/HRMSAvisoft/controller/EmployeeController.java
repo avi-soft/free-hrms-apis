@@ -5,6 +5,7 @@ import com.example.HRMSAvisoft.dto.*;
 import com.example.HRMSAvisoft.entity.Employee;
 import com.example.HRMSAvisoft.entity.EmployeeAttribute;
 import com.example.HRMSAvisoft.entity.User;
+import com.example.HRMSAvisoft.exception.AttributeKeyDoesNotExistException;
 import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
 import com.example.HRMSAvisoft.repository.EmployeeAttributeRepository;
 import com.example.HRMSAvisoft.repository.UserRepository;
@@ -140,7 +141,7 @@ public class EmployeeController {
 
     @PreAuthorize("hasAuthority('ADD_EMPLOYEE')")
     @PostMapping("/{employeeId}")
-    public ResponseEntity<Map<String, Object>> saveEmployeePersonalInfo(@PathVariable Long employeeId, @RequestBody  @Valid CreateEmployeeDTO createEmployee, @RequestParam Map<String, String> attributes) throws EmployeeNotFoundException, EmployeeService.EmployeeCodeAlreadyExistsException, AccessDeniedException {
+    public ResponseEntity<Map<String, Object>> saveEmployeePersonalInfo(@PathVariable Long employeeId, @RequestBody  @Valid CreateEmployeeDTO createEmployee, @RequestParam Map<String, String> attributes) throws EmployeeNotFoundException, AttributeKeyDoesNotExistException, EmployeeService.EmployeeCodeAlreadyExistsException, AccessDeniedException {
         Employee newEmployee = employeeService.saveEmployeePersonalInfo(employeeId, createEmployee, attributes);
         return ResponseEntity.ok(Map.of("success", true, "message", "Employee created Successfully", "Employee", newEmployee));
     }
@@ -223,7 +224,8 @@ public class EmployeeController {
             IOException.class,
             RuntimeException.class,
             IllegalArgumentException.class,
-            EmployeeService.EmployeeCodeAlreadyExistsException.class
+            EmployeeService.EmployeeCodeAlreadyExistsException.class,
+            AttributeKeyDoesNotExistException.class
 
     })
 
@@ -238,6 +240,10 @@ public class EmployeeController {
         else if(exception instanceof EmployeeService.EmployeeCodeAlreadyExistsException){
             message = exception.getMessage();
             status = HttpStatus.BAD_REQUEST;
+        }
+        else if(exception instanceof AttributeKeyDoesNotExistException){
+            message = exception.getMessage();
+            status = HttpStatus.NOT_FOUND;
         }
         else if(exception instanceof NullPointerException) {
             message = exception.getMessage();
