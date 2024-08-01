@@ -3,8 +3,11 @@ package com.example.HRMSAvisoft.controller;
 import com.example.HRMSAvisoft.config.GlobalExceptionHandler;
 import com.example.HRMSAvisoft.dto.*;
 import com.example.HRMSAvisoft.entity.Employee;
+import com.example.HRMSAvisoft.entity.EmployeeAttribute;
 import com.example.HRMSAvisoft.entity.User;
+import com.example.HRMSAvisoft.exception.AttributeKeyDoesNotExistException;
 import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
+import com.example.HRMSAvisoft.repository.EmployeeAttributeRepository;
 import com.example.HRMSAvisoft.repository.UserRepository;
 import com.example.HRMSAvisoft.service.EmployeeService;
 import jakarta.validation.Valid;
@@ -16,6 +19,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +43,8 @@ public class EmployeeController {
 
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private EmployeeAttributeRepository employeeAttributeRepository;
 
     public EmployeeController(EmployeeService employeeService){
 
@@ -68,7 +74,8 @@ public class EmployeeController {
             }
             loginUserResponseDTO.setEmployeeId(employee.getEmployeeId());
             loginUserResponseDTO.setAddresses(employee.getAddresses());
-            loginUserResponseDTO.setAccount(employee.getAccount());
+            loginUserResponseDTO.setAttributes(employee.getAttributes());
+//            loginUserResponseDTO.setAccount(employee.getAccount());
 //            loginUserResponseDTO.setUanNumber(employee.getUanNumber());
 //            loginUserResponseDTO.setPanNumber(employee.getPanNumber());
 //            loginUserResponseDTO.setContact(employee.getContact());
@@ -83,7 +90,7 @@ public class EmployeeController {
 //            loginUserResponseDTO.setGender(employee.getGender());
             User userEmployee = userRepository.findByEmployee(employee);
             loginUserResponseDTO.setUserId(userEmployee.getUserId());
-            loginUserResponseDTO.setEmail(userEmployee.getEmail());
+//            loginUserResponseDTO.setEmail(userEmployee.getEmail());
             loginUserResponseDTO.setRoles(userEmployee.getRoles());
             loginUserResponseDTO.setCreatedAt(userEmployee.getCreatedAt());
             return loginUserResponseDTO;
@@ -92,48 +99,49 @@ public class EmployeeController {
         return ResponseEntity.ok(loginUserResponseDTOs);
     }
 
-//    @PreAuthorize("hasAuthority('SEARCH_EMPLOYEE_BY_MANAGER_ID')")
-//    @GetMapping("/searchByManager")
-//    public ResponseEntity<List<LoginUserResponseDTO>> searchEmployeeByManagerId(@RequestParam("managerId") Long managerId) throws IllegalArgumentException, AccessDeniedException {
-//        List<Employee> searchedEmployees = employeeService.searchEmployeeByManagerId(managerId);
-//        List<LoginUserResponseDTO> loginUserResponseDTOs = searchedEmployees.stream().map((employee)->{
-//            LoginUserResponseDTO loginUserResponseDTO = new LoginUserResponseDTO();
-//            loginUserResponseDTO.setEmployeeCode(employee.getEmployeeCode());
-//            if(employee.getDepartment() != null) {
-//                loginUserResponseDTO.setDepartment(employee.getDepartment().getDepartment());
-//                loginUserResponseDTO.setDepartmentId(employee.getDepartment().getDepartmentId());
-//                loginUserResponseDTO.setDepartmentDescription(employee.getDepartment().getDescription());
-//                loginUserResponseDTO.setManagerId(employee.getDepartment().getManager().getEmployeeId());
-//            }
-//            loginUserResponseDTO.setEmployeeId(employee.getEmployeeId());
-//            loginUserResponseDTO.setAddresses(employee.getAddresses());
+    @PreAuthorize("hasAuthority('SEARCH_EMPLOYEE_BY_MANAGER_ID')")
+    @GetMapping("/searchByManager")
+    public ResponseEntity<List<LoginUserResponseDTO>> searchEmployeeByManagerId(@RequestParam("managerId") Long managerId) throws IllegalArgumentException, AccessDeniedException {
+        List<Employee> searchedEmployees = employeeService.searchEmployeeByManagerId(managerId);
+        List<LoginUserResponseDTO> loginUserResponseDTOs = searchedEmployees.stream().map((employee)->{
+            LoginUserResponseDTO loginUserResponseDTO = new LoginUserResponseDTO();
+            loginUserResponseDTO.setEmployeeCode(employee.getEmployeeCode());
+            if(employee.getDepartment() != null) {
+                loginUserResponseDTO.setDepartment(employee.getDepartment().getDepartment());
+                loginUserResponseDTO.setDepartmentId(employee.getDepartment().getDepartmentId());
+                loginUserResponseDTO.setDepartmentDescription(employee.getDepartment().getDescription());
+                loginUserResponseDTO.setManagerId(employee.getDepartment().getManager().getEmployeeId());
+            }
+            loginUserResponseDTO.setEmployeeId(employee.getEmployeeId());
+            loginUserResponseDTO.setAddresses(employee.getAddresses());
 //            loginUserResponseDTO.setAccount(employee.getAccount());
 //            loginUserResponseDTO.setUanNumber(employee.getUanNumber());
 //            loginUserResponseDTO.setPanNumber(employee.getPanNumber());
 //            loginUserResponseDTO.setContact(employee.getContact());
-//            loginUserResponseDTO.setFirstName(employee.getFirstName());
-//            loginUserResponseDTO.setLastName(employee.getLastName());
+            loginUserResponseDTO.setFirstName(employee.getFirstName());
+            loginUserResponseDTO.setLastName(employee.getLastName());
 //            loginUserResponseDTO.setSalary(employee.getSalary());
 //            loginUserResponseDTO.setJoinDate(employee.getJoinDate());
 //            loginUserResponseDTO.setAdhaarNumber(employee.getAdhaarNumber());
 //            loginUserResponseDTO.setDateOfBirth(employee.getDateOfBirth());
 //            loginUserResponseDTO.setPosition(employee.getPosition());
-//            loginUserResponseDTO.setProfileImage(employee.getProfileImage());
+            loginUserResponseDTO.setProfileImage(employee.getProfileImage());
+            loginUserResponseDTO.setAttributes(employee.getAttributes());
 //            loginUserResponseDTO.setGender(employee.getGender());
-//            User userEmployee = userRepository.findByEmployee(employee);
-//            loginUserResponseDTO.setUserId(userEmployee.getUserId());
+            User userEmployee = userRepository.findByEmployee(employee);
+            loginUserResponseDTO.setUserId(userEmployee.getUserId());
 //            loginUserResponseDTO.setEmail(userEmployee.getEmail());
-//            loginUserResponseDTO.setRoles(userEmployee.getRoles());
-//            loginUserResponseDTO.setCreatedAt(userEmployee.getCreatedAt());
-//            return loginUserResponseDTO;
-//        }).collect(Collectors.toList());
-//
-//        return ResponseEntity.ok(loginUserResponseDTOs);
-//    }
+            loginUserResponseDTO.setRoles(userEmployee.getRoles());
+            loginUserResponseDTO.setCreatedAt(userEmployee.getCreatedAt());
+            return loginUserResponseDTO;
+        }).collect(Collectors.toList());
+
+        return ResponseEntity.ok(loginUserResponseDTOs);
+    }
 
     @PreAuthorize("hasAuthority('ADD_EMPLOYEE')")
     @PostMapping("/{employeeId}")
-    public ResponseEntity<Map<String, Object>> saveEmployeePersonalInfo(@PathVariable Long employeeId, @RequestBody  @Valid CreateEmployeeDTO createEmployee, @RequestParam Map<String, String> attributes) throws EmployeeNotFoundException, EmployeeService.EmployeeCodeAlreadyExistsException, AccessDeniedException {
+    public ResponseEntity<Map<String, Object>> saveEmployeePersonalInfo(@PathVariable Long employeeId, @RequestBody  @Valid CreateEmployeeDTO createEmployee, @RequestParam Map<String, String> attributes) throws EmployeeNotFoundException, AttributeKeyDoesNotExistException, EmployeeService.EmployeeCodeAlreadyExistsException, AccessDeniedException {
         Employee newEmployee = employeeService.saveEmployeePersonalInfo(employeeId, createEmployee, attributes);
         return ResponseEntity.ok(Map.of("success", true, "message", "Employee created Successfully", "Employee", newEmployee));
     }
@@ -169,28 +177,29 @@ public class EmployeeController {
     }
 
 
-//    @PreAuthorize("hasAuthority('UPDATE_EMPLOYEE_PERSONAL_DETAILS')")
-//    @PutMapping("/updatePersonalDetails/{employeeId}")
-//    public ResponseEntity<Map<String ,Object>> updatePersonalDetails(@PathVariable Long employeeId, @RequestBody UpdatePersonalDetailsDTO updatePersonalDetails) throws NullPointerException, EmployeeNotFoundException, AccessDeniedException {
-//
-//        Employee existingEmployee = employeeService.getEmployeeById(employeeId);
-////        existingEmployee.getAttributes();
-//        existingEmployee.setFirstName(updatePersonalDetails.getFirstName());
-//        existingEmployee.setLastName(updatePersonalDetails.getLastName());
+    @PreAuthorize("hasAuthority('UPDATE_EMPLOYEE_PERSONAL_DETAILS')")
+    @PutMapping("/updatePersonalDetails/{employeeId}")
+    public ResponseEntity<Map<String ,Object>> updatePersonalDetails(@PathVariable Long employeeId, @RequestBody UpdatePersonalDetailsDTO updatePersonalDetails, @RequestParam Map<String, String> attributes) throws NullPointerException, EmployeeNotFoundException, AccessDeniedException {
+
+        Employee existingEmployee = employeeService.getEmployeeById(employeeId);
+        existingEmployee.setFirstName(updatePersonalDetails.getFirstName());
+        existingEmployee.setLastName(updatePersonalDetails.getLastName());
+//        existingEmployee.setAttributes(updatePersonalDetails.getAttributes());
 //        existingEmployee.setGender(updatePersonalDetails.getGender());
 //        existingEmployee.setContact(updatePersonalDetails.getContact());
 //        existingEmployee.setDateOfBirth(updatePersonalDetails.getDateOfBirth());
-//        Employee savedEmployee = employeeService.updateEmployee(existingEmployee);
-//
-//        return ResponseEntity.ok().body(Map.of("UpdatedEmployee",savedEmployee , "message", "Personal Details Updated", "Status", true));
-//    }
+        Employee savedEmployee = employeeService.updateEmployee(existingEmployee);
+
+        return ResponseEntity.ok().body(Map.of("UpdatedEmployee",savedEmployee , "message", "Personal Details Updated", "Status", true));
+    }
     
-//    @PreAuthorize("hasAuthority('UPDATE_EMPLOYEE_COMPANY_DETAILS')")
-//    @PutMapping("/updateEmployeeDetails/{employeeId}")
-//    public ResponseEntity<Map<String,Object>>updateEmployeeDetails(@PathVariable Long employeeId, @RequestBody UpdateEmployeeDetailsDTO updateEmployeeDetailsDTO) throws NullPointerException, EmployeeNotFoundException, AccessDeniedException {
-//        Employee existingEmployee = employeeService.getEmployeeById(employeeId);
-//        if(updateEmployeeDetailsDTO.getFirstName()!=null) existingEmployee.setFirstName(updateEmployeeDetailsDTO.getFirstName());
-//        if(updateEmployeeDetailsDTO.getLastName()!=null) existingEmployee.setLastName(updateEmployeeDetailsDTO.getLastName());
+    @PreAuthorize("hasAuthority('UPDATE_EMPLOYEE_COMPANY_DETAILS')")
+    @PutMapping(value = "/updateEmployeeDetails/{employeeId}")
+    public ResponseEntity<Map<String,Object>>updateEmployeeDetails(@PathVariable Long employeeId, @RequestBody UpdateEmployeeDetailsDTO updateEmployeeDetailsDTO,@RequestParam Map<String, String> attributes) throws NullPointerException, EmployeeNotFoundException, AccessDeniedException {
+        Employee existingEmployee = employeeService.getEmployeeById(employeeId);
+        if(updateEmployeeDetailsDTO.getFirstName()!=null) existingEmployee.setFirstName(updateEmployeeDetailsDTO.getFirstName());
+        if(updateEmployeeDetailsDTO.getLastName()!=null) existingEmployee.setLastName(updateEmployeeDetailsDTO.getLastName());
+//        if(updateEmployeeDetailsDTO.getLastName()!=null) existingEmployee.setAttributes(attributes);
 //        if(updateEmployeeDetailsDTO.getContact()!=null)existingEmployee.setContact(updateEmployeeDetailsDTO.getContact());
 //        if(updateEmployeeDetailsDTO.getGender()!=null)existingEmployee.setGender(updateEmployeeDetailsDTO.getGender());
 //        if(updateEmployeeDetailsDTO.getDateOfBirth()!=null)existingEmployee.setDateOfBirth(updateEmployeeDetailsDTO.getDateOfBirth());
@@ -200,16 +209,23 @@ public class EmployeeController {
 //        if(updateEmployeeDetailsDTO.getPanNumber()!=null)existingEmployee.setPanNumber(updateEmployeeDetailsDTO.getPanNumber());
 //        if(updateEmployeeDetailsDTO.getPosition()!=null)existingEmployee.setPosition(updateEmployeeDetailsDTO.getPosition());
 //        if(updateEmployeeDetailsDTO.getSalary()!=0)existingEmployee.setSalary(BigDecimal.valueOf(updateEmployeeDetailsDTO.getSalary()));
-//        Employee savedEmployee = employeeService.updateEmployee(existingEmployee);
-//        return ResponseEntity.ok().body(Map.of("UpdatedEmployee",savedEmployee , "message", "Personal Details Updated", "Status", true));
-//
-//    }
+        Map<EmployeeAttribute, String> employeeAttributes = attributes.entrySet().stream()
+                .collect(Collectors.toMap(
+                        entry -> employeeAttributeRepository.findByAttributeKey(entry.getKey())
+                                .orElseThrow(() -> new RuntimeException("Attribute not found: " + entry.getKey())),
+                        Map.Entry::getValue
+                ));
+        existingEmployee.setAttributes(employeeAttributes);
+        Employee savedEmployee = employeeService.updateEmployee(existingEmployee);
+        return ResponseEntity.ok().body(Map.of("UpdatedEmployee",savedEmployee , "message", "Personal Details Updated", "Status", true));
+    }
 
     @ExceptionHandler({
             IOException.class,
             RuntimeException.class,
             IllegalArgumentException.class,
-            EmployeeService.EmployeeCodeAlreadyExistsException.class
+            EmployeeService.EmployeeCodeAlreadyExistsException.class,
+            AttributeKeyDoesNotExistException.class
 
     })
 
@@ -224,6 +240,10 @@ public class EmployeeController {
         else if(exception instanceof EmployeeService.EmployeeCodeAlreadyExistsException){
             message = exception.getMessage();
             status = HttpStatus.BAD_REQUEST;
+        }
+        else if(exception instanceof AttributeKeyDoesNotExistException){
+            message = exception.getMessage();
+            status = HttpStatus.NOT_FOUND;
         }
         else if(exception instanceof NullPointerException) {
             message = exception.getMessage();

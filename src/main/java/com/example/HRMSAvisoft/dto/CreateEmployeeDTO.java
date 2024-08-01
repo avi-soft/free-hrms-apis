@@ -1,6 +1,5 @@
 package com.example.HRMSAvisoft.dto;
 
-import com.example.HRMSAvisoft.entity.Designation;
 import com.example.HRMSAvisoft.entity.Gender;
 import com.example.HRMSAvisoft.entity.Position;
 import lombok.AllArgsConstructor;
@@ -20,17 +19,19 @@ public class CreateEmployeeDTO {
     private String lastName;
     private Long departmentId;
     private String employeeCode;
-    private String contact;
-    private Position position;
-    private String joinDate;
-    private Gender gender;
-    private String adhaarNumber;
-    private String panNumber;
-    private String uanNumber;
-    private String dateOfBirth;
-    private BigDecimal salary;
+//    private String contact;
+//    private Position position;
+//    private String joinDate;
+//    private Gender gender;
+//    private String adhaarNumber;
+//    private String panNumber;
+//    private String uanNumber;
+//    private String dateOfBirth;
+//    private BigDecimal salary;
     private List<String> designationList;
     private List<String> skillList;
+
+
 }
 
 
