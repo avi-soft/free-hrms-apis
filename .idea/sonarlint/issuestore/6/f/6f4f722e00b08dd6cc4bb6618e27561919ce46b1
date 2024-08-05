@@ -1,6 +1,14 @@
 
+<<<<<<< HEAD
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ö»ûÿÿÿÿ8§šÙ¬÷1J$5654ae8e-1317-4f19-b1d5-3834dd0c92ed
+u
+java:S6395"-Unwrap this unnecessarily grouped subpattern.(¡Ž”ûùÿÿÿÿ8ˆô¾îŽ2J$20479dbe-b63a-4a53-aacd-674b5dad47d1
+‹
+java:S1128"CRemove this unused import 'jakarta.validation.constraints.NotNull'.(Àª•ýÿÿÿÿ8¹ù²‘2J$43c4b8a8-f204-4eae-807a-f48d870826ae
+=======
 ¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ö»ûÿÿÿÿ8§šÙ¬÷1J$2e4af641-e4fa-49b1-a416-6f68a28d3874
 O
 java:S6395"-Unwrap this unnecessarily grouped subpattern.(¡Ž”ûùÿÿÿÿ8˜ˆüõ2
 ‹
 java:S1128"CRemove this unused import 'jakarta.validation.constraints.NotNull'.(Àª•ýÿÿÿÿ8ˆô¾îŽ2J$a3327daf-6d22-4731-a886-3cfd62a548ed
+>>>>>>> 79dd34e0ddfbb0c0d03a89841ad2446618aae5a0

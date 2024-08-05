@@ -1,8 +1,10 @@
 package com.example.HRMSAvisoft.controller;
 
 import com.example.HRMSAvisoft.dto.AddNewOrganizationDTO;
+import com.example.HRMSAvisoft.dto.DepartmentsResponseDTO;
 import com.example.HRMSAvisoft.dto.ErrorResponseDTO;
 import com.example.HRMSAvisoft.dto.UpdateOrganizationDTO;
+import com.example.HRMSAvisoft.entity.Department;
 import com.example.HRMSAvisoft.entity.Organization;
 import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
 import com.example.HRMSAvisoft.service.OrganizationService;
@@ -19,6 +21,7 @@ import utils.ResponseGenerator;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.Map;
 
 @RestController
@@ -42,6 +45,28 @@ public class OrganizationController {
         return ResponseEntity.ok().body(message);
     }
 
+    @GetMapping("/{organizationId}")
+    public ResponseEntity<List<DepartmentsResponseDTO>> getDepartmentsOfOrganization(@PathVariable("organizationId") Long organizationId){
+        List<Department> departments = organizationService.getDepartmentsOfOrganization(organizationId);
+
+        List<DepartmentsResponseDTO> departmentsResponseDTOList = departments.stream().map((department) -> {
+            DepartmentsResponseDTO departmentResponseDTO = new DepartmentsResponseDTO();
+            departmentResponseDTO.setDepartmentId(department.getDepartmentId());
+            departmentResponseDTO.setDepartment(department.getDepartment());
+            departmentResponseDTO.setDescription(department.getDescription());
+            departmentResponseDTO.setManagerId(department.getManager().getEmployeeId());
+            departmentResponseDTO.setAttributes(department.getAttributes());
+            departmentResponseDTO.setManagerFirstName(department.getManager().getFirstName());
+            departmentResponseDTO.setManagerEmployeeCode(department.getManager().getEmployeeCode());
+            departmentResponseDTO.setManagerLastName(department.getManager().getLastName());
+
+            return departmentResponseDTO;
+
+        }).collect(Collectors.toList());
+
+        return ResponseEntity.ok(departmentsResponseDTOList);
+
+    }
 
     @PreAuthorize("hasAnyAuthority('GET_ALL_ORGANIZATIONS')")
     @GetMapping("")
