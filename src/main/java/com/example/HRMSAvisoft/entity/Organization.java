@@ -1,7 +1,11 @@
 package com.example.HRMSAvisoft.entity;
+import com.example.HRMSAvisoft.attribute.EmployeeAttribute;
+import com.example.HRMSAvisoft.attribute.OrganizationAttribute;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.*;
+import utils.AttributesSerializer;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -38,4 +42,13 @@ public class Organization
     @JsonIgnore
     private List<User> users = new ArrayList<>();
 
+    @ElementCollection
+    @CollectionTable(
+            name = "organization_attributes",
+            joinColumns = @JoinColumn(name = "organization_id")
+    )
+    @MapKeyJoinColumn(name = "attribute_id")
+    @Column(name = "attribute_value")
+    @JsonSerialize(using = AttributesSerializer.class)
+    private Map<OrganizationAttribute, String> attributes = new HashMap<>();
 }

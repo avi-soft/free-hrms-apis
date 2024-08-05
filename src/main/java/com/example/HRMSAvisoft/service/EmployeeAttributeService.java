@@ -1,14 +1,13 @@
 package com.example.HRMSAvisoft.service;
 
 import com.cloudinary.Cloudinary;
-import com.example.HRMSAvisoft.entity.EmployeeAttribute;
+import com.example.HRMSAvisoft.attribute.EmployeeAttribute;
 import com.example.HRMSAvisoft.repository.EmployeeAttributeRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 
@@ -32,12 +31,11 @@ public class EmployeeAttributeService {
     }
 
     public EmployeeAttribute addEmployeeAttribute(EmployeeAttribute employeeAttribute) throws com.example.HRMSAvisoft.service.EmployeeAttributeService.EmployeeAttributeAlreadyExistsException, IllegalArgumentException {
-        EmployeeAttribute employeeAttributeToAdd = modelMapper.map(employeeAttribute, EmployeeAttribute.class);
         EmployeeAttribute existingEmployeeAttribute = employeeAttributeRepository.findByAttributeKey(employeeAttribute.getAttributeKey()).orElse(null);
         if (existingEmployeeAttribute != null) {
             throw new com.example.HRMSAvisoft.service.EmployeeAttributeService.EmployeeAttributeAlreadyExistsException(existingEmployeeAttribute.getAttributeKey() + " employeeAttribute already exists");
         }
-        return employeeAttributeRepository.save(employeeAttributeToAdd);
+        return employeeAttributeRepository.save(employeeAttribute);
     }
 
     public EmployeeAttribute updateEmployeeAttribute(EmployeeAttribute employeeAttribute, Long employeeAttributeId) throws EntityNotFoundException, IllegalArgumentException {

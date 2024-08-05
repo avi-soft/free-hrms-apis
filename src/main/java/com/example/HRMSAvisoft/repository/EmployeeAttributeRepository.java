@@ -1,6 +1,6 @@
 package com.example.HRMSAvisoft.repository;
 
-import com.example.HRMSAvisoft.entity.EmployeeAttribute;
+import com.example.HRMSAvisoft.attribute.EmployeeAttribute;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

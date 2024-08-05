@@ -1,25 +1,25 @@
 
-‹
-java:S1192E"HDefine a constant instead of duplicating this literal "success" 3 times.(£¼Œ8â¦‰’2J$6eb2aa70-6144-49e7-910a-f3aefb32f6f7
-‹
-java:S1192E"HDefine a constant instead of duplicating this literal "message" 3 times.(£¼Œ8ã¦‰’2J$42747658-c86c-41ed-a2b3-4490d44c8b1c
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿ8è¦‰’2J$47ae6a3f-28da-4730-9ff5-f2d37b8b549e
-¡
-java:S62043"^Replace this usage of 'Stream.collect(Collectors.toUnmodifiableList())' with 'Stream.toList()'(¯ÕÀ»8—‘¦‰’2J$804e92b2-79b1-495a-a61a-c1a0452bbb7c
-
-java:S1854K"ERemove this useless assignment to local variable "updatedDepartment".(ÂüØÒúÿÿÿÿ8£‘¦‰’2J$f7505f78-ec73-443d-8c2f-008d382dee9a
-~
-java:S1481K"6Remove this unused "updatedDepartment" local variable.(ÂüØÒúÿÿÿÿ8¦‘¦‰’2J$0e08d294-3647-4c2a-8475-97a5671975d2
-
-java:S1871j"MThis branch's code block is the same as the block for the branch on line 102.(µşâ8­‘¦‰’2J$e1a896e0-5924-4edf-813a-7f9a782c4727
-”
-java:S1871r"LThis branch's code block is the same as the block for the branch on line 98.(ç¬Ø±úÿÿÿÿ8¬‘¦‰’2J$a564931c-6e80-42e4-a393-0cd02c7ca22b
-
-java:S1871n"LThis branch's code block is the same as the block for the branch on line 98.(úø¶Ì8­‘¦‰’2J$953cf330-3c67-4560-8a68-fa98151bbfcd
-œ
+e
+java:S1192E"HDefine a constant instead of duplicating this literal "success" 3 times.(£¼Œ8Õµä‰’2
+e
+java:S1192E"HDefine a constant instead of duplicating this literal "message" 3 times.(£¼Œ8Öµä‰’2
+{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿ8Úµä‰’2
+{
+java:S62043"^Replace this usage of 'Stream.collect(Collectors.toUnmodifiableList())' with 'Stream.toList()'(¯ÕÀ»8…¶ä‰’2
+g
+java:S1854K"ERemove this useless assignment to local variable "updatedDepartment".(ÂüØÒúÿÿÿÿ8“¶ä‰’2
+X
+java:S1481K"6Remove this unused "updatedDepartment" local variable.(ÂüØÒúÿÿÿÿ8–¶ä‰’2
+i
+java:S1871n"LThis branch's code block is the same as the block for the branch on line 98.(úø¶Ì8›¶ä‰’2
+n
+java:S1871r"LThis branch's code block is the same as the block for the branch on line 98.(ç¬Ø±úÿÿÿÿ8›¶ä‰’2
+i
+java:S1871j"MThis branch's code block is the same as the block for the branch on line 102.(µşâ8›¶ä‰’2
+v
 java:S1128
-"TRemove this unused import 'com.example.HRMSAvisoft.service.EmergencyContactService'.(ëñíâşÿÿÿÿ8²‘¦‰’2J$fa34da2c-bd0c-4432-a030-deaf4301859d
-
-java:S1128"LRemove this unused import 'com.example.HRMSAvisoft.service.EmployeeService'.(üñÙ»8²‘¦‰’2J$2ca5335d-1f59-44fc-a59a-4a6f61521358
-s
-java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8³‘¦‰’2J$1ce596e5-18f5-40d8-95f7-6d530513bf89
+"TRemove this unused import 'com.example.HRMSAvisoft.service.EmergencyContactService'.(ëñíâşÿÿÿÿ8Ÿ¶ä‰’2
+i
+java:S1128"LRemove this unused import 'com.example.HRMSAvisoft.service.EmployeeService'.(üñÙ»8Ÿ¶ä‰’2
+M
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8Ÿ¶ä‰’2

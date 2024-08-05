@@ -1,11 +1,15 @@
 package com.example.HRMSAvisoft.dto;
 
+import com.example.HRMSAvisoft.attribute.Attribute;
+import com.example.HRMSAvisoft.attribute.EmployeeAttribute;
 import com.example.HRMSAvisoft.entity.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import utils.EmployeeAttributesSerializer;
+import org.w3c.dom.Attr;
+import utils.AttributesSerializer;
+//import utils.EmployeeAttributesSerializer;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -42,6 +46,6 @@ public class LoginUserResponseDTO {
 //    private BigDecimal salary;
 //    private Account account;
 
-    @JsonSerialize(using = EmployeeAttributesSerializer.class)
+    @JsonSerialize(using = AttributesSerializer.class)
     private Map<EmployeeAttribute, String> attributes = new HashMap<>();
 }

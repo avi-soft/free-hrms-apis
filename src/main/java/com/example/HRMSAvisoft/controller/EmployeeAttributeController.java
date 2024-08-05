@@ -1,7 +1,8 @@
 package com.example.HRMSAvisoft.controller;
 
+import com.example.HRMSAvisoft.attribute.EmployeeAttribute;
 import com.example.HRMSAvisoft.dto.ErrorResponseDTO;
-import com.example.HRMSAvisoft.entity.EmployeeAttribute;
+import com.example.HRMSAvisoft.exception.AttributeKeyDoesNotExistException;
 import com.example.HRMSAvisoft.service.EmployeeAttributeService;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
@@ -41,7 +42,7 @@ public class EmployeeAttributeController
 
     @PreAuthorize("hasAnyAuthority('UPDATE_EMPLOYEE_ATTRIBUTE')")
     @PatchMapping("/{employeeAttributeId}")
-    public ResponseEntity<Object> updateEmployeeAttribute( @RequestBody EmployeeAttribute employeeAttribute, @PathVariable Long employeeAttributeId) throws EntityNotFoundException, IllegalArgumentException{
+    public ResponseEntity<Object> updateEmployeeAttribute( @RequestBody EmployeeAttribute employeeAttribute, @PathVariable Long employeeAttributeId) throws EntityNotFoundException, IllegalArgumentException, AttributeKeyDoesNotExistException {
         EmployeeAttribute updatedEmployeeAttribute = employeeAttributeService.updateEmployeeAttribute(employeeAttribute, employeeAttributeId);
         return ResponseGenerator.generateResponse(HttpStatus.OK, true, "EmployeeAttribute Updated successfully.",updatedEmployeeAttribute);
     }

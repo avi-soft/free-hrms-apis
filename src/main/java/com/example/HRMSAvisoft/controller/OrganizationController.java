@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/organization")
@@ -76,15 +77,15 @@ public class OrganizationController {
 
     @PreAuthorize("hasAnyAuthority('CREATE_ORGANIZATION')")
     @PostMapping("")
-    public ResponseEntity<Object> saveOrganization(@Valid @RequestBody AddNewOrganizationDTO organizationDTO) throws OrganizationService.OrganizationAlreadyExistsException, IllegalArgumentException {
-        Organization organizationAdded = organizationService.addOrganization(organizationDTO);
+    public ResponseEntity<Object> saveOrganization(@Valid @RequestBody AddNewOrganizationDTO organizationDTO , @RequestParam Map<String, String> attributes) throws OrganizationService.OrganizationAlreadyExistsException, IllegalArgumentException {
+        Organization organizationAdded = organizationService.addOrganization(organizationDTO, attributes);
         return ResponseGenerator.generateResponse(HttpStatus.CREATED,true,"Organization is created successfully",organizationAdded);
     }
 
     @PreAuthorize("hasAnyAuthority('UPDATE_ORGANIZATION')")
     @PatchMapping("/{organizationId}")
-    public ResponseEntity<Object> updateOrganization(@Valid @RequestBody UpdateOrganizationDTO organizationDTO, @PathVariable Long organizationId) throws EntityNotFoundException, IllegalArgumentException{
-        Organization updatedOrganization = organizationService.updateOrganization(organizationDTO, organizationId);
+    public ResponseEntity<Object> updateOrganization(@Valid @RequestBody UpdateOrganizationDTO organizationDTO, @PathVariable Long organizationId, @RequestParam Map<String, String> attributes) throws EntityNotFoundException, IllegalArgumentException{
+        Organization updatedOrganization = organizationService.updateOrganization(organizationDTO, organizationId, attributes);
         return ResponseGenerator.generateResponse(HttpStatus.OK, true, "Organization Updated successfully.",updatedOrganization);
     }
 

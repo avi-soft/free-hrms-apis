@@ -1,12 +1,15 @@
 package com.example.HRMSAvisoft.entity;
 
+import com.example.HRMSAvisoft.attribute.Attribute;
+import com.example.HRMSAvisoft.attribute.EmployeeAttribute;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.*;
-import utils.EmployeeAttributesSerializer;
+import utils.AttributesSerializer;
+//import utils.;
 
 import java.util.*;
 
@@ -91,7 +94,7 @@ public class Employee {
     )
     @MapKeyJoinColumn(name = "attribute_id")
     @Column(name = "attribute_value")
-    @JsonSerialize(using = EmployeeAttributesSerializer.class)
+    @JsonSerialize(using = AttributesSerializer.class)
     private Map<EmployeeAttribute, String> attributes = new HashMap<>();
 
     @ManyToMany

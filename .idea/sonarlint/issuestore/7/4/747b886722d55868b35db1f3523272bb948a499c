@@ -1,25 +1,40 @@
 
-‹
-java:S1192¯"GDefine a constant instead of duplicating this literal "Status" 3 times.(–æ‰8õô¶ä2J$ac88d06f-6b8d-4820-b6a0-059e138f15d6
-‘
-java:S1192’"HDefine a constant instead of duplicating this literal "message" 5 times.(ó“Ïøÿÿÿÿ8õô¶ä2J$7a3a7496-32d8-4cb6-83c9-554e87a5495d
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿ8ÃüŠ2J$d9354d29-82f7-49b7-be7f-481e7d0c77fd
-…
-java:S6813)"BRemove this field injection and use constructor injection instead.(êæÄŞ8õ¶ä2J$4fb9a61b-0fcb-4f0a-a583-5218b6acc322
-…
-java:S6813,"BRemove this field injection and use constructor injection instead.(êæÄŞ8õ¶ä2J$eeb12e55-60ec-4c1c-9573-80893cf92485
-…
-java:S6813."BRemove this field injection and use constructor injection instead.(êæÄŞ8õ¶ä2J$24e56df3-4b26-40d6-85b7-5ca9cbab621e
-Æ
-java:S11308"~Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException' which is a subclass of 'java.io.IOException'.(Ë«‡·ùÿÿÿÿ8¤õ¶ä2J$bf979a2c-593a-4a29-bfc6-a86a15df6b84
-•
-java:S6204a"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(œçÖß8©õ¶ä2J$ed0a93fc-d038-4df7-a26f-ddb94930e755
-y
-java:S1611B"6Remove the parentheses around the "employee" parameter(ïñÆá8ªõ¶ä2J$3570c07a-d86d-42df-9a15-e19fe2e88185
-~	java:S125N"<This block of commented-out lines of code should be removed.(ºîÃ§8­õ¶ä2J$5b2f5b69-87a6-4847-9c36-c486150769e5
-}	java:S125Z"<This block of commented-out lines of code should be removed.(°©™M8®õ¶ä2J$da3460e4-d599-4df9-8dd4-f277042eabd2
-ƒ	java:S125]"<This block of commented-out lines of code should be removed.(öµ­»øÿÿÿÿ8¯õ¶ä2J$01584c23-85b1-4693-825c-4059422b6f3a
+e
+java:S1192¯"GDefine a constant instead of duplicating this literal "Status" 3 times.(–æ‰8õô¶ä2
+k
+java:S1192’"HDefine a constant instead of duplicating this literal "message" 5 times.(ó“Ïøÿÿÿÿ8õô¶ä2
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿ8ÃüŠ2J$99f22f08-f2e3-4d24-9739-674f829815d5
+_
+java:S6813)"BRemove this field injection and use constructor injection instead.(êæÄŞ8õ¶ä2
+_
+java:S6813,"BRemove this field injection and use constructor injection instead.(êæÄŞ8õ¶ä2
+_
+java:S6813."BRemove this field injection and use constructor injection instead.(êæÄŞ8õ¶ä2
+ 
+java:S11308"~Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException' which is a subclass of 'java.io.IOException'.(Ë«‡·ùÿÿÿÿ8¤õ¶ä2
+o
+java:S6204a"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(œçÖß8©õ¶ä2
+S
+java:S1611B"6Remove the parentheses around the "employee" parameter(ïñÆá8ªõ¶ä2
+X	java:S125N"<This block of commented-out lines of code should be removed.(ºîÃ§8­õ¶ä2
+W	java:S125Z"<This block of commented-out lines of code should be removed.(°©™M8®õ¶ä2
+]	java:S125]"<This block of commented-out lines of code should be removed.(öµ­»øÿÿÿÿ8¯õ¶ä2
+p
+java:S6204‰"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(œçÖß8±õ¶ä2
+S
+java:S1611j"6Remove the parentheses around the "employee" parameter(ïñÆá8±õ¶ä2
+X	java:S125u"<This block of commented-out lines of code should be removed.(ºîÃ§8´õ¶ä2
+X	java:S125{"<This block of commented-out lines of code should be removed.(ªªÙó8µõ¶ä2
+X	java:S125‚"<This block of commented-out lines of code should be removed.(°©™M8¶õ¶ä2
+^	java:S125…"<This block of commented-out lines of code should be removed.(öµ­»øÿÿÿÿ8¶õ¶ä2
+c
+java:S1854®"@Remove this useless assignment to local variable "responseData".(ìó£ºûÿÿÿÿ8½õ¶ä2
+T
+java:S1481®"1Remove this unused "responseData" local variable.(ìó£ºûÿÿÿÿ8¿õ¶ä2
+^	java:S125»"<This block of commented-out lines of code should be removed.(§òŸ¡ıÿÿÿÿ8Áõ¶ä2
+^	java:S125Ê"<This block of commented-out lines of code should be removed.(ºÙ­‰úÿÿÿÿ8Äõ¶ä2
 –
+<<<<<<< HEAD
 java:S6204‰"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(œçÖß8±õ¶ä2J$9331829f-5d32-4729-ba30-40c50cd372af
 y
 java:S1611j"6Remove the parentheses around the "employee" parameter(ïñÆá8±õ¶ä2J$094b074e-5c5e-4071-8be7-22e35f212ef7
@@ -43,5 +58,16 @@ java:S1871ô"MThis branch's code block is the same as the block for the branch 
 java:S1128"RRemove this unused import 'com.example.HRMSAvisoft.config.GlobalExceptionHandler'.(ô˜±òúÿÿÿÿ8Ëõ¶ä2J$4ea117bb-2658-42d1-a98a-a86de45821de
 ‡
 java:S1128"?Remove this unused import 'org.springframework.http.MediaType'.(úŸİ¯şÿÿÿÿ8Ëõ¶ä2J$a30f9696-89a2-465e-a859-d414a79a545c
+=======
+java:S1871ü"MThis branch's code block is the same as the block for the branch on line 240.(ûÛŞœüÿÿÿÿ8–üŠ2J$ceebde34-e573-4a44-be3a-c7aba4dda388
+‘
+java:S1871ø"MThis branch's code block is the same as the block for the branch on line 240.(‰¯º¸8—üŠ2J$fc7e7cae-b61c-43b6-b866-cd0d551346d3
+j
+java:S1871ô"MThis branch's code block is the same as the block for the branch on line 236.(µşâ8Éõ¶ä2
+>>>>>>> 79dd34e0ddfbb0c0d03a89841ad2446618aae5a0
 t
-java:S1128"1Remove this unused import 'java.math.BigDecimal'.(êêŠ8Ìõ¶ä2J$6a2e2561-89a4-4cca-8827-1ae90a19c607
+java:S1128"RRemove this unused import 'com.example.HRMSAvisoft.config.GlobalExceptionHandler'.(ô˜±òúÿÿÿÿ8Ëõ¶ä2
+a
+java:S1128"?Remove this unused import 'org.springframework.http.MediaType'.(úŸİ¯şÿÿÿÿ8Ëõ¶ä2
+N
+java:S1128"1Remove this unused import 'java.math.BigDecimal'.(êêŠ8Ìõ¶ä2
