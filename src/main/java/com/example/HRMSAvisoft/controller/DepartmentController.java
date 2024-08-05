@@ -6,6 +6,7 @@ import com.example.HRMSAvisoft.dto.ErrorResponseDTO;
 import com.example.HRMSAvisoft.entity.Department;
 import com.example.HRMSAvisoft.exception.AttributeKeyDoesNotExistException;
 import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
+import com.example.HRMSAvisoft.service.DepartmentAttributeService;
 import com.example.HRMSAvisoft.service.DepartmentService;
 import com.example.HRMSAvisoft.service.EmergencyContactService;
 import com.example.HRMSAvisoft.service.EmployeeService;
@@ -55,7 +56,7 @@ public class DepartmentController {
 
     @PostMapping("")
     @PreAuthorize("hasAuthority('ADD_DEPARTMENT')")
-    public ResponseEntity<Map<String,Object>> addDepartment(@Valid @RequestBody CreateDepartmentDTO createDepartmentDTO, @RequestParam Map<String, String> attributes) throws EmployeeNotFoundException, EntityNotFoundException, DepartmentService.DepartmentAlreadyExistsException, AttributeKeyDoesNotExistException {
+    public ResponseEntity<Map<String,Object>> addDepartment(@Valid @RequestBody CreateDepartmentDTO createDepartmentDTO, @RequestParam Map<String, String> attributes) throws EmployeeNotFoundException, EntityNotFoundException, DepartmentAttributeService.DepartmentAlreadyExistsException, AttributeKeyDoesNotExistException {
         Department createdDepartment = departmentService.addDepartment(createDepartmentDTO, attributes);
         DepartmentsResponseDTO departmentsResponseDTO = new DepartmentsResponseDTO();
         departmentsResponseDTO.setDepartmentId(createdDepartment.getDepartmentId());
@@ -71,7 +72,7 @@ public class DepartmentController {
 
     @PatchMapping("/{departmentId}")
     @PreAuthorize("hasAuthority('UPDATE_DEPARTMENT')")
-    public ResponseEntity<Map<String,Object>> updateDepartment(@Valid @RequestBody CreateDepartmentDTO createDepartmentDTO, @PathVariable("departmentId") Long departmentId, @RequestParam Map<String, String> attributes) throws EmployeeNotFoundException, DepartmentService.DepartmentNotFoundException, DepartmentService.DepartmentAlreadyExistsException {
+    public ResponseEntity<Map<String,Object>> updateDepartment(@Valid @RequestBody CreateDepartmentDTO createDepartmentDTO, @PathVariable("departmentId") Long departmentId, @RequestParam Map<String, String> attributes) throws EmployeeNotFoundException, DepartmentService.DepartmentNotFoundException, DepartmentAttributeService.DepartmentAlreadyExistsException {
         Department updatedDepartment = departmentService.updateDepartment(createDepartmentDTO, departmentId, attributes);
         return ResponseEntity.status(200).body(Map.of("success", true, "message", "Department updated successfully"));
     }
@@ -88,8 +89,8 @@ public class DepartmentController {
     @ExceptionHandler({
             EmployeeNotFoundException.class,
             DepartmentService.DepartmentNotFoundException.class,
-            DepartmentService.DepartmentAlreadyExistsException.class,
-            AttributeKeyDoesNotExistException.class
+            AttributeKeyDoesNotExistException.class,
+            DepartmentAttributeService.DepartmentAlreadyExistsException.class
     })
 
     public ResponseEntity<ErrorResponseDTO> handleErrors(Exception exception){
@@ -99,7 +100,7 @@ public class DepartmentController {
             message = exception.getMessage();
             status = HttpStatus.NOT_FOUND;
         }
-        else if (exception instanceof DepartmentService.DepartmentAlreadyExistsException){
+        else if (exception instanceof DepartmentAttributeService.DepartmentAlreadyExistsException){
             message = exception.getMessage();
             status = HttpStatus.BAD_REQUEST;
         }

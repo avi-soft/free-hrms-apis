@@ -1,16 +1,13 @@
 
-v
-java:S2293$"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÕÄŞã8ŠÁàä2
-{
-java:S2293'"YReplace the type specification in this constructor call with the diamond operator ("<>").(ú‡ÍÇıÿÿÿÿ8‹Áàä2
-{
-java:S2293B"YReplace the type specification in this constructor call with the diamond operator ("<>").(è“É÷úÿÿÿÿ8‹Áàä2
-{
-java:S2293I"YReplace the type specification in this constructor call with the diamond operator ("<>").(ş±ªÁøÿÿÿÿ8‹Áàä2
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(—üïïøÿÿÿÿ8ôÁ¼2J$3c3ceb4a-6a06-4351-b9c6-a47b4dab6bc4
-W	java:S125!"<This block of commented-out lines of code should be removed.(ñê¿8•Áàä2
-X	java:S125*"<This block of commented-out lines of code should be removed.(æü¬–8—Áàä2
-X	java:S1251"<This block of commented-out lines of code should be removed.(œÍŸâ8˜Áàä2
-]	java:S1259"<This block of commented-out lines of code should be removed.(ÜºŸ‰üÿÿÿÿ8˜Áàä2
-m
-java:S1128"KRemove this unused import 'com.fasterxml.jackson.annotation.JsonAnyGetter'.(‹¿«™ùÿÿÿÿ8ŸÁàä2
+¡
+java:S2293*"YReplace the type specification in this constructor call with the diamond operator ("<>").(ú‡ÍÇıÿÿÿÿ8›”™‹’2J$3290f579-48e7-426b-a61b-284599e280c1
+¡
+java:S2293E"YReplace the type specification in this constructor call with the diamond operator ("<>").(è“É÷úÿÿÿÿ8‹Áàä2J$db673e49-45c9-42e1-8208-575437dccdea
+¡
+java:S2293L"YReplace the type specification in this constructor call with the diamond operator ("<>").(ş±ªÁøÿÿÿÿ8‹Áàä2J$f4d2276c-bcba-4ad6-9ffc-25e3b113f179
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(—üïïøÿÿÿÿ8ôÁ¼2J$46b7f82c-fe74-4041-b755-06c572cdb3db
+~	java:S125"<This block of commented-out lines of code should be removed.(ÃŠ“¶8§”™‹’2J$c949c2ab-2ac7-4e91-a32a-450ec2854bc1
+}	java:S125$"<This block of commented-out lines of code should be removed.(ñê¿8•Áàä2J$1f91d1ca-1ae1-4e62-8f83-c4e5f043e626
+~	java:S125-"<This block of commented-out lines of code should be removed.(æü¬–8—Áàä2J$bcb329ca-8d2d-4bc8-a214-224995874f23
+~	java:S1254"<This block of commented-out lines of code should be removed.(œÍŸâ8˜Áàä2J$39b87e58-fc9d-4f51-bfd3-9bebc6bc1c8e
+ƒ	java:S125<"<This block of commented-out lines of code should be removed.(ÜºŸ‰üÿÿÿÿ8˜Áàä2J$37a8c547-7db8-434e-940e-e3e3724503b7

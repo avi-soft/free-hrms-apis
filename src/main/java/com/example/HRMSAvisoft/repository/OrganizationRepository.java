@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface OrganizationRepository extends JpaRepository<Organization, Long> {
     Optional<Organization> getByOrganizationName(String organizationName);
+
+
 }

@@ -7,17 +7,14 @@ import jakarta.persistence.*;
 import lombok.*;
 import utils.AttributesSerializer;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Builder
+//@Builder
 public class Organization
 {
     @Id

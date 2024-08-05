@@ -1,32 +1,22 @@
 
-y
-java:S14889"\Immediately return this expression instead of assigning it to the temporary variable "user".(Ã“Ä8±®ÕŒ2
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ8´“ù€‹2J$c4fc5192-7e6e-46b2-b840-7fe835b20c72
-_
-java:S6813+"BRemove this field injection and use constructor injection instead.(êæÄŞ8‹®ÕŒ2
-b
-java:S1124$"EReorder the modifiers to comply with the Java Language Specification.(Œ…½8”®ÕŒ2
-g
-java:S1124%"EReorder the modifiers to comply with the Java Language Specification.(ëÀ·§úÿÿÿÿ8•®ÕŒ2
-g
-java:S1124'"EReorder the modifiers to comply with the Java Language Specification.(„ªµÑÿÿÿÿÿ8–®ÕŒ2
-b
-java:S1124)"EReorder the modifiers to comply with the Java Language Specification.(éöï8–®ÕŒ2
-a
-java:S1124."EReorder the modifiers to comply with the Java Language Specification.(ªµêS8—®ÕŒ2
-
-java:S1130="lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(ßî’Òøÿÿÿÿ8Ÿ®ÕŒ2
-]	java:S125["<This block of commented-out lines of code should be removed.(™¼ÚÜÿÿÿÿÿ8Ìˆç2
-‰
-java:S1130j"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(é½à”8¯®ÕŒ2
-ã
-java:S1130‰"ŸRemove the declaration of thrown exception 'com.example.HRMSAvisoft.service.UserService$IllegalAccessRoleException', as it cannot be thrown from method's body.(ˆØ¡)8ù“ù€‹2J$d0401350-8136-4114-9b18-529f9df5e22c
-~	java:S125–"<This block of commented-out lines of code should be removed.(ò¢şG8ü“ù€‹2J$1f577a7d-eaa9-45f9-8604-26729281ef05
-Ù
-java:S1130©"”Remove the declaration of thrown exception 'com.example.HRMSAvisoft.exception.EmployeeNotFoundException', as it cannot be thrown from method's body.(‰Ô˜‘8ı“ù€‹2J$2aeafbe6-4538-4d8c-b279-e1285761f05c
-X
-java:S1128"6Remove this unused import 'org.aspectj.weaver.ast.Or'.(®ô²Îûÿÿÿÿ8Ñ®ÕŒ2
+Ÿ
+java:S14889"\Immediately return this expression instead of assigning it to the temporary variable "user".(Ã“Ä8±®ÕŒ2J$734b2062-8e76-4e96-89c4-f81ed458b78c
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ8´“ù€‹2J$b61ec5fa-0bde-4e48-a41d-a9765e4e97e9
+…
+java:S6813+"BRemove this field injection and use constructor injection instead.(êæÄŞ8‹®ÕŒ2J$f7e02fa2-c3e5-455f-9cdd-36444e47eebf
+ˆ
+java:S1124$"EReorder the modifiers to comply with the Java Language Specification.(Œ…½8”®ÕŒ2J$8055137f-3105-47c0-8e5f-32f7a55e059a
+
+java:S1124%"EReorder the modifiers to comply with the Java Language Specification.(ëÀ·§úÿÿÿÿ8•®ÕŒ2J$10798c31-58a9-4de5-bcf1-f7cbfb0502e7
+
+java:S1124'"EReorder the modifiers to comply with the Java Language Specification.(„ªµÑÿÿÿÿÿ8–®ÕŒ2J$9ef84e78-ba0b-4232-befa-3ece14e8d07b
+ˆ
+java:S1124)"EReorder the modifiers to comply with the Java Language Specification.(éöï8–®ÕŒ2J$87db6136-e747-45e9-889b-5f8943aa5088
+‡
+java:S1124."EReorder the modifiers to comply with the Java Language Specification.(ªµêS8—®ÕŒ2J$c7459927-a00d-420d-9b2b-4eb03155c252
+ƒ	java:S125["<This block of commented-out lines of code should be removed.(™¼ÚÜÿÿÿÿÿ8Ìˆç2J$2751113d-08ab-414d-b891-83e965d07967
+~	java:S125–"<This block of commented-out lines of code should be removed.(ò¢şG8ü“ù€‹2J$69844829-75e1-4e28-9df9-4b15770336b7
 
-java:S1144·";Remove this unused private "enableForeignKeyChecks" method.(æÔæ8¶ö­‹2J$a2161edd-b8d4-4a17-91fb-8e9cf6ab44b7
+java:S1144·";Remove this unused private "enableForeignKeyChecks" method.(æÔæ8¶ö­‹2J$94fa525f-48a8-43ea-bf44-dcd50b5bc95b
 €
-java:S1144¼"<Remove this unused private "disableForeignKeyChecks" method.(¢Õ”×8¶ö­‹2J$9e7d1d10-1522-44da-b0bf-32f4178ec514
+java:S1144¼"<Remove this unused private "disableForeignKeyChecks" method.(¢Õ”×8¶ö­‹2J$3e7c6cb8-ee77-4b97-a233-7a5f05112901
