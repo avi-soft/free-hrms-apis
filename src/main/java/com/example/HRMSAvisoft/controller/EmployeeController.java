@@ -230,7 +230,20 @@ public class EmployeeController {
                                 .orElseThrow(() -> new RuntimeException("Attribute not found: " + entry.getKey())),
                         Map.Entry::getValue
                 ));
-        existingEmployee.setAttributes(employeeAttributes);
+//        existingEmployee.setAttributes(employeeAttributes);
+
+
+        Map<EmployeeAttribute, String> attributeMap = new HashMap<>();
+
+        for (Map.Entry<String, String> entry : attributes.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+
+            EmployeeAttribute employeeAttribute= employeeAttributeRepository.findByAttributeKey(key).orElseThrow(() -> new AttributeKeyDoesNotExistException("Attribute " + key + " does not exist"));
+            attributeMap.put(employeeAttribute, value);
+        }
+        Map<EmployeeAttribute, String> existingAttributes = existingEmployee.getAttributes();
+        existingAttributes.putAll(attributeMap);
         Employee savedEmployee = employeeService.updateEmployee(existingEmployee);
         return ResponseEntity.ok().body(Map.of("UpdatedEmployee",savedEmployee , "message", "Personal Details Updated", "Status", true));
     }
