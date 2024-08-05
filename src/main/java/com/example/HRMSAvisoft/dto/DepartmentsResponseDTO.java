@@ -1,11 +1,16 @@
 package com.example.HRMSAvisoft.dto;
 
 
-import jakarta.persistence.Column;
+import com.example.HRMSAvisoft.attribute.DepartmentAttribute;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import utils.AttributesSerializer;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -34,4 +39,8 @@ public class DepartmentsResponseDTO {
     private String organizationImage;
 
     private String organizationDescription;
+
+
+    @JsonSerialize(using = AttributesSerializer.class)
+    private Map<DepartmentAttribute, String> attributes = new HashMap<>();
 }

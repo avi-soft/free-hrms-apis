@@ -19,4 +19,5 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
 //
 //    @Query("SELECT d FROM Department d WHERE d.department = :department AND d.organization.organizationId = :organizationId")
 //    Optional<Department> findByDepartmentAndOrganization(@Param("department") String department, @Param("organizationId") Long organizationId);
+
 }
