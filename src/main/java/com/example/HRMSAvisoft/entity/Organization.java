@@ -26,6 +26,7 @@ public class Organization
     private String organizationDescription;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
     @JoinTable(
             name = "organization_department",
             joinColumns = @JoinColumn(name = "organization_id"),

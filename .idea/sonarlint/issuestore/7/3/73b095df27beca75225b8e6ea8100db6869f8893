@@ -1,2 +1,10 @@
 
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ö»ûÿÿÿÿ8¢©şì2J$3fe8cba4-b4b5-4ee8-9282-594e8da629a8
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ö»ûÿÿÿÿ8ëƒ¯Œ‘2J$736e2bd2-514a-4abb-8226-2d0f42fa9692
+o
+java:S1128"MRemove this unused import 'com.example.HRMSAvisoft.entity.EmployeeAttribute'.(›ŸĞëúÿÿÿÿ8­ƒâˆ’2
+j
+java:S1128"HRemove this unused import 'com.example.HRMSAvisoft.entity.Organization'.(Õò²…şÿÿÿÿ8®ƒâˆ’2
+a
+java:S1128"?Remove this unused import 'utils.EmployeeAttributesSerializer'.(£Íˆ×ıÿÿÿÿ8®ƒâˆ’2
+L
+java:S1128"*Remove this unused import 'java.util.Set'.(ö²„¤şÿÿÿÿ8®ƒâˆ’2

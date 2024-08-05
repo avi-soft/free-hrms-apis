@@ -4,6 +4,7 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.example.HRMSAvisoft.dto.AddNewOrganizationDTO;
 import com.example.HRMSAvisoft.dto.UpdateOrganizationDTO;
+import com.example.HRMSAvisoft.entity.Department;
 import com.example.HRMSAvisoft.entity.Employee;
 import com.example.HRMSAvisoft.entity.Organization;
 import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
@@ -50,6 +51,12 @@ public class OrganizationService {
         // Set the image URL to the employee object and save it
         organization.setOrganizationImage(imageUrl);
         organizationRepository.save(organization);
+    }
+
+    public List<Department> getDepartmentsOfOrganization(Long organizationId){
+        Organization organization = organizationRepository.findById(organizationId).orElseThrow(()-> new EntityNotFoundException("Organization not found"));
+
+        return organization.getDepartments().stream().toList();
     }
 
 

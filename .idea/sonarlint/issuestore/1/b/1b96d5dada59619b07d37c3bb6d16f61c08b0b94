@@ -1,12 +1,8 @@
 
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ8µËÄï2J$67305803-1a7d-48ff-a576-0bc136e152c5
-ƒ	java:S125("<This block of commented-out lines of code should be removed.(ıÌæÌüÿÿÿÿ8ËËÄï2J$be35dcd5-6775-43e1-ac25-12f92165c6db
-ƒ
-java:S1854v"@Remove this useless assignment to local variable "organization".(¸ÏÇˆ8ÔËÄï2J$5f486134-dcc4-4db7-85c6-b6439cb3a47e
-ô
-java:S1130Q"«Remove the declaration of thrown exception 'com.example.HRMSAvisoft.service.DepartmentService$DepartmentAlreadyExistsException', as it cannot be thrown from method's body.(¼Òˆ­ûÿÿÿÿ8ÕËÄï2J$84383259-f6d2-4c51-bdfb-99b3750d9f1e
-~	java:S125T"<This block of commented-out lines of code should be removed.(öÁı±8ØËÄï2J$090a6303-6318-4a4a-82c4-213b9cafd4b2
-t
-java:S1481v"1Remove this unused "organization" local variable.(¸ÏÇˆ8İËÄï2J$866cfee1-0d57-41c9-8448-2633d7e554fc
-~	java:S125w"<This block of commented-out lines of code should be removed.(ÂÇÒ†8İËÄï2J$274f783d-5fff-4bfe-98bd-83416b3eead0
-	java:S125€"<This block of commented-out lines of code should be removed.(ïÌ”8àËÄï2J$0fd7219c-03e2-4c90-a821-18de76de5829
+“
+java:S11926"PDefine a constant instead of duplicating this literal " does not exist" 3 times.(ßÉıÎ8£Ÿà—‘2J$e5866a25-d2c9-4a68-b9d1-933ff73d3f15
+
+java:S11926"KDefine a constant instead of duplicating this literal "Attribute " 3 times.(ßÉıÎ8¤Ÿà—‘2J$67109e01-2661-4326-bbbb-e4e6017fcaa6
+
+java:S4973f"<Strings and Boxed types should be compared using "equals()".(¿—ü8ì½à“‘2J$ed48c2a5-cc9e-4697-ac0c-62879c241a4c
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ8î½à“‘2J$c3455227-ccf9-4971-9588-c0f8bd3b1a24

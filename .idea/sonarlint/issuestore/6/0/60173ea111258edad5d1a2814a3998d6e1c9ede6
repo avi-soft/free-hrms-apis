@@ -1,14 +1,18 @@
 
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿ8ÄËÆö2J$2ea01d7d-5c6b-406c-9a2b-ea1196942428
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿ8Öå™‰’2J$e0dd4d08-7f41-40ee-8853-b783647fa4bc
 İ
-java:S1130&"”Remove the declaration of thrown exception 'com.example.HRMSAvisoft.exception.EmployeeNotFoundException', as it cannot be thrown from method's body.(ğƒó©ùÿÿÿÿ8ØËÆö2J$29c20908-4f22-4a47-b8df-1fb211f0f0ec
+java:S1130)"”Remove the declaration of thrown exception 'com.example.HRMSAvisoft.exception.EmployeeNotFoundException', as it cannot be thrown from method's body.(ğƒó©ùÿÿÿÿ8ÿå™‰’2J$c93fd039-cabd-4893-90a8-14f67f6af05b
 Æ
-java:S1130&"~Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException' which is a subclass of 'java.io.IOException'.(ğƒó©ùÿÿÿÿ8ØËÆö2J$0d5c2f7c-7b2c-47c0-9251-032da0f7334c
-
-java:S1871X"LThis branch's code block is the same as the block for the branch on line 84.(¼ü©—8¿Åë2J$3cf07717-7742-4616-b434-a5006ec139b3
-
-java:S1871\"LThis branch's code block is the same as the block for the branch on line 84.(úø¶Ì8¿Åë2J$5c9d9321-396b-4a13-897e-1cc52c9df4a1
-”
-java:S1871`"LThis branch's code block is the same as the block for the branch on line 84.(ûÛŞœüÿÿÿÿ8¿Åë2J$2ab611b7-5638-47b4-a214-3d69dc6a3ae7
+java:S1130)"~Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException' which is a subclass of 'java.io.IOException'.(ğƒó©ùÿÿÿÿ8ÿå™‰’2J$57f1ef82-7311-4a2e-909c-fe55041fd8fb
+•
+java:S6204@"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(œçÖß8Šæ™‰’2J$bc8f9279-e73e-4f4d-8e69-228835ac322e
+€
+java:S16113"8Remove the parentheses around the "department" parameter(ëÓ‡ğüÿÿÿÿ8Œæ™‰’2J$1533b374-01f8-4485-ab90-4f6dd52ebf8e
+•
+java:S1871y"MThis branch's code block is the same as the block for the branch on line 109.(ûÛŞœüÿÿÿÿ8¡æ™‰’2J$ab819df7-63a3-4e7f-b3b0-569fa6e0db4f
+
+java:S1871u"MThis branch's code block is the same as the block for the branch on line 109.(úø¶Ì8¢æ™‰’2J$e9db59c3-c393-479e-82b1-a2f81d2c07a1
+
+java:S1871q"MThis branch's code block is the same as the block for the branch on line 109.(¼ü©—8¢æ™‰’2J$f467e79f-206b-48b9-b6c1-218c32e9988b
 w
-java:S1068"/Remove this unused "modelMapper" private field.(«ŞËãşÿÿÿÿ8ãËÆö2J$26f5933c-db3d-4162-a551-4befade42e7b
+java:S1068"/Remove this unused "modelMapper" private field.(«ŞËãşÿÿÿÿ8©æ™‰’2J$84aa6126-9b01-4b2b-846a-132d692228b7

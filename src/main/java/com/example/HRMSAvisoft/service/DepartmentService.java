@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -37,11 +38,16 @@ public class DepartmentService {
         this.departmentAttributeRepository = departmentAttributeRepository;
     }
 
-//    public List<Department> getAllDepartments(Long organizationId) {
-//        return departmentRepository.findAllByOrganizationId(organizationId);
-//    }
+    public List<Department> getAllDepartments() {
+        return departmentRepository.findAll();
+    }
 
     public Department addDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO, Map<String, String> attributes) throws EmployeeNotFoundException, EntityNotFoundException, DepartmentAlreadyExistsException, AttributeKeyDoesNotExistException{
+        Department department = departmentRepository.findByDepartment(createDepartmentDTO.getDepartment()).orElse(null);
+        if(department != null){
+            throw new DepartmentAlreadyExistsException(createDepartmentDTO.getDepartment()+" already exists");
+        }
+
         attributes.forEach((k,v)->{
             DepartmentAttribute departmentAttribute = departmentAttributeRepository.findByAttributeKey(k).orElse(null);
             if(departmentAttribute == null){
@@ -51,8 +57,11 @@ public class DepartmentService {
 
         Department newDepartment = new Department();
 
-        Employee manager = employeeRepository.findById(createDepartmentDTO.getManagerId()).orElseThrow(() -> new EmployeeNotFoundException(createDepartmentDTO.getManagerId()));
-        newDepartment.setManager(manager);
+        if(createDepartmentDTO.getManagerId() != null) {
+            Employee manager = employeeRepository.findById(createDepartmentDTO.getManagerId()).orElseThrow(() -> new EmployeeNotFoundException(createDepartmentDTO.getManagerId()));
+            newDepartment.setManager(manager);
+        }
+
         if(createDepartmentDTO.getOrganizationId() != null) {
             Department existingDepartmentByName = departmentRepository.findByDepartmentAndOrganizationId(createDepartmentDTO.getDepartment(), createDepartmentDTO.getOrganizationId()).orElse(null);
             if(existingDepartmentByName != null){
@@ -78,31 +87,21 @@ public class DepartmentService {
 
     }
 
-    public Department updateDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO, Long departmentId)throws  DepartmentNotFoundException, EmployeeNotFoundException, DepartmentAlreadyExistsException{
-        Department departmentFoundById = departmentRepository.findById(departmentId).orElseThrow(()-> new DepartmentNotFoundException(departmentId));
+    public Department updateDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO, Long departmentId, Map<String, String> attributes)throws  DepartmentNotFoundException, EmployeeNotFoundException, DepartmentAlreadyExistsException{
 
-//        if (createDepartmentDTO.getOrganizationId() != null) {
-//            if(!departmentFoundById.getOrganization().getOrganizationId().equals(createDepartmentDTO.getOrganizationId())) {
-//                Department sameDepartmentInOtherOrganization = departmentRepository.findByDepartmentAndOrganization(createDepartmentDTO.getDepartment(), createDepartmentDTO.getOrganizationId()).orElse(null);
-//                if (sameDepartmentInOtherOrganization != null) {
-//                    throw new DepartmentAlreadyExistsException(createDepartmentDTO.getDepartment());
-//                }
-//            }
-//        }
-//
-//        Department existingDepartmentByName = departmentRepository.findByDepartmentAndOrganization(createDepartmentDTO.getDepartment(), departmentFoundById.getOrganization().getOrganizationId()).orElse(null);
-//
-//       if (createDepartmentDTO.getOrganizationId() != null) {
-//            if(!departmentFoundById.getOrganization().getOrganizationId().equals(createDepartmentDTO.getOrganizationId())) {
-//                Department sameDepartmentInOtherOrganization = departmentRepository.findByDepartmentAndOrganization(createDepartmentDTO.getDepartment(), createDepartmentDTO.getOrganizationId()).orElse(null);
-//                if (sameDepartmentInOtherOrganization != null) {
-//                    throw new DepartmentAlreadyExistsException(createDepartmentDTO.getDepartment());
-//                }
-//            }
-//        }
-//        if(existingDepartmentByName != null && !departmentFoundById.getDepartment().equals(createDepartmentDTO.getDepartment())){
-//            throw new DepartmentAlreadyExistsException(createDepartmentDTO.getDepartment());
-//        }
+        attributes.forEach((k,v)->{
+            DepartmentAttribute departmentAttribute = departmentAttributeRepository.findByAttributeKey(k).orElse(null);
+            if(departmentAttribute == null){
+                throw new AttributeKeyDoesNotExistException("Attribute "+ k + " does not exist");
+            }
+        });
+
+        Department departmentFoundById = departmentRepository.findById(departmentId).orElseThrow(()-> new DepartmentNotFoundException(departmentId));
+        Department departmentByName = departmentRepository.findByDepartment(createDepartmentDTO.getDepartment()).orElse(null);
+
+        if(departmentByName != null && departmentByName.getDepartmentId() != departmentId){
+            throw new DepartmentAlreadyExistsException(createDepartmentDTO.getDepartment()+ " already exists.");
+        }
 
         if(createDepartmentDTO.getDepartment() != null){
             departmentFoundById.setDepartment(createDepartmentDTO.getDepartment());
@@ -114,10 +113,20 @@ public class DepartmentService {
             Employee manager = employeeRepository.findById(createDepartmentDTO.getManagerId()).orElseThrow(()-> new EmployeeNotFoundException(createDepartmentDTO.getManagerId()));
             departmentFoundById.setManager(manager);
         }
-        if(createDepartmentDTO.getOrganizationId() != null){
-            Organization organization = organizationRepository.findById(createDepartmentDTO.getOrganizationId()).orElseThrow(()-> new EntityNotFoundException("Organization not found"));
-//            departmentFoundById.setOrganization(organization);
+
+        Map<DepartmentAttribute, String> attributeMap = new HashMap<>();
+
+        for (Map.Entry<String, String> entry : attributes.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+
+            DepartmentAttribute departmentAttribute = departmentAttributeRepository.findByAttributeKey(key)
+                    .orElseThrow(() -> new AttributeKeyDoesNotExistException("Attribute " + key + " does not exist"));
+            attributeMap.put(departmentAttribute, value);
         }
+        Map<DepartmentAttribute, String> existingAttributes = departmentFoundById.getAttributes();
+        existingAttributes.putAll(attributeMap);
+
         return departmentRepository.save(departmentFoundById);
     }
 
@@ -125,18 +134,17 @@ public class DepartmentService {
     public void deleteDepartment(Long departmentId)throws DepartmentNotFoundException{
         Department departmentToDelete = departmentRepository.findById(departmentId).orElseThrow(()-> new DepartmentNotFoundException(departmentId));
 
-//        if (departmentToDelete.getOrganization() != null) {
-//            departmentToDelete.getOrganization().getDepartments().remove(departmentToDelete);
-//            organizationRepository.save(departmentToDelete.getOrganization());
-//        }
+        departmentToDelete.getAttributes().clear();
 
         List<Employee> employees = employeeRepository.findByDepartment(departmentToDelete);
         for (Employee employee : employees) {
             employee.setDepartment(null);
             employeeRepository.save(employee);
         }
+        for(Organization organization :departmentToDelete.getOrganizations()){
+            organization.getDepartments().remove(departmentToDelete);
+        }
         departmentRepository.delete(departmentToDelete);
-
     }
 
     public static class DepartmentNotFoundException extends RuntimeException {
