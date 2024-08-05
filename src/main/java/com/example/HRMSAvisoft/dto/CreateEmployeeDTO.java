@@ -30,8 +30,6 @@ public class CreateEmployeeDTO {
 //    private BigDecimal salary;
     private List<String> designationList;
     private List<String> skillList;
-
-
 }
 
 

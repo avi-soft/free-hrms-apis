@@ -1,4 +1,4 @@
-package com.example.HRMSAvisoft.entity;
+package com.example.HRMSAvisoft.attribute;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -6,11 +6,10 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
 @AllArgsConstructor
 @ToString
-public class EmployeeAttribute
-{
+@MappedSuperclass
+public abstract class Attribute {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
@@ -18,4 +17,8 @@ public class EmployeeAttribute
 
     @Column(nullable = false, unique = true)
     private String attributeKey;
+
+    public Attribute(String attributeKey) {
+        this.attributeKey = attributeKey;
+    }
 }

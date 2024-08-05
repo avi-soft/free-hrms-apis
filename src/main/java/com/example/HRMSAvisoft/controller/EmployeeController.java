@@ -1,13 +1,15 @@
 package com.example.HRMSAvisoft.controller;
 
+import com.example.HRMSAvisoft.attribute.EmployeeAttribute;
 import com.example.HRMSAvisoft.config.GlobalExceptionHandler;
 import com.example.HRMSAvisoft.dto.*;
 import com.example.HRMSAvisoft.entity.Employee;
-import com.example.HRMSAvisoft.entity.EmployeeAttribute;
+//import com.example.HRMSAvisoft.entity.EmployeeAttribute;
 import com.example.HRMSAvisoft.entity.User;
 import com.example.HRMSAvisoft.exception.AttributeKeyDoesNotExistException;
 import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
 import com.example.HRMSAvisoft.repository.EmployeeAttributeRepository;
+import com.example.HRMSAvisoft.repository.EmployeeRepository;
 import com.example.HRMSAvisoft.repository.UserRepository;
 import com.example.HRMSAvisoft.service.EmployeeService;
 import jakarta.validation.Valid;
@@ -40,6 +42,8 @@ public class EmployeeController {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -173,7 +177,6 @@ public class EmployeeController {
         Employee employee= employeeService.getEmployeeById(employeeId);
         Map<String, Object> responseData = new HashMap<>();
         return ResponseEntity.ok().body(Map.of("Employee", employee, "message", "Employee retrieved Successfully", "Status", true));
-
     }
 
 
@@ -192,10 +195,16 @@ public class EmployeeController {
 
         return ResponseEntity.ok().body(Map.of("UpdatedEmployee",savedEmployee , "message", "Personal Details Updated", "Status", true));
     }
-    
+
     @PreAuthorize("hasAuthority('UPDATE_EMPLOYEE_COMPANY_DETAILS')")
     @PutMapping(value = "/updateEmployeeDetails/{employeeId}")
-    public ResponseEntity<Map<String,Object>>updateEmployeeDetails(@PathVariable Long employeeId, @RequestBody UpdateEmployeeDetailsDTO updateEmployeeDetailsDTO,@RequestParam Map<String, String> attributes) throws NullPointerException, EmployeeNotFoundException, AccessDeniedException {
+    public ResponseEntity<Map<String,Object>>updateEmployeeDetails(@PathVariable Long employeeId, @RequestBody UpdateEmployeeDetailsDTO updateEmployeeDetailsDTO,@RequestParam Map<String, String> attributes) throws NullPointerException, EmployeeNotFoundException, AccessDeniedException ,AttributeKeyDoesNotExistException{
+        attributes.forEach((k,v)->{
+            EmployeeAttribute employeeAttribute = employeeAttributeRepository.findByAttributeKey(k).orElse(null);
+            if(employeeAttribute == null){
+                throw new AttributeKeyDoesNotExistException("Attribute "+ k + " does not exist");
+            }
+        });
         Employee existingEmployee = employeeService.getEmployeeById(employeeId);
         if(updateEmployeeDetailsDTO.getFirstName()!=null) existingEmployee.setFirstName(updateEmployeeDetailsDTO.getFirstName());
         if(updateEmployeeDetailsDTO.getLastName()!=null) existingEmployee.setLastName(updateEmployeeDetailsDTO.getLastName());
@@ -209,6 +218,12 @@ public class EmployeeController {
 //        if(updateEmployeeDetailsDTO.getPanNumber()!=null)existingEmployee.setPanNumber(updateEmployeeDetailsDTO.getPanNumber());
 //        if(updateEmployeeDetailsDTO.getPosition()!=null)existingEmployee.setPosition(updateEmployeeDetailsDTO.getPosition());
 //        if(updateEmployeeDetailsDTO.getSalary()!=0)existingEmployee.setSalary(BigDecimal.valueOf(updateEmployeeDetailsDTO.getSalary()));
+        Map<String, String> updatedAttributes = new HashMap<String, String>();
+        attributes.forEach((k, v)->{
+            employeeAttributeRepository.findByAttributeKey(k).orElseThrow(()-> new AttributeKeyDoesNotExistException(k +" does not exist"));
+
+            updatedAttributes.put(k, v);
+        });
         Map<EmployeeAttribute, String> employeeAttributes = attributes.entrySet().stream()
                 .collect(Collectors.toMap(
                         entry -> employeeAttributeRepository.findByAttributeKey(entry.getKey())

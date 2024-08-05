@@ -2,14 +2,13 @@ package com.example.HRMSAvisoft.service;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.example.HRMSAvisoft.attribute.EmployeeAttribute;
 import com.example.HRMSAvisoft.dto.CreateEmployeeDTO;
 import com.example.HRMSAvisoft.entity.*;
 import com.example.HRMSAvisoft.exception.AttributeKeyDoesNotExistException;
 import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
 import com.example.HRMSAvisoft.repository.*;
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
@@ -160,7 +159,7 @@ public class EmployeeService {
         }
     }
 
-    public Employee updateEmployee(Employee updatedEmployee) throws AccessDeniedException {
+    public Employee updateEmployee(Employee updatedEmployee) throws AccessDeniedException,AttributeKeyDoesNotExistException {
         return employeeRepository.save(updatedEmployee);
     }
 

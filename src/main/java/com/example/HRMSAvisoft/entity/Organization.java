@@ -1,10 +1,13 @@
 package com.example.HRMSAvisoft.entity;
+import com.example.HRMSAvisoft.attribute.EmployeeAttribute;
+import com.example.HRMSAvisoft.attribute.OrganizationAttribute;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.*;
+import utils.AttributesSerializer;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @AllArgsConstructor
@@ -23,12 +26,25 @@ public class Organization
     private String organizationImage;
     private String organizationDescription;
 
-    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    private List<Department> departments = new ArrayList<>();
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "organization_department",
+            joinColumns = @JoinColumn(name = "organization_id"),
+            inverseJoinColumns = @JoinColumn(name = "department_id")
+    )
+    private Set<Department> departments = new HashSet<>();
 
     @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonIgnore
     private List<User> users = new ArrayList<>();
 
+    @ElementCollection
+    @CollectionTable(
+            name = "organization_attributes",
+            joinColumns = @JoinColumn(name = "organization_id")
+    )
+    @MapKeyJoinColumn(name = "attribute_id")
+    @Column(name = "attribute_value")
+    @JsonSerialize(using = AttributesSerializer.class)
+    private Map<OrganizationAttribute, String> attributes = new HashMap<>();
 }

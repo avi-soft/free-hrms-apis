@@ -34,5 +34,4 @@ public class DepartmentsResponseDTO {
     private String organizationImage;
 
     private String organizationDescription;
-
 }
