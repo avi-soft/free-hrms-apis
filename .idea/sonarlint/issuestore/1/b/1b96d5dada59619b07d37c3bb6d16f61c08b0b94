@@ -1,8 +1,8 @@
 
-“
-java:S11923"PDefine a constant instead of duplicating this literal " does not exist" 3 times.(ßÉıÎ8¶¬ê‹’2J$9a7d4f48-7b52-453a-a34e-8f5734f4bf5c
-
-java:S11923"KDefine a constant instead of duplicating this literal "Attribute " 3 times.(ßÉıÎ8¸¬ê‹’2J$3cb309d9-8e9e-4d8d-91c5-7080faabf244
-
-java:S4973b"<Strings and Boxed types should be compared using "equals()".(¿—ü8¼¬ê‹’2J$c945c62a-518e-487a-b6a1-24c9840d622d
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ8¿¬ê‹’2J$3094ab36-c21b-45f2-b329-3dfd3a8b97c3
+m
+java:S11923"PDefine a constant instead of duplicating this literal " does not exist" 3 times.(ßÉıÎ8á‚ş‹’2
+h
+java:S11923"KDefine a constant instead of duplicating this literal "Attribute " 3 times.(ßÉıÎ8â‚ş‹’2
+Y
+java:S4973b"<Strings and Boxed types should be compared using "equals()".(¿—ü8æ‚ş‹’2
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ8¿¬ê‹’2J$b163305d-296c-4a0b-a6bc-e15f3633cb8a
