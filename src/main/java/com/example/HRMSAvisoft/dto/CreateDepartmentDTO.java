@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Map;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -25,5 +27,7 @@ public class CreateDepartmentDTO {
     private Long managerId;
 
     private Long organizationId;
+
+    private Map<String, String> attributes;
 
 }
