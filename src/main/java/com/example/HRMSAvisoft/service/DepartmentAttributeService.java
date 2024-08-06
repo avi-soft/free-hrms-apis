@@ -53,7 +53,7 @@ public class DepartmentAttributeService {
 
     public static class DepartmentAlreadyExistsException extends Exception {
         public DepartmentAlreadyExistsException(String message){
-            super(message);
+            super(message+ " department already exists");
         }
     }
 }

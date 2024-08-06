@@ -1,16 +1,17 @@
 
-v
-java:S2293$"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÕÄŞã8ŠÁàä2
 {
-java:S2293'"YReplace the type specification in this constructor call with the diamond operator ("<>").(ú‡ÍÇıÿÿÿÿ8‹Áàä2
+java:S2293*"YReplace the type specification in this constructor call with the diamond operator ("<>").(ú‡ÍÇıÿÿÿÿ8€ş‹’2
 {
-java:S2293B"YReplace the type specification in this constructor call with the diamond operator ("<>").(è“É÷úÿÿÿÿ8‹Áàä2
+java:S2293E"YReplace the type specification in this constructor call with the diamond operator ("<>").(è“É÷úÿÿÿÿ8Ÿ€ş‹’2
 {
-java:S2293I"YReplace the type specification in this constructor call with the diamond operator ("<>").(ş±ªÁøÿÿÿÿ8‹Áàä2
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(—üïïøÿÿÿÿ8ôÁ¼2J$3c3ceb4a-6a06-4351-b9c6-a47b4dab6bc4
-W	java:S125!"<This block of commented-out lines of code should be removed.(ñê¿8•Áàä2
-X	java:S125*"<This block of commented-out lines of code should be removed.(æü¬–8—Áàä2
-X	java:S1251"<This block of commented-out lines of code should be removed.(œÍŸâ8˜Áàä2
-]	java:S1259"<This block of commented-out lines of code should be removed.(ÜºŸ‰üÿÿÿÿ8˜Áàä2
+java:S2293L"YReplace the type specification in this constructor call with the diamond operator ("<>").(ş±ªÁøÿÿÿÿ8 €ş‹’2
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(—üïïøÿÿÿÿ8ôÁ¼2J$e3382cff-f870-4910-b05f-c5fbb5cfc095
+X	java:S125"<This block of commented-out lines of code should be removed.(ÃŠ“¶8®€ş‹’2
+W	java:S125$"<This block of commented-out lines of code should be removed.(ñê¿8¹€ş‹’2
+X	java:S125-"<This block of commented-out lines of code should be removed.(æü¬–8¼€ş‹’2
+X	java:S1254"<This block of commented-out lines of code should be removed.(œÍŸâ8½€ş‹’2
+]	java:S125<"<This block of commented-out lines of code should be removed.(ÜºŸ‰üÿÿÿÿ8¾€ş‹’2
+e
+java:S1128"HRemove this unused import 'com.example.HRMSAvisoft.attribute.Attribute'.(Û¼ºå8È€ş‹’2
 m
-java:S1128"KRemove this unused import 'com.fasterxml.jackson.annotation.JsonAnyGetter'.(‹¿«™ùÿÿÿÿ8ŸÁàä2
+java:S1128"KRemove this unused import 'com.fasterxml.jackson.annotation.JsonAnyGetter'.(‹¿«™ùÿÿÿÿ8É€ş‹’2

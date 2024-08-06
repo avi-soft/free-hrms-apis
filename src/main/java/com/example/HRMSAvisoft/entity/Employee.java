@@ -19,7 +19,7 @@ import java.util.*;
 @Entity
 @AllArgsConstructor
 @JsonFormat
-@Builder
+//@Builder
 public class Employee {
 
     @Id
@@ -36,7 +36,7 @@ public class Employee {
 //    private String contact;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<EmergencyContact> emergencyContacts = new ArrayList<EmergencyContact>();
+    private List<EmergencyContact> emergencyContacts = new ArrayList<>();
     
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Address> addresses = new ArrayList<Address>();

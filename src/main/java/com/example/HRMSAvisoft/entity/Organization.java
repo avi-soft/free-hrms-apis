@@ -14,12 +14,13 @@ import java.util.Set;
 import java.util.Map;
 import java.util.HashMap;
 
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Builder
+//@Builder
 public class Organization
 {
     @Id

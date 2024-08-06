@@ -7,10 +7,9 @@ import com.example.HRMSAvisoft.attribute.OrganizationAttribute;
 import com.example.HRMSAvisoft.dto.AddNewOrganizationDTO;
 import com.example.HRMSAvisoft.dto.UpdateOrganizationDTO;
 import com.example.HRMSAvisoft.entity.Department;
-import com.example.HRMSAvisoft.entity.Employee;
 import com.example.HRMSAvisoft.entity.Organization;
 import com.example.HRMSAvisoft.exception.AttributeKeyDoesNotExistException;
-import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
+
 import com.example.HRMSAvisoft.repository.OrganizationAttributeRepository;
 import com.example.HRMSAvisoft.repository.OrganizationRepository;
 import jakarta.persistence.EntityNotFoundException;

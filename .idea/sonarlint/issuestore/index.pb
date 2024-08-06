@@ -306,10 +306,6 @@ Qsrc/main/java/com/example/HRMSAvisoft/controller/EmployeeAttributeController.ja
 Ksrc/main/java/com/example/HRMSAvisoft/service/EmployeeAttributeService.java,8/d/8d8027aadbb26e9698a5c1e5bb4e7e79bbd68a25
 Å
 Qsrc/main/java/com/example/HRMSAvisoft/repository/EmployeeAttributeRepository.java,6/8/68e21c4d7382ff1a1da8ae2867ddf611ec73790b
-s
-Csrc/main/java/com/example/HRMSAvisoft/entity/EmployeeAttribute.java,2/0/202b745a6e55cdb833c114d00d724842b13cebfe
-e
-5src/main/java/utils/EmployeeAttributesSerializer.java,2/4/24534a4dc048160d1748e060b6b72c8b8ee6fc87
 É
 Ssrc/main/java/com/example/HRMSAvisoft/controller/DepartmentAttributeController.java,1/a/1a58cdd5a4c19a3404e1a3515de842aff0a76e50
 }
