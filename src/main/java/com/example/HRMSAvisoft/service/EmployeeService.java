@@ -86,8 +86,8 @@ public class EmployeeService {
         return searchedEmployees;
     }
 
-    public Employee saveEmployeePersonalInfo(Long employeeId, CreateEmployeeDTO createEmployeeDTO,Map<String, String> attributes)throws EmployeeNotFoundException, EmployeeCodeAlreadyExistsException, AccessDeniedException,AttributeKeyDoesNotExistException, EntityNotFoundException{
-        attributes.forEach((k,v)->{
+    public Employee saveEmployeePersonalInfo(Long employeeId, CreateEmployeeDTO createEmployeeDTO)throws EmployeeNotFoundException, EmployeeCodeAlreadyExistsException, AccessDeniedException,AttributeKeyDoesNotExistException, EntityNotFoundException{
+        createEmployeeDTO.getAttributes().forEach((k,v)->{
             EmployeeAttribute employeeAttribute = employeeAttributeRepository.findByAttributeKey(k).orElse(null);
             if(employeeAttribute == null){
                 throw new AttributeKeyDoesNotExistException("Attribute "+ k + " does not exist");
@@ -130,7 +130,7 @@ public class EmployeeService {
             employeeToAddInfo.getSkills().add(skillToAdd);
         }
         // Create a list of EmployeeAttributeValue
-        Map<EmployeeAttribute, String> employeeAttributes = attributes.entrySet().stream()
+        Map<EmployeeAttribute, String> employeeAttributes = createEmployeeDTO.getAttributes().entrySet().stream()
                 .collect(Collectors.toMap(
                         entry -> employeeAttributeRepository.findByAttributeKey(entry.getKey())
                                 .orElseThrow(() -> new RuntimeException("Attribute not found: " + entry.getKey())),

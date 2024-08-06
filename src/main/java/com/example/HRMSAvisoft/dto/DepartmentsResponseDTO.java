@@ -2,15 +2,12 @@ package com.example.HRMSAvisoft.dto;
 
 
 import com.example.HRMSAvisoft.attribute.DepartmentAttribute;
-import com.example.HRMSAvisoft.entity.EmployeeAttribute;
-import com.example.HRMSAvisoft.entity.Organization;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import utils.AttributesSerializer;
-import utils.EmployeeAttributesSerializer;
 
 import java.util.HashMap;
 import java.util.Map;

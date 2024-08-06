@@ -77,15 +77,15 @@ public class OrganizationController {
 
     @PreAuthorize("hasAnyAuthority('CREATE_ORGANIZATION')")
     @PostMapping("")
-    public ResponseEntity<Object> saveOrganization(@Valid @RequestBody AddNewOrganizationDTO organizationDTO , @RequestParam Map<String, String> attributes) throws OrganizationService.OrganizationAlreadyExistsException, IllegalArgumentException {
-        Organization organizationAdded = organizationService.addOrganization(organizationDTO, attributes);
+    public ResponseEntity<Object> saveOrganization(@Valid @RequestBody AddNewOrganizationDTO organizationDTO) throws OrganizationService.OrganizationAlreadyExistsException, IllegalArgumentException {
+        Organization organizationAdded = organizationService.addOrganization(organizationDTO);
         return ResponseGenerator.generateResponse(HttpStatus.CREATED,true,"Organization is created successfully",organizationAdded);
     }
 
     @PreAuthorize("hasAnyAuthority('UPDATE_ORGANIZATION')")
     @PatchMapping("/{organizationId}")
-    public ResponseEntity<Object> updateOrganization(@Valid @RequestBody UpdateOrganizationDTO organizationDTO, @PathVariable Long organizationId, @RequestParam Map<String, String> attributes) throws EntityNotFoundException, IllegalArgumentException{
-        Organization updatedOrganization = organizationService.updateOrganization(organizationDTO, organizationId, attributes);
+    public ResponseEntity<Object> updateOrganization(@Valid @RequestBody UpdateOrganizationDTO organizationDTO, @PathVariable Long organizationId) throws EntityNotFoundException, IllegalArgumentException{
+        Organization updatedOrganization = organizationService.updateOrganization(organizationDTO, organizationId);
         return ResponseGenerator.generateResponse(HttpStatus.OK, true, "Organization Updated successfully.",updatedOrganization);
     }
 
