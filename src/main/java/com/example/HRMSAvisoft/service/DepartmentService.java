@@ -44,8 +44,8 @@ public class DepartmentService {
         return departmentRepository.findAll();
     }
 
-    public Department addDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO, Map<String, String> attributes) throws EmployeeNotFoundException, EntityNotFoundException, DepartmentAttributeService.DepartmentAlreadyExistsException, AttributeKeyDoesNotExistException{
-        attributes.forEach((k,v)->{
+    public Department addDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO) throws EmployeeNotFoundException, EntityNotFoundException, DepartmentAttributeService.DepartmentAlreadyExistsException, AttributeKeyDoesNotExistException{
+        createDepartmentDTO.getAttributes().forEach((k,v)->{
             DepartmentAttribute departmentAttribute = departmentAttributeRepository.findByAttributeKey(k).orElse(null);
             if(departmentAttribute == null){
                 throw new AttributeKeyDoesNotExistException("Attribute "+ k + " does not exist");
@@ -70,7 +70,7 @@ public class DepartmentService {
             newDepartment.getOrganizations().add(organization);
             organization.getDepartments().add(newDepartment);
         }
-        Map<DepartmentAttribute, String> departmentAttributes = attributes.entrySet().stream()
+        Map<DepartmentAttribute, String> departmentAttributes = createDepartmentDTO.getAttributes().entrySet().stream()
                 .collect(Collectors.toMap(
                         entry -> departmentAttributeRepository.findByAttributeKey(entry.getKey())
                                 .orElseThrow(() -> new RuntimeException("Attribute not found: " + entry.getKey())),
@@ -83,9 +83,9 @@ public class DepartmentService {
 
     }
 
-    public Department updateDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO, Long departmentId, Map<String, String> attributes)throws  DepartmentNotFoundException, EmployeeNotFoundException, DepartmentAttributeService.DepartmentAlreadyExistsException {
+    public Department updateDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO, Long departmentId)throws  DepartmentNotFoundException, EmployeeNotFoundException, DepartmentAttributeService.DepartmentAlreadyExistsException {
 
-        attributes.forEach((k,v)->{
+        createDepartmentDTO.getAttributes().forEach((k,v)->{
             DepartmentAttribute departmentAttribute = departmentAttributeRepository.findByAttributeKey(k).orElse(null);
             if(departmentAttribute == null){
                 throw new AttributeKeyDoesNotExistException("Attribute "+ k + " does not exist");
@@ -112,7 +112,7 @@ public class DepartmentService {
 
         Map<DepartmentAttribute, String> attributeMap = new HashMap<>();
 
-        for (Map.Entry<String, String> entry : attributes.entrySet()) {
+        for (Map.Entry<String, String> entry : createDepartmentDTO.getAttributes().entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
 
@@ -140,8 +140,41 @@ public class DepartmentService {
         }
 
         departmentRepository.delete(departmentToDelete);
+    }
+
+    public void assignDepartmentToOrganization(Long organizationId, Long departmentId){
+        Department departmentToAssign = departmentRepository.findById(departmentId).orElseThrow(()-> new DepartmentNotFoundException(departmentId));
+
+        Organization organizationToAddInto = organizationRepository.findById(organizationId).orElseThrow(()-> new EntityNotFoundException("Organization not found"));
+
+        if(!organizationToAddInto.getDepartments().contains(departmentToAssign)){
+            organizationToAddInto.getDepartments().add(departmentToAssign);
+
+        }
+        if(!departmentToAssign.getOrganizations().contains(organizationToAddInto)) {
+            departmentToAssign.getOrganizations().add(organizationToAddInto);
+        }
+        departmentRepository.save(departmentToAssign);
+    }
+
+    public void removeDepartmentFromOrganization(Long organizationId, Long departmentId){
+        Department departmentToRemove = departmentRepository.findById(departmentId).orElseThrow(()-> new DepartmentNotFoundException(departmentId));
+
+        Organization organizationToRemoveFrom = organizationRepository.findById(organizationId).orElseThrow(()-> new EntityNotFoundException("Organization not found"));
+
+        if(organizationToRemoveFrom.getDepartments().contains(departmentToRemove)){
+            organizationToRemoveFrom.getDepartments().remove(departmentToRemove);
+
+        }
+        if(departmentToRemove.getOrganizations().contains(organizationToRemoveFrom)) {
+            departmentToRemove.getOrganizations().remove(organizationToRemoveFrom);
+        }
+
+        departmentRepository.save(departmentToRemove);
 
     }
+
+
 
     public static class DepartmentNotFoundException extends RuntimeException {
         public DepartmentNotFoundException(Long departmentId) {
