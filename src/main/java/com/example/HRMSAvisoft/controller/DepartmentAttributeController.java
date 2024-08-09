@@ -7,6 +7,7 @@ import com.example.HRMSAvisoft.service.DepartmentAttributeService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import utils.ResponseGenerator;
 
@@ -22,30 +23,30 @@ public class DepartmentAttributeController {
         this.departmentAttributeService = departmentAttributeService;
     }
 
-//    @PreAuthorize("hasAnyAuthority('GET_ALL_DEPARTMENT_ATTRIBUTES')")
+    @PreAuthorize("hasAnyAuthority('GET_ALL_DEPARTMENT_ATTRIBUTES')")
     @GetMapping("")
-    public ResponseEntity<List<DepartmentAttribute>> getEmployeeAttributes(){
+    public ResponseEntity<List<DepartmentAttribute>> getDepartmentAttributes(){
         List<DepartmentAttribute> departmentAttributes = departmentAttributeService.getDepartmentAttributes();
         return ResponseEntity.status(HttpStatus.OK).body(departmentAttributes);
     }
 
-//    @PreAuthorize("hasAnyAuthority('CREATE_DEPARTMENT_ATTRIBUTE')")
+    @PreAuthorize("hasAnyAuthority('CREATE_DEPARTMENT_ATTRIBUTE')")
     @PostMapping("")
-    public ResponseEntity<Object> saveEmployeeAttribute( @RequestBody DepartmentAttribute departmentAttribute) throws DepartmentAttributeService.DepartmentAlreadyExistsException, IllegalArgumentException {
+    public ResponseEntity<Object> saveDepartmentAttribute( @RequestBody DepartmentAttribute departmentAttribute) throws DepartmentAttributeService.DepartmentAlreadyExistsException, IllegalArgumentException {
         DepartmentAttribute newDepartmentAttribute = departmentAttributeService.addDepartmentAttribute(departmentAttribute);
         return ResponseGenerator.generateResponse(HttpStatus.CREATED,true,"Department Attribute is created successfully",newDepartmentAttribute);
     }
 
-//    @PreAuthorize("hasAnyAuthority('UPDATE_DEPARTMENT_ATTRIBUTE')")
+    @PreAuthorize("hasAnyAuthority('UPDATE_DEPARTMENT_ATTRIBUTE')")
     @PatchMapping("/{departmentAttributeId}")
-    public ResponseEntity<Object> updateEmployeeAttribute( @RequestBody DepartmentAttribute departmentAttribute, @PathVariable Long departmentAttributeId) throws EntityNotFoundException, IllegalArgumentException, DepartmentAttributeService.DepartmentAlreadyExistsException {
+    public ResponseEntity<Object> updateDepartmentAttribute( @RequestBody DepartmentAttribute departmentAttribute, @PathVariable Long departmentAttributeId) throws EntityNotFoundException, IllegalArgumentException, DepartmentAttributeService.DepartmentAlreadyExistsException {
         DepartmentAttribute updatedDepartmentAttribute = departmentAttributeService.updateDepartmentAttribute(departmentAttribute, departmentAttributeId);
         return ResponseGenerator.generateResponse(HttpStatus.OK, true, "Department Attribute Updated successfully.",updatedDepartmentAttribute);
     }
 
-//    @PreAuthorize("hasAnyAuthority('DELETE_DEPARTMENT_ATTRIBUTE')")
+    @PreAuthorize("hasAnyAuthority('DELETE_DEPARTMENT_ATTRIBUTE')")
     @DeleteMapping("/{departmentAttributeId}")
-    public ResponseEntity<Object> deleteEmployeeAttribute(@PathVariable Long departmentAttributeId) throws EntityNotFoundException
+    public ResponseEntity<Object> deleteDepartmentAttribute(@PathVariable Long departmentAttributeId) throws EntityNotFoundException
     {
         DepartmentAttribute deletedDepartmentAttribute =departmentAttributeService.deleteDepartmentAttribute(departmentAttributeId);
         return ResponseGenerator.generateResponse(HttpStatus.OK,true,"Department Attribute is Deleted successfully",deletedDepartmentAttribute);

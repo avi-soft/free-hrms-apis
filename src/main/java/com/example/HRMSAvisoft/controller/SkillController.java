@@ -26,7 +26,7 @@ public class SkillController {
 
     @PreAuthorize("hasAnyAuthority('ADD_SKILL')")
     @PostMapping("")
-    public ResponseEntity<Map<String, Object>> addSkill(@RequestBody Skill skill){
+    public ResponseEntity<Map<String, Object>> addSkill(@RequestBody Skill skill)throws IllegalArgumentException{
         Skill newSkill = skillService.addSkill(skill);
         return ResponseEntity.status(201).body(Map.of("success", true, "message", "Skill added successfully", "Skill", newSkill));
     }
@@ -41,7 +41,7 @@ public class SkillController {
 
     @PreAuthorize("hasAnyAuthority('UPDATE_SKILL')")
     @PatchMapping("/{skillId}")
-    public ResponseEntity<Map<String, Object>> updateSkill(@RequestBody Skill skill, @PathVariable("skillId") Long skillId){
+    public ResponseEntity<Map<String, Object>> updateSkill(@RequestBody Skill skill, @PathVariable("skillId") Long skillId)throws EntityNotFoundException, IllegalArgumentException{
         skillService.updateSkill(skill, skillId);
 
         return ResponseEntity.status(200).body(Map.of("success", true, "message", "skill updated successfully"));
@@ -57,7 +57,8 @@ public class SkillController {
 
 
     @ExceptionHandler({
-            EntityNotFoundException.class
+            EntityNotFoundException.class,
+            IllegalArgumentException.class
     })
 
     public ResponseEntity<ErrorResponseDTO> handleErrors(Exception exception){
@@ -66,6 +67,10 @@ public class SkillController {
         if(exception instanceof EntityNotFoundException) {
             message = exception.getMessage();
             status = HttpStatus.NOT_FOUND;
+        }
+        else if(exception instanceof IllegalArgumentException) {
+            message = exception.getMessage();
+            status = HttpStatus.BAD_REQUEST;
         }
         else{
             message = "something went wrong";

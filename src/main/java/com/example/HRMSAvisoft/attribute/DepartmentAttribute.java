@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class DepartmentAttribute extends Attribute{
 
-    DepartmentAttribute(String attributeKey){
+    public DepartmentAttribute(String attributeKey){
         super(attributeKey);
     }
 

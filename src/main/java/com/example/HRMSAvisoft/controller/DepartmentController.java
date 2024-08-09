@@ -82,7 +82,7 @@ public class DepartmentController {
     }
 
     @PatchMapping("/{organizationId}/assignDepartment/{departmentId}")
-    public ResponseEntity<Map<String, Object>> assignOrganizationToDepartment(@PathVariable("organizationId") Long organizationId, @PathVariable("departmentId") Long departmentId){
+    public ResponseEntity<Map<String, Object>> assignDepartmentToOrganization(@PathVariable("organizationId") Long organizationId, @PathVariable("departmentId") Long departmentId){
         departmentService.assignDepartmentToOrganization(organizationId, departmentId);
 
         return ResponseEntity.status(200).body(Map.of("success", true, "message", "Department assigned successfully"));
