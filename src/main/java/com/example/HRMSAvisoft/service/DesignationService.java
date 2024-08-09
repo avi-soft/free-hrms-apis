@@ -19,8 +19,11 @@ public class DesignationService {
         this.designationRepository = designationRepository;
     }
 
-    public Designation addDesignation(Designation designation){
+    public Designation addDesignation(Designation designation)throws IllegalArgumentException{
         Designation newDesignation = new Designation();
+        if(designation.getDesignation() == null || designation.getDesignation().equals("")){
+            throw new IllegalArgumentException("Designation field cannot be null");
+        }
         newDesignation.setDesignation(designation.getDesignation());
 
         return designationRepository.save(newDesignation);
@@ -30,8 +33,10 @@ public class DesignationService {
         return designationRepository.findAll();
     }
 
-    public void updateDesignation(Designation designation, Long designationId) throws EntityNotFoundException{
-        Designation designationToUpdate = designationRepository.findById(designationId).orElseThrow(()-> new EntityNotFoundException("Designation not found"));
+    public void updateDesignation(Designation designation, Long designationId) throws EntityNotFoundException, IllegalArgumentException{
+        if(designation.getDesignation() == null || designation.getDesignation().equals("")){
+            throw new IllegalArgumentException("Designation field cannot be null");
+        }        Designation designationToUpdate = designationRepository.findById(designationId).orElseThrow(()-> new EntityNotFoundException("Designation not found"));
 
         if(designation.getDesignation() != null && !designation.getDesignation().equals(""))
             designationToUpdate.setDesignation(designation.getDesignation());

@@ -27,7 +27,7 @@ public class DesignationController {
 
     @PreAuthorize("hasAnyAuthority('ADD_DESIGNATION')")
     @PostMapping("")
-    public ResponseEntity<Map<String, Object>> addDesignation(@RequestBody Designation designation){
+    public ResponseEntity<Map<String, Object>> addDesignation(@RequestBody Designation designation)throws IllegalArgumentException{
         Designation newDesignation = designationService.addDesignation(designation);
 
         return ResponseEntity.status(201).body(Map.of("success", true, "message", "Designation added successfully", "designation", newDesignation));
@@ -43,7 +43,7 @@ public class DesignationController {
 
     @PreAuthorize("hasAnyAuthority('UPDATE_DESIGNATION')")
     @PatchMapping("/{designationId}")
-    public ResponseEntity<Map<String, Object>> updateDesignation(@RequestBody Designation designation, @PathVariable("designationId") Long designationId) throws EntityNotFoundException {
+    public ResponseEntity<Map<String, Object>> updateDesignation(@RequestBody Designation designation, @PathVariable("designationId") Long designationId) throws EntityNotFoundException, IllegalArgumentException{
         designationService.updateDesignation(designation, designationId);
 
         return ResponseEntity.status(200).body(Map.of("success", true, "message", "Designation updated successfully"));
@@ -58,7 +58,8 @@ public class DesignationController {
     }
 
     @ExceptionHandler({
-            EntityNotFoundException.class
+            EntityNotFoundException.class,
+            IllegalArgumentException.class
     })
 
     public ResponseEntity<ErrorResponseDTO> handleErrors(Exception exception){
@@ -67,6 +68,10 @@ public class DesignationController {
         if(exception instanceof EntityNotFoundException) {
             message = exception.getMessage();
             status = HttpStatus.NOT_FOUND;
+        }
+        else if(exception instanceof IllegalArgumentException) {
+            message = exception.getMessage();
+            status = HttpStatus.BAD_REQUEST;
         }
         else{
             message = "something went wrong";

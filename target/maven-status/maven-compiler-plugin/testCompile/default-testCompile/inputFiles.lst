@@ -3,6 +3,7 @@
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/entity/DepartmentTests.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/service/RoleServiceTest.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/entity/PerformanceTests.java
+/home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/service/DesignationServiceTests.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/controller/DepartmentControllerTests.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/config/TestSecurityConfig.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/controller/RoleControllerTest.java
@@ -32,6 +33,7 @@
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/entity/RoleTest.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/service/UserServiceTest.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/service/DepartmentServiceTests.java
+/home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/entity/DesignationTests.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/repository/PerformanceRespositoryTests.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/service/JWTServiceTests.java
 /home/himanshu/Desktop/Avisoft/HRMSAvisoft/src/test/java/com/example/HRMSAvisoft/controller/AccountControllerTest.java
