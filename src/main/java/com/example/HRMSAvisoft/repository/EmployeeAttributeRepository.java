@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 @Repository
 public interface EmployeeAttributeRepository extends JpaRepository<EmployeeAttribute, Long> {
-    Optional<EmployeeAttribute> findByAttributeKey(String attributeKey);
+     Optional<EmployeeAttribute> findByAttributeKey(String attributeKey);
 }

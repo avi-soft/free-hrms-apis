@@ -8,6 +8,8 @@ import com.example.HRMSAvisoft.dto.AddNewOrganizationDTO;
 import com.example.HRMSAvisoft.dto.UpdateOrganizationDTO;
 import com.example.HRMSAvisoft.entity.Department;
 import com.example.HRMSAvisoft.entity.Organization;
+import com.example.HRMSAvisoft.exception.AttributeKeyDoesNotExistException;
+
 import com.example.HRMSAvisoft.repository.OrganizationAttributeRepository;
 import com.example.HRMSAvisoft.repository.OrganizationRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -18,9 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -69,24 +69,27 @@ public class OrganizationService {
         return organizations;
     }
 
-    public Organization addOrganization(AddNewOrganizationDTO organizationDTO,Map<String, String> attributes) throws OrganizationAlreadyExistsException, IllegalArgumentException{
-        Organization organizationToAdd= modelMapper.map(organizationDTO,Organization.class);
-        Organization existingOrganization = organizationRepository.getByOrganizationName(organizationDTO.getOrganizationName()).orElse(null);
-        if(existingOrganization != null){
-            throw new OrganizationAlreadyExistsException(existingOrganization.getOrganizationName() + " organization already exists");
-        }
-        Map<OrganizationAttribute, String> organizationAttributes = attributes.entrySet().stream()
-                .collect(Collectors.toMap(
-                        entry -> organizationAttributeRepository.findByAttributeKey(entry.getKey())
-                                .orElseThrow(() -> new RuntimeException("Attribute not found: " + entry.getKey())),
-                        Map.Entry::getValue
-                ));
+public Organization addOrganization(AddNewOrganizationDTO organizationDTO) throws OrganizationAlreadyExistsException, IllegalArgumentException {
+    Organization organizationToAdd = modelMapper.map(organizationDTO, Organization.class);
+    Organization existingOrganization = organizationRepository.getByOrganizationName(organizationDTO.getOrganizationName()).orElse(null);
 
-        organizationToAdd.setAttributes(organizationAttributes);
-        return organizationRepository.save(organizationToAdd);
+    if (existingOrganization != null) {
+        throw new OrganizationAlreadyExistsException(existingOrganization.getOrganizationName() + " organization already exists");
     }
+    System.out.println( organizationDTO.getAttributes());
 
-    public Organization updateOrganization(UpdateOrganizationDTO organizationDTO, Long organizationId,Map<String, String> attributes) throws EntityNotFoundException, IllegalArgumentException{
+    Map<OrganizationAttribute, String> organizationAttributes = organizationDTO.getAttributes().entrySet().stream()
+            .collect(Collectors.toMap(
+                    entry -> organizationAttributeRepository.findByAttributeKey(entry.getKey())
+                            .orElseThrow(() -> new RuntimeException("Attribute not found: " + entry.getKey())),
+                    Map.Entry::getValue
+            ));
+
+    organizationToAdd.setAttributes(organizationAttributes);
+    return organizationRepository.save(organizationToAdd);
+}
+
+    public Organization updateOrganization(UpdateOrganizationDTO organizationDTO, Long organizationId) throws EntityNotFoundException, IllegalArgumentException{
         Organization organizationToUpdate = organizationRepository.findById(organizationId).orElseThrow((()-> new EntityNotFoundException("Organization not found")));
 
         Organization existingOrganization = organizationRepository.getByOrganizationName(organizationDTO.getOrganizationName()).orElse(null);
@@ -100,14 +103,15 @@ public class OrganizationService {
         if (Objects.nonNull(organizationDTO.getOrganizationDescription())) {
             organizationToUpdate.setOrganizationDescription(organizationDTO.getOrganizationDescription());
         }
-        Map<OrganizationAttribute, String> organizationAttributes = attributes.entrySet().stream()
-                .collect(Collectors.toMap(
-                        entry -> organizationAttributeRepository.findByAttributeKey(entry.getKey())
-                                .orElseThrow(() -> new RuntimeException("Attribute not found: " + entry.getKey())),
-                        Map.Entry::getValue
-                ));
-
-        organizationToUpdate.setAttributes(organizationAttributes);
+        Map<OrganizationAttribute, String> attributeMap = new HashMap<>();
+        for (Map.Entry<String, String> entry : organizationDTO.getAttributes().entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            OrganizationAttribute organizationAttribute = organizationAttributeRepository.findByAttributeKey(key)
+                    .orElseThrow(() -> new AttributeKeyDoesNotExistException("Attribute " + key + " does not exist"));
+            attributeMap.put(organizationAttribute, value);
+        }
+        organizationToUpdate.setAttributes(attributeMap);
         return organizationRepository.save(organizationToUpdate);
     }
 
@@ -123,7 +127,6 @@ public class OrganizationService {
             super(message);
         }
     }
-
     }
 
 

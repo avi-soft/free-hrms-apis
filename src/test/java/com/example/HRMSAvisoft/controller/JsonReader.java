@@ -2,9 +2,11 @@ package com.example.HRMSAvisoft.controller;
 
 
 import com.example.HRMSAvisoft.entity.AddressType;
+import com.example.HRMSAvisoft.entity.Designation;
 import com.example.HRMSAvisoft.entity.Privilege;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,8 +32,9 @@ public class JsonReader {
 
         // Close the input stream
         inputStream.close();
-
         return dataMap;
+
+
 
 //        // Parse addressType into enum value
 //        String addressTypeString = (String) dataMap.get("addressType");
