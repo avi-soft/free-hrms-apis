@@ -1,0 +1,139 @@
+#
+#
+#
+#enum Position{
+#    TESTER
+#    JUNIOR_DEVELOPER
+#    DEVELOPER
+#    SENIOR_DEVELOPER
+#    HR
+#    BDM
+#}
+#
+#enum Gender{
+#    MALE
+#    FEMALE
+#    OTHER
+#}
+#
+#type Employee {
+#    employeeId: ID
+#    employeeCode: String
+#    firstName: String
+#    lastName: String
+#    contact: String
+#    emergencyContacts: [EmergencyContact]
+#    addresses: [Address]
+#    position: Position
+#    joinDate: String
+#    gender: Gender
+#    adhaarNumber: String
+#    panNumber: String
+#    uanNumber: String
+#    profileImage: String
+#    dateOfBirth: String
+#    salary : Int
+#    department: Department
+#    performanceList: [Performance]
+#    payrollList: [Payroll]
+#    account: Account
+##    leaveRequests: [LeaveRequest]
+##    leaveBalances: [LeaveBalance]
+#}
+#
+#type EmergencyContact{
+#    emergencyContactId : ID!
+#
+#    contact : String
+#
+#    relationship : String
+#}
+#
+#type Account{
+#    accountId : ID!
+#
+#    bankName : String
+#
+#    accountNumber : String
+#
+#    ifsc : String
+#
+#    branch : String
+#}
+#
+#type Payroll{
+#    payrollId : ID!
+#
+#    bonus : Int
+#
+#    payDate : String
+#
+#    deductionList : [Deduction]
+#
+#    payableAmount : Int
+#}
+#
+#enum Deduction{
+#    PROVIDENT_FUND
+#    MEDICAL_INSURANCE
+#    LIFE_INSURANCE
+#    PROFESSIONAL_TAX
+#}
+#
+#type Department {
+#    departmentId : ID!
+#
+#    department : String
+#
+#    description : String
+#
+#    manager : Employee
+#}
+#
+#type Address{
+#    addressId : ID!
+#
+#    propertyNumber : Int
+#
+#    zipCode : Zipcode
+#
+#    addressType : AddressType
+#
+#    country : String
+#}
+#
+#type Performance{
+#    performanceId : ID!
+#
+#    employee : Employee
+#
+#    reviewDate : String
+#
+#    reviewer : Employee
+#
+#    rating : Rating
+#
+#    comment : String
+#}
+#
+#enum Rating{
+#    VERY_POOR
+#    POOR
+#    FAIR
+#    GOOD
+#    EXCELLENT
+#}
+#
+#enum AddressType {
+#    TEMPORARY
+#    PERMANENT
+#}
+#
+#type Zipcode{
+#
+#    zipCode : Int!
+#
+#    city : String
+#
+#    state : String
+#}

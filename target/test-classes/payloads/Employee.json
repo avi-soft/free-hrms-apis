@@ -1,0 +1,19 @@
+{
+  "employeeCode": "E1",
+  "firstName": "testUser1",
+  "lastName": "kaur",
+  "gender":"FEMALE",
+  "designationList": [
+    "Manager"
+  ],
+  "attributes":
+  {
+    "contact": "98370353"
+  },
+
+  "skillList": [
+    "Springboot",
+    "React"
+  ]
+}
+

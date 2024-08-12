@@ -43,11 +43,6 @@ public class EmployeeController {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private EmployeeRepository employeeRepository;
-
-    @Autowired
-    private ModelMapper modelMapper;
-    @Autowired
     private EmployeeAttributeRepository employeeAttributeRepository;
 
     public EmployeeController(EmployeeService employeeService){

@@ -3,10 +3,7 @@ package com.example.HRMSAvisoft.repository;
 import com.example.HRMSAvisoft.attribute.EmployeeAttribute;
 import com.example.HRMSAvisoft.controller.JsonReader;
 import com.example.HRMSAvisoft.controller.RoleJsonReader;
-import com.example.HRMSAvisoft.entity.Designation;
-import com.example.HRMSAvisoft.entity.Privilege;
-import com.example.HRMSAvisoft.entity.Employee;
-import com.example.HRMSAvisoft.entity.Skill;
+import com.example.HRMSAvisoft.entity.*;
 import jakarta.transaction.Transactional;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
@@ -34,15 +31,12 @@ class EmployeeRepositoryTest
     @Autowired
     private EmployeeRepository employeeRepository;
     Employee employee;
+    Department department;
     JsonReader jsonReader = new JsonReader();
     Map<String, Object> dataMap = jsonReader.readFile("Employee");
     String employeeCode = (String) dataMap.get("employeeCode");
     String firstName = (String) dataMap.get("firstName");
     String lastName = (String) dataMap.get("lastName");
-//    String gender = (String) dataMap.get("gender");
-    List<Designation> designationList= (List<Designation>) dataMap.get("designationList");
-//    List<Skill> skillList= (List<Skill>) dataMap.get("skillList");
-//    Map<EmployeeAttribute,String> attributes= (Map<EmployeeAttribute, String>) dataMap.get("attributes");
     EmployeeRepositoryTest() throws IOException {
     }
 
@@ -54,9 +48,6 @@ class EmployeeRepositoryTest
         employee.setEmployeeCode(employeeCode);
         employee.setFirstName(firstName);
         employee.setLastName(lastName);
-        employee.setDesignations(designationList);
-//        employee.setSkills(skillList);
-//        employee.setAttributes(attributes);
     }
 
     @Test
@@ -67,39 +58,65 @@ class EmployeeRepositoryTest
         Assertions.assertThat(employee.getLastName()).isEqualTo(lastName);
     }
 
-//    @Test
-//    @DisplayName("getByEmployee")
-//    public void getByEmployee()
-//    {
-//        List<Employee> employees = employeeRepository.findAll();
-//        Employee employeeToFind = employees.get(1);
-//        Assertions.assertThat(employee.getEmployee()).isEqualTo(employeeToFind.getEmployee());
-//    }
+    @Test
+    @DisplayName("deleteEmployee")
+    public void deleteEmployee()
+    {
+        Employee savedEmployee = employeeRepository.save(employee);
+        assertNotNull(savedEmployee);
 
-//    @Test
-//    @DisplayName("findAllEmployeeTest")
-//    public void findAllEmployeeTest()
-//    {
-//        employeeRepository.save(employee);
-//        List<Employee> employees = employeeRepository.findAll();
-//        assertThat(employees.get(1).getEmployee()).isEqualTo(employee.getEmployee());
-//    }
-//
-//    @Test
-//    @DisplayName("deleteEmployee")
-//    public void deleteEmployee()
-//    {
-//        Employee savedEmployee = employeeRepository.save(employee);
-//        assertNotNull(savedEmployee);
-//
-//        // Then, delete the employee
-//        employeeRepository.delete(savedEmployee);
-//
-//        // Verify that the employee no longer exists
-//        Optional<Employee> deletedEmployee = employeeRepository.findById(employee.getEmployeeId());
-//        assertFalse(deletedEmployee.isPresent());
-//    }
+        // Then, delete the employee
+        employeeRepository.delete(savedEmployee);
 
+        // Verify that the employee no longer exists
+        Optional<Employee> deletedEmployee = employeeRepository.findById(employee.getEmployeeId());
+        assertFalse(deletedEmployee.isPresent());
+    }
+
+    @Test
+    @DisplayName("getByEmployeeIdTest")
+    public void getByEmployeeIdTest() {
+        employeeRepository.save(employee);
+        Employee foundEmployee = employeeRepository.getByEmployeeId(employee.getEmployeeId());
+        assertNotNull(foundEmployee);
+        Assertions.assertThat(foundEmployee.getEmployeeCode()).isEqualTo(employeeCode);
+    }
+
+    @Test
+    @DisplayName("searchEmployeesByNameTest")
+    public void searchEmployeesByNameTest() {
+        employeeRepository.save(employee);
+        List<Employee> foundEmployees = employeeRepository.searchEmployeesByName(firstName + " " + lastName);
+        assertFalse(foundEmployees.isEmpty());
+        assertEquals(foundEmployees.get(0).getFirstName(), firstName);
+        assertEquals(foundEmployees.get(0).getLastName(), lastName);
+    }
+
+    @Test
+    @DisplayName("findTopByOrderByEmployeeCodeDescTest")
+    public void findTopByOrderByEmployeeCodeDescTest() {
+        Employee anotherEmployee = new Employee();
+        anotherEmployee.setEmployeeId(2L);
+        anotherEmployee.setEmployeeCode("EMP999");
+        anotherEmployee.setFirstName("Jane");
+        anotherEmployee.setLastName("Doe");
+        anotherEmployee.setDepartment(department);
+
+        employeeRepository.save(employee);
+        employeeRepository.save(anotherEmployee);
+
+        Employee foundEmployee = employeeRepository.findTopByOrderByEmployeeCodeDesc();
+        assertNotNull(foundEmployee);
+        Assertions.assertThat(foundEmployee.getEmployeeCode()).isEqualTo("EMP999");
+    }
+
+    @Test
+    @DisplayName("existsByEmployeeCodeTest")
+    public void existsByEmployeeCodeTest() {
+        employeeRepository.save(employee);
+        boolean exists = employeeRepository.existsByEmployeeCode(employeeCode);
+        assertTrue(exists);
+    }
 }
 
 

@@ -36,9 +36,6 @@ public class OrganizationServiceTest {
     OrganizationRepository organizationRepository;
 
     @Mock
-    UserRepository userRepository;
-
-    @Mock
     ModelMapper modelMapper;
 
     @Mock
@@ -66,15 +63,15 @@ public class OrganizationServiceTest {
     }
 
     @Test
-    public void test_retrieve_departments_for_valid_organization_id() {
+    public void test_retrieve_departments_for_existing_organization() {
         OrganizationRepository organizationRepository = Mockito.mock(OrganizationRepository.class);
-//        OrganizationService organizationService = new OrganizationService(organizationRepository, new ModelMapper(), new Cloudinary(), new OrganizationAttributeRepository());
         Organization organization = new Organization();
         Department department1 = new Department();
         Department department2 = new Department();
         organization.setDepartments(Set.of(department1, department2));
         Mockito.when(organizationRepository.findById(1L)).thenReturn(Optional.of(organization));
 
+        OrganizationService organizationService = new OrganizationService(organizationRepository, new ModelMapper(), null, null);
         List<Department> departments = organizationService.getDepartmentsOfOrganization(1L);
 
         Assertions.assertEquals(2, departments.size());
@@ -83,11 +80,23 @@ public class OrganizationServiceTest {
     }
 
     @Test
+    public void test_return_empty_list_if_no_departments() {
+        OrganizationRepository organizationRepository = Mockito.mock(OrganizationRepository.class);
+        Organization organization = new Organization();
+        organization.setDepartments(Collections.emptySet());
+        Mockito.when(organizationRepository.findById(1L)).thenReturn(Optional.of(organization));
+
+        OrganizationService organizationService = new OrganizationService(organizationRepository, new ModelMapper(), null, null);
+        List<Department> departments = organizationService.getDepartmentsOfOrganization(1L);
+
+        Assertions.assertTrue(departments.isEmpty());
+    }
+
+    @Test
     @DisplayName("returns_list_of_organizations_when_organizations_exist")
     public void returns_list_of_organizations_when_organizations_exist() {
         List<Organization> mockOrganizations = Arrays.asList(organization);
         when(organizationRepository.findAll()).thenReturn(mockOrganizations);
-
         List<Organization> organizations = organizationService.getOrganizations();
 
         assertNotNull(organizations);

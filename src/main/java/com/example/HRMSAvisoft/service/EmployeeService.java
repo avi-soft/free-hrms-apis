@@ -43,9 +43,6 @@ public class EmployeeService {
     private EmployeeAttributeRepository employeeAttributeRepository;
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     private DepartmentRepository departmentRepository;
 
 

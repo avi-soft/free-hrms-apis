@@ -28,12 +28,8 @@ import java.util.Map;
 @RequestMapping("/api/v1/organization")
 public class OrganizationController {
 
-    private final ModelMapper modelMapper;
-
     private final OrganizationService organizationService;
-
     OrganizationController(ModelMapper modelMapper, OrganizationService organizationService){
-        this.modelMapper = modelMapper;
         this.organizationService = organizationService;
     }
 
