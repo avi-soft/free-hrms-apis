@@ -1,5 +1,6 @@
 package com.example.HRMSAvisoft.dto;
 
+import com.example.HRMSAvisoft.attribute.EmployeeAttribute;
 import com.example.HRMSAvisoft.entity.Account;
 import com.example.HRMSAvisoft.entity.Gender;
 import com.example.HRMSAvisoft.entity.Position;
@@ -8,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import utils.AttributesSerializer;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -31,5 +33,7 @@ public class UpdateEmployeeDetailsDTO {
 //    private Gender gender;
 //    private String dateOfBirth;
 //    private long salary;
+    @JsonSerialize(using = AttributesSerializer.class)
+    private Map<String, String> attributes = new HashMap<>();
 
 }

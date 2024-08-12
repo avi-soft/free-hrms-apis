@@ -16,5 +16,4 @@ public class DepartmentAttribute extends Attribute{
     public DepartmentAttribute(String attributeKey){
         super(attributeKey);
     }
-
 }

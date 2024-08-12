@@ -19,6 +19,7 @@ import java.util.*;
 @Entity
 @AllArgsConstructor
 @JsonFormat
+@Builder
 //@Builder
 public class Employee {
 
