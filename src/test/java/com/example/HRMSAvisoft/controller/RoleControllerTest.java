@@ -21,6 +21,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -93,16 +94,19 @@ public class RoleControllerTest {
     @WithMockUser(authorities = "UPDATE_ROLE")
     @DisplayName("testUpdateRole")
     public void testUpdateRole() throws Exception {
-        // Mock the addRole method to return a valid role
-        when(roleService.addRole(any(Role.class))).thenReturn(role);
-        Role roleToUpdate = roleService.addRole(role);
+        // Given
+        Role roleToUpdate = new Role();
+        roleToUpdate.setRoleId(1L);
         roleToUpdate.setRole("Manager");
         doNothing().when(roleService).updateRole(any(Role.class), eq(1L));
 
         mockMvc.perform(patch("/api/v1/role/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(roleToUpdate)))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.message").value("Role Updated successfully."))
+                .andExpect(jsonPath("$.role.role").value("Manager"));
     }
 
     @Test
@@ -150,5 +154,44 @@ public class RoleControllerTest {
         // Verify: Ensure the deleteRole method was called with the correct argument
         verify(roleService, times(1)).deleteRole(role.getRoleId());
     }
+
+    @Test
+    @WithMockUser(authorities = "CHANGE_USER_ROLE")
+    void changeRoleOfUserTest() throws Exception {
+        Long userId = 1L;
+        Long oldRoleId = 2L;
+        Long newRoleId = 3L;
+
+        Role changedRole = new Role();
+        changedRole.setRoleId(newRoleId);
+        changedRole.setRole("NewRole");
+
+        when(roleService.changeRoleOfUser(userId, oldRoleId, newRoleId)).thenReturn(changedRole);
+
+        mockMvc.perform(patch("/api/v1/role/changeRole/{userId}/{oldRoleId}/{newRoleId}", userId, oldRoleId, newRoleId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.isSuccess").value(true))
+                .andExpect(jsonPath("$.message").value("Role of User is changed with new Role"))
+                .andExpect(jsonPath("$.data.roleId").value(newRoleId))
+                .andExpect(jsonPath("$.data.role").value("NewRole"));
+
+        verify(roleService, times(1)).changeRoleOfUser(userId, oldRoleId, newRoleId);
+    }
+    @Test
+    @WithMockUser(authorities = "ASSIGN_ROLE_TO_USER")
+    void assignRoleToUserTest() throws Exception {
+        Long userId = 1L;
+        when(roleService.assignRoleToExistingUser(userId, role.getRoleId())).thenReturn(role);
+        mockMvc.perform(patch("/api/v1/role/{userId}/assignRole/{roleId}", userId, role.getRoleId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.isSuccess").value(true))
+                .andExpect(jsonPath("$.message").value("Role is assigned to User successfully"))
+                .andExpect(jsonPath("$.data.roleId").value(role.getRoleId()))
+                .andExpect(jsonPath("$.data.role").value("Admin"));
+        verify(roleService, times(1)).assignRoleToExistingUser(userId, role.getRoleId());
+    }
+
 }
 

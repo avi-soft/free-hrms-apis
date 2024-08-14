@@ -2,7 +2,10 @@ package com.example.HRMSAvisoft.repository;
 
 import com.example.HRMSAvisoft.entity.Department;
 import com.example.HRMSAvisoft.entity.Employee;
+import com.example.HRMSAvisoft.entity.Organization;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,8 +15,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
@@ -25,20 +27,33 @@ public class DepartmentRepositoryTests {
     @Autowired
     private DepartmentRepository departmentRepository;
 
+    @Autowired
+    private OrganizationRepository organizationRepository;
+
     String departmentName = "JAVA";
     String description = "Javas department";
     Employee manager = new Employee();
 
-    @Test
-    @DisplayName("test_saveDepartment")
-    void saveDepartment(){
+    Department newDepartment;
+
+    @BeforeEach
+    void setup(){
         Department department = new Department();
         department.setDepartment(departmentName);
         department.setDescription(description);
         department.setManager(manager);
 
-        Department newDepartment = departmentRepository.save(department);
+        Organization organization = new Organization();
+        organization.setOrganizationName("Avisoft");
+        organization.setOrganizationDescription("Tech Startup");
+        organizationRepository.save(organization);
+        department.getOrganizations().add(organization);
 
+        newDepartment = departmentRepository.save(department);
+    }
+    @Test
+    @DisplayName("test_saveDepartment")
+    void saveDepartment(){
         assertEquals(departmentName, newDepartment.getDepartment());
         assertEquals(description, newDepartment.getDescription());
     }
@@ -46,12 +61,6 @@ public class DepartmentRepositoryTests {
     @Test
     @DisplayName("test_getDepartmentById")
     void getDepartmentById(){
-        Department department = new Department();
-        department.setDepartment(departmentName);
-        department.setDescription(description);
-        department.setManager(manager);
-
-        Department newDepartment = departmentRepository.save(department);
 
         Department departmentFoundById = departmentRepository.findById(newDepartment.getDepartmentId()).orElse(null);
 
@@ -63,15 +72,9 @@ public class DepartmentRepositoryTests {
 
     @Test
     @DisplayName("test_updateDepartment")
-    void updateDepartment(){
-        Department department = new Department();
-        department.setDepartment(departmentName);
-        department.setDescription(description);
-        department.setManager(manager);
+    void updateDepartment()throws EntityNotFoundException{
 
-        Department newDepartment = departmentRepository.save(department);
-
-        Department departmentFoundById = departmentRepository.findById(newDepartment.getDepartmentId()).orElse(null);
+        Department departmentFoundById = departmentRepository.findById(newDepartment.getDepartmentId()).orElseThrow(()-> new EntityNotFoundException("Department not found"));
 
         assertNotNull(departmentFoundById);
 
@@ -85,5 +88,16 @@ public class DepartmentRepositoryTests {
 
         assertEquals(newDepartmentName, updatedDepartment.getDepartment());
         assertEquals(newDepartmentDescription, updatedDepartment.getDescription());
+    }
+
+    @Test
+    @DisplayName("test_deleteDepartment")
+    void deleteDepartment(){
+        departmentRepository.delete(newDepartment);
+
+        Department deleteDepartment = departmentRepository.findById(newDepartment.getDepartmentId()).orElse((null));
+
+        assertNull(deleteDepartment);
+
     }
 }

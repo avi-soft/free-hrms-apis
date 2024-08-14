@@ -2,17 +2,13 @@ package com.example.HRMSAvisoft.service;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.example.HRMSAvisoft.attribute.EmployeeAttribute;
 import com.example.HRMSAvisoft.dto.CreateEmployeeDTO;
-import com.example.HRMSAvisoft.entity.Department;
-import com.example.HRMSAvisoft.entity.Employee;
-import com.example.HRMSAvisoft.entity.User;
+import com.example.HRMSAvisoft.entity.*;
+import com.example.HRMSAvisoft.exception.AttributeKeyDoesNotExistException;
 import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
-import com.example.HRMSAvisoft.repository.DepartmentRepository;
-import com.example.HRMSAvisoft.repository.EmployeeRepository;
-import com.example.HRMSAvisoft.repository.UserRepository;
-import jakarta.persistence.EntityManager;
+import com.example.HRMSAvisoft.repository.*;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
@@ -26,6 +22,7 @@ import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -37,7 +34,13 @@ public class EmployeeService {
     private  EmployeeRepository employeeRepository;
 
     @Autowired
-    UserRepository userRepository;
+    private DesignationRepository designationRepository;
+
+    @Autowired
+    private SkillRepository skillRepository;
+
+    @Autowired
+    private EmployeeAttributeRepository employeeAttributeRepository;
 
     @Autowired
     private DepartmentRepository departmentRepository;
@@ -64,7 +67,7 @@ public class EmployeeService {
         String imageUrl = (String) uploadResult.get("secure_url");
 
         // Set the image URL to the employee object and save it
-        employee.setProfileImage(imageUrl);
+        employee.   setProfileImage(imageUrl);
         employeeRepository.save(employee);
     }
 
@@ -80,8 +83,13 @@ public class EmployeeService {
         return searchedEmployees;
     }
 
-    public Employee saveEmployeePersonalInfo(Long employeeId, CreateEmployeeDTO createEmployeeDTO)throws EmployeeNotFoundException, EmployeeCodeAlreadyExistsException, AccessDeniedException {
-
+    public Employee saveEmployeePersonalInfo(Long employeeId, CreateEmployeeDTO createEmployeeDTO)throws EmployeeNotFoundException, EmployeeCodeAlreadyExistsException, AccessDeniedException,AttributeKeyDoesNotExistException, EntityNotFoundException{
+        createEmployeeDTO.getAttributes().forEach((k,v)->{
+            EmployeeAttribute employeeAttribute = employeeAttributeRepository.findByAttributeKey(k).orElse(null);
+            if(employeeAttribute == null){
+                throw new AttributeKeyDoesNotExistException("Attribute "+ k + " does not exist");
+            }
+        });
         if (employeeRepository.existsByEmployeeCode(createEmployeeDTO.getEmployeeCode())) {
             throw new EmployeeCodeAlreadyExistsException("Employee code already exists: " + createEmployeeDTO.getEmployeeCode());
         }
@@ -90,25 +98,43 @@ public class EmployeeService {
         if(createEmployeeDTO.getDepartmentId() != null) {
             Department departmentOfEmployee = departmentRepository.findById(createEmployeeDTO.getDepartmentId()).orElse(null);
             employeeToAddInfo.setDepartment(departmentOfEmployee);
-
         }
 
+//        employeeToAddInfo.setFirstName(createEmployeeDTO.getFirstName());
+//        employeeToAddInfo.setLastName(createEmployeeDTO.getLastName());
+//        employeeToAddInfo.setContact(createEmployeeDTO.getContact());
+//        employeeToAddInfo.setGender(createEmployeeDTO.getGender());
+//        employeeToAddInfo.setSalary(createEmployeeDTO.getSalary());
+//        employeeToAddInfo.setEmployeeCode(createEmployeeDTO.getEmployeeCode());
+//        employeeToAddInfo.setAdhaarNumber(createEmployeeDTO.getAdhaarNumber());
+//        employeeToAddInfo.setPanNumber(createEmployeeDTO.getPanNumber());
+//        employeeToAddInfo.setUanNumber(createEmployeeDTO.getUanNumber());
+//        employeeToAddInfo.setPosition(createEmployeeDTO.getPosition());
+//        employeeToAddInfo.setJoinDate(createEmployeeDTO.getJoinDate());
+//        employeeToAddInfo.setAdhaarNumber(createEmployeeDTO.getAdhaarNumber());
+//        employeeToAddInfo.setPanNumber(createEmployeeDTO.getPanNumber());
+//        employeeToAddInfo.setUanNumber(createEmployeeDTO.getUanNumber());
+//        employeeToAddInfo.setDateOfBirth(createEmployeeDTO.getDateOfBirth());
+        employeeToAddInfo.setEmployeeCode(createEmployeeDTO.getEmployeeCode());
         employeeToAddInfo.setFirstName(createEmployeeDTO.getFirstName());
         employeeToAddInfo.setLastName(createEmployeeDTO.getLastName());
-        employeeToAddInfo.setContact(createEmployeeDTO.getContact());
-        employeeToAddInfo.setGender(createEmployeeDTO.getGender());
-        employeeToAddInfo.setSalary(createEmployeeDTO.getSalary());
-        employeeToAddInfo.setEmployeeCode(createEmployeeDTO.getEmployeeCode());
-        employeeToAddInfo.setAdhaarNumber(createEmployeeDTO.getAdhaarNumber());
-        employeeToAddInfo.setPanNumber(createEmployeeDTO.getPanNumber());
-        employeeToAddInfo.setUanNumber(createEmployeeDTO.getUanNumber());
-        employeeToAddInfo.setPosition(createEmployeeDTO.getPosition());
-        employeeToAddInfo.setJoinDate(createEmployeeDTO.getJoinDate());
-        employeeToAddInfo.setAdhaarNumber(createEmployeeDTO.getAdhaarNumber());
-        employeeToAddInfo.setPanNumber(createEmployeeDTO.getPanNumber());
-        employeeToAddInfo.setUanNumber(createEmployeeDTO.getUanNumber());
-        employeeToAddInfo.setDateOfBirth(createEmployeeDTO.getDateOfBirth());
+        for(String designation : createEmployeeDTO.getDesignationList()){
+            Designation designationToAdd = designationRepository.findByDesignation(designation).orElseThrow(()->new EntityNotFoundException("Designation "+ designation + " not found"));
+            employeeToAddInfo.getDesignations().add(designationToAdd);
+        }
+        for(String skill : createEmployeeDTO.getSkillList()){
+            Skill skillToAdd = skillRepository.findBySkill(skill).orElseThrow(()->new EntityNotFoundException("Skill "+ skill + " not found"));
+            employeeToAddInfo.getSkills().add(skillToAdd);
+        }
+        // Create a list of EmployeeAttributeValue
+        Map<EmployeeAttribute, String> employeeAttributes = createEmployeeDTO.getAttributes().entrySet().stream()
+                .collect(Collectors.toMap(
+                        entry -> employeeAttributeRepository.findByAttributeKey(entry.getKey())
+                                .orElseThrow(() -> new RuntimeException("Attribute not found: " + entry.getKey())),
+                        Map.Entry::getValue
+                ));
 
+        employeeToAddInfo.setAttributes(employeeAttributes);
         return employeeRepository.save(employeeToAddInfo);
     }
 
@@ -130,7 +156,7 @@ public class EmployeeService {
         }
     }
 
-    public Employee updateEmployee(Employee updatedEmployee) throws AccessDeniedException {
+    public Employee updateEmployee(Employee updatedEmployee) throws AccessDeniedException,AttributeKeyDoesNotExistException {
         return employeeRepository.save(updatedEmployee);
     }
 
@@ -143,12 +169,10 @@ public class EmployeeService {
         return Pattern.matches(pattern, term);
     }
 
-
     public static class EmployeeCodeAlreadyExistsException extends RuntimeException{
         public EmployeeCodeAlreadyExistsException(String message) {
             super(message);
         }
     }
-
 
 }

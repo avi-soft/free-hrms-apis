@@ -1,24 +1,73 @@
 
 e
-java:S1192§"GDefine a constant instead of duplicating this literal "Status" 3 times.(–æ‰8ÀüŠ2
+java:S1192¯"GDefine a constant instead of duplicating this literal "Status" 3 times.(–æ‰8õô¶ä2
 k
-java:S1192Š"HDefine a constant instead of duplicating this literal "message" 5 times.(ó“Ïøÿÿÿÿ8ÀüŠ2
-{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿ8ÃüŠ2
+java:S1192’"HDefine a constant instead of duplicating this literal "message" 5 times.(ó“Ïøÿÿÿÿ8õô¶ä2
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿ8ÃüŠ2J$99f22f08-f2e3-4d24-9739-674f829815d5
 _
-java:S6813%"BRemove this field injection and use constructor injection instead.(êæÄŞ8ÓüŠ2
+java:S6813)"BRemove this field injection and use constructor injection instead.(êæÄŞ8õ¶ä2
 _
-java:S6813("BRemove this field injection and use constructor injection instead.(êæÄŞ8ÔüŠ2
+java:S6813,"BRemove this field injection and use constructor injection instead.(êæÄŞ8õ¶ä2
+_
+java:S6813."BRemove this field injection and use constructor injection instead.(êæÄŞ8õ¶ä2
  
-java:S11302"~Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException' which is a subclass of 'java.io.IOException'.(Ë«‡·ùÿÿÿÿ8İüŠ2
+java:S11308"~Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException' which is a subclass of 'java.io.IOException'.(Ë«‡·ùÿÿÿÿ8¤õ¶ä2
+o
+java:S6204a"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(œçÖß8©õ¶ä2
 S
-java:S1611<"6Remove the parentheses around the "employee" parameter(ïñÆá8ãüŠ2
-S
-java:S1611c"6Remove the parentheses around the "employee" parameter(ïñÆá8ïüŠ2
-c
-java:S1854¦"@Remove this useless assignment to local variable "responseData".(ìó£ºûÿÿÿÿ8€üŠ2
-T
-java:S1481¦"1Remove this unused "responseData" local variable.(ìó£ºûÿÿÿÿ8„üŠ2
+java:S1611B"6Remove the parentheses around the "employee" parameter(ïñÆá8ªõ¶ä2
+X	java:S125N"<This block of commented-out lines of code should be removed.(ºîÃ§8­õ¶ä2
+W	java:S125Z"<This block of commented-out lines of code should be removed.(°©™M8®õ¶ä2
+]	java:S125]"<This block of commented-out lines of code should be removed.(öµ­»øÿÿÿÿ8¯õ¶ä2
 p
-java:S1871ç"MThis branch's code block is the same as the block for the branch on line 223.(ûÛŞœüÿÿÿÿ8–üŠ2
-k
-java:S1871ã"MThis branch's code block is the same as the block for the branch on line 223.(‰¯º¸8—üŠ2
+java:S6204‰"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(œçÖß8±õ¶ä2
+S
+java:S1611j"6Remove the parentheses around the "employee" parameter(ïñÆá8±õ¶ä2
+X	java:S125u"<This block of commented-out lines of code should be removed.(ºîÃ§8´õ¶ä2
+X	java:S125{"<This block of commented-out lines of code should be removed.(ªªÙó8µõ¶ä2
+X	java:S125‚"<This block of commented-out lines of code should be removed.(°©™M8¶õ¶ä2
+^	java:S125…"<This block of commented-out lines of code should be removed.(öµ­»øÿÿÿÿ8¶õ¶ä2
+c
+java:S1854®"@Remove this useless assignment to local variable "responseData".(ìó£ºûÿÿÿÿ8½õ¶ä2
+T
+java:S1481®"1Remove this unused "responseData" local variable.(ìó£ºûÿÿÿÿ8¿õ¶ä2
+^	java:S125»"<This block of commented-out lines of code should be removed.(§òŸ¡ıÿÿÿÿ8Áõ¶ä2
+^	java:S125Ê"<This block of commented-out lines of code should be removed.(ºÙ­‰úÿÿÿÿ8Äõ¶ä2
+–
+<<<<<<< HEAD
+java:S6204‰"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(œçÖß8±õ¶ä2J$9331829f-5d32-4729-ba30-40c50cd372af
+y
+java:S1611j"6Remove the parentheses around the "employee" parameter(ïñÆá8±õ¶ä2J$094b074e-5c5e-4071-8be7-22e35f212ef7
+~	java:S125u"<This block of commented-out lines of code should be removed.(ºîÃ§8´õ¶ä2J$32c4c7f7-8a96-460c-b08b-7fa5e0bf89d8
+~	java:S125{"<This block of commented-out lines of code should be removed.(ªªÙó8µõ¶ä2J$0044dc84-6256-498d-bece-5262be8b5b0c
+~	java:S125‚"<This block of commented-out lines of code should be removed.(°©™M8¶õ¶ä2J$60512670-8115-4952-9684-fb1f59c0f88a
+„	java:S125…"<This block of commented-out lines of code should be removed.(öµ­»øÿÿÿÿ8¶õ¶ä2J$c5fce789-9811-4ac5-9e32-f3acf27bb190
+‰
+java:S1854®"@Remove this useless assignment to local variable "responseData".(ìó£ºûÿÿÿÿ8½õ¶ä2J$7385cc09-ca85-4a6c-9871-56bd5a74f9a8
+z
+java:S1481®"1Remove this unused "responseData" local variable.(ìó£ºûÿÿÿÿ8¿õ¶ä2J$7d847c53-40e3-4282-89c5-9ec2f08e1bb1
+„	java:S125»"<This block of commented-out lines of code should be removed.(§òŸ¡ıÿÿÿÿ8Áõ¶ä2J$3286344d-dc01-43ef-95e8-2c65c7e0f191
+„	java:S125Ê"<This block of commented-out lines of code should be removed.(ºÙ­‰úÿÿÿÿ8Äõ¶ä2J$2541d18d-ee0a-4a15-ae1f-734e0b9c1497
+–
+java:S1871ü"MThis branch's code block is the same as the block for the branch on line 240.(ûÛŞœüÿÿÿÿ8–üŠ2J$8ae8ef47-e52e-417f-9dd8-fa3d4a2c871f
+‘
+java:S1871ø"MThis branch's code block is the same as the block for the branch on line 240.(‰¯º¸8—üŠ2J$0906ab44-979c-426b-9b99-3bdd6d3191f3
+
+java:S1871ô"MThis branch's code block is the same as the block for the branch on line 236.(µşâ8Éõ¶ä2J$932dc566-66f7-4ab1-bdcf-b253ee2fccb7
+š
+java:S1128"RRemove this unused import 'com.example.HRMSAvisoft.config.GlobalExceptionHandler'.(ô˜±òúÿÿÿÿ8Ëõ¶ä2J$4ea117bb-2658-42d1-a98a-a86de45821de
+‡
+java:S1128"?Remove this unused import 'org.springframework.http.MediaType'.(úŸİ¯şÿÿÿÿ8Ëõ¶ä2J$a30f9696-89a2-465e-a859-d414a79a545c
+=======
+java:S1871ü"MThis branch's code block is the same as the block for the branch on line 240.(ûÛŞœüÿÿÿÿ8–üŠ2J$ceebde34-e573-4a44-be3a-c7aba4dda388
+‘
+java:S1871ø"MThis branch's code block is the same as the block for the branch on line 240.(‰¯º¸8—üŠ2J$fc7e7cae-b61c-43b6-b866-cd0d551346d3
+j
+java:S1871ô"MThis branch's code block is the same as the block for the branch on line 236.(µşâ8Éõ¶ä2
+>>>>>>> 79dd34e0ddfbb0c0d03a89841ad2446618aae5a0
+t
+java:S1128"RRemove this unused import 'com.example.HRMSAvisoft.config.GlobalExceptionHandler'.(ô˜±òúÿÿÿÿ8Ëõ¶ä2
+a
+java:S1128"?Remove this unused import 'org.springframework.http.MediaType'.(úŸİ¯şÿÿÿÿ8Ëõ¶ä2
+N
+java:S1128"1Remove this unused import 'java.math.BigDecimal'.(êêŠ8Ìõ¶ä2

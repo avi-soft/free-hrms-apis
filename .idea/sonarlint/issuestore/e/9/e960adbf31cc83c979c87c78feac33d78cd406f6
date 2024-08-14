@@ -1,20 +1,9 @@
 
-<<<<<<< HEAD
 V
-java:S1700"Rename field "role"(±õÉÖ8ôÂïµŠ2J$31cb1e82-a37d-4b90-a3c9-1397b433cae5
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(—üïïøÿÿÿÿ8Çø×Š2J$9a9c6a9e-38e8-4649-b813-43e02358bb15
+java:S1700"Rename field "role"(±õÉÖ8ÆŒ›ÖŒ2J$5101172c-6432-44b0-bd65-2fc7a07e0e18
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(—üïïøÿÿÿÿ8ÇŒ›ÖŒ2J$c3565296-ba1f-4f51-8032-5ddeb785c1c2
 `
-java:S1128	"Remove this duplicated import.(Ê‚êX8üÂïµŠ2J$533440d0-cf89-4307-bb43-e8d56f6cf145
+java:S1128
+"Remove this duplicated import.(Ê‚êX8ÍŒ›ÖŒ2J$d92727ac-ead9-4467-9c66-e4ec7ffe5257
 f
-java:S1128
-"Remove this duplicated import.(ö²„¤þÿÿÿÿ8ýÂïµŠ2J$dd0fc55a-e626-4e25-bfa6-83c2084a2e20
-=======
-0
-java:S1700"Rename field "role"(±õÉÖ8†Žò€‹2
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(—üïïøÿÿÿÿ8Çø×Š2J$121f62f6-c0ef-48d8-a79a-78fc41487567
-:
-java:S1128
-"Remove this duplicated import.(Ê‚êX8‹Žò€‹2
-@
-java:S1128"Remove this duplicated import.(ö²„¤þÿÿÿÿ8‹Žò€‹2
->>>>>>> 2af1fd0029d855c53f297fcc66100f77055d5c39
+java:S1128"Remove this duplicated import.(ö²„¤þÿÿÿÿ8ÍŒ›ÖŒ2J$49821ab5-8931-4bf2-9b97-d228dc5fae2f

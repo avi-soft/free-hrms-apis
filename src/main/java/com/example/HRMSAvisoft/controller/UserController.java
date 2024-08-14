@@ -55,11 +55,11 @@ public class UserController {
         return "Hello ";
     }
 
-    @PostMapping("/saveUser")
+    @PostMapping("/saveUser/{organizationId}")
     @PreAuthorize("hasAuthority('SAVE_USER')")
     public ResponseEntity<CreateUserResponseDTO>saveUser(@AuthenticationPrincipal User loggedInUser,
-                                                         @RequestBody CreateUserDTO createUserDTO) throws IOException {
-        Employee createdUserEmployee = userService.saveUser(createUserDTO, loggedInUser);
+                                                         @RequestBody CreateUserDTO createUserDTO,@PathVariable Long organizationId) throws IOException {
+        Employee createdUserEmployee = userService.saveUser(createUserDTO, loggedInUser,organizationId);
         CreateUserResponseDTO createUserResponseDTO = new CreateUserResponseDTO();
         createUserResponseDTO.setMessage("User Created Successfully");
         createUserResponseDTO.setEmployeeId(createdUserEmployee.getEmployeeId());
@@ -82,11 +82,11 @@ public class UserController {
                     )
             }
     )
-    @PostMapping("/addNewUser")
+    @PostMapping("/addNewUser/{organizationId}")
     @PreAuthorize("hasAuthority('CREATE_NEW_USER')")
     public ResponseEntity<Map<String ,Object>>addNewUser(@AuthenticationPrincipal User loggedInUser,
-                                                         @RequestBody @Valid AddNewUserDTO addNewUserDTO)throws IOException,UserService.EmailAlreadyExistsException {
-        User createdUser=userService.addNewUser(addNewUserDTO,loggedInUser);
+                                                         @RequestBody @Valid AddNewUserDTO addNewUserDTO,@PathVariable Long organizationId)throws IOException,UserService.EmailAlreadyExistsException {
+        User createdUser=userService.addNewUser(addNewUserDTO,loggedInUser,organizationId);
         NewUserResponseDTO newUser=new NewUserResponseDTO();
         newUser.setUserId(createdUser.getUserId());
         newUser.setEmail(createdUser.getEmail());
@@ -109,14 +109,14 @@ public class UserController {
         LoginUserResponseDTO userResponse = new LoginUserResponseDTO();
         if(loggedInUser!=null) {
             userResponse.setUserId(loggedInUser.getUserId());
-            userResponse.setEmail(loggedInUser.getEmail());
+//            userResponse.setEmail(loggedInUser.getEmail());
             userResponse.setRoles(loggedInUser.getRoles());
             userResponse.setCreatedAt(loggedInUser.getCreatedAt());
             Employee employee = loggedInUser.getEmployee();
             userResponse.setEmployeeId(employee.getEmployeeId());
             userResponse.setFirstName(employee.getFirstName());
             userResponse.setLastName(employee.getLastName());
-            userResponse.setContact(employee.getContact());
+//            userResponse.setContact(employee.getContact());
             if(employee.getDepartment() != null) {
                 userResponse.setDepartment(employee.getDepartment().getDepartment());
                 userResponse.setDepartmentId(employee.getDepartment().getDepartmentId());
@@ -124,18 +124,18 @@ public class UserController {
                 userResponse.setManagerId(employee.getDepartment().getManager().getEmployeeId());
             }
             userResponse.setEmployeeCode(employee.getEmployeeCode());
-            userResponse.setAdhaarNumber(employee.getAdhaarNumber());
-            userResponse.setPanNumber(employee.getPanNumber());
-            userResponse.setUanNumber(employee.getUanNumber());
+//            userResponse.setAdhaarNumber(employee.getAdhaarNumber());
+//            userResponse.setPanNumber(employee.getPanNumber());
+//            userResponse.setUanNumber(employee.getUanNumber());
             userResponse.setAddresses(employee.getAddresses());
-            userResponse.setPosition(employee.getPosition());
-            userResponse.setJoinDate(employee.getJoinDate());
-            userResponse.setGender(employee.getGender());
+//            userResponse.setPosition(employee.getPosition());
+//            userResponse.setJoinDate(employee.getJoinDate());
+//            userResponse.setGender(employee.getGender());
             String userProfileImage = userResponse.getProfileImage() == null ? "https://api.dicebear.com/5.x/initials/svg?seed="+userResponse.getFirstName()+" "+userResponse.getLastName() : userResponse.getProfileImage();
             userResponse.setProfileImage(userProfileImage);
-            userResponse.setDateOfBirth(employee.getDateOfBirth());
-            userResponse.setAccount(employee.getAccount());
-            userResponse.setSalary(employee.getSalary());
+//            userResponse.setDateOfBirth(employee.getDateOfBirth());
+//            userResponse.setAccount(employee.getAccount());
+//            userResponse.setSalary(employee.getSalary());
 
             //genereate token
             token = JWTService.createJWT(loggedInUser.getUserId(), loggedInUser.getRoles());

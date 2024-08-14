@@ -1,10 +1,15 @@
 package com.example.HRMSAvisoft.controller;
 
+import com.example.HRMSAvisoft.attribute.EmployeeAttribute;
 import com.example.HRMSAvisoft.config.GlobalExceptionHandler;
 import com.example.HRMSAvisoft.dto.*;
 import com.example.HRMSAvisoft.entity.Employee;
+//import com.example.HRMSAvisoft.entity.EmployeeAttribute;
 import com.example.HRMSAvisoft.entity.User;
+import com.example.HRMSAvisoft.exception.AttributeKeyDoesNotExistException;
 import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
+import com.example.HRMSAvisoft.repository.EmployeeAttributeRepository;
+import com.example.HRMSAvisoft.repository.EmployeeRepository;
 import com.example.HRMSAvisoft.repository.UserRepository;
 import com.example.HRMSAvisoft.service.EmployeeService;
 import jakarta.validation.Valid;
@@ -16,6 +21,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -36,9 +42,8 @@ public class EmployeeController {
 
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
-    private ModelMapper modelMapper;
+    private EmployeeAttributeRepository employeeAttributeRepository;
 
     public EmployeeController(EmployeeService employeeService){
 
@@ -68,22 +73,23 @@ public class EmployeeController {
             }
             loginUserResponseDTO.setEmployeeId(employee.getEmployeeId());
             loginUserResponseDTO.setAddresses(employee.getAddresses());
-            loginUserResponseDTO.setAccount(employee.getAccount());
-            loginUserResponseDTO.setUanNumber(employee.getUanNumber());
-            loginUserResponseDTO.setPanNumber(employee.getPanNumber());
-            loginUserResponseDTO.setContact(employee.getContact());
-            loginUserResponseDTO.setFirstName(employee.getFirstName());
-            loginUserResponseDTO.setLastName(employee.getLastName());
-            loginUserResponseDTO.setSalary(employee.getSalary());
-            loginUserResponseDTO.setJoinDate(employee.getJoinDate());
-            loginUserResponseDTO.setAdhaarNumber(employee.getAdhaarNumber());
-            loginUserResponseDTO.setDateOfBirth(employee.getDateOfBirth());
-            loginUserResponseDTO.setPosition(employee.getPosition());
+            loginUserResponseDTO.setAttributes(employee.getAttributes());
+//            loginUserResponseDTO.setAccount(employee.getAccount());
+//            loginUserResponseDTO.setUanNumber(employee.getUanNumber());
+//            loginUserResponseDTO.setPanNumber(employee.getPanNumber());
+//            loginUserResponseDTO.setContact(employee.getContact());
+//            loginUserResponseDTO.setFirstName(employee.getFirstName());
+//            loginUserResponseDTO.setLastName(employee.getLastName());
+//            loginUserResponseDTO.setSalary(employee.getSalary());
+//            loginUserResponseDTO.setJoinDate(employee.getJoinDate());
+//            loginUserResponseDTO.setAdhaarNumber(employee.getAdhaarNumber());
+//            loginUserResponseDTO.setDateOfBirth(employee.getDateOfBirth());
+//            loginUserResponseDTO.setPosition(employee.getPosition());
             loginUserResponseDTO.setProfileImage(employee.getProfileImage());
-            loginUserResponseDTO.setGender(employee.getGender());
+//            loginUserResponseDTO.setGender(employee.getGender());
             User userEmployee = userRepository.findByEmployee(employee);
             loginUserResponseDTO.setUserId(userEmployee.getUserId());
-            loginUserResponseDTO.setEmail(userEmployee.getEmail());
+//            loginUserResponseDTO.setEmail(userEmployee.getEmail());
             loginUserResponseDTO.setRoles(userEmployee.getRoles());
             loginUserResponseDTO.setCreatedAt(userEmployee.getCreatedAt());
             return loginUserResponseDTO;
@@ -107,22 +113,23 @@ public class EmployeeController {
             }
             loginUserResponseDTO.setEmployeeId(employee.getEmployeeId());
             loginUserResponseDTO.setAddresses(employee.getAddresses());
-            loginUserResponseDTO.setAccount(employee.getAccount());
-            loginUserResponseDTO.setUanNumber(employee.getUanNumber());
-            loginUserResponseDTO.setPanNumber(employee.getPanNumber());
-            loginUserResponseDTO.setContact(employee.getContact());
+//            loginUserResponseDTO.setAccount(employee.getAccount());
+//            loginUserResponseDTO.setUanNumber(employee.getUanNumber());
+//            loginUserResponseDTO.setPanNumber(employee.getPanNumber());
+//            loginUserResponseDTO.setContact(employee.getContact());
             loginUserResponseDTO.setFirstName(employee.getFirstName());
             loginUserResponseDTO.setLastName(employee.getLastName());
-            loginUserResponseDTO.setSalary(employee.getSalary());
-            loginUserResponseDTO.setJoinDate(employee.getJoinDate());
-            loginUserResponseDTO.setAdhaarNumber(employee.getAdhaarNumber());
-            loginUserResponseDTO.setDateOfBirth(employee.getDateOfBirth());
-            loginUserResponseDTO.setPosition(employee.getPosition());
+//            loginUserResponseDTO.setSalary(employee.getSalary());
+//            loginUserResponseDTO.setJoinDate(employee.getJoinDate());
+//            loginUserResponseDTO.setAdhaarNumber(employee.getAdhaarNumber());
+//            loginUserResponseDTO.setDateOfBirth(employee.getDateOfBirth());
+//            loginUserResponseDTO.setPosition(employee.getPosition());
             loginUserResponseDTO.setProfileImage(employee.getProfileImage());
-            loginUserResponseDTO.setGender(employee.getGender());
+            loginUserResponseDTO.setAttributes(employee.getAttributes());
+//            loginUserResponseDTO.setGender(employee.getGender());
             User userEmployee = userRepository.findByEmployee(employee);
             loginUserResponseDTO.setUserId(userEmployee.getUserId());
-            loginUserResponseDTO.setEmail(userEmployee.getEmail());
+//            loginUserResponseDTO.setEmail(userEmployee.getEmail());
             loginUserResponseDTO.setRoles(userEmployee.getRoles());
             loginUserResponseDTO.setCreatedAt(userEmployee.getCreatedAt());
             return loginUserResponseDTO;
@@ -133,7 +140,7 @@ public class EmployeeController {
 
     @PreAuthorize("hasAuthority('ADD_EMPLOYEE')")
     @PostMapping("/{employeeId}")
-    public ResponseEntity<Map<String, Object>> saveEmployeePersonalInfo(@PathVariable Long employeeId, @RequestBody  @Valid CreateEmployeeDTO createEmployee) throws EmployeeNotFoundException, EmployeeService.EmployeeCodeAlreadyExistsException, AccessDeniedException {
+    public ResponseEntity<Map<String, Object>> saveEmployeePersonalInfo(@PathVariable Long employeeId, @RequestBody  @Valid CreateEmployeeDTO createEmployee) throws EmployeeNotFoundException, AttributeKeyDoesNotExistException, EmployeeService.EmployeeCodeAlreadyExistsException, AccessDeniedException {
         Employee newEmployee = employeeService.saveEmployeePersonalInfo(employeeId, createEmployee);
         return ResponseEntity.ok(Map.of("success", true, "message", "Employee created Successfully", "Employee", newEmployee));
     }
@@ -165,7 +172,6 @@ public class EmployeeController {
         Employee employee= employeeService.getEmployeeById(employeeId);
         Map<String, Object> responseData = new HashMap<>();
         return ResponseEntity.ok().body(Map.of("Employee", employee, "message", "Employee retrieved Successfully", "Status", true));
-
     }
 
 
@@ -176,39 +182,74 @@ public class EmployeeController {
         Employee existingEmployee = employeeService.getEmployeeById(employeeId);
         existingEmployee.setFirstName(updatePersonalDetails.getFirstName());
         existingEmployee.setLastName(updatePersonalDetails.getLastName());
-        existingEmployee.setGender(updatePersonalDetails.getGender());
-        existingEmployee.setContact(updatePersonalDetails.getContact());
-        existingEmployee.setDateOfBirth(updatePersonalDetails.getDateOfBirth());
+//        existingEmployee.setAttributes(updatePersonalDetails.getAttributes());
+//        existingEmployee.setGender(updatePersonalDetails.getGender());
+//        existingEmployee.setContact(updatePersonalDetails.getContact());
+//        existingEmployee.setDateOfBirth(updatePersonalDetails.getDateOfBirth());
         Employee savedEmployee = employeeService.updateEmployee(existingEmployee);
 
         return ResponseEntity.ok().body(Map.of("UpdatedEmployee",savedEmployee , "message", "Personal Details Updated", "Status", true));
     }
-    
+
     @PreAuthorize("hasAuthority('UPDATE_EMPLOYEE_COMPANY_DETAILS')")
-    @PutMapping("/updateEmployeeDetails/{employeeId}")
-    public ResponseEntity<Map<String,Object>>updateEmployeeDetails(@PathVariable Long employeeId, @RequestBody UpdateEmployeeDetailsDTO updateEmployeeDetailsDTO) throws NullPointerException, EmployeeNotFoundException, AccessDeniedException {
+    @PutMapping(value = "/updateEmployeeDetails/{employeeId}")
+    public ResponseEntity<Map<String,Object>>updateEmployeeDetails(@PathVariable Long employeeId, @RequestBody UpdateEmployeeDetailsDTO updateEmployeeDetailsDTO) throws NullPointerException, EmployeeNotFoundException, AccessDeniedException ,AttributeKeyDoesNotExistException{
+        updateEmployeeDetailsDTO.getAttributes()
+        .forEach((k,v)->{
+            EmployeeAttribute employeeAttribute = employeeAttributeRepository.findByAttributeKey(k).orElse(null);
+            if(employeeAttribute == null){
+                throw new AttributeKeyDoesNotExistException("Attribute "+ k + " does not exist");
+            }
+        });
         Employee existingEmployee = employeeService.getEmployeeById(employeeId);
         if(updateEmployeeDetailsDTO.getFirstName()!=null) existingEmployee.setFirstName(updateEmployeeDetailsDTO.getFirstName());
         if(updateEmployeeDetailsDTO.getLastName()!=null) existingEmployee.setLastName(updateEmployeeDetailsDTO.getLastName());
-        if(updateEmployeeDetailsDTO.getContact()!=null)existingEmployee.setContact(updateEmployeeDetailsDTO.getContact());
-        if(updateEmployeeDetailsDTO.getGender()!=null)existingEmployee.setGender(updateEmployeeDetailsDTO.getGender());
-        if(updateEmployeeDetailsDTO.getDateOfBirth()!=null)existingEmployee.setDateOfBirth(updateEmployeeDetailsDTO.getDateOfBirth());
-        if(updateEmployeeDetailsDTO.getJoinDate()!=null)existingEmployee.setJoinDate(updateEmployeeDetailsDTO.getJoinDate());
-        if(updateEmployeeDetailsDTO.getAdhaarNumber()!=null)existingEmployee.setAdhaarNumber(updateEmployeeDetailsDTO.getAdhaarNumber());
-        if(updateEmployeeDetailsDTO.getUanNumber()!=null)existingEmployee.setUanNumber(updateEmployeeDetailsDTO.getUanNumber());
-        if(updateEmployeeDetailsDTO.getPanNumber()!=null)existingEmployee.setPanNumber(updateEmployeeDetailsDTO.getPanNumber());
-        if(updateEmployeeDetailsDTO.getPosition()!=null)existingEmployee.setPosition(updateEmployeeDetailsDTO.getPosition());
-        if(updateEmployeeDetailsDTO.getSalary()!=0)existingEmployee.setSalary(BigDecimal.valueOf(updateEmployeeDetailsDTO.getSalary()));
+//        if(updateEmployeeDetailsDTO.getLastName()!=null) existingEmployee.setAttributes(attributes);
+//        if(updateEmployeeDetailsDTO.getContact()!=null)existingEmployee.setContact(updateEmployeeDetailsDTO.getContact());
+//        if(updateEmployeeDetailsDTO.getGender()!=null)existingEmployee.setGender(updateEmployeeDetailsDTO.getGender());
+//        if(updateEmployeeDetailsDTO.getDateOfBirth()!=null)existingEmployee.setDateOfBirth(updateEmployeeDetailsDTO.getDateOfBirth());
+//        if(updateEmployeeDetailsDTO.getJoinDate()!=null)existingEmployee.setJoinDate(updateEmployeeDetailsDTO.getJoinDate());
+//        if(updateEmployeeDetailsDTO.getAdhaarNumber()!=null)existingEmployee.setAdhaarNumber(updateEmployeeDetailsDTO.getAdhaarNumber());
+//        if(updateEmployeeDetailsDTO.getUanNumber()!=null)existingEmployee.setUanNumber(updateEmployeeDetailsDTO.getUanNumber());
+//        if(updateEmployeeDetailsDTO.getPanNumber()!=null)existingEmployee.setPanNumber(updateEmployeeDetailsDTO.getPanNumber());
+//        if(updateEmployeeDetailsDTO.getPosition()!=null)existingEmployee.setPosition(updateEmployeeDetailsDTO.getPosition());
+//        if(updateEmployeeDetailsDTO.getSalary()!=0)existingEmployee.setSalary(BigDecimal.valueOf(updateEmployeeDetailsDTO.getSalary()));
+        Map<String, String> updatedAttributes = new HashMap<String, String>();
+        updateEmployeeDetailsDTO.getAttributes().forEach((k, v)->{
+            employeeAttributeRepository.findByAttributeKey(k).orElseThrow(()-> new AttributeKeyDoesNotExistException(k +" does not exist"));
+
+            updatedAttributes.put(k, v);
+        });
+        Map<EmployeeAttribute, String> employeeAttributes = updateEmployeeDetailsDTO.getAttributes().entrySet().stream()
+                .collect(Collectors.toMap(
+                        entry -> employeeAttributeRepository.findByAttributeKey(entry.getKey())
+                                .orElseThrow(() -> new RuntimeException("Attribute not found: " + entry.getKey())),
+                        Map.Entry::getValue
+                ));
+//        existingEmployee.setAttributes(employeeAttributes);
+
+
+        Map<EmployeeAttribute, String> attributeMap = new HashMap<>();
+
+        for (Map.Entry<String, String> entry : updateEmployeeDetailsDTO.getAttributes().entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+
+            EmployeeAttribute employeeAttribute= employeeAttributeRepository.findByAttributeKey(key).orElseThrow(() -> new AttributeKeyDoesNotExistException("Attribute " + key + " does not exist"));
+            attributeMap.put(employeeAttribute, value);
+        }
+        Map<EmployeeAttribute, String> existingAttributes = existingEmployee.getAttributes();
+        existingAttributes.putAll(attributeMap);
         Employee savedEmployee = employeeService.updateEmployee(existingEmployee);
         return ResponseEntity.ok().body(Map.of("UpdatedEmployee",savedEmployee , "message", "Personal Details Updated", "Status", true));
-
     }
 
     @ExceptionHandler({
             IOException.class,
             RuntimeException.class,
             IllegalArgumentException.class,
-            EmployeeService.EmployeeCodeAlreadyExistsException.class
+            EmployeeService.EmployeeCodeAlreadyExistsException.class,
+            AttributeKeyDoesNotExistException.class
 
     })
 
@@ -223,6 +264,10 @@ public class EmployeeController {
         else if(exception instanceof EmployeeService.EmployeeCodeAlreadyExistsException){
             message = exception.getMessage();
             status = HttpStatus.BAD_REQUEST;
+        }
+        else if(exception instanceof AttributeKeyDoesNotExistException){
+            message = exception.getMessage();
+            status = HttpStatus.NOT_FOUND;
         }
         else if(exception instanceof NullPointerException) {
             message = exception.getMessage();

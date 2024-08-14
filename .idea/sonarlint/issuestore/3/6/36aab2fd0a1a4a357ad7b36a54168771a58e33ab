@@ -1,15 +1,18 @@
 
-e
-java:S11929"HDefine a constant instead of duplicating this literal "success" 3 times.(À€¨8¹™Âû‹2
-e
-java:S11929"HDefine a constant instead of duplicating this literal "message" 3 times.(À€¨8º™Âû‹2
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿ8ÓÄÇ¶ş1J$3a3cea13-2122-414a-949d-6a16cf9b714b
-{
-java:S62040"^Replace this usage of 'Stream.collect(Collectors.toUnmodifiableList())' with 'Stream.toList()'(¯ÕÀ»8Í™Âû‹2
-”
-java:S1871V"LThis branch's code block is the same as the block for the branch on line 82.(ç¬Ø±úÿÿÿÿ8ÆÇ¶ş1J$1efa7c27-bef4-4d27-9afc-e7b80d7486b0
+‹
+java:S1192C"HDefine a constant instead of duplicating this literal "success" 5 times.(£¼Œ8¸Ÿ©’2J$5d5a2ef9-713b-4c24-8d6e-debb2e230440
+‹
+java:S1192C"HDefine a constant instead of duplicating this literal "message" 5 times.(£¼Œ8¹Ÿ©’2J$9d84e362-fbc3-419d-8e55-3cc05e84628c
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‚°ï´ùÿÿÿÿ8¾Ÿ©’2J$c84b8957-a31d-45a1-af43-ee29863ed7fa
+¡
+java:S62041"^Replace this usage of 'Stream.collect(Collectors.toUnmodifiableList())' with 'Stream.toList()'(¯ÕÀ»8–¯’2J$f81230b1-0ed9-4b5d-b00a-e4ef5113bd95
+ˆ
+java:S1854I"ERemove this useless assignment to local variable "updatedDepartment".(¦íÑÁ8òŸ©’2J$1119f276-f5d4-4b0d-bd0c-59b60b870095
+y
+java:S1481I"6Remove this unused "updatedDepartment" local variable.(¦íÑÁ8õŸ©’2J$db272244-aa29-4021-a1c7-c09a89f6fe01
 
-java:S1128
-"LRemove this unused import 'com.example.HRMSAvisoft.service.EmployeeService'.(üñÙ»8Î´Ê¶ş1J$e6b28929-f83b-4324-960c-cc553d3351d9
-s
-java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8Î´Ê¶ş1J$6b26c5db-7b82-46d1-bbeb-580705582449
+java:S1871t"MThis branch's code block is the same as the block for the branch on line 112.(µşâ8ÿŸ©’2J$963179bd-c190-4d81-8b75-7570e2428cda
+•
+java:S1871|"MThis branch's code block is the same as the block for the branch on line 108.(ç¬Ø±úÿÿÿÿ8ÿŸ©’2J$e0770a8b-9fa1-45d5-a452-938bea833cf0
+
+java:S1871x"MThis branch's code block is the same as the block for the branch on line 108.(úø¶Ì8ÿŸ©’2J$0d75cf5f-c96f-4558-b374-c32709fef9af

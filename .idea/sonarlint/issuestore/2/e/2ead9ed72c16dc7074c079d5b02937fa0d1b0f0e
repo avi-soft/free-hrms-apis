@@ -1,9 +1,6 @@
 
-`	java:S112)"FDefine and throw a dedicated exception instead of using a generic one.(ââÖÈøÿÿÿÿ
-t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ
-f
-java:S3655,"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(á÷ëÓ
-R
-java:S1854*"<Remove this useless assignment to local variable "employee".(™ú¨¶
-C
-java:S1481*"-Remove this unused "employee" local variable.(™ú¨¶
+š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿJ$e0bc4271-e183-44eb-9ccc-27a3cc291f60
+x
+java:S1854*"<Remove this useless assignment to local variable "employee".(™ú¨¶J$472721a8-383d-4ab7-8356-2a273f8b00fc
+i
+java:S1481*"-Remove this unused "employee" local variable.(™ú¨¶J$bc302d55-c264-4cf5-9053-bd21bfc68528

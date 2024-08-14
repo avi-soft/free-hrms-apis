@@ -1,8 +1,13 @@
 package com.example.HRMSAvisoft.entity;
 
-import org.apache.catalina.Manager;
+import com.example.HRMSAvisoft.attribute.DepartmentAttribute;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -15,15 +20,20 @@ public class DepartmentTests {
         Long departmentId = 1L;
         String department = "MERN";
         String description = "MERN department";
+        Set<Organization> organizationSet = new HashSet<Organization>();
+        Organization organization = new Organization();
+        organizationSet.add(organization);
+        Map<DepartmentAttribute, String> attributes = new HashMap<>();
 
         Employee manager = new Employee();
 
-        Department newDepartment = new Department(departmentId, department, description, manager);
+        Department newDepartment = new Department(departmentId, department, description, attributes, organizationSet, manager);
 
         assertNotNull(newDepartment);
         assertEquals(departmentId, newDepartment.getDepartmentId());
         assertEquals(department, newDepartment.getDepartment());
         assertEquals(description, newDepartment.getDescription());
+        assertNotNull(newDepartment.getOrganizations());
     }
 
     @Test
@@ -33,6 +43,7 @@ public class DepartmentTests {
         String department = "MERN";
         String description = "MERN department";
         Employee manager = new Employee();
+        Organization newOrganization = new Organization();
 
         Department newDepartment = new Department();
 
@@ -40,13 +51,12 @@ public class DepartmentTests {
         newDepartment.setDepartment(department);
         newDepartment.setDescription( description );
         newDepartment.setManager( manager );
+        newDepartment.getOrganizations().add(newOrganization);
 
         assertNotNull(newDepartment);
         assertEquals(departmentId, newDepartment.getDepartmentId());
         assertEquals(department, newDepartment.getDepartment());
         assertEquals(description, newDepartment.getDescription());
-
-
     }
 
 }

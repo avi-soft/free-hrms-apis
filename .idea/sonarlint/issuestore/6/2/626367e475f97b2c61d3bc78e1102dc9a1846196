@@ -1,6 +1,17 @@
 
-t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ö»ûÿÿÿÿ
-^
-java:S1128"CRemove this unused import 'com.example.HRMSAvisoft.entity.Account'.(Ïö±èúÿÿÿÿ
-G
-java:S1128"1Remove this unused import 'java.math.BigDecimal'.(êêŠ
+š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ö»ûÿÿÿÿJ$592d8ac1-9a71-4ca4-bf72-89d1a5d5cfc6
+}	java:S125"<This block of commented-out lines of code should be removed.(ñê¿8„ïÔí2J$8bcf9c68-fa92-42b4-b4f1-5f7a18f4fa7b
+„
+java:S1128"CRemove this unused import 'com.example.HRMSAvisoft.entity.Account'.(Ïö±èúÿÿÿÿJ$f79f8962-b176-43d3-8cde-f91d1b523a42
+d
+java:S1128"BRemove this unused import 'com.example.HRMSAvisoft.entity.Gender'.(¯ê¾ßùÿÿÿÿ8Ãã‰’2
+f
+java:S1128"DRemove this unused import 'com.example.HRMSAvisoft.entity.Position'.(ä±–ÿÿÿÿÿ8Ãã‰’2
+v
+java:S1128"TRemove this unused import 'com.fasterxml.jackson.databind.annotation.JsonSerialize'.(ÖÎèöúÿÿÿÿ8Ãã‰’2
+m
+java:S1128"1Remove this unused import 'java.math.BigDecimal'.(êêŠJ$dae0fcd4-816f-4d6f-8477-caedfa5b9aa6
+v
+java:S1128".Remove this unused import 'java.util.HashMap'.(™˜”€ùÿÿÿÿ8…ïÔí2J$975f1249-1305-4046-862e-cd5b54971e38
+r
+java:S1128"*Remove this unused import 'java.util.Map'.(¼è½Òşÿÿÿÿ8…ïÔí2J$6c17f34f-2777-4536-a21b-db9dc342d5d1

@@ -22,15 +22,13 @@ import java.io.IOException;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class RoleServiceTest {
-
-    @InjectMocks
     RoleService roleService;
-
-    @Mock
     RoleRepository roleRepository;
+    UserRepository userRepository;
 
     Role role;
     RoleJsonReader jsonReader = new RoleJsonReader();
@@ -48,15 +46,16 @@ public class RoleServiceTest {
         role.setRoleId(1L);
         role.setRole(roleName);
         role.setPrivilege(privileges);
+        roleRepository = Mockito.mock(RoleRepository.class);
+        userRepository = Mockito.mock(UserRepository.class);
+        roleService = new RoleService(roleRepository,userRepository);
     }
 
     @Test
     @DisplayName("returns_list_of_roles_when_roles_exist")
     public void returns_list_of_roles_when_roles_exist() {
-        RoleRepository roleRepository = Mockito.mock(RoleRepository.class);
-        RoleService roleService = new RoleService(roleRepository);
         List<Role> mockRoles = Arrays.asList(role);
-        Mockito.when(roleRepository.findAll()).thenReturn(mockRoles);
+        when(roleRepository.findAll()).thenReturn(mockRoles);
 
         List<Role> roles = roleService.getRoles();
 
@@ -68,13 +67,8 @@ public class RoleServiceTest {
     @Test
     @DisplayName("returns_empty_list_when_no_roles_exist")
     public void returns_empty_list_when_no_roles_exist() {
-        RoleRepository roleRepository = Mockito.mock(RoleRepository.class);
-        RoleService roleService = new RoleService(roleRepository);
-
-        Mockito.when(roleRepository.findAll()).thenReturn(Collections.emptyList());
-
+        when(roleRepository.findAll()).thenReturn(Collections.emptyList());
         List<Role> roles = roleService.getRoles();
-
         assertNotNull(roles);
         assertTrue(roles.isEmpty());
     }
@@ -82,11 +76,7 @@ public class RoleServiceTest {
     @Test
     @DisplayName("handles_unexpected_exceptions_from_repository")
     public void handles_unexpected_exceptions_from_repository() {
-        RoleRepository roleRepository = Mockito.mock(RoleRepository.class);
-        RoleService roleService = new RoleService(roleRepository);
-
-        Mockito.when(roleRepository.findAll()).thenThrow(new RuntimeException("Unexpected error"));
-
+        when(roleRepository.findAll()).thenThrow(new RuntimeException("Unexpected error"));
         Assertions.assertThrows(RuntimeException.class, () -> {
             roleService.getRoles();
         });
@@ -95,11 +85,8 @@ public class RoleServiceTest {
     @Test
     @DisplayName("test_add_role_with_valid_privileges")
     public void test_add_role_with_valid_privileges() {
-        RoleRepository roleRepository = Mockito.mock(RoleRepository.class);
-        RoleService roleService = new RoleService(roleRepository);
-
-        Mockito.when(roleRepository.getByRole("Admin")).thenReturn(Optional.empty());
-        Mockito.when(roleRepository.save(Mockito.any(Role.class))).thenReturn(role);
+        when(roleRepository.getByRole("Admin")).thenReturn(Optional.empty());
+        when(roleRepository.save(Mockito.any(Role.class))).thenReturn(role);
 
         Role result = roleService.addRole(role);
 
@@ -112,13 +99,9 @@ public class RoleServiceTest {
     @Test
     @DisplayName("test_add_role_that_already_exists")
     public void test_add_role_that_already_exists() {
-        RoleRepository roleRepository = Mockito.mock(RoleRepository.class);
-        RoleService roleService = new RoleService(roleRepository);
-
         Role existingRole = role;
 
-        Mockito.when(roleRepository.getByRole("Admin")).thenReturn(Optional.of(existingRole));
-
+        when(roleRepository.getByRole("Admin")).thenReturn(Optional.of(existingRole));
         Role newRole = new Role();
         newRole.setRole("Admin");
 
@@ -130,18 +113,12 @@ public class RoleServiceTest {
     @Test
     @DisplayName("test_add_role_with_invalid_privilege")
     public void test_add_role_with_invalid_privilege() {
-        RoleRepository roleRepository = Mockito.mock(RoleRepository.class);
-        RoleService roleService = new RoleService(roleRepository);
-
         Role role = new Role();
         role.setRole("SUPERVISOR");
 
         assertThrows(IllegalArgumentException.class, () -> {
-
             Privilege invalidPrivilege = Privilege.valueOf("INVALID_PRIVILEGE");
-
             role.setPrivilege(Set.of(invalidPrivilege));
-
             roleService.addRole(role);
         });
     }
@@ -149,9 +126,6 @@ public class RoleServiceTest {
     @Test
     @DisplayName("test_successfully_updates_role_with_new_privileges")
     public void test_successfully_updates_role_with_new_privileges() {
-        RoleRepository roleRepository = Mockito.mock(RoleRepository.class);
-        RoleService roleService = new RoleService(roleRepository);
-
         Role existingRole = role;
 
         Role updatedRole = new Role();
@@ -159,7 +133,7 @@ public class RoleServiceTest {
         updatedRole.setRole("ADMIN");
         updatedRole.setPrivilege(new HashSet<>(Arrays.asList(Privilege.ADD_EMPLOYEE, Privilege.UPDATE_EMPLOYEE_COMPANY_DETAILS)));
 
-        Mockito.when(roleRepository.findById(1L)).thenReturn(Optional.of(existingRole));
+        when(roleRepository.findById(1L)).thenReturn(Optional.of(existingRole));
 
         roleService.updateRole(updatedRole, 1L);
 
@@ -170,17 +144,12 @@ public class RoleServiceTest {
     @Test
     @DisplayName("test_clears_existing_privileges_before_adding_new_ones")
     public void test_clears_existing_privileges_before_adding_new_ones() {
-        RoleRepository roleRepository = Mockito.mock(RoleRepository.class);
-        RoleService roleService = new RoleService(roleRepository);
-
         Role existingRole = role;
-
         Role updatedRole = new Role();
         updatedRole.setRole("ADMIN");
         updatedRole.setPrivilege(new HashSet<>(Arrays.asList(Privilege.UPDATE_EMPLOYEE_COMPANY_DETAILS)));
 
-        Mockito.when(roleRepository.findById(1L)).thenReturn(Optional.of(existingRole));
-
+        when(roleRepository.findById(1L)).thenReturn(Optional.of(existingRole));
         roleService.updateRole(updatedRole, 1L);
 
         Mockito.verify(roleRepository).findById(1L);
@@ -191,14 +160,11 @@ public class RoleServiceTest {
     @Test
     @DisplayName("test_throws_entity_not_found_exception_if_role_does_not_exist")
     public void test_throws_entity_not_found_exception_if_role_does_not_exist() {
-        RoleRepository roleRepository = Mockito.mock(RoleRepository.class);
-        RoleService roleService = new RoleService(roleRepository);
-
-        Role nonExistentRole = new Role();
+         Role nonExistentRole = new Role();
         nonExistentRole.setRoleId(1L);
         nonExistentRole.setRole("NON_EXISTENT_ROLE");
 
-        Mockito.when(roleRepository.findById(1L)).thenReturn(Optional.empty());
+        when(roleRepository.findById(1L)).thenReturn(Optional.empty());
 
         assertThrows(EntityNotFoundException.class, () -> {
             roleService.updateRole(nonExistentRole, 1L);
@@ -208,19 +174,15 @@ public class RoleServiceTest {
     @Test
     @DisplayName("testDeleteRoleWithExistingRole")
     public void testDeleteRoleWithExistingRole() {
-        RoleRepository roleRepository = Mockito.mock(RoleRepository.class);
-        UserRepository userRepository = Mockito.mock(UserRepository.class);
-        RoleService roleService = new RoleService(roleRepository);
         roleService.userRepository = userRepository;
-
         Role roleToDelete = role;
 
         User user = new User();
         user.setUserId(1L);
         user.setRoles(new HashSet<>(Collections.singletonList(roleToDelete)));
 
-        Mockito.when(roleRepository.findById(1L)).thenReturn(Optional.of(roleToDelete));
-        Mockito.when(userRepository.findByRoles(roleToDelete)).thenReturn(Collections.singletonList(user));
+        when(roleRepository.findById(1L)).thenReturn(Optional.of(roleToDelete));
+        when(userRepository.findByRoles(roleToDelete)).thenReturn(Collections.singletonList(user));
 
         Role deletedRole = roleService.deleteRole(1L);
 
@@ -232,11 +194,7 @@ public class RoleServiceTest {
     @Test
     @DisplayName("testDeleteRoleWhenRoleDoesNotExist")
     public void testDeleteRoleWhenRoleDoesNotExist() {
-        RoleRepository roleRepository = Mockito.mock(RoleRepository.class);
-        RoleService roleService = new RoleService(roleRepository);
-
-        Mockito.when(roleRepository.findById(1L)).thenReturn(Optional.empty());
-
+        when(roleRepository.findById(1L)).thenReturn(Optional.empty());
         assertThrows(EntityNotFoundException.class, () -> {
             roleService.deleteRole(1L);
         });
@@ -245,19 +203,14 @@ public class RoleServiceTest {
     @Test
     @DisplayName("testDeleteRoleWhenUserHasNoRoles")
     public void testDeleteRoleWhenUserHasNoRoles() {
-        RoleRepository roleRepository = Mockito.mock(RoleRepository.class);
-        UserRepository userRepository = Mockito.mock(UserRepository.class);
-        RoleService roleService = new RoleService(roleRepository);
         roleService.userRepository = userRepository;
-
         Role roleToDelete = role;
-
         User user = new User();
         user.setUserId(1L);
         user.setRoles(new HashSet<>());
 
-        Mockito.when(roleRepository.findById(1L)).thenReturn(Optional.of(roleToDelete));
-        Mockito.when(userRepository.findByRoles(roleToDelete)).thenReturn(Collections.singletonList(user));
+        when(roleRepository.findById(1L)).thenReturn(Optional.of(roleToDelete));
+        when(userRepository.findByRoles(roleToDelete)).thenReturn(Collections.singletonList(user));
 
         Role deletedRole = roleService.deleteRole(1L);
 
@@ -267,4 +220,50 @@ public class RoleServiceTest {
 
     }
 
+    @Test
+    @DisplayName("changeUserRoleTest")
+    void changeUserRoleTest() {
+        Long userId = 1L;
+        Long oldRoleId = 1L;
+        Long newRoleId = 2L;
+
+        Role oldRole = new Role();
+        oldRole.setRoleId(oldRoleId);
+
+        Set<Role> userRoles = new HashSet<>();
+        userRoles.add(oldRole);
+
+        User user = new User();
+        user.setUserId(userId);
+        user.setRoles(userRoles);
+
+        Role newRole = new Role();
+        newRole.setRoleId(newRoleId);
+
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+        when(roleRepository.findById(oldRoleId)).thenReturn(Optional.of(oldRole));
+        when(roleRepository.findById(newRoleId)).thenReturn(Optional.of(newRole));
+        Role result = roleService.changeRoleOfUser(userId, oldRoleId, newRoleId);
+        assertNotNull(result);
+        assertEquals(newRoleId, result.getRoleId());
+        assertTrue(user.getRoles().contains(newRole));
+        assertFalse(user.getRoles().contains(oldRole));
+    }
+
+    @Test
+    @DisplayName("changeUserRoleTest")
+    void assignRoleToUser() {
+        Long userId = 1L;
+        Set<Role> userRoles = new HashSet<>();
+        User user = new User();
+        user.setUserId(userId);
+        user.setRoles(userRoles);
+
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+        when(roleRepository.findById(role.getRoleId())).thenReturn(Optional.of(role));
+        Role result = roleService.assignRoleToExistingUser(userId, role.getRoleId());
+        assertNotNull(result);
+        assertEquals(role.getRoleId(), result.getRoleId());
+        assertTrue(user.getRoles().contains(role));
+    }
 }

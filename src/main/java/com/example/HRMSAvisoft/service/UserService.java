@@ -5,15 +5,18 @@ import com.example.HRMSAvisoft.dto.CreateUserDTO;
 import com.example.HRMSAvisoft.dto.LoginUserDTO;
 import com.example.HRMSAvisoft.dto.UserInfoDTO;
 import com.example.HRMSAvisoft.entity.Employee;
+import com.example.HRMSAvisoft.entity.Organization;
 import com.example.HRMSAvisoft.entity.Role;
 import com.example.HRMSAvisoft.entity.User;
 import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
 import com.example.HRMSAvisoft.repository.EmployeeRepository;
+import com.example.HRMSAvisoft.repository.OrganizationRepository;
 import com.example.HRMSAvisoft.repository.RoleRepository;
 import com.example.HRMSAvisoft.repository.UserRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.Query;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,6 +34,7 @@ import java.util.Collection;
 public class UserService {
 
     final private UserRepository userRepository;
+    final private OrganizationRepository organizationRepository;
 
     final private PasswordEncoder passwordEncoder;
 
@@ -41,11 +45,12 @@ public class UserService {
 
     final private EmployeeRepository employeeRepository;
 
-    UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,RoleRepository roleRepository,EmployeeRepository employeeRepository){
+    UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository, EmployeeRepository employeeRepository, OrganizationRepository organizationRepository){
         this.userRepository=userRepository;
         this.passwordEncoder=passwordEncoder;
         this.roleRepository=roleRepository;
         this.employeeRepository=employeeRepository;
+        this.organizationRepository=organizationRepository;
     }
 
     public User getUserById(Long id){
@@ -53,8 +58,8 @@ public class UserService {
         return user;
     }
 
-    public Employee saveUser(CreateUserDTO createUserDTO, User loggedInUser) throws IOException {
-
+    public Employee saveUser(CreateUserDTO createUserDTO, User loggedInUser, Long organizationId) throws IOException {
+        Organization organization = organizationRepository.findById(organizationId).orElseThrow(()-> new EntityNotFoundException("Organization not found"));
         User alreadyRegisteredUser = userRepository.getByEmail(createUserDTO.getEmail());
 
         if(alreadyRegisteredUser!=null){
@@ -64,7 +69,8 @@ public class UserService {
         User newUser=new User();
         newUser.setEmail(createUserDTO.getEmail());
         newUser.setPassword(passwordEncoder.encode(createUserDTO.getPassword()));
-
+        newUser.setOrganization(organization);
+        organization.getUsers().add(newUser);
 
         newUser.setCreatedBy(loggedInUser);
         LocalDateTime createdAt = LocalDateTime.now();
@@ -82,22 +88,23 @@ public class UserService {
         Employee newEmployee = new Employee();
         newEmployee.setFirstName(createUserDTO.getFirstName());
         newEmployee.setLastName(createUserDTO.getLastName());
-        newEmployee.setJoinDate(createUserDTO.getJoinDate());
-        newEmployee.setGender(createUserDTO.getGender());
-        newEmployee.setPosition(createUserDTO.getPosition());
-        newEmployee.setSalary(createUserDTO.getSalary());
-        newEmployee.setDateOfBirth(createUserDTO.getDateOfBirth());
+//        newEmployee.setJoinDate(createUserDTO.getJoinDate());
+//        newEmployee.setGender(createUserDTO.getGender());
+//        newEmployee.setPosition(createUserDTO.getPosition());
+//        newEmployee.setSalary(createUserDTO.getSalary());
+//        newEmployee.setDateOfBirth(createUserDTO.getDateOfBirth());
         newEmployee.setProfileImage("https://api.dicebear.com/5.x/initials/svg?seed="+createUserDTO.getFirstName()+" "+createUserDTO.getLastName());
         Employee savedEmployee = employeeRepository.save(newEmployee);
 
         newUser.setEmployee(savedEmployee);
+        organizationRepository.save(organization);
         userRepository.save(newUser);
-
         return savedEmployee;
 
     }
 
-    public User addNewUser(AddNewUserDTO addNewUserDTO, User loggedInUser)throws IOException,EmailAlreadyExistsException{
+    public User addNewUser(AddNewUserDTO addNewUserDTO, User loggedInUser, Long organizationId)throws IOException,EmailAlreadyExistsException{
+        Organization organization = organizationRepository.findById(organizationId).orElseThrow(()-> new EntityNotFoundException("Organization not found"));
         User alreadyRegisteredUser = userRepository.getByEmail(addNewUserDTO.getEmail());
         if(alreadyRegisteredUser!=null){
             throw new EmailAlreadyExistsException(addNewUserDTO.getEmail());
@@ -110,6 +117,8 @@ public class UserService {
         LocalDateTime createdAt = LocalDateTime.now();
         DateTimeFormatter createdAtFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         newUser.setCreatedAt(createdAt.format(createdAtFormatter));
+        newUser.setOrganization(organization);
+        organization.getUsers().add(newUser);
 
         Role roleToAdd = roleRepository.getByRole(addNewUserDTO.getRole()).orElse(null);
         if(roleToAdd != null) {
@@ -121,6 +130,7 @@ public class UserService {
         Employee savedEmployee = employeeRepository.save(employee);
 
         newUser.setEmployee(savedEmployee);
+        organizationRepository.save(organization);
         return userRepository.save(newUser);
     }
 

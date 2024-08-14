@@ -37,7 +37,7 @@ public class UserTests {
         roles.add(role);
         Employee employee=new Employee();
 
-        User user1=new User(userId,email,password,createdAt,createdBy,employee,roles);
+        User user1=new User(userId,email,password,createdAt,createdBy,employee,roles, new Organization());
 
         assertEquals(userId, user1.getUserId());
         assertEquals(email, user1.getEmail());

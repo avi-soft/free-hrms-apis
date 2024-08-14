@@ -1,0 +1,14 @@
+
+š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ö»ûÿÿÿÿJ$8c145700-128a-449f-880a-0a55f84c2914
+p
+java:S6395"-Unwrap this unnecessarily grouped subpattern.(Ãúµ¤8«€—‘2J$15e9ae9f-0a5d-471d-b9d9-aac3e1a81a5e
+
+java:S1128"FRemove this unused import 'com.example.HRMSAvisoft.entity.Department'.(¢î‡±üÿÿÿÿ8«¦ñ2J$9ad08966-c845-4089-b55c-4180839c7e37
+ˆ
+java:S1128"@Remove this unused import 'com.example.HRMSAvisoft.entity.User'.(ÎÜ¬úÿÿÿÿ8¬¦ñ2J$00e6f395-b13f-4fc8-b4cc-167be6fd4d77
+„
+java:S1128"CRemove this unused import 'jakarta.validation.constraints.NotNull'.(Àª•ıÿÿÿÿJ$f1d45724-6047-4dc9-b9c2-b36a1bfe4605
+s
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8¬¦ñ2J$73c099a2-cf89-4025-a510-c42d7f3fb1a6
+s
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8¬¦ñ2J$ab15d913-a626-48e3-9c97-5700bb260e6c
