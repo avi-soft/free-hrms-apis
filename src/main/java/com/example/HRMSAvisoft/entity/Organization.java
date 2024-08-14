@@ -45,6 +45,9 @@ public class Organization
     @JsonIgnore
     private List<User> users = new ArrayList<>();
 
+    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Branch> branches = new ArrayList<>();
+
     @ElementCollection
     @CollectionTable(
             name = "organization_attributes",

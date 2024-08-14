@@ -21,7 +21,7 @@ public class DesignationService {
 
     public Designation addDesignation(Designation designation)throws IllegalArgumentException{
         Designation newDesignation = new Designation();
-        if(designation.getDesignation() == null || designation.getDesignation().equals("")){
+        if(designation.getDesignation() == null || designation.getDesignation().equals("") || designation.getDesignation().trim().equals("")){
             throw new IllegalArgumentException("Designation field cannot be null");
         }
         newDesignation.setDesignation(designation.getDesignation());
@@ -34,7 +34,7 @@ public class DesignationService {
     }
 
     public void updateDesignation(Designation designation, Long designationId) throws EntityNotFoundException, IllegalArgumentException{
-        if(designation.getDesignation() == null || designation.getDesignation().equals("")){
+        if(designation.getDesignation() == null || designation.getDesignation().equals("") || designation.getDesignation().trim().equals("")){
             throw new IllegalArgumentException("Designation field cannot be null");
         }        Designation designationToUpdate = designationRepository.findById(designationId).orElseThrow(()-> new EntityNotFoundException("Designation not found"));
 
