@@ -20,7 +20,7 @@ public class SkillService {
 
     public Skill addSkill(Skill skill)throws IllegalArgumentException {
 
-        if(skill.getSkill() == null || skill.getSkill().equals("")){
+        if(skill.getSkill() == null || skill.getSkill().equals("") || skill.getSkill().trim().equals("")){
             throw new IllegalArgumentException("Skill cannot be null");
         }
         return skillRepository.save(skill);
@@ -31,7 +31,7 @@ public class SkillService {
     }
 
     public void updateSkill(Skill skill, Long skillId) throws EntityNotFoundException, IllegalArgumentException{
-        if(skill.getSkill() == null || skill.getSkill().equals("")){
+        if(skill.getSkill() == null || skill.getSkill().equals("") || skill.getSkill().trim().equals("")){
             throw new IllegalArgumentException("Skill cannot be null");
         }
 
