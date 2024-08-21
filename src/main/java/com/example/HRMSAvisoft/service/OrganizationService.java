@@ -6,6 +6,7 @@ import com.example.HRMSAvisoft.attribute.EmployeeAttribute;
 import com.example.HRMSAvisoft.attribute.OrganizationAttribute;
 import com.example.HRMSAvisoft.dto.AddNewOrganizationDTO;
 import com.example.HRMSAvisoft.dto.UpdateOrganizationDTO;
+import com.example.HRMSAvisoft.entity.Branch;
 import com.example.HRMSAvisoft.entity.Department;
 import com.example.HRMSAvisoft.entity.Organization;
 import com.example.HRMSAvisoft.exception.AttributeKeyDoesNotExistException;
@@ -57,10 +58,16 @@ public class OrganizationService {
         organizationRepository.save(organization);
     }
 
-    public List<Department> getDepartmentsOfOrganization(Long organizationId){
+    public List<Department> getDepartmentsOfOrganization(Long organizationId)throws EntityNotFoundException{
         Organization organization = organizationRepository.findById(organizationId).orElseThrow(()-> new EntityNotFoundException("Organization not found"));
 
         return organization.getDepartments().stream().toList();
+    }
+
+    public List<Branch> getBranchesOfOrganization(Long organizationId)throws EntityNotFoundException{
+        Organization organization = organizationRepository.findById(organizationId).orElseThrow(()-> new EntityNotFoundException("Organization not found"));
+
+        return organization.getBranches().stream().toList();
     }
 
 

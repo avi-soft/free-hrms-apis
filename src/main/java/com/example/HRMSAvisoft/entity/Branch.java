@@ -1,7 +1,17 @@
 package com.example.HRMSAvisoft.entity;
 
+import com.example.HRMSAvisoft.attribute.BranchAttribute;
+import com.example.HRMSAvisoft.attribute.DepartmentAttribute;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.*;
+import utils.AttributesSerializer;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -17,13 +27,17 @@ public class Branch {
     @Column(nullable = false)
     private String branchName;
 
-    private String branchAddress;
-    private String branchCity;
-    private String branchState;
-    private String branchCountry;
-    private String branchZipCode;
+    @ElementCollection
+    @CollectionTable(
+            name = "branch_attributes",
+            joinColumns = @JoinColumn(name = "branch_id")
+    )
+    @MapKeyJoinColumn(name = "attribute_id")
+    @Column(name = "attribute_value")
+    @JsonSerialize(using = AttributesSerializer.class)
+    private Map<BranchAttribute, String> attributes = new HashMap<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "organization_id", nullable = false)
-    private Organization organization;
+    @ManyToMany(mappedBy ="branches", fetch = FetchType.EAGER)
+    @JsonIgnore
+    private Set<Organization> organizations = new HashSet<>();
 }

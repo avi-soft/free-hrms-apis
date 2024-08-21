@@ -1,6 +1,7 @@
 package com.example.HRMSAvisoft.service;
 
 import com.example.HRMSAvisoft.attribute.DepartmentAttribute;
+import com.example.HRMSAvisoft.exception.AttributeKeyAlreadyExistsException;
 import com.example.HRMSAvisoft.repository.DepartmentAttributeRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
@@ -22,20 +23,20 @@ public class DepartmentAttributeService {
         return departmentAttributeRepository.findAll();
     }
 
-    public DepartmentAttribute addDepartmentAttribute(DepartmentAttribute departmentAttribute)throws  DepartmentAlreadyExistsException{
+    public DepartmentAttribute addDepartmentAttribute(DepartmentAttribute departmentAttribute)throws AttributeKeyAlreadyExistsException{
         DepartmentAttribute existingDepartmentAttribute = departmentAttributeRepository.findByAttributeKey(departmentAttribute.getAttributeKey()).orElse(null);
         if (existingDepartmentAttribute != null) {
-            throw new com.example.HRMSAvisoft.service.DepartmentAttributeService.DepartmentAlreadyExistsException(existingDepartmentAttribute.getAttributeKey() + " Department attrubute already exists");
+            throw new AttributeKeyAlreadyExistsException(departmentAttribute.getAttributeKey());
         }
         return departmentAttributeRepository.save(departmentAttribute);
     }
 
-    public DepartmentAttribute updateDepartmentAttribute(DepartmentAttribute departmentAttribute, Long departmentAttributeId)throws DepartmentAlreadyExistsException{
+    public DepartmentAttribute updateDepartmentAttribute(DepartmentAttribute departmentAttribute, Long departmentAttributeId)throws AttributeKeyAlreadyExistsException{
         DepartmentAttribute departmentAttributeToUpdate = departmentAttributeRepository.findById(departmentAttributeId).orElseThrow((() -> new EntityNotFoundException("Department Attribute not found")));
 
         DepartmentAttribute existingDepartmentAttribute = departmentAttributeRepository.findByAttributeKey(departmentAttribute.getAttributeKey()).orElse(null);
         if (existingDepartmentAttribute != null && !Objects.equals(existingDepartmentAttribute.getAttributeId(), departmentAttributeId)) {
-            throw new com.example.HRMSAvisoft.service.DepartmentAttributeService.DepartmentAlreadyExistsException(existingDepartmentAttribute.getAttributeKey() + " department attribute already exists");
+            throw new AttributeKeyAlreadyExistsException(existingDepartmentAttribute.getAttributeKey());
         }
 
         if (Objects.nonNull(departmentAttribute.getAttributeKey())) {
@@ -52,8 +53,9 @@ public class DepartmentAttributeService {
     }
 
     public static class DepartmentAlreadyExistsException extends Exception {
-        public DepartmentAlreadyExistsException(String message){
-            super(message+ " department already exists");
+        public DepartmentAlreadyExistsException(String departmentName){
+            super(departmentName+ " department d exists");
         }
     }
+
 }
