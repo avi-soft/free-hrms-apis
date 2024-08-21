@@ -46,7 +46,7 @@ public class BranchService {
 
         Branch newBranch = new Branch();
         if(createBranchDTO.getOrganizationId() != null){
-            Branch existingBranchByName = branchRepository.findBranchByName(createBranchDTO.getBranchName()).orElse(null);
+            Branch existingBranchByName = branchRepository.findBranchByBranchName(createBranchDTO.getBranchName()).orElse(null);
             if(existingBranchByName != null){
                 throw new BranchAlreadyExistsException(createBranchDTO.getBranchName());
             }
@@ -83,7 +83,7 @@ public class BranchService {
         });
 
         Branch branchFoundById = branchRepository.findById(branchId).orElseThrow(()-> new EntityNotFoundException("Branch not found."));
-        Branch existingBranchByName = branchRepository.findBranchByName(createBranchDTO.getBranchName()).orElse(null);
+        Branch existingBranchByName = branchRepository.findBranchByBranchName(createBranchDTO.getBranchName()).orElse(null);
         if(existingBranchByName != null && existingBranchByName.getBranchId() != branchId){
             throw new BranchAlreadyExistsException(createBranchDTO.getBranchName());
         }

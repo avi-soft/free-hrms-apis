@@ -23,7 +23,7 @@ public class BranchAttributeController {
         this.branchAttributeService = branchAttributeService;
     }
 
-@PreAuthorize("hasAnyAuthority('ADD_BRANCH_ATTRIBUTE')")
+//    @PreAuthorize("hasAnyAuthority('ADD_BRANCH_ATTRIBUTE')")
     @PostMapping("")
     public ResponseEntity<Map<String, Object>> addBranchAttribute(@RequestBody BranchAttribute branchAttribute) throws AttributeKeyAlreadyExistsException {
         BranchAttribute newBranchAttribute = branchAttributeService.addBranchAttribute(branchAttribute);
@@ -31,7 +31,7 @@ public class BranchAttributeController {
         return ResponseEntity.status(201).body(Map.of("success", true, "message", "Branch created successfully", "attribute", newBranchAttribute));
     }
 
-    @PreAuthorize("hasAnyAuthority('GET_BRANCH_ATTRIBUTE')")
+//    @PreAuthorize("hasAnyAuthority('GET_BRANCH_ATTRIBUTE')")
     @GetMapping("")
     public ResponseEntity<Map<String, Object>> getBranchAttributes() {
         List<BranchAttribute> branchAttributeList = branchAttributeService.getBranchAttributes();
@@ -39,7 +39,7 @@ public class BranchAttributeController {
         return ResponseEntity.status(200).body(Map.of("success", true, "message", "Branch attributes fetched successfully", "branchAttributes", branchAttributeList));
     }
 
-    @PreAuthorize("hasAnyAuthority('UPDATE_BRANCH_ATTRIBUTE')")
+//    @PreAuthorize("hasAnyAuthority('UPDATE_BRANCH_ATTRIBUTE')")
     @PatchMapping("/{branchAttributeId}")
     public ResponseEntity<Object> updateBranchAttribute(@RequestBody BranchAttribute branchAttribute, @PathVariable("branchAttributeId") Long branchAttributeId) throws AttributeKeyAlreadyExistsException{
         branchAttributeService.updateBranchAttribute(branchAttribute, branchAttributeId);
@@ -47,7 +47,7 @@ public class BranchAttributeController {
         return ResponseEntity.status(200).body(Map.of("success", true, "message", "Branch attribute updated successfully"));
     }
 
-    @PreAuthorize("hasAnyAuthority('DELETE_BRANCH_ATTRIBUTE')")
+//    @PreAuthorize("hasAnyAuthority('DELETE_BRANCH_ATTRIBUTE')")
     @DeleteMapping("/{branchAttributeId}")
     public ResponseEntity<Object> deleteBranchAttribute(@PathVariable("branchAttributeId") Long branchAttributeId)throws EntityNotFoundException{
         branchAttributeService.deleteBranchAttribute(branchAttributeId);
