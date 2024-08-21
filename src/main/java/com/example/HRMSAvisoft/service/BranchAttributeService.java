@@ -1,8 +1,11 @@
 package com.example.HRMSAvisoft.service;
 
 import com.example.HRMSAvisoft.attribute.BranchAttribute;
+import com.example.HRMSAvisoft.entity.Branch;
+import com.example.HRMSAvisoft.entity.Department;
 import com.example.HRMSAvisoft.exception.AttributeKeyAlreadyExistsException;
 import com.example.HRMSAvisoft.repository.BranchAttributeRepository;
+import com.example.HRMSAvisoft.repository.BranchRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,8 +19,11 @@ public class BranchAttributeService {
 
     private final BranchAttributeRepository branchAttributeRepository;
 
-    BranchAttributeService(BranchAttributeRepository branchAttributeRepository){
+    private final BranchRepository branchRepository;
+
+    BranchAttributeService(BranchAttributeRepository branchAttributeRepository, BranchRepository branchRepository){
         this.branchAttributeRepository = branchAttributeRepository;
+        this.branchRepository = branchRepository;
     }
     public BranchAttribute addBranchAttribute(BranchAttribute branchAttribute)throws AttributeKeyAlreadyExistsException{
         BranchAttribute existingBranchAttributeByKey = branchAttributeRepository.findByAttributeKey(branchAttribute.getAttributeKey()).orElse(null);
@@ -47,6 +53,16 @@ public class BranchAttributeService {
 
     public void deleteBranchAttribute(Long branchAttributeId)throws EntityNotFoundException{
         BranchAttribute branchAttributeToDelete = branchAttributeRepository.findById(branchAttributeId).orElseThrow((() -> new EntityNotFoundException(branchAttributeId + " branch not found")));
+
+        List<Branch> branchList = branchRepository.findAll();
+        for(Branch branch : branchList){
+            branch.getAttributes().forEach((k, v)->{
+                if(k.equals(branchAttributeToDelete)){
+                    branch.getAttributes().remove(branchAttributeToDelete);
+                }
+            });
+        }
+
         branchAttributeRepository.delete(branchAttributeToDelete);
     }
 }

@@ -1,8 +1,10 @@
 package com.example.HRMSAvisoft.service;
 
 import com.example.HRMSAvisoft.attribute.DepartmentAttribute;
+import com.example.HRMSAvisoft.entity.Department;
 import com.example.HRMSAvisoft.exception.AttributeKeyAlreadyExistsException;
 import com.example.HRMSAvisoft.repository.DepartmentAttributeRepository;
+import com.example.HRMSAvisoft.repository.DepartmentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,8 +18,11 @@ public class DepartmentAttributeService {
 
     private final DepartmentAttributeRepository departmentAttributeRepository;
 
-    DepartmentAttributeService(DepartmentAttributeRepository departmentAttributeRepository) {
+    private final DepartmentRepository departmentRepository;
+
+    DepartmentAttributeService(DepartmentAttributeRepository departmentAttributeRepository, DepartmentRepository departmentRepository) {
         this.departmentAttributeRepository = departmentAttributeRepository;
+        this.departmentRepository = departmentRepository;
     }
     public List<DepartmentAttribute> getDepartmentAttributes(){
         return departmentAttributeRepository.findAll();
@@ -48,6 +53,16 @@ public class DepartmentAttributeService {
     @Transactional
     public DepartmentAttribute deleteDepartmentAttribute(Long departmentAttributeId) throws EntityNotFoundException {
         DepartmentAttribute departmentAttributeToDelete = departmentAttributeRepository.findById(departmentAttributeId).orElseThrow((() -> new EntityNotFoundException(departmentAttributeId + "not found")));
+
+        List<Department> departmentList = departmentRepository.findAll();
+        for(Department department : departmentList){
+            department.getAttributes().forEach((k, v)->{
+                if(k.equals(departmentAttributeToDelete)){
+                    department.getAttributes().remove(departmentAttributeToDelete);
+                }
+            });
+        }
+
         departmentAttributeRepository.delete(departmentAttributeToDelete);
         return departmentAttributeToDelete;
     }
