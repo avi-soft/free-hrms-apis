@@ -73,7 +73,7 @@ public class DepartmentService {
         Map<DepartmentAttribute, String> departmentAttributes = createDepartmentDTO.getAttributes().entrySet().stream()
                 .collect(Collectors.toMap(
                         entry -> departmentAttributeRepository.findByAttributeKey(entry.getKey())
-                                .orElseThrow(() -> new RuntimeException("Attribute not found: " + entry.getKey())),
+                                .orElseThrow(() -> new AttributeKeyDoesNotExistException("Attribute not found: " + entry.getKey())),
                         Map.Entry::getValue
                 ));
         newDepartment.setDepartment(createDepartmentDTO.getDepartment());

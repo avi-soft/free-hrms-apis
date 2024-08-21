@@ -3,6 +3,7 @@ package com.example.HRMSAvisoft.controller;
 
 import com.example.HRMSAvisoft.attribute.DepartmentAttribute;
 import com.example.HRMSAvisoft.dto.ErrorResponseDTO;
+import com.example.HRMSAvisoft.exception.AttributeKeyAlreadyExistsException;
 import com.example.HRMSAvisoft.service.DepartmentAttributeService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -32,14 +33,14 @@ public class DepartmentAttributeController {
 
     @PreAuthorize("hasAnyAuthority('CREATE_DEPARTMENT_ATTRIBUTE')")
     @PostMapping("")
-    public ResponseEntity<Object> saveDepartmentAttribute( @RequestBody DepartmentAttribute departmentAttribute) throws DepartmentAttributeService.DepartmentAlreadyExistsException, IllegalArgumentException {
+    public ResponseEntity<Object> saveDepartmentAttribute( @RequestBody DepartmentAttribute departmentAttribute) throws AttributeKeyAlreadyExistsException, IllegalArgumentException {
         DepartmentAttribute newDepartmentAttribute = departmentAttributeService.addDepartmentAttribute(departmentAttribute);
         return ResponseGenerator.generateResponse(HttpStatus.CREATED,true,"Department Attribute is created successfully",newDepartmentAttribute);
     }
 
     @PreAuthorize("hasAnyAuthority('UPDATE_DEPARTMENT_ATTRIBUTE')")
     @PatchMapping("/{departmentAttributeId}")
-    public ResponseEntity<Object> updateDepartmentAttribute( @RequestBody DepartmentAttribute departmentAttribute, @PathVariable Long departmentAttributeId) throws EntityNotFoundException, IllegalArgumentException, DepartmentAttributeService.DepartmentAlreadyExistsException {
+    public ResponseEntity<Object> updateDepartmentAttribute( @RequestBody DepartmentAttribute departmentAttribute, @PathVariable Long departmentAttributeId) throws EntityNotFoundException, IllegalArgumentException, AttributeKeyAlreadyExistsException {
         DepartmentAttribute updatedDepartmentAttribute = departmentAttributeService.updateDepartmentAttribute(departmentAttribute, departmentAttributeId);
         return ResponseGenerator.generateResponse(HttpStatus.OK, true, "Department Attribute Updated successfully.",updatedDepartmentAttribute);
     }
@@ -54,14 +55,14 @@ public class DepartmentAttributeController {
 
     @ExceptionHandler({
             IllegalArgumentException.class,
-            DepartmentAttributeService.DepartmentAlreadyExistsException.class,
-            EntityNotFoundException.class
+            EntityNotFoundException.class,
+            AttributeKeyAlreadyExistsException.class
     })
 
     public ResponseEntity<ErrorResponseDTO> handleErrors(Exception exception) {
         String message;
         HttpStatus status;
-        if (exception instanceof DepartmentAttributeService.DepartmentAlreadyExistsException) {
+        if (exception instanceof AttributeKeyAlreadyExistsException) {
             message = exception.getMessage();
             status = HttpStatus.BAD_REQUEST;
         } else if (exception instanceof IllegalArgumentException) {

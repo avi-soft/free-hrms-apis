@@ -45,8 +45,14 @@ public class Organization
     @JsonIgnore
     private List<User> users = new ArrayList<>();
 
-    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Branch> branches = new ArrayList<>();
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    @JoinTable(
+            name = "organization_branch",
+            joinColumns = @JoinColumn(name = "organization_id"),
+            inverseJoinColumns = @JoinColumn(name = "branch_id")
+    )
+    private Set<Branch> branches = new HashSet<>();
 
     @ElementCollection
     @CollectionTable(
