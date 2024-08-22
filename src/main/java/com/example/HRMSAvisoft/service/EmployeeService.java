@@ -45,6 +45,8 @@ public class EmployeeService {
     @Autowired
     private DepartmentRepository departmentRepository;
 
+    @Autowired
+    private BranchRepository branchRepository;
 
 
     EmployeeService(EmployeeRepository employeeRepository, Cloudinary cloudinary){
@@ -98,6 +100,11 @@ public class EmployeeService {
         if(createEmployeeDTO.getDepartmentId() != null) {
             Department departmentOfEmployee = departmentRepository.findById(createEmployeeDTO.getDepartmentId()).orElse(null);
             employeeToAddInfo.setDepartment(departmentOfEmployee);
+        }
+        if(createEmployeeDTO.getBranchId() != null) {
+            Branch branchToAdd = branchRepository.findById(createEmployeeDTO.getBranchId()).orElse(null);
+            employeeToAddInfo.setBranch(branchToAdd);
+            branchToAdd.getEmployees().add(employeeToAddInfo);
         }
 
 //        employeeToAddInfo.setFirstName(createEmployeeDTO.getFirstName());

@@ -36,6 +36,8 @@ public class CreateEmployeeDTO {
     private List<String> designationList;
     private List<String> skillList;
 
+    private Long branchId;
+
     @JsonSerialize(using = AttributesSerializer.class)
     private Map<String, String> attributes = new HashMap<>();
 }

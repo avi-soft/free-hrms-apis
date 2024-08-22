@@ -27,6 +27,10 @@ public class Branch {
     @Column(nullable = false)
     private String branchName;
 
+    @OneToMany(mappedBy = "branch", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Employee> employees = new HashSet<>();
+
     @ElementCollection
     @CollectionTable(
             name = "branch_attributes",
