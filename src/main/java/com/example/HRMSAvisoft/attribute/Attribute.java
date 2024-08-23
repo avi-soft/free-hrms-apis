@@ -18,8 +18,9 @@ public abstract class Attribute {
     @Column(nullable = false, unique = true)
     private String attributeKey;
 
-    public Attribute(String attributeKey) {
+    public Attribute(String attributeKey){
         this.attributeKey = attributeKey;
     }
+
 }
 

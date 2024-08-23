@@ -87,7 +87,11 @@ public class Employee {
     @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<LeaveBalance> leaveBalances = new ArrayList<>();
-    
+
+    @ManyToOne
+    @JoinColumn(name = "branch_id")
+    private Branch branch;
+
     @ElementCollection
     @CollectionTable(
             name = "employee_attributes",

@@ -46,7 +46,7 @@ public class BranchService {
 
         Branch newBranch = new Branch();
         if(createBranchDTO.getOrganizationId() != null){
-            Branch existingBranchByName = branchRepository.findBranchByName(createBranchDTO.getBranchName()).orElse(null);
+            Branch existingBranchByName = branchRepository.findBranchByBranchName(createBranchDTO.getBranchName()).orElse(null);
             if(existingBranchByName != null){
                 throw new BranchAlreadyExistsException(createBranchDTO.getBranchName());
             }
@@ -83,8 +83,8 @@ public class BranchService {
         });
 
         Branch branchFoundById = branchRepository.findById(branchId).orElseThrow(()-> new EntityNotFoundException("Branch not found."));
-        Branch existingBranchByName = branchRepository.findBranchByName(createBranchDTO.getBranchName()).orElse(null);
-        if(existingBranchByName != null && existingBranchByName.getBranchId() != branchId){
+        Branch existingBranchByName = branchRepository.findBranchByBranchName(createBranchDTO.getBranchName()).orElse(null);
+        if(existingBranchByName != null && !existingBranchByName.getBranchId().equals(branchId)){
             throw new BranchAlreadyExistsException(createBranchDTO.getBranchName());
         }
 
@@ -105,7 +105,7 @@ public class BranchService {
         Map<BranchAttribute, String> existingAttributes = branchFoundById.getAttributes();
         existingAttributes.putAll(attributeMap);
 
-        branchRepository.save(existingBranchByName);
+        branchRepository.save(branchFoundById);
 
     }
 
@@ -141,9 +141,8 @@ public class BranchService {
 
         Organization organizationToRemoveFrom = organizationRepository.findById(organizationId).orElseThrow(()-> new EntityNotFoundException("Organization not found"));
 
-        if(organizationToRemoveFrom.getDepartments().contains(branchToRemove)){
-            organizationToRemoveFrom.getDepartments().remove(branchToRemove);
-
+        if(organizationToRemoveFrom.getBranches().contains(branchToRemove)){
+            organizationToRemoveFrom.getBranches().remove(branchToRemove);
         }
         if(branchToRemove.getOrganizations().contains(organizationToRemoveFrom)) {
             branchToRemove.getOrganizations().remove(organizationToRemoveFrom);

@@ -17,11 +17,13 @@ com/example/HRMSAvisoft/service/UserService$EmailAlreadyExistsException.class
 com/example/HRMSAvisoft/entity/Performance.class
 com/example/HRMSAvisoft/entity/Branch.class
 com/example/HRMSAvisoft/service/UserService.class
+com/example/HRMSAvisoft/controller/BranchController.class
 com/example/HRMSAvisoft/entity/Privilege.class
 com/example/HRMSAvisoft/service/DepartmentAttributeService.class
 com/example/HRMSAvisoft/HrmsAvisoftApplication.class
 com/example/HRMSAvisoft/repository/PerformanceRepository.class
 com/example/HRMSAvisoft/controller/PerformanceController.class
+com/example/HRMSAvisoft/repository/BranchAttributeRepository.class
 com/example/HRMSAvisoft/repository/LeaveRequestRepository.class
 com/example/HRMSAvisoft/entity/Skill$SkillBuilder.class
 com/example/HRMSAvisoft/entity/Zipcode.class
@@ -41,6 +43,7 @@ com/example/HRMSAvisoft/scheduler/leaveRequestScheduler.class
 com/example/HRMSAvisoft/service/OrganizationAttributeService.class
 com/example/HRMSAvisoft/service/DesignationService.class
 com/example/HRMSAvisoft/entity/Designation.class
+com/example/HRMSAvisoft/service/BranchService$BranchAlreadyExistsException.class
 com/example/HRMSAvisoft/dto/CreateEmployeeDTO.class
 com/example/HRMSAvisoft/dto/LeaveRequestDTO.class
 com/example/HRMSAvisoft/entity/Rating.class
@@ -49,6 +52,7 @@ com/example/HRMSAvisoft/dto/UserInfoDTO.class
 com/example/HRMSAvisoft/repository/DepartmentAttributeRepository.class
 com/example/HRMSAvisoft/config/CloudinaryConfiguration.class
 utils/AttributesSerializer.class
+com/example/HRMSAvisoft/dto/BranchResponseDTO.class
 com/example/HRMSAvisoft/config/GlobalExceptionHandler.class
 com/example/HRMSAvisoft/entity/Position.class
 com/example/HRMSAvisoft/exception/EmployeeNotFoundException.class
@@ -60,6 +64,7 @@ com/example/HRMSAvisoft/service/AddressService.class
 com/example/HRMSAvisoft/repository/OrganizationRepository.class
 com/example/HRMSAvisoft/dto/NewUserResponseDTO.class
 com/example/HRMSAvisoft/service/LeaveBalanceService.class
+com/example/HRMSAvisoft/exception/AttributeKeyAlreadyExistsException.class
 com/example/HRMSAvisoft/dto/AddNewUserDTO.class
 com/example/HRMSAvisoft/exception/LeaveRequestNotFoundException.class
 com/example/HRMSAvisoft/entity/Gender.class
@@ -72,6 +77,7 @@ com/example/HRMSAvisoft/attribute/DepartmentAttribute.class
 com/example/HRMSAvisoft/service/AccountService.class
 com/example/HRMSAvisoft/service/DepartmentService$DepartmentNotFoundException.class
 com/example/HRMSAvisoft/dto/UpdateOrganizationDTO$UpdateOrganizationDTOBuilder.class
+com/example/HRMSAvisoft/service/BranchService.class
 com/example/HRMSAvisoft/entity/Department.class
 com/example/HRMSAvisoft/attribute/EmployeeAttribute.class
 com/example/HRMSAvisoft/repository/RoleRepository.class
@@ -99,6 +105,7 @@ com/example/HRMSAvisoft/dto/ErrorResponseDTO.class
 com/example/HRMSAvisoft/attribute/OrganizationAttribute.class
 com/example/HRMSAvisoft/dto/CreatePerformanceDTO.class
 com/example/HRMSAvisoft/entity/Organization.class
+com/example/HRMSAvisoft/dto/CreateBranchDTO.class
 com/example/HRMSAvisoft/service/PerformanceService.class
 com/example/HRMSAvisoft/controller/DepartmentController.class
 com/example/HRMSAvisoft/service/OrganizationService$OrganizationAlreadyExistsException.class
@@ -107,6 +114,7 @@ com/example/HRMSAvisoft/entity/Account.class
 com/example/HRMSAvisoft/service/UserService$IllegalAccessRoleException.class
 com/example/HRMSAvisoft/controller/PayrollController.class
 com/example/HRMSAvisoft/service/OrganizationService.class
+com/example/HRMSAvisoft/attribute/BranchAttribute.class
 com/example/HRMSAvisoft/repository/AccountRepository.class
 com/example/HRMSAvisoft/entity/LeaveStatus.class
 com/example/HRMSAvisoft/service/UserService$UserNotFoundException.class
@@ -119,9 +127,11 @@ com/example/HRMSAvisoft/service/EmployeeAttributeService$EmployeeAttributeAlread
 com/example/HRMSAvisoft/entity/Designation$DesignationBuilder.class
 com/example/HRMSAvisoft/dto/ErrorResponseDTO$ErrorResponseDTOBuilder.class
 com/example/HRMSAvisoft/service/JWTService.class
+com/example/HRMSAvisoft/repository/BranchRepository.class
 com/example/HRMSAvisoft/controller/UserController.class
 com/example/HRMSAvisoft/service/LeaveService.class
 com/example/HRMSAvisoft/exception/AttributeKeyDoesNotExistException.class
+com/example/HRMSAvisoft/controller/BranchAttributeController.class
 com/example/HRMSAvisoft/dto/AddAccountDTO.class
 com/example/HRMSAvisoft/scheduler/LeaveBalanceScheduler.class
 com/example/HRMSAvisoft/controller/LeaveTypeController.class
@@ -137,6 +147,7 @@ com/example/HRMSAvisoft/entity/Payroll.class
 com/example/HRMSAvisoft/dto/AllPerformanceOfEmployeeDTO.class
 com/example/HRMSAvisoft/dto/CreateUserDTO.class
 com/example/HRMSAvisoft/controller/EmployeeAttributeController.class
+com/example/HRMSAvisoft/service/BranchAttributeService.class
 com/example/HRMSAvisoft/entity/Address.class
 com/example/HRMSAvisoft/service/RoleService$RoleAlreadyExistsException.class
 com/example/HRMSAvisoft/service/DepartmentService.class

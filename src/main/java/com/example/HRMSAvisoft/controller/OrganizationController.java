@@ -12,6 +12,7 @@ import com.example.HRMSAvisoft.service.OrganizationService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -42,11 +43,16 @@ public class OrganizationController {
         return ResponseEntity.ok().body(message);
     }
 
-    @GetMapping("/{organizationId}")
-    public ResponseEntity<List<DepartmentsResponseDTO>> getDepartmentsOfOrganization(@PathVariable("organizationId") Long organizationId)throws EntityNotFoundException{
-        List<Department> departments = organizationService.getDepartmentsOfOrganization(organizationId);
 
-        List<DepartmentsResponseDTO> departmentsResponseDTOList = departments.stream().map((department) -> {
+    @GetMapping("/{organizationId}")
+    public ResponseEntity<Page<DepartmentsResponseDTO>> getDepartmentsOfOrganization(
+            @PathVariable("organizationId") Long organizationId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) throws EntityNotFoundException {
+
+        Page<Department> departmentPage = organizationService.getDepartmentsOfOrganization(organizationId, page, size);
+
+        Page<DepartmentsResponseDTO> departmentsResponseDTOPage = departmentPage.map(department -> {
             DepartmentsResponseDTO departmentResponseDTO = new DepartmentsResponseDTO();
             departmentResponseDTO.setDepartmentId(department.getDepartmentId());
             departmentResponseDTO.setDepartment(department.getDepartment());
@@ -58,11 +64,11 @@ public class OrganizationController {
             departmentResponseDTO.setManagerLastName(department.getManager().getLastName());
 
             return departmentResponseDTO;
+        });
 
-        }).collect(Collectors.toList());
-
-        return ResponseEntity.ok(departmentsResponseDTOList);
+        return ResponseEntity.ok(departmentsResponseDTOPage);
     }
+
 
     @GetMapping("/branches/{organizationId}")
     public ResponseEntity<Map<String, Object>> getBranchesOfOrganization(@PathVariable("organizationId") Long organizationId)throws EntityNotFoundException{
