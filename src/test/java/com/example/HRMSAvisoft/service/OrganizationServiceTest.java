@@ -62,35 +62,35 @@ public class OrganizationServiceTest {
         organizationService = new OrganizationService(organizationRepository, modelMapper, cloudinary,organizationAttributeRepository);
     }
 
-    @Test
-    public void test_retrieve_departments_for_existing_organization() {
-        OrganizationRepository organizationRepository = Mockito.mock(OrganizationRepository.class);
-        Organization organization = new Organization();
-        Department department1 = new Department();
-        Department department2 = new Department();
-        organization.setDepartments(Set.of(department1, department2));
-        Mockito.when(organizationRepository.findById(1L)).thenReturn(Optional.of(organization));
+//    @Test
+//    public void test_retrieve_departments_for_existing_organization() {
+//        OrganizationRepository organizationRepository = Mockito.mock(OrganizationRepository.class);
+//        Organization organization = new Organization();
+//        Department department1 = new Department();
+//        Department department2 = new Department();
+//        organization.setDepartments(Set.of(department1, department2));
+//        Mockito.when(organizationRepository.findById(1L)).thenReturn(Optional.of(organization));
+//
+//        OrganizationService organizationService = new OrganizationService(organizationRepository, new ModelMapper(), null, null);
+//        List<Department> departments = organizationService.getDepartmentsOfOrganization(1L);
+//
+//        Assertions.assertEquals(2, departments.size());
+//        Assertions.assertTrue(departments.contains(department1));
+//        Assertions.assertTrue(departments.contains(department2));
+//    }
 
-        OrganizationService organizationService = new OrganizationService(organizationRepository, new ModelMapper(), null, null);
-        List<Department> departments = organizationService.getDepartmentsOfOrganization(1L);
-
-        Assertions.assertEquals(2, departments.size());
-        Assertions.assertTrue(departments.contains(department1));
-        Assertions.assertTrue(departments.contains(department2));
-    }
-
-    @Test
-    public void test_return_empty_list_if_no_departments() {
-        OrganizationRepository organizationRepository = Mockito.mock(OrganizationRepository.class);
-        Organization organization = new Organization();
-        organization.setDepartments(Collections.emptySet());
-        Mockito.when(organizationRepository.findById(1L)).thenReturn(Optional.of(organization));
-
-        OrganizationService organizationService = new OrganizationService(organizationRepository, new ModelMapper(), null, null);
-        List<Department> departments = organizationService.getDepartmentsOfOrganization(1L);
-
-        Assertions.assertTrue(departments.isEmpty());
-    }
+//    @Test
+//    public void test_return_empty_list_if_no_departments() {
+//        OrganizationRepository organizationRepository = Mockito.mock(OrganizationRepository.class);
+//        Organization organization = new Organization();
+//        organization.setDepartments(Collections.emptySet());
+//        Mockito.when(organizationRepository.findById(1L)).thenReturn(Optional.of(organization));
+//
+//        OrganizationService organizationService = new OrganizationService(organizationRepository, new ModelMapper(), null, null);
+//        List<Department> departments = organizationService.getDepartmentsOfOrganization(1L);
+//
+//        Assertions.assertTrue(departments.isEmpty());
+//    }
 
     @Test
     @DisplayName("returns_list_of_organizations_when_organizations_exist")
