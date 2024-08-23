@@ -15,6 +15,10 @@ import com.example.HRMSAvisoft.repository.OrganizationAttributeRepository;
 import com.example.HRMSAvisoft.repository.OrganizationRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -58,11 +62,18 @@ public class OrganizationService {
         organizationRepository.save(organization);
     }
 
-    public List<Department> getDepartmentsOfOrganization(Long organizationId)throws EntityNotFoundException{
-        Organization organization = organizationRepository.findById(organizationId).orElseThrow(()-> new EntityNotFoundException("Organization not found"));
+    public Page<Department> getDepartmentsOfOrganization(Long organizationId, int page, int size) throws EntityNotFoundException {
+        Organization organization = organizationRepository.findById(organizationId)
+                .orElseThrow(() -> new EntityNotFoundException("Organization not found"));
 
-        return organization.getDepartments().stream().toList();
+        Pageable pageable = PageRequest.of(page, size);
+        List<Department> departments = organization.getDepartments().stream().toList();
+
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), departments.size());
+        return new PageImpl<>(departments.subList(start, end), pageable, departments.size());
     }
+
 
     public List<Branch> getBranchesOfOrganization(Long organizationId)throws EntityNotFoundException{
         Organization organization = organizationRepository.findById(organizationId).orElseThrow(()-> new EntityNotFoundException("Organization not found"));
