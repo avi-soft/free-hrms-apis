@@ -102,8 +102,8 @@ public class OrganizationController {
     @DeleteMapping("/{organizationId}")
     public ResponseEntity<Object> deleteOrganization(@PathVariable Long organizationId) throws EntityNotFoundException
     {
-        Organization deletedOrganization=organizationService.deleteOrganization(organizationId);
-        return ResponseGenerator.generateResponse(HttpStatus.OK,true,"Organization is Deleted successfully",deletedOrganization);
+        organizationService.deleteOrganization(organizationId);
+        return ResponseEntity.status(200).body(Map.of("success", true, "message", "Organization deleted successfully."));
     }
 
     @ExceptionHandler({

@@ -2,7 +2,6 @@ package com.example.HRMSAvisoft.service;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.example.HRMSAvisoft.attribute.EmployeeAttribute;
 import com.example.HRMSAvisoft.attribute.OrganizationAttribute;
 import com.example.HRMSAvisoft.dto.AddNewOrganizationDTO;
 import com.example.HRMSAvisoft.dto.UpdateOrganizationDTO;
@@ -134,10 +133,19 @@ public Organization addOrganization(AddNewOrganizationDTO organizationDTO) throw
     }
 
     @Transactional
-    public Organization deleteOrganization(Long organizationId) throws EntityNotFoundException {
+    public void deleteOrganization(Long organizationId) throws EntityNotFoundException {
         Organization organizationToDelete = organizationRepository.findById(organizationId).orElseThrow((()-> new EntityNotFoundException(organizationId+ "not found")));
+
+        for(Department department : organizationToDelete.getDepartments()){
+            if(department.getOrganizations().contains(organizationToDelete))
+                department.getOrganizations().remove(organizationToDelete);
+        }
+
+        for(Branch branch : organizationToDelete.getBranches()){
+            if(branch.getOrganizations().contains(organizationToDelete))
+                branch.getOrganizations().remove(organizationToDelete);
+        }
         organizationRepository.delete(organizationToDelete);
-        return organizationToDelete;
     }
 
     public static class OrganizationAlreadyExistsException extends RuntimeException{

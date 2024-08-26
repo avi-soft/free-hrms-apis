@@ -69,8 +69,6 @@ public class UserService {
         User newUser=new User();
         newUser.setEmail(createUserDTO.getEmail());
         newUser.setPassword(passwordEncoder.encode(createUserDTO.getPassword()));
-        newUser.setOrganization(organization);
-        organization.getUsers().add(newUser);
 
         newUser.setCreatedBy(loggedInUser);
         LocalDateTime createdAt = LocalDateTime.now();
@@ -117,8 +115,6 @@ public class UserService {
         LocalDateTime createdAt = LocalDateTime.now();
         DateTimeFormatter createdAtFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         newUser.setCreatedAt(createdAt.format(createdAtFormatter));
-        newUser.setOrganization(organization);
-        organization.getUsers().add(newUser);
 
         Role roleToAdd = roleRepository.getByRole(addNewUserDTO.getRole()).orElse(null);
         if(roleToAdd != null) {
