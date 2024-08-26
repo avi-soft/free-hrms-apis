@@ -11,6 +11,10 @@ import com.example.HRMSAvisoft.repository.BranchAttributeRepository;
 import com.example.HRMSAvisoft.repository.BranchRepository;
 import com.example.HRMSAvisoft.repository.OrganizationRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -70,8 +74,13 @@ public class BranchService {
         return branchRepository.save(newBranch);
     }
 
-    public List<Branch> getAllBranches(){
-        return branchRepository.findAll();
+    public Page<Branch> getAllBranches(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+
+        List<Branch> branches = branchRepository.findAll();
+        int start = (int)pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), branches.size());
+        return new PageImpl<>(branches.subList(start, end), pageable, branches.size());
     }
 
     public void updateBranch(CreateBranchDTO createBranchDTO, Long branchId)throws BranchAlreadyExistsException, EntityNotFoundException{

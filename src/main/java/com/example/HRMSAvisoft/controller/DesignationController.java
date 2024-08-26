@@ -5,6 +5,7 @@ import com.example.HRMSAvisoft.dto.ErrorResponseDTO;
 import com.example.HRMSAvisoft.entity.Designation;
 import com.example.HRMSAvisoft.service.DesignationService;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,8 +36,11 @@ public class DesignationController {
 
     @PreAuthorize("hasAnyAuthority('GET_ALL_DESIGNATION')")
     @GetMapping("")
-    public ResponseEntity<List<Designation>> getAllDesignations(){
-        List<Designation> designationList = designationService.getAllDesignations();
+    public ResponseEntity<Page<Designation>> getAllDesignations(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ){
+        Page<Designation> designationList = designationService.getAllDesignations(page, size);
 
         return ResponseEntity.ok(designationList);
     }

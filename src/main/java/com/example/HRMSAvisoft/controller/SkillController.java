@@ -4,6 +4,7 @@ import com.example.HRMSAvisoft.dto.ErrorResponseDTO;
 import com.example.HRMSAvisoft.entity.Skill;
 import com.example.HRMSAvisoft.service.SkillService;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,10 +34,13 @@ public class SkillController {
 
     @PreAuthorize("hasAnyAuthority('GET_ALL_SKILL')")
     @GetMapping("")
-    public ResponseEntity<List<Skill>> getAllSkill(){
-        List<Skill> skillList = skillService.getAllSkill();
+    public ResponseEntity<Page<Skill>> getAllSkill(
+            @RequestParam(defaultValue = "0" ) int page,
+            @RequestParam(defaultValue = "10") int size
+    ){
+        Page<Skill> skillListPage = skillService.getAllSkill(page, size);
 
-        return ResponseEntity.status(200).body(skillList);
+        return ResponseEntity.status(200).body(skillListPage);
     }
 
     @PreAuthorize("hasAnyAuthority('UPDATE_SKILL')")

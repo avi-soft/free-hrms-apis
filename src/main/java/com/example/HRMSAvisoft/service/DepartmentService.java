@@ -12,6 +12,10 @@ import com.example.HRMSAvisoft.repository.DepartmentRepository;
 import com.example.HRMSAvisoft.repository.EmployeeRepository;
 import com.example.HRMSAvisoft.repository.OrganizationRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,8 +44,14 @@ public class DepartmentService {
         this.organizationRepository = organizationRepository;
     }
 
-    public List<Department> getAllDepartments() {
-        return departmentRepository.findAll();
+    public Page<Department> getAllDepartments(int page, int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        List<Department> departments = departmentRepository.findAll();
+
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), departments.size());
+        return new PageImpl<>(departments.subList(start, end), pageable, departments.size());
     }
 
     public Department addDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO) throws EmployeeNotFoundException, EntityNotFoundException, DepartmentAttributeService.DepartmentAlreadyExistsException, AttributeKeyDoesNotExistException{

@@ -2,23 +2,16 @@ package com.example.HRMSAvisoft.controller;
 
 import com.example.HRMSAvisoft.dto.*;
 import com.example.HRMSAvisoft.entity.Branch;
-import com.example.HRMSAvisoft.entity.Department;
 import com.example.HRMSAvisoft.exception.AttributeKeyDoesNotExistException;
-import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
 import com.example.HRMSAvisoft.service.BranchService;
-import com.example.HRMSAvisoft.service.DepartmentAttributeService;
-import com.example.HRMSAvisoft.service.DepartmentService;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/branch")
@@ -41,21 +34,13 @@ public class BranchController {
 
     @GetMapping("")
 //    @PreAuthorize("hasAuthority('GET_ALL_BRANCH")
-    public ResponseEntity<Map<String, Object>> getAllBranches(){
-        List<Branch> branchList = branchService.getAllBranches();
+    public ResponseEntity<Map<String, Object>> getAllBranches(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ){
+        Page<Branch> branchListPage = branchService.getAllBranches(page, size);
 
-//        List<BranchResponseDTO> branchResponseDTOList = branchList.stream().map(branch ->{
-//            BranchResponseDTO branchResponseDTO = new BranchResponseDTO();
-//            branchResponseDTO.setBranchName(branch.getBranchName());
-//            branchResponseDTO.setAttributes(branch.getAttributes());
-//            branchResponseDTO.setOrganizationId(branch.getOrganization().getOrganizationId());
-//            branchResponseDTO.setOrganizationImage(branch.getOrganization().getOrganizationImage());
-//            branchResponseDTO.setOrganizationDescription(branch.getOrganization().getOrganizationDescription());
-//
-//            return branchResponseDTO;
-//        }).collect(Collectors.toList());
-
-        return ResponseEntity.status(200).body(Map.of("success", true, "message", "Branches fetched successfully", "Branches", branchList));
+        return ResponseEntity.status(200).body(Map.of("success", true, "message", "Branches fetched successfully", "Branches", branchListPage));
     }
 
     @PatchMapping("/{branchId}")

@@ -10,6 +10,7 @@ import com.example.HRMSAvisoft.service.DepartmentAttributeService;
 import com.example.HRMSAvisoft.service.DepartmentService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,9 +34,12 @@ public class DepartmentController {
 
     @PreAuthorize("hasAuthority('GETALL_DEPARTMENTS')")
     @GetMapping("")
-    public ResponseEntity<List<DepartmentsResponseDTO>> getAllDepartments() {
-        List<Department> departments = departmentService.getAllDepartments();
-        List<DepartmentsResponseDTO> departmentsResponseDTOS = departments.stream().map(department ->{
+    public ResponseEntity<Page<DepartmentsResponseDTO>> getAllDepartments(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+            Page<Department> departmentsPage = departmentService.getAllDepartments(page, size);
+            Page<DepartmentsResponseDTO> departmentsResponseDTOSPage = departmentsPage.map(department ->{
             DepartmentsResponseDTO departmentsResponseDTO = new DepartmentsResponseDTO();
             departmentsResponseDTO.setDepartmentId(department.getDepartmentId());
             departmentsResponseDTO.setDescription(department.getDescription());
@@ -46,9 +50,9 @@ public class DepartmentController {
             departmentsResponseDTO.setManagerLastName(department.getManager().getLastName());
             departmentsResponseDTO.setAttributes(department.getAttributes());
             return departmentsResponseDTO;
-        }).collect(Collectors.toUnmodifiableList());
+        });
 
-        return ResponseEntity.ok(departmentsResponseDTOS);
+        return ResponseEntity.ok(departmentsResponseDTOSPage);
     }
 
     @PostMapping("")
