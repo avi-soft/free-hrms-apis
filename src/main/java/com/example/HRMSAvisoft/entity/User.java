@@ -45,5 +45,8 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "roleId", referencedColumnName = "roleId") )
     Set<Role> roles = new HashSet<Role>();
 
+    @ManyToOne(fetch =  FetchType.EAGER)
+    @JoinColumn(name = "organizationId")
+    private Organization organization;
 
 }

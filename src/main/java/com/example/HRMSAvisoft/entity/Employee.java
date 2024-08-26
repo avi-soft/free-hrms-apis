@@ -92,9 +92,6 @@ public class Employee {
     @JoinColumn(name = "branch_id")
     private Branch branch;
 
-    @ManyToOne(fetch =  FetchType.EAGER)
-    @JoinColumn(name = "organizationId")
-    private Organization organization;
 
     @ElementCollection
     @CollectionTable(
