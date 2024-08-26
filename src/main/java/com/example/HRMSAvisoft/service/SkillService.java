@@ -1,6 +1,8 @@
 package com.example.HRMSAvisoft.service;
 
+import com.example.HRMSAvisoft.entity.Employee;
 import com.example.HRMSAvisoft.entity.Skill;
+import com.example.HRMSAvisoft.repository.EmployeeRepository;
 import com.example.HRMSAvisoft.repository.SkillRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
@@ -18,8 +20,11 @@ public class SkillService {
 
     private final SkillRepository skillRepository;
 
-    SkillService(SkillRepository skillRepository) {
+    private final EmployeeRepository employeeRepository;
+
+    SkillService(SkillRepository skillRepository, EmployeeRepository employeeRepository) {
         this.skillRepository = skillRepository;
+        this.employeeRepository = employeeRepository;
     }
 
     public Skill addSkill(Skill skill)throws IllegalArgumentException {
@@ -53,6 +58,13 @@ public class SkillService {
 
     public void deleteSkill(Long skillId)throws EntityNotFoundException{
         Skill skillToDelete = skillRepository.findById(skillId).orElseThrow(()-> new EntityNotFoundException("Skill not found."));
+
+        List<Employee> employeeList = employeeRepository.findAll();
+
+        for(Employee employee : employeeList){
+            if(employee.getSkills().contains(skillToDelete))
+                employee.getSkills().remove(skillToDelete);
+        }
 
         skillRepository.delete(skillToDelete);
     }
