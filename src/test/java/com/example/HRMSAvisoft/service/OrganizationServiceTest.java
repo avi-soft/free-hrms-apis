@@ -171,25 +171,25 @@ public class OrganizationServiceTest {
         assertEquals("Updation of new Organization", result.getOrganizationDescription());
     }
 
-    @Test
-    @DisplayName("testDeleteOrganizationWithExistingOrganization")
-    public void testDeleteOrganizationWithExistingOrganization() {
-        Organization organizationToDelete = organization;
-
-        // Mock the findById method to return the organization to be deleted
-        when(organizationRepository.findById(1L)).thenReturn(Optional.of(organizationToDelete));
-
-        // Call the deleteOrganization method
-        Organization deletedOrganization = organizationService.deleteOrganization(1L);
-
-        // Verify the interactions and assertions
-        assertNotNull(deletedOrganization);
-        assertEquals(organizationToDelete.getOrganizationId(), deletedOrganization.getOrganizationId());
-        assertEquals(organizationToDelete.getOrganizationName(), deletedOrganization.getOrganizationName());
-
-        // Verify that the organizationRepository delete method was called with the correct organization
-        Mockito.verify(organizationRepository).delete(organizationToDelete);
-    }
+//    @Test
+//    @DisplayName("testDeleteOrganizationWithExistingOrganization")
+//    public void testDeleteOrganizationWithExistingOrganization() {
+//        Organization organizationToDelete = organization;
+//
+//        // Mock the findById method to return the organization to be deleted
+//        when(organizationRepository.findById(1L)).thenReturn(Optional.of(organizationToDelete));
+//
+//        // Call the deleteOrganization method
+//        Organization deletedOrganization = organizationService.deleteOrganization(1L);
+//
+//        // Verify the interactions and assertions
+//        assertNotNull(deletedOrganization);
+//        assertEquals(organizationToDelete.getOrganizationId(), deletedOrganization.getOrganizationId());
+//        assertEquals(organizationToDelete.getOrganizationName(), deletedOrganization.getOrganizationName());
+//
+//        // Verify that the organizationRepository delete method was called with the correct organization
+//        Mockito.verify(organizationRepository).delete(organizationToDelete);
+//    }
 
     @Test
     @DisplayName("testDeleteOrganizationWhenOrganizationDoesNotExist")

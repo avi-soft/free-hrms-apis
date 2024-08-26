@@ -124,7 +124,6 @@ public class OrganizationControllerTest {
     @WithMockUser(authorities = "DELETE_ORGANIZATION")
     @DisplayName("testDeleteOrganization")
     public void testDeleteOrganization() throws Exception {
-        when(organizationService.deleteOrganization(organization.getOrganizationId())).thenReturn(organization);
 
         mockMvc.perform(delete("/api/v1/organization/{organizationId}", organization.getOrganizationId())
                         .contentType(MediaType.APPLICATION_JSON))

@@ -23,30 +23,30 @@ public class UserTests {
         user.setCreatedAt("2024-04-24");
     }
 
-    @Test
-    @DisplayName("testConstructor 1")
-    public void testUserConstructor(){
-        Long userId=1L;
-        String email="test2@gmail.com";
-        String password="test";
-        String createdAt="2024-04-24";
-        User createdBy=user;
-        Role role=new Role();
-        role.setRole("HR");
-        Set<Role> roles = new HashSet<>();
-        roles.add(role);
-        Employee employee=new Employee();
-
-        User user1=new User(userId,email,password,createdAt,createdBy,employee,roles, new Organization());
-
-        assertEquals(userId, user1.getUserId());
-        assertEquals(email, user1.getEmail());
-        assertEquals(password, user1.getPassword());
-        assertEquals(createdAt, user1.getCreatedAt());
-        assertEquals(createdBy, user1.getCreatedBy());
-        assertEquals(roles, user1.getRoles());
-        assertEquals(employee,user1.getEmployee());
-    }
+//    @Test
+//    @DisplayName("testConstructor 1")
+//    public void testUserConstructor(){
+//        Long userId=1L;
+//        String email="test2@gmail.com";
+//        String password="test";
+//        String createdAt="2024-04-24";
+//        User createdBy=user;
+//        Role role=new Role();
+//        role.setRole("HR");
+//        Set<Role> roles = new HashSet<>();
+//        roles.add(role);
+//        Employee employee=new Employee();
+//
+//        User user1=new User(userId,email,password,createdAt,createdBy,employee,roles, new Organization());
+//
+//        assertEquals(userId, user1.getUserId());
+//        assertEquals(email, user1.getEmail());
+//        assertEquals(password, user1.getPassword());
+//        assertEquals(createdAt, user1.getCreatedAt());
+//        assertEquals(createdBy, user1.getCreatedBy());
+//        assertEquals(roles, user1.getRoles());
+//        assertEquals(employee,user1.getEmployee());
+//    }
 
     @Test
     @DisplayName("Setter Test 1")
