@@ -2,7 +2,9 @@ package com.example.HRMSAvisoft.service;
 
 
 import com.example.HRMSAvisoft.entity.Designation;
+import com.example.HRMSAvisoft.entity.Employee;
 import com.example.HRMSAvisoft.repository.DesignationRepository;
+import com.example.HRMSAvisoft.repository.EmployeeRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -19,8 +21,11 @@ public class DesignationService {
 
     private final DesignationRepository designationRepository;
 
-    DesignationService(DesignationRepository designationRepository) {
+    private final EmployeeRepository employeeRepository;
+
+    DesignationService(DesignationRepository designationRepository, EmployeeRepository employeeRepository) {
         this.designationRepository = designationRepository;
+        this.employeeRepository = employeeRepository;
     }
 
     public Designation addDesignation(Designation designation)throws IllegalArgumentException{
@@ -57,6 +62,13 @@ public class DesignationService {
 
     public void deleteDesignation(Long designationId) throws EntityNotFoundException{
         Designation designationToDelete = designationRepository.findById(designationId).orElseThrow(()-> new EntityNotFoundException("Designation not found"));
+
+        List<Employee> employeeList = employeeRepository.findAll();
+
+        for(Employee employee : employeeList){
+            if(employee.getDesignations().contains(designationToDelete))
+                employee.getDesignations().remove(designationToDelete);
+        }
 
         designationRepository.delete(designationToDelete);
     }
