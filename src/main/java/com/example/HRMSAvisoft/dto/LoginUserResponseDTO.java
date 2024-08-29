@@ -37,7 +37,7 @@ public class LoginUserResponseDTO {
 //    private String uanNumber;
 //    private Position position;
 //    private String joinDate;
-//    private Gender gender;
+    private Gender gender;
     private String profileImage;
 //    private String dateOfBirth;
 //    private BigDecimal salary;

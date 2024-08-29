@@ -27,6 +27,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     List<Employee> findAllBySkillsContaining(Skill skill);
 
+    @Query("SELECT e FROM Employee e WHERE e.departments IS EMPTY")
+    List<Employee> findAllEmployeeWhereDepartmentsIsEmpty();
 
 
 }

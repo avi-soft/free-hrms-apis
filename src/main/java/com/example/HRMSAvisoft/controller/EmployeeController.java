@@ -81,15 +81,15 @@ public class EmployeeController {
 //            loginUserResponseDTO.setUanNumber(employee.getUanNumber());
 //            loginUserResponseDTO.setPanNumber(employee.getPanNumber());
 //            loginUserResponseDTO.setContact(employee.getContact());
-//            loginUserResponseDTO.setFirstName(employee.getFirstName());
-//            loginUserResponseDTO.setLastName(employee.getLastName());
+            loginUserResponseDTO.setFirstName(employee.getFirstName());
+            loginUserResponseDTO.setLastName(employee.getLastName());
 //            loginUserResponseDTO.setSalary(employee.getSalary());
 //            loginUserResponseDTO.setJoinDate(employee.getJoinDate());
 //            loginUserResponseDTO.setAdhaarNumber(employee.getAdhaarNumber());
 //            loginUserResponseDTO.setDateOfBirth(employee.getDateOfBirth());
 //            loginUserResponseDTO.setPosition(employee.getPosition());
             loginUserResponseDTO.setProfileImage(employee.getProfileImage());
-//            loginUserResponseDTO.setGender(employee.getGender());
+            loginUserResponseDTO.setGender(employee.getGender());
             User userEmployee = userRepository.findByEmployee(employee);
             loginUserResponseDTO.setUserId(userEmployee.getUserId());
 //            loginUserResponseDTO.setEmail(userEmployee.getEmail());
@@ -175,6 +175,16 @@ public class EmployeeController {
         Employee employee= employeeService.getEmployeeById(employeeId);
         Map<String, Object> responseData = new HashMap<>();
         return ResponseEntity.ok().body(Map.of("Employee", employee, "message", "Employee retrieved Successfully", "Status", true));
+    }
+
+    @GetMapping("/unassignedEmployeesOfBranch")
+    public ResponseEntity<Map<String, Object>> getAllUnassignedEmployeesOfBranch(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ){
+        Page<Employee> unassignedEmployeesList = employeeService.getUnassignedEmployeesOfDepartment(page, size);
+
+        return ResponseEntity.status(200).body(Map.of("success", true, "message", "Employees fetched successfully", "Employees", unassignedEmployeesList));
     }
 
     @PreAuthorize("hasAuthority('UPDATE_EMPLOYEE_COMPANY_DETAILS')")

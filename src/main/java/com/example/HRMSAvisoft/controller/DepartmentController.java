@@ -69,6 +69,26 @@ public class DepartmentController {
         return ResponseEntity.status(200).body(Map.of("success", true, "message", "Employees fetched successfully", "Employees", employeeListPage));
     }
 
+    @GetMapping("/unassignedDepartmentsOfBranch")
+    public ResponseEntity<Map<String, Object>> getAllUnassignedDepartmentsOfBranches(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ){
+        Page<Department> unassignedDepartmentsList = departmentService.getAllUnassignedDepartmentsOfBranch(page, size);
+
+        return ResponseEntity.status(200).body(Map.of("success", true, "message", "Departments fetched successfully", "Departments", unassignedDepartmentsList));
+    }
+
+    @GetMapping("/unassignedDepartmentsOfOrganization")
+    public ResponseEntity<Map<String, Object>> getAllUnassignedDepartmentsOfOrganization(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ){
+        Page<Department> unassignedDepartmentsList = departmentService.getAllUnassignedDepartmentsOfOrganization(page, size);
+
+        return ResponseEntity.status(200).body(Map.of("success", true, "message", "Departments fetched successfully", "Departments", unassignedDepartmentsList));
+    }
+
     @PostMapping("")
     @PreAuthorize("hasAuthority('ADD_DEPARTMENT')")
     public ResponseEntity<Map<String,Object>> addDepartment(@Valid @RequestBody CreateDepartmentDTO createDepartmentDTO) throws EmployeeNotFoundException, EntityNotFoundException, DepartmentAttributeService.DepartmentAlreadyExistsException, AttributeKeyDoesNotExistException {

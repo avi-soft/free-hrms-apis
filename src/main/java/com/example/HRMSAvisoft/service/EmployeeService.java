@@ -13,6 +13,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -173,6 +174,17 @@ public class EmployeeService {
         else {
             throw new EmployeeNotFoundException(employeeId);
         }
+    }
+
+    public Page<Employee> getUnassignedEmployeesOfDepartment(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+
+        List<Employee> unassignedEmployeesList = employeeRepository.findAllEmployeeWhereDepartmentsIsEmpty();
+
+        int start = (int)pageable.getOffset();
+        int end = Math.min((start+pageable.getPageSize()), unassignedEmployeesList.size());
+
+        return new PageImpl<>(unassignedEmployeesList.subList(start, end), pageable, unassignedEmployeesList.size());
     }
 
     public Employee updateEmployee(Long employeeId, UpdateEmployeeDetailsDTO updateEmployeeDetailsDTO) throws AccessDeniedException,AttributeKeyDoesNotExistException, EntityNotFoundException {

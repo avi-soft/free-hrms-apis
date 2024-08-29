@@ -41,7 +41,7 @@ public class Organization
     private Set<Department> departments = new HashSet<>();
 
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JsonIgnore
     @JoinTable(
             name = "organization_branch",

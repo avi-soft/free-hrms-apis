@@ -58,10 +58,12 @@ public class BranchService {
             }
         }
         newBranch.setBranchName(createBranchDTO.getBranchName());
-        Organization organizationForBranch = organizationRepository.findById(createBranchDTO.getOrganizationId()).orElse(null);
-        if(organizationForBranch != null) {
-            organizationForBranch.getBranches().add(newBranch);
-            newBranch.getOrganizations().add(organizationForBranch);
+        if(createBranchDTO.getOrganizationId() != null) {
+            Organization organizationForBranch = organizationRepository.findById(createBranchDTO.getOrganizationId()).orElse(null);
+            if (organizationForBranch != null) {
+                organizationForBranch.getBranches().add(newBranch);
+                newBranch.getOrganizations().add(organizationForBranch);
+            }
         }
 
         Map<BranchAttribute, String> branchAttributes = createBranchDTO.getAttributes().entrySet().stream()
@@ -95,6 +97,17 @@ public class BranchService {
         int end = Math.min((start + pageable.getPageSize()), departments.size());
 
         return new PageImpl<>(departments.subList(start, end), pageable, departments.size());
+    }
+
+    public Page<Branch> getAllUnassignedBranches(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+
+        List<Branch> unassignedBranchesList = branchRepository.findAllBranchesWhereOrganizationsIsEmpty();
+
+        int start = (int)pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), unassignedBranchesList.size());
+
+        return new PageImpl<>(unassignedBranchesList.subList(start, end), pageable, unassignedBranchesList.size());
     }
 
     public void updateBranch(CreateBranchDTO createBranchDTO, Long branchId)throws BranchAlreadyExistsException, EntityNotFoundException{

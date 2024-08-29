@@ -264,6 +264,28 @@ public class DepartmentService {
 
     }
 
+    public Page<Department> getAllUnassignedDepartmentsOfBranch(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+
+        List<Department> departments = departmentRepository.findAllDepartmentWhereBranchIsEmpty();
+
+        int start = (int)pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), departments.size());
+
+        return new PageImpl<>(departments.subList(start, end), pageable, departments.size());
+    }
+
+    public Page<Department> getAllUnassignedDepartmentsOfOrganization(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+
+        List<Department> departments = departmentRepository.findAllDepartmentWhereOrganizationIsEmpty();
+
+        int start = (int)pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), departments.size());
+
+        return new PageImpl<>(departments.subList(start, end), pageable, departments.size());
+    }
+
 
 
 

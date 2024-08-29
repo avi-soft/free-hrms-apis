@@ -57,6 +57,16 @@ public class BranchController {
         return ResponseEntity.status(200).body(Map.of("success", true, "message", "Departments fetched successfully", "departmensts", departmentListPage));
     }
 
+    @GetMapping("/unassignedBranches")
+    public ResponseEntity<Map<String, Object>> getAllUnassignedBranches(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+            ){
+        Page<Branch> unassignedBranches = branchService.getAllUnassignedBranches(page, size);
+        return ResponseEntity.status(200).body(Map.of("success", true, "message", "Branches fetched successfully", "Branches", unassignedBranches));
+    }
+
+
     @PatchMapping("/{branchId}")
     @PreAuthorize("hasAuthority('UPDATE_BRANCH')")
     public ResponseEntity<Map<String, Object>> updateBranch(@RequestBody CreateBranchDTO createBranchDTO, @PathVariable("branchId") Long branchId) throws BranchService.BranchAlreadyExistsException, EntityNotFoundException{
