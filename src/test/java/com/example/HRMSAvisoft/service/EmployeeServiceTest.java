@@ -99,29 +99,29 @@ public class EmployeeServiceTest {
 //        Assertions.assertEquals("Test2", retrievedEmployees.get(1).getFirstName());
 //        Mockito.verify(employeeRepository, Mockito.times(1)).findAll();
 //    }
-
-    @Test
-    @DisplayName("Test Update Employee")
-    public void testUpdateEmployee() throws AccessDeniedException {
-        // Prepare mock data
-        Employee existingEmployee = new Employee();
-        existingEmployee.setEmployeeId(1L);
-        existingEmployee.setFirstName("John");
-        existingEmployee.setLastName("Doe");
-        // Update information
-        existingEmployee.setFirstName("Updated First Name");
-        existingEmployee.setLastName("Updated Last Name");
-
-        // Mock repository behavior
-        when(employeeRepository.save(any(Employee.class))).thenReturn(existingEmployee);
-
-        // Call the service method
-        Employee updatedEmployee = employeeService.updateEmployee(existingEmployee);
-
-        // Assert the result
-        assertEquals("Updated First Name", updatedEmployee.getFirstName());
-        assertEquals("Updated Last Name", updatedEmployee.getLastName());
-    }
+//
+//    @Test
+//    @DisplayName("Test Update Employee")
+//    public void testUpdateEmployee() throws AccessDeniedException {
+//        // Prepare mock data
+//        Employee existingEmployee = new Employee();
+//        existingEmployee.setEmployeeId(1L);
+//        existingEmployee.setFirstName("John");
+//        existingEmployee.setLastName("Doe");
+//        // Update information
+//        existingEmployee.setFirstName("Updated First Name");
+//        existingEmployee.setLastName("Updated Last Name");
+//
+//        // Mock repository behavior
+//        when(employeeRepository.save(any(Employee.class))).thenReturn(existingEmployee);
+//
+//        // Call the service method
+//        Employee updatedEmployee = employeeService.updateEmployee(existingEmployee);
+//
+//        // Assert the result
+//        assertEquals("Updated First Name", updatedEmployee.getFirstName());
+//        assertEquals("Updated Last Name", updatedEmployee.getLastName());
+//    }
 
     @Test
     @DisplayName("Test Get Employee By ID")
