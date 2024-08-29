@@ -1,5 +1,4 @@
 package com.example.HRMSAvisoft.entity;
-import com.example.HRMSAvisoft.attribute.EmployeeAttribute;
 import com.example.HRMSAvisoft.attribute.OrganizationAttribute;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

@@ -24,6 +24,7 @@ public class CreateEmployeeDTO {
     private String lastName;
     private Long departmentId;
     private String employeeCode;
+    private Gender gender;
 //    private String contact;
 //    private Position position;
 //    private String joinDate;
@@ -40,6 +41,7 @@ public class CreateEmployeeDTO {
 
     @JsonSerialize(using = AttributesSerializer.class)
     private Map<String, String> attributes = new HashMap<>();
+
 }
 
 

@@ -2,15 +2,13 @@ package com.example.HRMSAvisoft.service;
 
 import com.example.HRMSAvisoft.attribute.DepartmentAttribute;
 import com.example.HRMSAvisoft.dto.CreateDepartmentDTO;
+import com.example.HRMSAvisoft.entity.Branch;
 import com.example.HRMSAvisoft.entity.Department;
 import com.example.HRMSAvisoft.entity.Employee;
 import com.example.HRMSAvisoft.entity.Organization;
 import com.example.HRMSAvisoft.exception.AttributeKeyDoesNotExistException;
 import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
-import com.example.HRMSAvisoft.repository.DepartmentAttributeRepository;
-import com.example.HRMSAvisoft.repository.DepartmentRepository;
-import com.example.HRMSAvisoft.repository.EmployeeRepository;
-import com.example.HRMSAvisoft.repository.OrganizationRepository;
+import com.example.HRMSAvisoft.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -37,11 +35,14 @@ public class DepartmentService {
 
     private final OrganizationRepository organizationRepository;
 
-    DepartmentService(DepartmentRepository departmentRepository, EmployeeRepository employeeRepository, DepartmentAttributeRepository departmentAttributeRepository, OrganizationRepository organizationRepository) {
+    private final BranchRepository branchRepository;
+
+    DepartmentService(DepartmentRepository departmentRepository, BranchRepository branchRepository, EmployeeRepository employeeRepository, DepartmentAttributeRepository departmentAttributeRepository, OrganizationRepository organizationRepository) {
         this.departmentRepository = departmentRepository;
         this.employeeRepository = employeeRepository;
         this.departmentAttributeRepository = departmentAttributeRepository;
         this.organizationRepository = organizationRepository;
+        this.branchRepository = branchRepository;
     }
 
     public Page<Department> getAllDepartments(int page, int size) {
@@ -139,11 +140,17 @@ public class DepartmentService {
     public void deleteDepartment(Long departmentId)throws DepartmentNotFoundException{
         Department departmentToDelete = departmentRepository.findById(departmentId).orElseThrow(()-> new DepartmentNotFoundException(departmentId));
 
-        List<Employee> employees = employeeRepository.findByDepartment(departmentToDelete);
-        for (Employee employee : employees) {
-            employee.setDepartment(null);
-            employeeRepository.save(employee);
+        for (Employee employee : departmentToDelete.getEmployees()) {
+            if(employee.getDepartments().contains(departmentToDelete)) {
+                employee.getDepartments().remove(departmentToDelete);
+            }
         }
+
+        for(Branch branch : departmentToDelete.getBranches()){
+            if(branch.getDepartments().contains(departmentToDelete))
+                branch.getDepartments().remove(departmentToDelete);
+        }
+
         for(Organization organization : departmentToDelete.getOrganizations()) {
             if(organization.getDepartments().contains(departmentToDelete))
                 organization.getDepartments().remove(departmentToDelete);
@@ -152,7 +159,7 @@ public class DepartmentService {
         departmentRepository.delete(departmentToDelete);
     }
 
-    public void assignDepartmentToOrganization(Long organizationId, Long departmentId){
+    public void assignDepartmentToOrganization(Long organizationId, Long departmentId)throws EntityNotFoundException, DepartmentNotFoundException{
         Department departmentToAssign = departmentRepository.findById(departmentId).orElseThrow(()-> new DepartmentNotFoundException(departmentId));
 
         Organization organizationToAddInto = organizationRepository.findById(organizationId).orElseThrow(()-> new EntityNotFoundException("Organization not found"));
@@ -167,7 +174,7 @@ public class DepartmentService {
         departmentRepository.save(departmentToAssign);
     }
 
-    public void removeDepartmentFromOrganization(Long organizationId, Long departmentId){
+    public void removeDepartmentFromOrganization(Long organizationId, Long departmentId)throws EntityNotFoundException, DepartmentNotFoundException{
         Department departmentToRemove = departmentRepository.findById(departmentId).orElseThrow(()-> new DepartmentNotFoundException(departmentId));
 
         Organization organizationToRemoveFrom = organizationRepository.findById(organizationId).orElseThrow(()-> new EntityNotFoundException("Organization not found"));
@@ -183,6 +190,81 @@ public class DepartmentService {
         departmentRepository.save(departmentToRemove);
 
     }
+
+    public void assignDepartmentToBranch(Long branchId, Long departmentId)throws EntityNotFoundException, DepartmentNotFoundException{
+        Department departmentToAssign = departmentRepository.findById(departmentId).orElseThrow(()-> new DepartmentNotFoundException(departmentId));
+
+        Branch branchToaddInto = branchRepository.findById(branchId).orElseThrow(()->new EntityNotFoundException("Branch not found"));
+
+        if(!branchToaddInto.getDepartments().contains(departmentToAssign)){
+            branchToaddInto.getDepartments().add(departmentToAssign);
+
+        }
+        if(!departmentToAssign.getBranches().contains(branchToaddInto)) {
+            departmentToAssign.getBranches().add(branchToaddInto);
+        }
+        departmentRepository.save(departmentToAssign);
+    }
+
+    public void removeDepartmentFromBranch(Long branchId, Long departmentId)throws EntityNotFoundException, DepartmentNotFoundException{
+        Department departmentToRemove = departmentRepository.findById(departmentId).orElseThrow(()-> new DepartmentNotFoundException(departmentId));
+
+        Branch branchToRemoveFrom = branchRepository.findById(branchId).orElseThrow(()-> new EntityNotFoundException("Branch not found"));
+
+        if(branchToRemoveFrom.getDepartments().contains(departmentToRemove)){
+            branchToRemoveFrom.getDepartments().remove(departmentToRemove);
+
+        }
+        if(departmentToRemove.getBranches().contains(branchToRemoveFrom)) {
+            departmentToRemove.getBranches().remove(branchToRemoveFrom);
+        }
+
+        departmentRepository.save(departmentToRemove);
+    }
+
+    public void assignEmployeeToDepartment(Long employeeId, Long departmentId)throws EntityNotFoundException{
+        Employee employeeToAssign = employeeRepository.findById(employeeId).orElseThrow(()-> new EntityNotFoundException("Employee not found."));
+
+        Department departmentToAssignInto = departmentRepository.findById(departmentId).orElseThrow(()-> new EntityNotFoundException("Department not found."));
+
+        if(!employeeToAssign.getDepartments().contains(departmentToAssignInto)){
+            employeeToAssign.getDepartments().add(departmentToAssignInto);
+        }
+
+        if(!departmentToAssignInto.getEmployees().contains(employeeToAssign))
+            departmentToAssignInto.getEmployees().add(employeeToAssign);
+
+        departmentRepository.save(departmentToAssignInto);
+    }
+
+    public void removeEmployeeFromDepartment(Long employeeId, Long departmentId)throws EntityNotFoundException{
+        Employee employeeToRemove = employeeRepository.findById(employeeId).orElseThrow(()-> new EntityNotFoundException("Employee not found"));
+
+        Department departmentToRemoveFrom = departmentRepository.findById(departmentId).orElseThrow(()->new EntityNotFoundException("Department not found"));
+
+        if(employeeToRemove.getDepartments().contains(departmentToRemoveFrom))
+            employeeToRemove.getDepartments().remove(departmentToRemoveFrom);
+        if(departmentToRemoveFrom.getEmployees().contains(employeeToRemove))
+            departmentToRemoveFrom.getEmployees().remove(employeeToRemove);
+
+        departmentRepository.save(departmentToRemoveFrom);
+    }
+
+    public Page<Employee> getEmployeesOfDepartment(int page, int size, Long departmentId){
+        Department department = departmentRepository.findById(departmentId).orElseThrow(()-> new EntityNotFoundException("Department not found"));
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        List<Employee> employeesList = department.getEmployees().stream().toList();
+
+        int start = (int)pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), employeesList.size());
+
+        return new PageImpl<>(employeesList.subList(start, end), pageable, employeesList.size());
+
+    }
+
+
 
 
 

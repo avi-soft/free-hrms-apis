@@ -35,7 +35,7 @@ public class OrganizationController {
         this.organizationService = organizationService;
     }
 
-//    @PreAuthorize("hasAuthority('UPLOAD_ORGANIZATION_IMAGE')")
+    @PreAuthorize("hasAuthority('UPLOAD_ORGANIZATION_IMAGE')")
     @PostMapping("/{organizationId}/uploadImage")
     public ResponseEntity<String> uploadOrganizationImage(@PathVariable("organizationId") Long organizationId, @RequestParam("file") MultipartFile file) throws EmployeeNotFoundException, IOException, NullPointerException, RuntimeException , AccessDeniedException {
         organizationService.uploadOrganizationImage(organizationId, file);
@@ -45,6 +45,7 @@ public class OrganizationController {
 
 
     @GetMapping("/{organizationId}")
+    @PreAuthorize("hasAuthority('GET_DEPARTMENTS_OF_ORGANIZATION')")
     public ResponseEntity<Page<DepartmentsResponseDTO>> getDepartmentsOfOrganization(
             @PathVariable("organizationId") Long organizationId,
             @RequestParam(defaultValue = "0") int page,
@@ -71,6 +72,7 @@ public class OrganizationController {
 
 
     @GetMapping("/branches/{organizationId}")
+    @PreAuthorize("hasAuthority('GET_BRANCHES_OF_ORGANIZATION')")
     public ResponseEntity<Map<String, Object>> getBranchesOfOrganization(@PathVariable("organizationId") Long organizationId)throws EntityNotFoundException{
         List<Branch> branchList = organizationService.getBranchesOfOrganization(organizationId);
 

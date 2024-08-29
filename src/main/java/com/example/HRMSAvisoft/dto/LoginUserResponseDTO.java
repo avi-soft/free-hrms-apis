@@ -27,9 +27,6 @@ public class LoginUserResponseDTO {
 //    private String email;
     private String createdAt;
     private Set<Role> roles;
-    private String department;
-    private Long departmentId;
-    private String departmentDescription;
     private Long managerId;
     private String firstName;
     private String lastName;
@@ -48,4 +45,6 @@ public class LoginUserResponseDTO {
 
     @JsonSerialize(using = AttributesSerializer.class)
     private Map<EmployeeAttribute, String> attributes = new HashMap<>();
+
+    Set<Department> departments;
 }

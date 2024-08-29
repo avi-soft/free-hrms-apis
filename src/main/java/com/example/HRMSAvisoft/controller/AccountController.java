@@ -18,7 +18,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/account")
 public class AccountController {
-    private AccountService accountService;
+    private final AccountService accountService;
     public AccountController(AccountService accountService){
         this.accountService=accountService;
     }

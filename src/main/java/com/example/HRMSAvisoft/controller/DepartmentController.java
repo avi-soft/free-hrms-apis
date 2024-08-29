@@ -4,6 +4,7 @@ import com.example.HRMSAvisoft.dto.CreateDepartmentDTO;
 import com.example.HRMSAvisoft.dto.DepartmentsResponseDTO;
 import com.example.HRMSAvisoft.dto.ErrorResponseDTO;
 import com.example.HRMSAvisoft.entity.Department;
+import com.example.HRMSAvisoft.entity.Employee;
 import com.example.HRMSAvisoft.exception.AttributeKeyDoesNotExistException;
 import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
 import com.example.HRMSAvisoft.service.DepartmentAttributeService;
@@ -55,6 +56,19 @@ public class DepartmentController {
         return ResponseEntity.ok(departmentsResponseDTOSPage);
     }
 
+    @GetMapping("/{departmentId}")
+    @PreAuthorize("hasAuthority('GET_EMPLOYEES_OF_DEPARTMENT')")
+    public ResponseEntity getEmployeesOfDepartment(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @PathVariable("departmentId") Long departmentId
+    ){
+
+        Page<Employee> employeeListPage = departmentService.getEmployeesOfDepartment(page, size, departmentId);
+
+        return ResponseEntity.status(200).body(Map.of("success", true, "message", "Employees fetched successfully", "Employees", employeeListPage));
+    }
+
     @PostMapping("")
     @PreAuthorize("hasAuthority('ADD_DEPARTMENT')")
     public ResponseEntity<Map<String,Object>> addDepartment(@Valid @RequestBody CreateDepartmentDTO createDepartmentDTO) throws EmployeeNotFoundException, EntityNotFoundException, DepartmentAttributeService.DepartmentAlreadyExistsException, AttributeKeyDoesNotExistException {
@@ -78,26 +92,55 @@ public class DepartmentController {
         return ResponseEntity.status(200).body(Map.of("success", true, "message", "Department updated successfully"));
     }
 
-    @DeleteMapping("/{departmentId}")
-    @PreAuthorize("hasAuthority('DELETE_DEPARTMENT')")
-    public ResponseEntity<Map<String, Object>> deleteDepartment(@PathVariable("departmentId") Long departmentId)throws DepartmentService.DepartmentNotFoundException {
-        departmentService.deleteDepartment(departmentId);
-        return ResponseEntity.status(200).body(Map.of("success", true, "message", "Department deleted successfully"));
-    }
-
     @PatchMapping("/{organizationId}/assignDepartment/{departmentId}")
-    public ResponseEntity<Map<String, Object>> assignDepartmentToOrganization(@PathVariable("organizationId") Long organizationId, @PathVariable("departmentId") Long departmentId){
+    @PreAuthorize("hasAuthority('ASSIGN_DEPARTMENT_TO_ORGANIZATION')")
+    public ResponseEntity<Map<String, Object>> assignDepartmentToOrganization(@PathVariable("organizationId") Long organizationId, @PathVariable("departmentId") Long departmentId)throws EntityNotFoundException, DepartmentService.DepartmentNotFoundException {
         departmentService.assignDepartmentToOrganization(organizationId, departmentId);
 
         return ResponseEntity.status(200).body(Map.of("success", true, "message", "Department assigned successfully"));
     }
 
     @PatchMapping("/{organizationId}/removeDepartment/{departmentId}")
-    public ResponseEntity<Map<String, Object>> removeDepartmentFromOrganization(@PathVariable("organizationId") Long organizationId,@PathVariable("departmentId") Long departmentId){
+    @PreAuthorize("hasAuthority('REMOVE_DEPARTMENT_FROM_ORGANIZATION')")
+    public ResponseEntity<Map<String, Object>> removeDepartmentFromOrganization(@PathVariable("organizationId") Long organizationId,@PathVariable("departmentId") Long departmentId)throws EntityNotFoundException, DepartmentService.DepartmentNotFoundException {
         departmentService.removeDepartmentFromOrganization(organizationId, departmentId);
         return ResponseEntity.status(200).body(Map.of("message", "Department removed successfully", "success", true));
     }
 
+    @PatchMapping("/{branchId}/assignDepartmentToBranch/{departmentId}")
+    @PreAuthorize("hasAuthority('ASSIGN_DEPARTMENT_TO_BRANCH')")
+    public ResponseEntity<Map<String, Object>> assignDepartmentToBranch(@PathVariable("branchId") Long branchId, @PathVariable("departmentId") Long departmentId)throws EntityNotFoundException, DepartmentService.DepartmentNotFoundException {
+        departmentService.assignDepartmentToBranch(branchId, departmentId);
+        return ResponseEntity.status(200).body(Map.of("message", "Department assigned successfully", "success", true));
+    }
+
+    @PatchMapping("/{branchId}/removeDepartmentFromBranch/{departmentId}")
+    @PreAuthorize("hasAuthority('REMOVE_DEPARTMENT_FROM_BRANCH')")
+    public ResponseEntity<Map<String, Object>> removeDepartmentFromBranch(@PathVariable("branchId") Long branchId, @PathVariable("departmentId") Long departmentId){
+        departmentService.removeDepartmentFromBranch(branchId, departmentId);
+        return ResponseEntity.status(200).body(Map.of("message", "Department removed successfully", "success", true));
+    }
+
+    @PatchMapping("/{employeeId}/assignEmployeeToDepartment/{departmentId}")
+    @PreAuthorize("hasAuthority('ASSIGN_DEPARTMENT_TO_EMPLOYEE')")
+    public ResponseEntity<Map<String, Object>> assignEmployeeToDepartment(@PathVariable("employeeId") Long employeeId, @PathVariable("departmentId") Long departmentId)throws EntityNotFoundException{
+        departmentService.assignEmployeeToDepartment(employeeId, departmentId);
+        return ResponseEntity.status(200).body(Map.of("message", "Department assigned successfully", "success", true));
+    }
+
+    @PatchMapping("/{employeeId}/removeEmployeeFromDepartment/{departmentId}")
+    @PreAuthorize("hasAuthority('REMOVE_DEPARTMENT_FROM_EMPLOYEE')")
+    public ResponseEntity<Map<String, Object>> removeEmployeeFromDepartment(@PathVariable("employeeId") Long employeeId, @PathVariable("departmentId") Long departmentId)throws EntityNotFoundException{
+        departmentService.removeEmployeeFromDepartment(employeeId, departmentId);
+        return ResponseEntity.status(200).body(Map.of("success", true, "message", "Department removed successfully"));
+    }
+
+    @DeleteMapping("/{departmentId}")
+    @PreAuthorize("hasAuthority('DELETE_DEPARTMENT')")
+    public ResponseEntity<Map<String, Object>> deleteDepartment(@PathVariable("departmentId") Long departmentId)throws DepartmentService.DepartmentNotFoundException {
+        departmentService.deleteDepartment(departmentId);
+        return ResponseEntity.status(200).body(Map.of("success", true, "message", "Department deleted successfully"));
+    }
 
     @ExceptionHandler({
             EmployeeNotFoundException.class,

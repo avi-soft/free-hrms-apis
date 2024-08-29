@@ -13,6 +13,7 @@ import utils.AttributesSerializer;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -24,6 +25,9 @@ public class UpdateEmployeeDetailsDTO {
     private Long employeeId;
     private String firstName;
     private String lastName;
+    private Gender gender;
+    private List<String> designationList;
+    private List<String> skillList;
 //    private String contact;
 //    private Position position;
 //    private String adhaarNumber;

@@ -59,7 +59,7 @@ public class SkillService {
     public void deleteSkill(Long skillId)throws EntityNotFoundException{
         Skill skillToDelete = skillRepository.findById(skillId).orElseThrow(()-> new EntityNotFoundException("Skill not found."));
 
-        List<Employee> employeeList = employeeRepository.findAll();
+        List<Employee> employeeList = employeeRepository.findAllBySkillsContaining(skillToDelete);
 
         for(Employee employee : employeeList){
             if(employee.getSkills().contains(skillToDelete))

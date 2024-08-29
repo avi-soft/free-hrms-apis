@@ -117,12 +117,7 @@ public class UserController {
             userResponse.setFirstName(employee.getFirstName());
             userResponse.setLastName(employee.getLastName());
 //            userResponse.setContact(employee.getContact());
-            if(employee.getDepartment() != null) {
-                userResponse.setDepartment(employee.getDepartment().getDepartment());
-                userResponse.setDepartmentId(employee.getDepartment().getDepartmentId());
-                userResponse.setDepartmentDescription(employee.getDepartment().getDescription());
-                userResponse.setManagerId(employee.getDepartment().getManager().getEmployeeId());
-            }
+            userResponse.setDepartments(employee.getDepartments());
             userResponse.setEmployeeCode(employee.getEmployeeCode());
 //            userResponse.setAdhaarNumber(employee.getAdhaarNumber());
 //            userResponse.setPanNumber(employee.getPanNumber());

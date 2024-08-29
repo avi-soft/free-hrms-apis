@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.engine.internal.Cascade;
 import utils.AttributesSerializer;
 //import utils.;
 
@@ -62,9 +63,6 @@ public class Employee {
     //
     //    private BigDecimal salary;
 
-    @ManyToOne
-    private Department department;
-
     @OneToMany(mappedBy = "reviewer",cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Performance> reviewedPerformances = new ArrayList<Performance>();
@@ -92,7 +90,6 @@ public class Employee {
     @JoinColumn(name = "branch_id")
     private Branch branch;
 
-
     @ElementCollection
     @CollectionTable(
             name = "employee_attributes",
@@ -103,7 +100,7 @@ public class Employee {
     @JsonSerialize(using = AttributesSerializer.class)
     private Map<EmployeeAttribute, String> attributes = new HashMap<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinTable(
             name = "employee_designation",
             joinColumns = @JoinColumn(name = "employee_id"),
@@ -111,12 +108,15 @@ public class Employee {
     )
     private List<Designation> designations = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinTable(
             name = "employee_skill",
             joinColumns = @JoinColumn(name = "employee_id"),
             inverseJoinColumns = @JoinColumn(name = "skill_id")
     )
     private List<Skill> skills = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "employees", fetch = FetchType.EAGER)
+    private Set<Department> departments = new HashSet<>();
 
 }

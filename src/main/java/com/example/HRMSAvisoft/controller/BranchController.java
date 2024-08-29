@@ -2,12 +2,14 @@ package com.example.HRMSAvisoft.controller;
 
 import com.example.HRMSAvisoft.dto.*;
 import com.example.HRMSAvisoft.entity.Branch;
+import com.example.HRMSAvisoft.entity.Department;
 import com.example.HRMSAvisoft.exception.AttributeKeyDoesNotExistException;
 import com.example.HRMSAvisoft.service.BranchService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +27,7 @@ public class BranchController {
     }
 
     @PostMapping("")
-//    @PreAuthorize("hasAuthority('ADD_BRANCH')")
+    @PreAuthorize("hasAuthority('ADD_BRANCH')")
     public ResponseEntity<Map<String,Object>> addBranch(@RequestBody CreateBranchDTO createBranchDTO) throws AttributeKeyDoesNotExistException, BranchService.BranchAlreadyExistsException {
         Branch createdBranch = branchService.addBranch(createBranchDTO);
 
@@ -33,7 +35,7 @@ public class BranchController {
     }
 
     @GetMapping("")
-//    @PreAuthorize("hasAuthority('GET_ALL_BRANCH")
+    @PreAuthorize("hasAuthority('GET_ALL_BRANCH')")
     public ResponseEntity<Map<String, Object>> getAllBranches(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
@@ -43,8 +45,20 @@ public class BranchController {
         return ResponseEntity.status(200).body(Map.of("success", true, "message", "Branches fetched successfully", "Branches", branchListPage));
     }
 
+    @GetMapping("/{branchId}")
+    @PreAuthorize("hasAuthority('GET_DEPARTMENTS_OF_BRANCH')")
+    public ResponseEntity<Map<String, Object>> getDepartmentsOfBranch(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @PathVariable("branchId") Long branchId
+    ){
+        Page<Department> departmentListPage = branchService.getAllDepartmentsOfBranch(page, size, branchId);
+
+        return ResponseEntity.status(200).body(Map.of("success", true, "message", "Departments fetched successfully", "departmensts", departmentListPage));
+    }
+
     @PatchMapping("/{branchId}")
-//    @PreAuthorize("hasAuthority('UPDATE_BRANCH')")
+    @PreAuthorize("hasAuthority('UPDATE_BRANCH')")
     public ResponseEntity<Map<String, Object>> updateBranch(@RequestBody CreateBranchDTO createBranchDTO, @PathVariable("branchId") Long branchId) throws BranchService.BranchAlreadyExistsException, EntityNotFoundException{
         branchService.updateBranch(createBranchDTO, branchId);
 
@@ -52,7 +66,7 @@ public class BranchController {
     }
 
     @DeleteMapping("/{branchId}")
-//    @PreAuthorize("hasAuthority('DELETE_BRANCH')")
+    @PreAuthorize("hasAuthority('DELETE_BRANCH')")
     public ResponseEntity<Map<String, Object>> deleteBranch(@PathVariable("branchId") Long branchId)throws EntityNotFoundException{
         branchService.deleteBranch(branchId);
 
@@ -60,7 +74,7 @@ public class BranchController {
     }
 
     @PatchMapping("/{organizationId}/assignBranch/{branchId}")
-//    @PreAuthorize("hasAuthority('ASSIGN_BRANCH')")
+    @PreAuthorize("hasAuthority('ASSIGN_BRANCH')")
     public ResponseEntity<Map<String, Object>> assignBranchToOrganization(@PathVariable("organizationId") Long organizationId, @PathVariable("branchId") Long branchId)throws EntityNotFoundException{
         branchService.assignBranchToOrganization(organizationId, branchId);
 
@@ -68,7 +82,7 @@ public class BranchController {
     }
 
     @PatchMapping("/{organizationId}/removeBranch/{branchId}")
-//    @PreAuthorize("hasAuthority('REMOVE_BRANCH')")
+    @PreAuthorize("hasAuthority('REMOVE_BRANCH')")
     public ResponseEntity<Map<String, Object>> removeBranchFromOrganization(@PathVariable("organizationId") Long organizationId, @PathVariable("branchId") Long branchId)throws EntityNotFoundException{
         branchService.removeBranchFromOrganization(organizationId, branchId);
 

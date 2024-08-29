@@ -5,6 +5,7 @@ import com.example.HRMSAvisoft.attribute.DepartmentAttribute;
 import com.example.HRMSAvisoft.dto.CreateBranchDTO;
 import com.example.HRMSAvisoft.entity.Branch;
 import com.example.HRMSAvisoft.entity.Department;
+import com.example.HRMSAvisoft.entity.Employee;
 import com.example.HRMSAvisoft.entity.Organization;
 import com.example.HRMSAvisoft.exception.AttributeKeyDoesNotExistException;
 import com.example.HRMSAvisoft.repository.BranchAttributeRepository;
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -83,6 +85,18 @@ public class BranchService {
         return new PageImpl<>(branches.subList(start, end), pageable, branches.size());
     }
 
+    public Page<Department> getAllDepartmentsOfBranch(int page, int size, Long branchId){
+        Pageable pageable = PageRequest.of(page, size);
+
+        Branch branch = branchRepository.findById(branchId).orElseThrow(()-> new EntityNotFoundException("Branch not found."));
+        List<Department> departments = branch.getDepartments().stream().toList();
+
+        int start = (int)pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), departments.size());
+
+        return new PageImpl<>(departments.subList(start, end), pageable, departments.size());
+    }
+
     public void updateBranch(CreateBranchDTO createBranchDTO, Long branchId)throws BranchAlreadyExistsException, EntityNotFoundException{
         createBranchDTO.getAttributes().forEach((k,v)->{
             BranchAttribute branchAttribute = branchAttributesRepository.findByAttributeKey(k).orElse(null);
@@ -125,6 +139,16 @@ public class BranchService {
             if(organization.getBranches().contains(branchFoundById)){
                 organization.getBranches().remove(branchFoundById);
             }
+        }
+
+        for(Department department : branchFoundById.getDepartments()){
+            if(department.getBranches().contains(branchFoundById)){
+                department.getBranches().remove(branchFoundById);
+            }
+        }
+
+        for(Employee employee : branchFoundById.getEmployees()){
+            employee.setBranch(null);
         }
         branchRepository.delete(branchFoundById);
     }

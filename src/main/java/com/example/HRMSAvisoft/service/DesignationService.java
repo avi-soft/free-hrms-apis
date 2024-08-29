@@ -63,7 +63,7 @@ public class DesignationService {
     public void deleteDesignation(Long designationId) throws EntityNotFoundException{
         Designation designationToDelete = designationRepository.findById(designationId).orElseThrow(()-> new EntityNotFoundException("Designation not found"));
 
-        List<Employee> employeeList = employeeRepository.findAll();
+        List<Employee> employeeList = employeeRepository.findAllByDesignationsContaining(designationToDelete);
 
         for(Employee employee : employeeList){
             if(employee.getDesignations().contains(designationToDelete))
