@@ -170,16 +170,16 @@ public class EmployeeService {
         if ("createdAt".equalsIgnoreCase(sortBy)) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-            // Sorting by parsing the string dates to LocalDateTime
+            // Sorting by parsing the string dates to LocalDateTime and handling nulls
             employeesList.sort((e1, e2) -> {
-                LocalDateTime date1 = LocalDateTime.parse(e1.getCreatedAt(), formatter);
-                LocalDateTime date2 = LocalDateTime.parse(e2.getCreatedAt(), formatter);
-                return date2.compareTo(date1); // Descending order
+                LocalDateTime date1 = e1.getCreatedAt() != null ? LocalDateTime.parse(e1.getCreatedAt(), formatter) : null;
+                LocalDateTime date2 = e2.getCreatedAt() != null ? LocalDateTime.parse(e2.getCreatedAt(), formatter) : null;
+                return Comparator.nullsLast(LocalDateTime::compareTo).compare(date1, date2); // Nulls last, descending order
             });
         } else if ("name".equalsIgnoreCase(sortBy)) {
-            // Sorting by firstName and lastName alphabetically
-            employeesList.sort(Comparator.comparing(Employee::getFirstName)
-                    .thenComparing(Employee::getLastName));
+            // Sorting by firstName and lastName alphabetically and handling nulls
+            employeesList.sort(Comparator.comparing(Employee::getFirstName, Comparator.nullsLast(String::compareTo))
+                    .thenComparing(Employee::getLastName, Comparator.nullsLast(String::compareTo)));
         }
 
         Pageable pageable = PageRequest.of(page, size);
