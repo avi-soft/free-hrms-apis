@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -172,8 +173,18 @@ public class EmployeeService {
 
             // Sorting by parsing the string dates to LocalDateTime and handling nulls
             employeesList.sort((e1, e2) -> {
-                LocalDateTime date1 = e1.getCreatedAt() != null ? LocalDateTime.parse(e1.getCreatedAt(), formatter) : null;
-                LocalDateTime date2 = e2.getCreatedAt() != null ? LocalDateTime.parse(e2.getCreatedAt(), formatter) : null;
+                LocalDateTime date1 = null;
+                LocalDateTime date2 = null;
+                try {
+                    if (e1.getCreatedAt() != null && !e1.getCreatedAt().trim().isEmpty()) {
+                        date1 = LocalDateTime.parse(e1.getCreatedAt(), formatter);
+                    }
+                    if (e2.getCreatedAt() != null && !e2.getCreatedAt().trim().isEmpty()) {
+                        date2 = LocalDateTime.parse(e2.getCreatedAt(), formatter);
+                    }
+                } catch (DateTimeParseException e) {
+                    System.err.println("Error parsing date: " + e.getMessage());
+                }
                 return Comparator.nullsLast(LocalDateTime::compareTo).compare(date1, date2); // Nulls last, descending order
             });
         } else if ("name".equalsIgnoreCase(sortBy)) {
