@@ -148,25 +148,16 @@ public class EmployeeController {
         return ResponseEntity.ok(Map.of("success", true, "message", "Employee created Successfully", "Employee", newEmployee));
     }
 
-  @PreAuthorize("hasAuthority('GET_ALL_EMPLOYEES')")
-  @GetMapping("/getAllEmployees")
+    @PreAuthorize("hasAuthority('GET_ALL_EMPLOYEES')")
+    @GetMapping("/getAllEmployees")
     public ResponseEntity<Map<String, Object>> getAllEmployees(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "employeeId") String sortBy) throws AccessDeniedException {
 
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
-        Page<Employee> pageOfEmployees = employeeService.getAllEmployees(pageable);
+        Page<Employee> employeesPage = employeeService.getAllEmployees(page, size, sortBy);
 
-        Map<String, Object> responseData = new HashMap<>();
-        responseData.put("Employees", pageOfEmployees.getContent());
-        responseData.put("currentPage", pageOfEmployees.getNumber());
-        responseData.put("totalItems", pageOfEmployees.getTotalElements());
-        responseData.put("totalPages", pageOfEmployees.getTotalPages());
-        responseData.put("message", "Employees Retrieved Successfully");
-        responseData.put("Success", true);
-
-        return ResponseEntity.ok().body(responseData);
+        return ResponseEntity.status(200).body(Map.of("success", true, "message", "Employees fetched successfully", "Employees", employeesPage));
     }
 
     @PreAuthorize("hasAuthority('FIND_EMPLOYEE_BY_ID')")

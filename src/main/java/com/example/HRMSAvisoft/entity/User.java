@@ -1,5 +1,6 @@
 package com.example.HRMSAvisoft.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -38,6 +39,7 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "employeeId")
+    @JsonIgnore
     private Employee employee;
 
     @ManyToMany(fetch = FetchType.EAGER)

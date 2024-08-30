@@ -58,6 +58,9 @@ public class Employee {
     //    private String uanNumber;
     //
         private String profileImage;
+
+        @Column(nullable = false)
+        private String createdAt;
     //
     //    private String dateOfBirth;
     //

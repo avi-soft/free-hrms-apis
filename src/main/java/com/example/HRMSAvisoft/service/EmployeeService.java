@@ -12,15 +12,14 @@ import com.example.HRMSAvisoft.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -115,6 +114,10 @@ public class EmployeeService {
             }
         }
 
+        LocalDateTime createdAt = LocalDateTime.now();
+        DateTimeFormatter createdAtFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        employeeToAddInfo.setCreatedAt(createdAt.format(createdAtFormatter));
+
 //        employeeToAddInfo.setFirstName(createEmployeeDTO.getFirstName());
 //        employeeToAddInfo.setLastName(createEmployeeDTO.getLastName());
 //        employeeToAddInfo.setContact(createEmployeeDTO.getContact());
@@ -158,19 +161,37 @@ public class EmployeeService {
         return employeeRepository.save(employeeToAddInfo);
     }
 
-    public Page<Employee> getAllEmployees(Pageable pageable)throws DataAccessException,AccessDeniedException
-    {
-       Page<Employee> pageOfEmployees= employeeRepository.findAll(pageable);
-        if (pageOfEmployees.isEmpty() && pageable.getPageNumber() > 0) {
-            pageable = PageRequest.of(pageOfEmployees.getTotalPages() - 1, pageable.getPageSize(), pageable.getSort());
-            pageOfEmployees = employeeRepository.findAll(pageable);
+
+    public Page<Employee> getAllEmployees(int page, int size, String sortBy) throws DataAccessException {
+        Pageable pageable;
+
+        // Handle sorting based on the sortBy parameter
+        if ("createdAt".equalsIgnoreCase(sortBy)) {
+            // Sort by createdAt field in descending order (newest first)
+            pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+        } else if ("name".equalsIgnoreCase(sortBy)) {
+            // Sort by firstName and lastName in ascending order (alphabetically)
+            pageable = PageRequest.of(page, size, Sort.by("firstName").and(Sort.by("lastName")));
+        } else {
+            // Default sorting by employeeId if no valid sortBy parameter is provided
+            pageable = PageRequest.of(page, size, Sort.by(sortBy));
         }
-        return pageOfEmployees;
+
+        // Fetch the list of employees
+        List<Employee> employeesList = employeeRepository.findAll();
+
+        // Paginate and return the sorted list
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), employeesList.size());
+
+        return new PageImpl<>(employeesList.subList(start, end), pageable, employeesList.size());
     }
+
     public Employee getEmployeeById(Long employeeId)throws EmployeeNotFoundException, NullPointerException,AccessDeniedException
     {
         Employee employee= employeeRepository.getByEmployeeId(employeeId);
-        if(employee!=null)return employee;
+        if(employee!=null)
+            return employee;
         else {
             throw new EmployeeNotFoundException(employeeId);
         }
