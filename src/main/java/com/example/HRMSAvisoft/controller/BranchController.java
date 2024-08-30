@@ -3,6 +3,7 @@ package com.example.HRMSAvisoft.controller;
 import com.example.HRMSAvisoft.dto.*;
 import com.example.HRMSAvisoft.entity.Branch;
 import com.example.HRMSAvisoft.entity.Department;
+import com.example.HRMSAvisoft.entity.Employee;
 import com.example.HRMSAvisoft.exception.AttributeKeyDoesNotExistException;
 import com.example.HRMSAvisoft.service.BranchService;
 import jakarta.persistence.EntityNotFoundException;
@@ -13,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -43,6 +45,16 @@ public class BranchController {
         Page<Branch> branchListPage = branchService.getAllBranches(page, size);
 
         return ResponseEntity.status(200).body(Map.of("success", true, "message", "Branches fetched successfully", "Branches", branchListPage));
+    }
+
+    @GetMapping("/employeesInBranch/{branchId}")
+    public ResponseEntity<Map<String, Object>> getEmployeesInBranch(
+            @PathVariable Long branchId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size){
+        Page<Employee> employeesOfBranch = branchService.getEmployeesInBranch(branchId, page, size);
+
+        return ResponseEntity.status(200).body(Map.of("success", true, "message", "Employees fetched successfully", "Employees", employeesOfBranch));
     }
 
     @GetMapping("/{branchId}")

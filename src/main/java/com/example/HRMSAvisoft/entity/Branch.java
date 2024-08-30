@@ -1,7 +1,6 @@
 package com.example.HRMSAvisoft.entity;
 
 import com.example.HRMSAvisoft.attribute.BranchAttribute;
-import com.example.HRMSAvisoft.attribute.DepartmentAttribute;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
@@ -26,10 +25,6 @@ public class Branch {
 
     @Column(nullable = false)
     private String branchName;
-
-    @OneToMany(mappedBy = "branch", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private Set<Employee> employees = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore

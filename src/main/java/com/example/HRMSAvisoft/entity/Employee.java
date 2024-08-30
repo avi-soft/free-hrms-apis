@@ -89,9 +89,7 @@ public class Employee {
     @JsonIgnore
     private List<LeaveBalance> leaveBalances = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "branch_id")
-    private Branch branch;
+
 
     @ElementCollection
     @CollectionTable(

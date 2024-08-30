@@ -10,6 +10,7 @@ import com.example.HRMSAvisoft.entity.Organization;
 import com.example.HRMSAvisoft.exception.AttributeKeyDoesNotExistException;
 import com.example.HRMSAvisoft.repository.BranchAttributeRepository;
 import com.example.HRMSAvisoft.repository.BranchRepository;
+import com.example.HRMSAvisoft.repository.EmployeeRepository;
 import com.example.HRMSAvisoft.repository.OrganizationRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
@@ -19,10 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,8 +33,11 @@ public class BranchService {
 
     private final BranchAttributeRepository branchAttributesRepository;
 
-    BranchService(BranchRepository branchRepository, OrganizationRepository organizationRepository, BranchAttributeRepository branchAttributeRepository) {
+    private final EmployeeRepository employeeRepository;
+
+    BranchService(BranchRepository branchRepository, EmployeeRepository employeeRepository, OrganizationRepository organizationRepository, BranchAttributeRepository branchAttributeRepository) {
         this.branchRepository = branchRepository;
+        this.employeeRepository = employeeRepository;
         this.organizationRepository = organizationRepository;
         this.branchAttributesRepository = branchAttributeRepository;
     }
@@ -85,6 +86,25 @@ public class BranchService {
         int start = (int)pageable.getOffset();
         int end = Math.min((start + pageable.getPageSize()), branches.size());
         return new PageImpl<>(branches.subList(start, end), pageable, branches.size());
+    }
+
+    public Page<Employee> getEmployeesInBranch(Long branchId, int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+
+        Branch branch = branchRepository.findById(branchId).orElseThrow(()-> new EntityNotFoundException("Branch not found."));
+
+        List<Employee> employeesInBranchList = new ArrayList<Employee>();
+
+        for(Department department : branch.getDepartments()){
+            for(Employee employee : department.getEmployees()){
+                employeesInBranchList.add(employee);
+            }
+        }
+        int start = (int)pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), employeesInBranchList.size());
+
+        return new PageImpl<>(employeesInBranchList.subList(start, end), pageable, employeesInBranchList.size());
+
     }
 
     public Page<Department> getAllDepartmentsOfBranch(int page, int size, Long branchId){
@@ -159,10 +179,7 @@ public class BranchService {
                 department.getBranches().remove(branchFoundById);
             }
         }
-
-        for(Employee employee : branchFoundById.getEmployees()){
-            employee.setBranch(null);
-        }
+        
         branchRepository.delete(branchFoundById);
     }
 

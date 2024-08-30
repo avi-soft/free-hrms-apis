@@ -108,13 +108,6 @@ public class EmployeeService {
                 departmentToAssign.getEmployees().add(employeeToAddInfo);
             }
         }
-        if(createEmployeeDTO.getBranchId() != null) {
-            Branch branchToAdd = branchRepository.findById(createEmployeeDTO.getBranchId()).orElse(null);
-            if(branchToAdd != null) {
-                employeeToAddInfo.setBranch(branchToAdd);
-                branchToAdd.getEmployees().add(employeeToAddInfo);
-            }
-        }
 
         LocalDateTime createdAt = LocalDateTime.now();
         DateTimeFormatter createdAtFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
