@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -163,24 +164,27 @@ public class EmployeeService {
 
 
     public Page<Employee> getAllEmployees(int page, int size, String sortBy) throws DataAccessException {
-        Pageable pageable;
-
-        // Handle sorting based on the sortBy parameter
-        if ("createdAt".equalsIgnoreCase(sortBy)) {
-            // Sort by createdAt field in descending order (newest first)
-            pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
-        } else if ("name".equalsIgnoreCase(sortBy)) {
-            // Sort by firstName and lastName in ascending order (alphabetically)
-            pageable = PageRequest.of(page, size, Sort.by("firstName").and(Sort.by("lastName")));
-        } else {
-            // Default sorting by employeeId if no valid sortBy parameter is provided
-            pageable = PageRequest.of(page, size, Sort.by(sortBy));
-        }
-
-        // Fetch the list of employees
         List<Employee> employeesList = employeeRepository.findAll();
 
-        // Paginate and return the sorted list
+        // Sort the list based on the sortBy parameter
+        if ("createdAt".equalsIgnoreCase(sortBy)) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+            // Sorting by parsing the string dates to LocalDateTime
+            employeesList.sort((e1, e2) -> {
+                LocalDateTime date1 = LocalDateTime.parse(e1.getCreatedAt(), formatter);
+                LocalDateTime date2 = LocalDateTime.parse(e2.getCreatedAt(), formatter);
+                return date2.compareTo(date1); // Descending order
+            });
+        } else if ("name".equalsIgnoreCase(sortBy)) {
+            // Sorting by firstName and lastName alphabetically
+            employeesList.sort(Comparator.comparing(Employee::getFirstName)
+                    .thenComparing(Employee::getLastName));
+        }
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        // Paginate the sorted list
         int start = (int) pageable.getOffset();
         int end = Math.min((start + pageable.getPageSize()), employeesList.size());
 
