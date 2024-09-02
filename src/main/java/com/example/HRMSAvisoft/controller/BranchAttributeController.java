@@ -25,7 +25,7 @@ public class BranchAttributeController {
 
 //    @PreAuthorize("hasAnyAuthority('ADD_BRANCH_ATTRIBUTE')")
     @PostMapping("")
-    public ResponseEntity<Map<String, Object>> addBranchAttribute(@RequestBody BranchAttribute branchAttribute) throws AttributeKeyAlreadyExistsException {
+    public ResponseEntity<Map<String, Object>> addBranchAttribute(@RequestBody BranchAttribute branchAttribute) throws AttributeKeyAlreadyExistsException, IllegalArgumentException {
         BranchAttribute newBranchAttribute = branchAttributeService.addBranchAttribute(branchAttribute);
 
         return ResponseEntity.status(201).body(Map.of("success", true, "message", "Branch created successfully", "attribute", newBranchAttribute));
@@ -41,7 +41,7 @@ public class BranchAttributeController {
 
 //    @PreAuthorize("hasAnyAuthority('UPDATE_BRANCH_ATTRIBUTE')")
     @PatchMapping("/{branchAttributeId}")
-    public ResponseEntity<Object> updateBranchAttribute(@RequestBody BranchAttribute branchAttribute, @PathVariable("branchAttributeId") Long branchAttributeId) throws AttributeKeyAlreadyExistsException{
+    public ResponseEntity<Object> updateBranchAttribute(@RequestBody BranchAttribute branchAttribute, @PathVariable("branchAttributeId") Long branchAttributeId) throws IllegalArgumentException,  AttributeKeyAlreadyExistsException{
         branchAttributeService.updateBranchAttribute(branchAttribute, branchAttributeId);
 
         return ResponseEntity.status(200).body(Map.of("success", true, "message", "Branch attribute updated successfully"));
@@ -57,7 +57,8 @@ public class BranchAttributeController {
 
     @ExceptionHandler({
             AttributeKeyAlreadyExistsException.class,
-            EntityNotFoundException.class
+            EntityNotFoundException.class,
+            IllegalArgumentException.class
     })
 
     public ResponseEntity<ErrorResponseDTO> handleErrors(Exception exception) {
@@ -70,6 +71,10 @@ public class BranchAttributeController {
         else if(exception instanceof EntityNotFoundException){
             message = exception.getMessage();
             status = HttpStatus.NOT_FOUND;
+        }
+        else if(exception instanceof IllegalArgumentException){
+            message = exception.getMessage();
+            status = HttpStatus.BAD_REQUEST;
         }else {
             message = "something went wrong";
             status = HttpStatus.INTERNAL_SERVER_ERROR;

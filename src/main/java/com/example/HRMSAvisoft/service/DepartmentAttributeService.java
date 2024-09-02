@@ -20,6 +20,8 @@ public class DepartmentAttributeService {
 
     private final DepartmentRepository departmentRepository;
 
+    private static final String ATTRIBUTE_KEY_REGEX = "^[a-zA-Z]+( [a-zA-Z]+)*$";
+
     DepartmentAttributeService(DepartmentAttributeRepository departmentAttributeRepository, DepartmentRepository departmentRepository) {
         this.departmentAttributeRepository = departmentAttributeRepository;
         this.departmentRepository = departmentRepository;
@@ -28,25 +30,50 @@ public class DepartmentAttributeService {
         return departmentAttributeRepository.findAll();
     }
 
-    public DepartmentAttribute addDepartmentAttribute(DepartmentAttribute departmentAttribute)throws AttributeKeyAlreadyExistsException{
+    public DepartmentAttribute addDepartmentAttribute(DepartmentAttribute departmentAttribute)
+            throws AttributeKeyAlreadyExistsException, IllegalArgumentException {
+
+        // Check if an attribute with the same key already exists
         DepartmentAttribute existingDepartmentAttribute = departmentAttributeRepository.findByAttributeKey(departmentAttribute.getAttributeKey()).orElse(null);
         if (existingDepartmentAttribute != null) {
             throw new AttributeKeyAlreadyExistsException(departmentAttribute.getAttributeKey());
         }
-        return departmentAttributeRepository.save(departmentAttribute);
+
+        // Validate the attribute key
+        if (departmentAttribute.getAttributeKey() != null && !departmentAttribute.getAttributeKey().trim().equals("")) {
+            if (!departmentAttribute.getAttributeKey().trim().matches(ATTRIBUTE_KEY_REGEX)) {
+                throw new IllegalArgumentException("Department attribute key is invalid. It should only contain letters and spaces, with no spaces at the start, end, or in between.");
+            }
+            return departmentAttributeRepository.save(departmentAttribute);
+        } else {
+            throw new IllegalArgumentException("Department attribute can't be empty.");
+        }
     }
 
-    public DepartmentAttribute updateDepartmentAttribute(DepartmentAttribute departmentAttribute, Long departmentAttributeId)throws AttributeKeyAlreadyExistsException{
-        DepartmentAttribute departmentAttributeToUpdate = departmentAttributeRepository.findById(departmentAttributeId).orElseThrow((() -> new EntityNotFoundException("Department Attribute not found")));
+    public DepartmentAttribute updateDepartmentAttribute(DepartmentAttribute departmentAttribute, Long departmentAttributeId)
+            throws AttributeKeyAlreadyExistsException, IllegalArgumentException {
 
+        // Find the department attribute to update
+        DepartmentAttribute departmentAttributeToUpdate = departmentAttributeRepository.findById(departmentAttributeId)
+                .orElseThrow(() -> new EntityNotFoundException("Department Attribute not found"));
+
+        // Check if an attribute with the same key already exists (but is not the current one)
         DepartmentAttribute existingDepartmentAttribute = departmentAttributeRepository.findByAttributeKey(departmentAttribute.getAttributeKey()).orElse(null);
         if (existingDepartmentAttribute != null && !Objects.equals(existingDepartmentAttribute.getAttributeId(), departmentAttributeId)) {
             throw new AttributeKeyAlreadyExistsException(existingDepartmentAttribute.getAttributeKey());
         }
 
-        if (Objects.nonNull(departmentAttribute.getAttributeKey())) {
+        // Validate and update the attribute key
+        if (Objects.nonNull(departmentAttribute.getAttributeKey()) && !departmentAttribute.getAttributeKey().trim().equals("")) {
+            if (!departmentAttribute.getAttributeKey().trim().matches(ATTRIBUTE_KEY_REGEX)) {
+                throw new IllegalArgumentException("Department attribute key is invalid. It should only contain letters and spaces, with no spaces at the start, end, or in between.");
+            }
             departmentAttributeToUpdate.setAttributeKey(departmentAttribute.getAttributeKey());
+        } else {
+            throw new IllegalArgumentException("Department attribute can't be empty.");
         }
+
+        // Save and return the updated department attribute
         return departmentAttributeRepository.save(departmentAttributeToUpdate);
     }
 

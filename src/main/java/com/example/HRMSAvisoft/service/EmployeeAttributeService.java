@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @Service
@@ -22,6 +24,7 @@ public class EmployeeAttributeService {
     private final ModelMapper modelMapper;
     private Cloudinary cloudinary;
     private final EmployeeRepository employeeRepository;
+    private static final String ATTRIBUTE_KEY_REGEX = "^[a-zA-Z]+(\\s[a-zA-Z]+)*$";
 
     EmployeeAttributeService(EmployeeAttributeRepository employeeAttributeRepository, ModelMapper modelMapper, Cloudinary cloudinary, EmployeeRepository employeeRepository) {
         this.employeeAttributeRepository = employeeAttributeRepository;
@@ -36,24 +39,46 @@ public class EmployeeAttributeService {
     }
 
     public EmployeeAttribute addEmployeeAttribute(EmployeeAttribute employeeAttribute) throws com.example.HRMSAvisoft.service.EmployeeAttributeService.EmployeeAttributeAlreadyExistsException, IllegalArgumentException {
-        EmployeeAttribute existingEmployeeAttribute = employeeAttributeRepository.findByAttributeKey(employeeAttribute.getAttributeKey()).orElse(null);
+        Pattern pattern = Pattern.compile(ATTRIBUTE_KEY_REGEX);
+
+        // Check if attributeKey matches the pattern
+        Matcher matcher = pattern.matcher(employeeAttribute.getAttributeKey().trim());
+
+        // Check if the attributeKey already exists
+        EmployeeAttribute existingEmployeeAttribute = employeeAttributeRepository.findByAttributeKey(employeeAttribute.getAttributeKey().trim()).orElse(null);
         if (existingEmployeeAttribute != null) {
             throw new com.example.HRMSAvisoft.service.EmployeeAttributeService.EmployeeAttributeAlreadyExistsException(existingEmployeeAttribute.getAttributeKey() + " employeeAttribute already exists");
         }
-        return employeeAttributeRepository.save(employeeAttribute);
+
+        // Validate that the attributeKey is not empty and matches the regex
+        if(employeeAttribute.getAttributeKey() != null && !employeeAttribute.getAttributeKey().equals("") && matcher.matches()) {
+            return employeeAttributeRepository.save(employeeAttribute);
+        } else {
+            throw new IllegalArgumentException("Employee attribute key cannot be empty or contain numbers or special characters.");
+        }
     }
 
     public EmployeeAttribute updateEmployeeAttribute(EmployeeAttribute employeeAttribute, Long employeeAttributeId) throws EntityNotFoundException, IllegalArgumentException {
-        EmployeeAttribute employeeAttributeToUpdate = employeeAttributeRepository.findById(employeeAttributeId).orElseThrow((() -> new EntityNotFoundException("EmployeeAttribute not found")));
+        EmployeeAttribute employeeAttributeToUpdate = employeeAttributeRepository.findById(employeeAttributeId)
+                .orElseThrow(() -> new EntityNotFoundException("EmployeeAttribute not found"));
 
+        // Check if the attribute key already exists for a different ID
         EmployeeAttribute existingEmployeeAttribute = employeeAttributeRepository.findByAttributeKey(employeeAttribute.getAttributeKey()).orElse(null);
         if (existingEmployeeAttribute != null && !Objects.equals(existingEmployeeAttribute.getAttributeId(), employeeAttributeId)) {
             throw new com.example.HRMSAvisoft.service.EmployeeAttributeService.EmployeeAttributeAlreadyExistsException(existingEmployeeAttribute.getAttributeKey() + " employeeAttribute already exists");
         }
 
-        if (Objects.nonNull(employeeAttribute.getAttributeKey())) {
+        // Validate and update the attribute key
+        if (Objects.nonNull(employeeAttribute.getAttributeKey()) && !employeeAttribute.getAttributeKey().trim().equals("")) {
+            if (!employeeAttribute.getAttributeKey().trim().matches(ATTRIBUTE_KEY_REGEX)) {
+                throw new IllegalArgumentException("Employee attribute key is invalid. It should only contain letters and spaces, with no spaces at the start, end, or in between.");
+            }
             employeeAttributeToUpdate.setAttributeKey(employeeAttribute.getAttributeKey());
+        } else {
+            throw new IllegalArgumentException("Employee attribute can't be empty");
         }
+
+        // Save and return the updated entity
         return employeeAttributeRepository.save(employeeAttributeToUpdate);
     }
 

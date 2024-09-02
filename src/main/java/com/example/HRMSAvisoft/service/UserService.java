@@ -101,7 +101,7 @@ public class UserService {
 
     }
 
-    public User addNewUser(AddNewUserDTO addNewUserDTO, User loggedInUser, Long organizationId)throws IOException,EmailAlreadyExistsException{
+    public User addNewUser(AddNewUserDTO addNewUserDTO, User loggedInUser, Long organizationId)throws IOException,EmailAlreadyExistsException, EntityNotFoundException{
         Organization organization = organizationRepository.findById(organizationId).orElseThrow(()-> new EntityNotFoundException("Organization not found"));
         User alreadyRegisteredUser = userRepository.getByEmail(addNewUserDTO.getEmail());
         if(alreadyRegisteredUser!=null){

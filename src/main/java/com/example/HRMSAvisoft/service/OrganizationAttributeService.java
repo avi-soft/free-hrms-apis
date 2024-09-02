@@ -23,6 +23,7 @@ public class OrganizationAttributeService{
     private final ModelMapper modelMapper;
     private Cloudinary cloudinary;
     private final OrganizationRepository organizationRepository;
+    private static final String ATTRIBUTE_KEY_REGEX = "^[a-zA-Z]+(\\s[a-zA-Z]+)*$";
 
     OrganizationAttributeService(OrganizationAttributeRepository organizationAttributeRepository, ModelMapper modelMapper, Cloudinary cloudinary, OrganizationRepository organizationRepository) {
         this.organizationAttributeRepository = organizationAttributeRepository;
@@ -36,27 +37,52 @@ public class OrganizationAttributeService{
         return organizationAttributes;
     }
 
-    public OrganizationAttribute addOrganizationAttribute(OrganizationAttribute organizationAttribute) throws com.example.HRMSAvisoft.service.OrganizationAttributeService.OrganizationAttributeAlreadyExistsException, IllegalArgumentException {
+    public OrganizationAttribute addOrganizationAttribute(OrganizationAttribute organizationAttribute)
+            throws com.example.HRMSAvisoft.service.OrganizationAttributeService.OrganizationAttributeAlreadyExistsException, IllegalArgumentException {
+
+        // Check if the attribute key already exists
         OrganizationAttribute existingOrganizationAttribute = organizationAttributeRepository.findByAttributeKey(organizationAttribute.getAttributeKey()).orElse(null);
         if (existingOrganizationAttribute != null) {
             throw new com.example.HRMSAvisoft.service.OrganizationAttributeService.OrganizationAttributeAlreadyExistsException(existingOrganizationAttribute.getAttributeKey() + " organizationAttribute already exists");
         }
-        return organizationAttributeRepository.save(organizationAttribute);
+
+        // Validate the attribute key
+        if (organizationAttribute.getAttributeKey() != null && !organizationAttribute.getAttributeKey().trim().equals("")) {
+            if (!organizationAttribute.getAttributeKey().trim().matches(ATTRIBUTE_KEY_REGEX)) {
+                throw new IllegalArgumentException("Organization attribute key cant contain numbers or special characters.");
+            }
+            return organizationAttributeRepository.save(organizationAttribute);
+        } else {
+            throw new IllegalArgumentException("Organization attribute can't be empty");
+        }
     }
 
-    public OrganizationAttribute updateOrganizationAttribute(OrganizationAttribute organizationAttribute, Long organizationAttributeId) throws EntityNotFoundException, IllegalArgumentException {
-        OrganizationAttribute organizationAttributeToUpdate = organizationAttributeRepository.findById(organizationAttributeId).orElseThrow((() -> new EntityNotFoundException("OrganizationAttribute not found")));
+    public OrganizationAttribute updateOrganizationAttribute(OrganizationAttribute organizationAttribute, Long organizationAttributeId)
+            throws EntityNotFoundException, IllegalArgumentException {
 
+        // Find the existing organization attribute by ID
+        OrganizationAttribute organizationAttributeToUpdate = organizationAttributeRepository.findById(organizationAttributeId)
+                .orElseThrow(() -> new EntityNotFoundException("OrganizationAttribute not found"));
+
+        // Check if an attribute with the same key already exists (but is not the current one)
         OrganizationAttribute existingOrganizationAttribute = organizationAttributeRepository.findByAttributeKey(organizationAttribute.getAttributeKey()).orElse(null);
         if (existingOrganizationAttribute != null && !Objects.equals(existingOrganizationAttribute.getAttributeId(), organizationAttributeId)) {
             throw new com.example.HRMSAvisoft.service.OrganizationAttributeService.OrganizationAttributeAlreadyExistsException(existingOrganizationAttribute.getAttributeKey() + " organizationAttribute already exists");
         }
-        if (Objects.nonNull(organizationAttribute.getAttributeKey())) {
+
+        // Validate and update the attribute key
+        if (Objects.nonNull(organizationAttribute.getAttributeKey()) && !organizationAttribute.getAttributeKey().trim().equals("")) {
+            if (!organizationAttribute.getAttributeKey().trim().matches(ATTRIBUTE_KEY_REGEX)) {
+                throw new IllegalArgumentException("Organization attribute key is invalid. It should only contain letters and spaces, with no spaces at the start, end, or in between.");
+            }
             organizationAttributeToUpdate.setAttributeKey(organizationAttribute.getAttributeKey());
+        } else {
+            throw new IllegalArgumentException("Organization attribute can't be empty");
         }
+
+        // Save and return the updated organization attribute
         return organizationAttributeRepository.save(organizationAttributeToUpdate);
     }
-
     @Transactional
     public OrganizationAttribute deleteOrganizationAttribute(Long organizationAttributeId) throws EntityNotFoundException {
         OrganizationAttribute organizationAttributeToDelete = organizationAttributeRepository.findById(organizationAttributeId).orElseThrow((() -> new EntityNotFoundException(organizationAttributeId + "not found")));

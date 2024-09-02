@@ -85,7 +85,7 @@ public class UserController {
     @PostMapping("/addNewUser/{organizationId}")
     @PreAuthorize("hasAuthority('CREATE_NEW_USER')")
     public ResponseEntity<Map<String ,Object>>addNewUser(@AuthenticationPrincipal User loggedInUser,
-                                                         @RequestBody @Valid AddNewUserDTO addNewUserDTO,@PathVariable Long organizationId)throws IOException,UserService.EmailAlreadyExistsException {
+                                                         @RequestBody @Valid AddNewUserDTO addNewUserDTO,@PathVariable Long organizationId)throws IOException,UserService.EmailAlreadyExistsException, EntityNotFoundException{
         User createdUser=userService.addNewUser(addNewUserDTO,loggedInUser,organizationId);
         NewUserResponseDTO newUser=new NewUserResponseDTO();
         newUser.setUserId(createdUser.getUserId());

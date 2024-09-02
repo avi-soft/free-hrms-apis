@@ -21,36 +21,62 @@ public class BranchAttributeService {
 
     private final BranchRepository branchRepository;
 
+    private static final String ATTRIBUTE_KEY_REGEX = "^[a-zA-Z]+( [a-zA-Z]+)*$";
+
     BranchAttributeService(BranchAttributeRepository branchAttributeRepository, BranchRepository branchRepository){
         this.branchAttributeRepository = branchAttributeRepository;
         this.branchRepository = branchRepository;
     }
-    public BranchAttribute addBranchAttribute(BranchAttribute branchAttribute)throws AttributeKeyAlreadyExistsException{
+    public BranchAttribute addBranchAttribute(BranchAttribute branchAttribute)
+            throws AttributeKeyAlreadyExistsException, IllegalArgumentException {
+
+        // Check if an attribute with the same key already exists
         BranchAttribute existingBranchAttributeByKey = branchAttributeRepository.findByAttributeKey(branchAttribute.getAttributeKey()).orElse(null);
-        if(existingBranchAttributeByKey != null){
+        if (existingBranchAttributeByKey != null) {
             throw new AttributeKeyAlreadyExistsException(branchAttribute.getAttributeKey());
         }
-        return branchAttributeRepository.save(branchAttribute);
+
+        // Validate the attribute key
+        if (branchAttribute.getAttributeKey() != null && !branchAttribute.getAttributeKey().trim().equals("")) {
+            if (!branchAttribute.getAttributeKey().trim().matches(ATTRIBUTE_KEY_REGEX)) {
+                throw new IllegalArgumentException("Branch attribute key is invalid. It should only contain letters and spaces, with no spaces at the start, end, or in between.");
+            }
+            return branchAttributeRepository.save(branchAttribute);
+        } else {
+            throw new IllegalArgumentException("Branch attribute can't be empty.");
+        }
     }
 
-    public List<BranchAttribute> getBranchAttributes(){
+    public List<BranchAttribute> getBranchAttributes() {
         return branchAttributeRepository.findAll();
     }
 
-    public BranchAttribute updateBranchAttribute(BranchAttribute branchAttribute, Long branchAttributeId)throws AttributeKeyAlreadyExistsException{
-        BranchAttribute branchAttributeToUpdate = branchAttributeRepository.findById(branchAttributeId).orElseThrow((() -> new EntityNotFoundException("Department Attribute not found")));
+    public BranchAttribute updateBranchAttribute(BranchAttribute branchAttribute, Long branchAttributeId)
+            throws AttributeKeyAlreadyExistsException, IllegalArgumentException {
 
+        // Find the branch attribute to update
+        BranchAttribute branchAttributeToUpdate = branchAttributeRepository.findById(branchAttributeId)
+                .orElseThrow(() -> new EntityNotFoundException("Branch Attribute not found"));
+
+        // Check if an attribute with the same key already exists (but is not the current one)
         BranchAttribute existingBranchAttribute = branchAttributeRepository.findByAttributeKey(branchAttribute.getAttributeKey()).orElse(null);
         if (existingBranchAttribute != null && !Objects.equals(existingBranchAttribute.getAttributeId(), branchAttributeId)) {
             throw new AttributeKeyAlreadyExistsException(existingBranchAttribute.getAttributeKey());
         }
 
-        if (Objects.nonNull(branchAttribute.getAttributeKey())) {
+        // Validate and update the attribute key
+        if (Objects.nonNull(branchAttribute.getAttributeKey()) && !branchAttribute.getAttributeKey().trim().equals("")) {
+            if (!branchAttribute.getAttributeKey().trim().matches(ATTRIBUTE_KEY_REGEX)) {
+                throw new IllegalArgumentException("Branch attribute key is invalid. It should only contain letters and spaces, with no spaces at the start, end, or in between.");
+            }
             branchAttributeToUpdate.setAttributeKey(branchAttribute.getAttributeKey());
+        } else {
+            throw new IllegalArgumentException("Branch attribute can't be empty.");
         }
+
+        // Save and return the updated branch attribute
         return branchAttributeRepository.save(branchAttributeToUpdate);
     }
-
     public void deleteBranchAttribute(Long branchAttributeId)throws EntityNotFoundException{
         BranchAttribute branchAttributeToDelete = branchAttributeRepository.findById(branchAttributeId).orElseThrow((() -> new EntityNotFoundException(branchAttributeId + " branch not found")));
 
