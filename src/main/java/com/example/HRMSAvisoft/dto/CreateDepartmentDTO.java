@@ -29,6 +29,8 @@ public class CreateDepartmentDTO {
 
     private Long organizationId;
 
+    private Long branchId;
+
     @JsonSerialize(using = AttributesSerializer.class)
     private Map<String, String> attributes;
 

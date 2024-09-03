@@ -56,13 +56,14 @@ public class DepartmentService {
     }
 
     public Department addDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO) throws EmployeeNotFoundException, EntityNotFoundException, DepartmentAttributeService.DepartmentAlreadyExistsException, AttributeKeyDoesNotExistException{
-        createDepartmentDTO.getAttributes().forEach((k,v)->{
-            DepartmentAttribute departmentAttribute = departmentAttributeRepository.findByAttributeKey(k).orElse(null);
-            if(departmentAttribute == null){
-                throw new AttributeKeyDoesNotExistException("Attribute "+ k + " does not exist");
-            }
-        });
-
+        if(createDepartmentDTO.getAttributes() != null) {
+            createDepartmentDTO.getAttributes().forEach((k, v) -> {
+                DepartmentAttribute departmentAttribute = departmentAttributeRepository.findByAttributeKey(k).orElse(null);
+                if (departmentAttribute == null) {
+                    throw new AttributeKeyDoesNotExistException("Attribute " + k + " does not exist");
+                }
+            });
+        }
         Department newDepartment = new Department();
         if(createDepartmentDTO.getManagerId() != null) {
             Employee manager = employeeRepository.findById(createDepartmentDTO.getManagerId()).orElseThrow(() -> new EmployeeNotFoundException(createDepartmentDTO.getManagerId()));
@@ -76,20 +77,37 @@ public class DepartmentService {
             }
         }
 
+        if(createDepartmentDTO.getBranchId() != null){
+            Department existingDepartmentByNameInBranch = departmentRepository.findByDepartmentAndBranchId(createDepartmentDTO.getDepartment(), createDepartmentDTO.getBranchId()).orElse(null);
+            if(existingDepartmentByNameInBranch != null){
+                throw new DepartmentAttributeService.DepartmentAlreadyExistsException(createDepartmentDTO.getDepartment());
+            }
+        }
+
+        if(createDepartmentDTO.getBranchId() != null){
+            Branch branch = branchRepository.findById(createDepartmentDTO.getBranchId()).orElseThrow(()-> new EntityNotFoundException("Branch not found"));
+            newDepartment.getBranches().add(branch);
+            branch.getDepartments().add(newDepartment);
+        }
+
         if(createDepartmentDTO.getOrganizationId() != null) {
             Organization organization = organizationRepository.findById(createDepartmentDTO.getOrganizationId()).orElseThrow(() -> new EntityNotFoundException("Organization not found"));
             newDepartment.getOrganizations().add(organization);
             organization.getDepartments().add(newDepartment);
         }
-        Map<DepartmentAttribute, String> departmentAttributes = createDepartmentDTO.getAttributes().entrySet().stream()
-                .collect(Collectors.toMap(
-                        entry -> departmentAttributeRepository.findByAttributeKey(entry.getKey())
-                                .orElseThrow(() -> new AttributeKeyDoesNotExistException("Attribute not found: " + entry.getKey())),
-                        Map.Entry::getValue
-                ));
+
         newDepartment.setDepartment(createDepartmentDTO.getDepartment());
         newDepartment.setDescription(createDepartmentDTO.getDescription());
-        newDepartment.setAttributes(departmentAttributes);
+
+        if(createDepartmentDTO.getAttributes() != null) {
+            Map<DepartmentAttribute, String> departmentAttributes = createDepartmentDTO.getAttributes().entrySet().stream()
+                    .collect(Collectors.toMap(
+                            entry -> departmentAttributeRepository.findByAttributeKey(entry.getKey())
+                                    .orElseThrow(() -> new AttributeKeyDoesNotExistException("Attribute not found: " + entry.getKey())),
+                            Map.Entry::getValue
+                    ));
+            newDepartment.setAttributes(departmentAttributes);
+        }
         return departmentRepository.save(newDepartment);
 
     }

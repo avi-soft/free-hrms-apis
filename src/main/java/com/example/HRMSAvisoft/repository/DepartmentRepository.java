@@ -24,4 +24,7 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
     @Query("SELECT d FROM Department d WHERE d.organizations IS EMPTY")
     List<Department> findAllDepartmentWhereOrganizationIsEmpty();
 
+    @Query("SELECT d FROM Department d JOIN d.branches b WHERE d.department = :department AND b.branchId = :branchId")
+    Optional<Department> findByDepartmentAndBranchId(@Param("department") String department, @Param("branchId") Long branchId);
+
 }
