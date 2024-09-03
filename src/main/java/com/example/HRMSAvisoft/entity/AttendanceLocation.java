@@ -17,8 +17,9 @@ public class AttendanceLocation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    private Long attedanceLocationId;
+    private Long attendanceLocationId;
 
+    private String attendanceLocation;
     private double latitude;
     private double longitude;
     private double elevation;

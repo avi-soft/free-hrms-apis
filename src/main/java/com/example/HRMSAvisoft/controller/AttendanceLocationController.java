@@ -23,7 +23,7 @@ public class AttendanceLocationController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Map<String, Object>> addAttendanceLocation(@RequestBody AttendanceLocation attendanceLocation){
+    public ResponseEntity<Map<String, Object>> addAttendanceLocation(@RequestBody AttendanceLocation attendanceLocation)throws IllegalArgumentException{
         AttendanceLocation newAttendanceLocation = attendanceLocationService.addAttendanceLocation(attendanceLocation);
 
         return  ResponseEntity.status(201).body(Map.of("success", true, "message", "New Location added successfully", "attendanceLocation", newAttendanceLocation));
@@ -36,22 +36,23 @@ public class AttendanceLocationController {
         return ResponseEntity.status(200).body(Map.of("success", true, "message", "Attendance Locations fetched successfully", "AttendanceLocations", attendanceLocationList));
     }
 
-    @PatchMapping("/attendanceLocationId")
-    public ResponseEntity<Map<String, Object>> updateAttendanceLocation(@PathVariable("attendanceLocationId") Long attendanceLocationId, @RequestBody AttendanceLocation attendanceLocation)throws EntityNotFoundException {
+    @PatchMapping("/{attendanceLocationId}")
+    public ResponseEntity<Map<String, Object>> updateAttendanceLocation(@PathVariable("attendanceLocationId") Long attendanceLocationId, @RequestBody AttendanceLocation attendanceLocation)throws EntityNotFoundException, IllegalArgumentException{
         AttendanceLocation updatedAttendanceLocation = attendanceLocationService.updateAttendanceLocation(attendanceLocationId, attendanceLocation);
 
         return ResponseEntity.status(200).body(Map.of("success", true, "message", "Attendance Location updated", "updatedLocation", updatedAttendanceLocation));
     }
 
-    @DeleteMapping("/attendanceLocationId")
-    public ResponseEntity<Map<String, Object>> deleteAttendanceLocation(@PathVariable("attendanceLocationId") Long attendanceLocationId, @RequestBody AttendanceLocation attendanceLocation)throws EntityNotFoundException {
-        attendanceLocationService.deleteAttendanceLocation(attendanceLocationId, attendanceLocation);
+    @DeleteMapping("/{attendanceLocationId}")
+    public ResponseEntity<Map<String, Object>> deleteAttendanceLocation(@PathVariable("attendanceLocationId") Long attendanceLocationId)throws EntityNotFoundException {
+        attendanceLocationService.deleteAttendanceLocation(attendanceLocationId);
 
         return ResponseEntity.status(200).body(Map.of("success", true, "message", "Attendance Location Deleted"));
     }
 
     @ExceptionHandler({
             EntityNotFoundException.class,
+            IllegalArgumentException.class
     })
 
     public ResponseEntity<ErrorResponseDTO> handleErrors(Exception exception) {
@@ -60,7 +61,11 @@ public class AttendanceLocationController {
         if (exception instanceof EntityNotFoundException) {
             message = exception.getMessage();
             status = HttpStatus.BAD_REQUEST;
-        } else {
+        }
+        else if(exception instanceof IllegalArgumentException){
+            message = exception.getMessage();
+            status = HttpStatus.BAD_REQUEST;
+        }else {
             message = "something went wrong";
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }

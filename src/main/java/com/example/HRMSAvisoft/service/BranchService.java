@@ -33,11 +33,9 @@ public class BranchService {
 
     private final BranchAttributeRepository branchAttributesRepository;
 
-    private final EmployeeRepository employeeRepository;
 
-    BranchService(BranchRepository branchRepository, EmployeeRepository employeeRepository, OrganizationRepository organizationRepository, BranchAttributeRepository branchAttributeRepository) {
+    BranchService(BranchRepository branchRepository, OrganizationRepository organizationRepository, BranchAttributeRepository branchAttributeRepository) {
         this.branchRepository = branchRepository;
-        this.employeeRepository = employeeRepository;
         this.organizationRepository = organizationRepository;
         this.branchAttributesRepository = branchAttributeRepository;
     }

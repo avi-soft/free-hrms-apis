@@ -16,9 +16,10 @@ import com.example.HRMSAvisoft.repository.UserRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.Query;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -185,9 +190,43 @@ public class UserService {
         Query query = entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS = 0");
         query.executeUpdate();
     }
-    public Page<UserInfoDTO> getAllUserInfo(Pageable pageable) {
-        Page<Employee> employeePage = employeeRepository.findAll(pageable);
-        return employeePage.map(employee -> {
+
+    public Page<UserInfoDTO> getAllUserInfo(int page, int size, String sortBy)  {
+        List<Employee> employeesList = employeeRepository.findAll();
+
+        // Sort the list based on the sortBy parameter
+        if ("createdAt".equalsIgnoreCase(sortBy)) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+            // Sorting by parsing the string dates to LocalDateTime and handling nulls
+            employeesList.sort((e1, e2) -> {
+                LocalDateTime date1 = null;
+                LocalDateTime date2 = null;
+                try {
+                    if (e1.getCreatedAt() != null && !e1.getCreatedAt().trim().isEmpty()) {
+                        date1 = LocalDateTime.parse(e1.getCreatedAt(), formatter);
+                    }
+                    if (e2.getCreatedAt() != null && !e2.getCreatedAt().trim().isEmpty()) {
+                        date2 = LocalDateTime.parse(e2.getCreatedAt(), formatter);
+                    }
+                } catch (DateTimeParseException e) {
+                    System.err.println("Error parsing date: " + e.getMessage());
+                }
+                return Comparator.nullsLast(LocalDateTime::compareTo).compare(date1, date2); // Nulls last, descending order
+            });
+        } else if ("name".equalsIgnoreCase(sortBy)) {
+            // Sorting by firstName and lastName alphabetically and handling nulls
+            employeesList.sort(Comparator.comparing(Employee::getFirstName, Comparator.nullsLast(String::compareTo))
+                    .thenComparing(Employee::getLastName, Comparator.nullsLast(String::compareTo)));
+        }
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        // Paginate the sorted list
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), employeesList.size());
+
+        List<UserInfoDTO> userInfoDTOList = employeesList.subList(start, end).stream().map(employee -> {
             User user = userRepository.findByEmployee(employee);
             return new UserInfoDTO(
                     employee.getEmployeeId(),
@@ -197,7 +236,9 @@ public class UserService {
                     employee.getFirstName() + " " + employee.getLastName(),
                     employee.getProfileImage()
             );
-        });
+        }).collect(Collectors.toList());
+
+        return new PageImpl<>(userInfoDTOList, pageable, employeesList.size());
     }
 
     public static class WrongPasswordCredentialsException extends IllegalAccessException{

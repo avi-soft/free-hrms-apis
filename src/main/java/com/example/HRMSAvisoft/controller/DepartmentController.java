@@ -107,7 +107,7 @@ public class DepartmentController {
 
     @PatchMapping("/{departmentId}")
     @PreAuthorize("hasAuthority('UPDATE_DEPARTMENT')")
-    public ResponseEntity<Map<String,Object>> updateDepartment(@Valid @RequestBody CreateDepartmentDTO createDepartmentDTO, @PathVariable("departmentId") Long departmentId) throws EmployeeNotFoundException, DepartmentService.DepartmentNotFoundException, DepartmentAttributeService.DepartmentAlreadyExistsException {
+    public ResponseEntity<Map<String,Object>> updateDepartment(@Valid @RequestBody CreateDepartmentDTO createDepartmentDTO, @PathVariable("departmentId") Long departmentId) throws EntityNotFoundException, DepartmentService.DepartmentNotFoundException, DepartmentAttributeService.DepartmentAlreadyExistsException {
         Department updatedDepartment = departmentService.updateDepartment(createDepartmentDTO, departmentId);
         return ResponseEntity.status(200).body(Map.of("success", true, "message", "Department updated successfully"));
     }
@@ -163,7 +163,7 @@ public class DepartmentController {
     }
 
     @ExceptionHandler({
-            EmployeeNotFoundException.class,
+            EntityNotFoundException.class,
             DepartmentService.DepartmentNotFoundException.class,
             AttributeKeyDoesNotExistException.class,
             DepartmentAttributeService.DepartmentAlreadyExistsException.class
@@ -172,7 +172,7 @@ public class DepartmentController {
     public ResponseEntity<ErrorResponseDTO> handleErrors(Exception exception){
         String message;
         HttpStatus status;
-        if(exception instanceof EmployeeNotFoundException) {
+        if(exception instanceof EntityNotFoundException) {
             message = exception.getMessage();
             status = HttpStatus.NOT_FOUND;
         }

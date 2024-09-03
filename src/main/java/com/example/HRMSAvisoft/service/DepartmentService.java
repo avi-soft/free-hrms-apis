@@ -109,10 +109,9 @@ public class DepartmentService {
             newDepartment.setAttributes(departmentAttributes);
         }
         return departmentRepository.save(newDepartment);
-
     }
 
-    public Department updateDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO, Long departmentId)throws  DepartmentNotFoundException, EmployeeNotFoundException, DepartmentAttributeService.DepartmentAlreadyExistsException {
+    public Department updateDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO, Long departmentId)throws  DepartmentNotFoundException, EntityNotFoundException, DepartmentAttributeService.DepartmentAlreadyExistsException {
 
         createDepartmentDTO.getAttributes().forEach((k,v)->{
             DepartmentAttribute departmentAttribute = departmentAttributeRepository.findByAttributeKey(k).orElse(null);
@@ -135,7 +134,7 @@ public class DepartmentService {
             departmentFoundById.setDescription(createDepartmentDTO.getDescription());
         }
         if(createDepartmentDTO.getManagerId() != null){
-            Employee manager = employeeRepository.findById(createDepartmentDTO.getManagerId()).orElseThrow(()-> new EmployeeNotFoundException(createDepartmentDTO.getManagerId()));
+            Employee manager = employeeRepository.findById(createDepartmentDTO.getManagerId()).orElseThrow(()-> new EntityNotFoundException("Manager not found"));
             departmentFoundById.setManager(manager);
         }
 

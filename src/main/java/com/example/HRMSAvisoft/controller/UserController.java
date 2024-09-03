@@ -156,15 +156,15 @@ public class UserController {
         else
             return ResponseEntity.status(500).body(null);
     }
+
     @PreAuthorize("hasAuthority('GET_ALL_USERS')")
     @GetMapping("/getAllUserInfo")
     public ResponseEntity<Map<String, Object>> getAllUserInfo(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size,
-            @RequestParam(defaultValue = "employeeId") String sortBy) {
+            @RequestParam(defaultValue = "createdAt") String sortBy) {
 
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
-        Page<UserInfoDTO> pageOfUsers = userService.getAllUserInfo(pageable);
+        Page<UserInfoDTO> pageOfUsers = userService.getAllUserInfo(page, size, sortBy);
 
         Map<String, Object> responseData = new HashMap<>();
         responseData.put("Users", pageOfUsers.getContent());

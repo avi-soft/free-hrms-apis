@@ -1,6 +1,9 @@
 package com.example.HRMSAvisoft.service;
 
+import com.example.HRMSAvisoft.controller.AttendanceLocationController;
 import com.example.HRMSAvisoft.entity.Attendance;
+import com.example.HRMSAvisoft.entity.AttendanceLocation;
+import com.example.HRMSAvisoft.repository.AttendanceLocationRepository;
 import com.example.HRMSAvisoft.repository.AttendanceRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
@@ -18,17 +21,16 @@ public class AttendanceService {
 
     private final AttendanceRepository attendanceRepository;
 
-    public AttendanceService(AttendanceRepository attendanceRepository){
+    private final AttendanceLocationRepository attendanceLocationRepository;
+
+    public AttendanceService(AttendanceRepository attendanceRepository, AttendanceLocationRepository attendanceLocationRepository){
         this.attendanceRepository = attendanceRepository;
+        this.attendanceLocationRepository = attendanceLocationRepository;
     }
 
     public Attendance startClockIn(Long userId, Double latitude, Double longitude, Double elevation) throws IllegalArgumentException, AlreadyClockedInException {
 
-        List<Location> allowedLocations = List.of(
-                new Location(37.7749, -122.4194, 30.0), // Example: San Francisco
-                new Location(40.7128, -74.0060, 10.0)  // Example: New York
-                // Add more allowed locations as needed
-        );
+        List<AttendanceLocation> allowedLocations = attendanceLocationRepository.findAll();
 
         boolean isLocationValid = allowedLocations.stream()
                 .anyMatch(location -> isWithinAllowedDistance(location, latitude, longitude, elevation));
@@ -54,7 +56,7 @@ public class AttendanceService {
     }
 
 
-    private boolean isWithinAllowedDistance(Location allowedLocation, Double latitude, Double longitude, Double elevation) {
+    private boolean isWithinAllowedDistance(AttendanceLocation allowedLocation, Double latitude, Double longitude, Double elevation) {
         // Calculate distance using Haversine formula for latitude and longitude
         double distance = calculateHaversineDistance(allowedLocation.getLatitude(), allowedLocation.getLongitude(), latitude, longitude);
         // Check if the elevation difference is within acceptable range (e.g., 10 meters)
@@ -76,11 +78,7 @@ public class AttendanceService {
     public Attendance stopClockOut(Long userId, Double latitude, Double longitude, Double elevation)throws InsufficientTimeForAttendanceException, EntityNotFoundException {
         Attendance optionalAttendance = attendanceRepository.findByUserIdAndClockOutTimeIsNull(userId).orElseThrow(() -> new EntityNotFoundException("No clock in time found for user"));
 
-        List<Location> allowedLocations = List.of(
-                new Location(37.7749, -122.4194, 30.0), // Example: San Francisco
-                new Location(40.7128, -74.0060, 10.0)  // Example: New York
-                // Add more allowed locations as needed
-        );
+        List<AttendanceLocation> allowedLocations = attendanceLocationRepository.findAll();
 
         boolean isLocationValid = allowedLocations.stream()
                 .anyMatch(location -> isWithinAllowedDistance(location, latitude, longitude, elevation));
@@ -128,31 +126,6 @@ public class AttendanceService {
     public static class AlreadyClockedInException extends RuntimeException{
         public AlreadyClockedInException(String message){
             super(message);
-        }
-    }
-
-    public static class Location {
-
-        private double latitude;
-        private double longitude;
-        private double elevation;
-
-        public Location(double latitude, double longitude, double elevation) {
-            this.latitude = latitude;
-            this.longitude = longitude;
-            this.elevation = elevation;
-        }
-
-        public double getLatitude() {
-            return latitude;
-        }
-
-        public double getLongitude() {
-            return longitude;
-        }
-
-        public double getElevation() {
-            return elevation;
         }
     }
 }
