@@ -60,6 +60,8 @@ public class OrganizationController {
             departmentResponseDTO.setDescription(department.getDescription());
             departmentResponseDTO.setManagerId(department.getManager().getEmployeeId());
             departmentResponseDTO.setAttributes(department.getAttributes());
+            departmentResponseDTO.setOrganizations(department.getOrganizations());
+            departmentResponseDTO.setBranches(department.getBranches());
             departmentResponseDTO.setManagerFirstName(department.getManager().getFirstName());
             departmentResponseDTO.setManagerEmployeeCode(department.getManager().getEmployeeCode());
             departmentResponseDTO.setManagerLastName(department.getManager().getLastName());

@@ -140,7 +140,6 @@ com/example/HRMSAvisoft/dto/ErrorResponseDTO$ErrorResponseDTOBuilder.class
 com/example/HRMSAvisoft/service/JWTService.class
 com/example/HRMSAvisoft/repository/BranchRepository.class
 com/example/HRMSAvisoft/controller/UserController.class
-com/example/HRMSAvisoft/service/AttendanceService$Location.class
 com/example/HRMSAvisoft/entity/Attendance$AttendanceBuilder.class
 com/example/HRMSAvisoft/service/LeaveService.class
 com/example/HRMSAvisoft/exception/AttributeKeyDoesNotExistException.class
