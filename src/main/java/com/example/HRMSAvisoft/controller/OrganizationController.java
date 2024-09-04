@@ -1,9 +1,6 @@
 package com.example.HRMSAvisoft.controller;
 
-import com.example.HRMSAvisoft.dto.AddNewOrganizationDTO;
-import com.example.HRMSAvisoft.dto.DepartmentsResponseDTO;
-import com.example.HRMSAvisoft.dto.ErrorResponseDTO;
-import com.example.HRMSAvisoft.dto.UpdateOrganizationDTO;
+import com.example.HRMSAvisoft.dto.*;
 import com.example.HRMSAvisoft.entity.Branch;
 import com.example.HRMSAvisoft.entity.Department;
 import com.example.HRMSAvisoft.entity.Organization;
@@ -78,7 +75,17 @@ public class OrganizationController {
     public ResponseEntity<Map<String, Object>> getBranchesOfOrganization(@PathVariable("organizationId") Long organizationId)throws EntityNotFoundException{
         List<Branch> branchList = organizationService.getBranchesOfOrganization(organizationId);
 
-        return ResponseEntity.status(200).body(Map.of("success", true, "message", "Branches fetched successfully", "BranchList", branchList));
+        List<BranchResponseDTO> branchResponseDTOList = branchList.stream().map(branch -> {
+            BranchResponseDTO branchResponseDTO = new BranchResponseDTO();
+            branchResponseDTO.setBranchId(branch.getBranchId());
+            branchResponseDTO.setOrganizations(branch.getOrganizations());
+            branchResponseDTO.setBranchName(branch.getBranchName());
+            branchResponseDTO.setAttributes(branch.getAttributes());
+            branchResponseDTO.setDepartments(branch.getDepartments());
+            return branchResponseDTO;
+        }).collect(Collectors.toUnmodifiableList());
+
+        return ResponseEntity.status(200).body(Map.of("success", true, "message", "Branches fetched successfully", "BranchList", branchResponseDTOList));
     }
 
     @PreAuthorize("hasAnyAuthority('GET_ALL_ORGANIZATIONS')")

@@ -3,6 +3,7 @@ package com.example.HRMSAvisoft.service;
 import com.example.HRMSAvisoft.controller.AttendanceLocationController;
 import com.example.HRMSAvisoft.entity.Attendance;
 import com.example.HRMSAvisoft.entity.AttendanceLocation;
+import com.example.HRMSAvisoft.entity.ShiftDuration;
 import com.example.HRMSAvisoft.repository.AttendanceLocationRepository;
 import com.example.HRMSAvisoft.repository.AttendanceRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -23,9 +24,12 @@ public class AttendanceService {
 
     private final AttendanceLocationRepository attendanceLocationRepository;
 
-    public AttendanceService(AttendanceRepository attendanceRepository, AttendanceLocationRepository attendanceLocationRepository){
+    private final ShiftDurationService shiftDurationService;
+
+    public AttendanceService(ShiftDurationService shiftDurationService, AttendanceRepository attendanceRepository, AttendanceLocationRepository attendanceLocationRepository){
         this.attendanceRepository = attendanceRepository;
         this.attendanceLocationRepository = attendanceLocationRepository;
+        this.shiftDurationService = shiftDurationService;
     }
 
     public Attendance startClockIn(Long userId, Double latitude, Double longitude, Double elevation) throws IllegalArgumentException, AlreadyClockedInException {
@@ -93,7 +97,10 @@ public class AttendanceService {
         optionalAttendance.setElevation(elevation);
 
         // Check if the time between clock in and clock out is sufficient
-        Duration shiftDuration = Duration.ofHours(1); // Example shift duration
+        List<ShiftDuration> shiftDurationList = shiftDurationService.getShiftDurations();
+        ShiftDuration shiftDurationOfCompany = shiftDurationList.get(0);
+
+        Duration shiftDuration = Duration.ofMinutes(shiftDurationOfCompany.getShiftDuration().toMinutes()); // Example shift duration
         Duration workedDuration = Duration.between(optionalAttendance.getClockInTime(), optionalAttendance.getClockOutTime());
 
         // Mark attendance based on duration

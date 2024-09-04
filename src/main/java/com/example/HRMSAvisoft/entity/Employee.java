@@ -37,9 +37,11 @@ public class Employee {
     private String lastName;
 //    private String contact;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<EmergencyContact> emergencyContacts = new ArrayList<>();
-    
+
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Address> addresses = new ArrayList<Address>();
 
@@ -65,6 +67,7 @@ public class Employee {
     //
     //    private BigDecimal salary;
 
+
     @OneToMany(mappedBy = "reviewer",cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Performance> reviewedPerformances = new ArrayList<Performance>();
@@ -73,6 +76,7 @@ public class Employee {
     @JsonIgnore
     private List<Performance> performanceList = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Payroll> payrollList = new ArrayList<Payroll>();
 
@@ -116,6 +120,7 @@ public class Employee {
     )
     private List<Skill> skills = new ArrayList<>();
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "employees", fetch = FetchType.EAGER)
     private Set<Department> departments = new HashSet<>();
 

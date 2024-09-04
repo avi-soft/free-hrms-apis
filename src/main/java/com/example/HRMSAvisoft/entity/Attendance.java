@@ -31,4 +31,5 @@ public class Attendance {
     private Double longitude;
     private Double elevation;
     private Boolean attendanceMarked = false;
+
 }
