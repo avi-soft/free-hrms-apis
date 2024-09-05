@@ -162,7 +162,7 @@ public class UserController {
     public ResponseEntity<Map<String, Object>> getAllUserInfo(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size,
-            @RequestParam(defaultValue = "createdAt") String sortBy) {
+            @RequestParam(defaultValue = "noSort") String sortBy) {
 
         Page<UserInfoDTO> pageOfUsers = userService.getAllUserInfo(page, size, sortBy);
 

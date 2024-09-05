@@ -153,7 +153,7 @@ public class EmployeeController {
     public ResponseEntity<Map<String, Object>> getAllEmployees(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "createdAt") String sortBy) throws AccessDeniedException {
+            @RequestParam(defaultValue = "noSort") String sortBy) throws AccessDeniedException {
 
         Page<Employee> employeesPage = employeeService.getAllEmployees(page, size, sortBy);
 

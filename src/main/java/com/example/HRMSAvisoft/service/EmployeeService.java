@@ -159,16 +159,17 @@ public class EmployeeService {
 
     public Page<Employee> getAllEmployees(int page, int size, String sortBy) throws DataAccessException {
         List<Employee> employeesList = employeeRepository.findAll();
+        if(!"noSort".equalsIgnoreCase(sortBy)) {
+            if ("createdAt".equalsIgnoreCase(sortBy)) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-        if ("createdAt".equalsIgnoreCase(sortBy)) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-
-            // Sort based on parsed LocalDateTime, in descending order
+                // Sort based on parsed LocalDateTime, in descending order
                 employeesList.sort(Comparator.comparing(Employee::getEmployeeId, Comparator.nullsLast(Long::compareTo)).reversed());
-        } else if ("name".equalsIgnoreCase(sortBy)) {
-            // Sorting by firstName and lastName alphabetically and handling nulls
-            employeesList.sort(Comparator.comparing(Employee::getFirstName, Comparator.nullsLast(String::compareTo))
-                    .thenComparing(Employee::getLastName, Comparator.nullsLast(String::compareTo)));
+            } else if ("name".equalsIgnoreCase(sortBy)) {
+                // Sorting by firstName and lastName alphabetically and handling nulls
+                employeesList.sort(Comparator.comparing(Employee::getFirstName, Comparator.nullsLast(String::compareTo))
+                        .thenComparing(Employee::getLastName, Comparator.nullsLast(String::compareTo)));
+            }
         }
 
         Pageable pageable = PageRequest.of(page, size);

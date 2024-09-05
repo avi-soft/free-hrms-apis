@@ -195,19 +195,21 @@ public class UserService {
         List<Employee> employeesList = employeeRepository.findAll();
 
         // Sort the list based on the sortBy parameter
-        if ("createdAt".equalsIgnoreCase(sortBy)) {
-            // Sorting based on userId in descending order
-            employeesList.sort((e1, e2) -> {
-                User user1 = userRepository.findByEmployee(e1);
-                User user2 = userRepository.findByEmployee(e2);
+        if (!"noSort".equalsIgnoreCase(sortBy)) {
+            if ("createdAt".equalsIgnoreCase(sortBy)) {
+                // Sorting based on userId in descending order
+                employeesList.sort((e1, e2) -> {
+                    User user1 = userRepository.findByEmployee(e1);
+                    User user2 = userRepository.findByEmployee(e2);
 
-                // Compare userId in reverse order for descending sorting
-                return Comparator.nullsLast(Long::compareTo).reversed().compare(user1.getUserId(), user2.getUserId());
-            });
-        } else if ("name".equalsIgnoreCase(sortBy)) {
-            // Sorting by firstName and lastName alphabetically and handling nulls
-            employeesList.sort(Comparator.comparing(Employee::getFirstName, Comparator.nullsLast(String::compareTo))
-                    .thenComparing(Employee::getLastName, Comparator.nullsLast(String::compareTo)));
+                    // Compare userId in reverse order for descending sorting
+                    return Comparator.nullsLast(Long::compareTo).reversed().compare(user1.getUserId(), user2.getUserId());
+                });
+            } else if ("name".equalsIgnoreCase(sortBy)) {
+                // Sorting by firstName and lastName alphabetically and handling nulls
+                employeesList.sort(Comparator.comparing(Employee::getFirstName, Comparator.nullsLast(String::compareTo))
+                        .thenComparing(Employee::getLastName, Comparator.nullsLast(String::compareTo)));
+            }
         }
 
         Pageable pageable = PageRequest.of(page, size);
