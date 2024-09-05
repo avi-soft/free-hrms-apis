@@ -42,23 +42,31 @@ public class EmployeeAttributeService {
         Pattern pattern = Pattern.compile(ATTRIBUTE_KEY_REGEX);
 
         // Check if attributeKey matches the pattern
-        Matcher matcher = pattern.matcher(employeeAttribute.getAttributeKey().trim());
+        String attributeKey = employeeAttribute.getAttributeKey().trim();
+        Matcher matcher = pattern.matcher(attributeKey);
 
         // Check if the attributeKey already exists
-        EmployeeAttribute existingEmployeeAttribute = employeeAttributeRepository.findByAttributeKey(employeeAttribute.getAttributeKey().trim()).orElse(null);
+        EmployeeAttribute existingEmployeeAttribute = employeeAttributeRepository.findByAttributeKey(attributeKey).orElse(null);
         if (existingEmployeeAttribute != null) {
             throw new com.example.HRMSAvisoft.service.EmployeeAttributeService.EmployeeAttributeAlreadyExistsException(existingEmployeeAttribute.getAttributeKey() + " employeeAttribute already exists");
         }
 
-        // Validate that the attributeKey is not empty and matches the regex
-        if(employeeAttribute.getAttributeKey() != null && !employeeAttribute.getAttributeKey().equals("") && matcher.matches()) {
-            return employeeAttributeRepository.save(employeeAttribute);
-        } else {
-            throw new IllegalArgumentException("Employee attribute key cannot be empty or contain numbers or special characters.");
+        // Validate that the attributeKey is not empty
+        if (attributeKey == null || attributeKey.equals("")) {
+            throw new IllegalArgumentException("key cannot be empty.");
         }
+
+        // Validate that the attributeKey matches the regex (no numbers or special characters)
+        if (!matcher.matches()) {
+            throw new IllegalArgumentException("key cannot contain numbers or special characters.");
+        }
+
+        // If all validations pass, save the EmployeeAttribute
+        return employeeAttributeRepository.save(employeeAttribute);
     }
 
     public EmployeeAttribute updateEmployeeAttribute(EmployeeAttribute employeeAttribute, Long employeeAttributeId) throws EntityNotFoundException, IllegalArgumentException {
+        // Find the employee attribute to update
         EmployeeAttribute employeeAttributeToUpdate = employeeAttributeRepository.findById(employeeAttributeId)
                 .orElseThrow(() -> new EntityNotFoundException("EmployeeAttribute not found"));
 
@@ -69,14 +77,18 @@ public class EmployeeAttributeService {
         }
 
         // Validate and update the attribute key
-        if (Objects.nonNull(employeeAttribute.getAttributeKey()) && !employeeAttribute.getAttributeKey().trim().equals("")) {
-            if (!employeeAttribute.getAttributeKey().trim().matches(ATTRIBUTE_KEY_REGEX)) {
-                throw new IllegalArgumentException("Employee attribute key is invalid. It should only contain letters and spaces, with no spaces at the start, end, or in between.");
-            }
-            employeeAttributeToUpdate.setAttributeKey(employeeAttribute.getAttributeKey());
-        } else {
-            throw new IllegalArgumentException("Employee attribute can't be empty");
+        String attributeKey = employeeAttribute.getAttributeKey();
+        if (attributeKey == null || attributeKey.trim().isEmpty()) {
+            throw new IllegalArgumentException("key cannot be empty.");
         }
+
+        // Check for invalid attribute key
+        if (!attributeKey.trim().matches(ATTRIBUTE_KEY_REGEX)) {
+            throw new IllegalArgumentException("key cannot contain numbers or special characters");
+        }
+
+        // Set the attribute key if valid
+        employeeAttributeToUpdate.setAttributeKey(attributeKey.trim());
 
         // Save and return the updated entity
         return employeeAttributeRepository.save(employeeAttributeToUpdate);

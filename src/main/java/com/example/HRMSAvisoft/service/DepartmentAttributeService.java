@@ -9,6 +9,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,20 +34,21 @@ public class DepartmentAttributeService {
     public DepartmentAttribute addDepartmentAttribute(DepartmentAttribute departmentAttribute)
             throws AttributeKeyAlreadyExistsException, IllegalArgumentException {
 
+
         // Check if an attribute with the same key already exists
         DepartmentAttribute existingDepartmentAttribute = departmentAttributeRepository.findByAttributeKey(departmentAttribute.getAttributeKey()).orElse(null);
         if (existingDepartmentAttribute != null) {
-            throw new AttributeKeyAlreadyExistsException(departmentAttribute.getAttributeKey());
+            throw new AttributeKeyAlreadyExistsException(departmentAttribute.getAttributeKey() + " department attribute key already exists.");
         }
 
         // Validate the attribute key
-        if (departmentAttribute.getAttributeKey() != null && !departmentAttribute.getAttributeKey().trim().equals("")) {
+        if (departmentAttribute.getAttributeKey() != null && !departmentAttribute.getAttributeKey().trim().isEmpty()) {
             if (!departmentAttribute.getAttributeKey().trim().matches(ATTRIBUTE_KEY_REGEX)) {
-                throw new IllegalArgumentException("Department attribute key is invalid. It should only contain letters and spaces, with no spaces at the start, end, or in between.");
+                throw new IllegalArgumentException("Key cannot contain numbers or special characters");
             }
             return departmentAttributeRepository.save(departmentAttribute);
         } else {
-            throw new IllegalArgumentException("Department attribute can't be empty.");
+            throw new IllegalArgumentException("key cannot be empty.");
         }
     }
 
@@ -60,17 +62,17 @@ public class DepartmentAttributeService {
         // Check if an attribute with the same key already exists (but is not the current one)
         DepartmentAttribute existingDepartmentAttribute = departmentAttributeRepository.findByAttributeKey(departmentAttribute.getAttributeKey()).orElse(null);
         if (existingDepartmentAttribute != null && !Objects.equals(existingDepartmentAttribute.getAttributeId(), departmentAttributeId)) {
-            throw new AttributeKeyAlreadyExistsException(existingDepartmentAttribute.getAttributeKey());
+            throw new AttributeKeyAlreadyExistsException(existingDepartmentAttribute.getAttributeKey() + " department attribute key already exists.");
         }
 
         // Validate and update the attribute key
-        if (Objects.nonNull(departmentAttribute.getAttributeKey()) && !departmentAttribute.getAttributeKey().trim().equals("")) {
+        if (Objects.nonNull(departmentAttribute.getAttributeKey()) && !departmentAttribute.getAttributeKey().trim().isEmpty()) {
             if (!departmentAttribute.getAttributeKey().trim().matches(ATTRIBUTE_KEY_REGEX)) {
-                throw new IllegalArgumentException("Department attribute key is invalid. It should only contain letters and spaces, with no spaces at the start, end, or in between.");
+                throw new IllegalArgumentException("Key cannot contain numbers or special characters");
             }
             departmentAttributeToUpdate.setAttributeKey(departmentAttribute.getAttributeKey());
         } else {
-            throw new IllegalArgumentException("Department attribute can't be empty.");
+            throw new IllegalArgumentException("key cannot be empty.");
         }
 
         // Save and return the updated department attribute

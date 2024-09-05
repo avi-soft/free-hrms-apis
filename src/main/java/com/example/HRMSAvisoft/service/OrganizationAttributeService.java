@@ -43,46 +43,48 @@ public class OrganizationAttributeService{
         // Check if the attribute key already exists
         OrganizationAttribute existingOrganizationAttribute = organizationAttributeRepository.findByAttributeKey(organizationAttribute.getAttributeKey()).orElse(null);
         if (existingOrganizationAttribute != null) {
-            throw new com.example.HRMSAvisoft.service.OrganizationAttributeService.OrganizationAttributeAlreadyExistsException(existingOrganizationAttribute.getAttributeKey() + " organizationAttribute already exists");
+            throw new com.example.HRMSAvisoft.service.OrganizationAttributeService.OrganizationAttributeAlreadyExistsException(existingOrganizationAttribute.getAttributeKey() + " organization attribute already exists.");
         }
 
         // Validate the attribute key
-        if (organizationAttribute.getAttributeKey() != null && !organizationAttribute.getAttributeKey().trim().equals("")) {
+        if (organizationAttribute.getAttributeKey() != null && !organizationAttribute.getAttributeKey().trim().isEmpty()) {
             if (!organizationAttribute.getAttributeKey().trim().matches(ATTRIBUTE_KEY_REGEX)) {
-                throw new IllegalArgumentException("Organization attribute key cant contain numbers or special characters.");
+                throw new IllegalArgumentException("Key cannot contain numbers or special characters");
             }
             return organizationAttributeRepository.save(organizationAttribute);
         } else {
-            throw new IllegalArgumentException("Organization attribute can't be empty");
+            throw new IllegalArgumentException("key cannot be empty.");
         }
     }
 
     public OrganizationAttribute updateOrganizationAttribute(OrganizationAttribute organizationAttribute, Long organizationAttributeId)
             throws EntityNotFoundException, IllegalArgumentException {
 
+
         // Find the existing organization attribute by ID
         OrganizationAttribute organizationAttributeToUpdate = organizationAttributeRepository.findById(organizationAttributeId)
-                .orElseThrow(() -> new EntityNotFoundException("OrganizationAttribute not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Organization attribute not found."));
 
         // Check if an attribute with the same key already exists (but is not the current one)
         OrganizationAttribute existingOrganizationAttribute = organizationAttributeRepository.findByAttributeKey(organizationAttribute.getAttributeKey()).orElse(null);
         if (existingOrganizationAttribute != null && !Objects.equals(existingOrganizationAttribute.getAttributeId(), organizationAttributeId)) {
-            throw new com.example.HRMSAvisoft.service.OrganizationAttributeService.OrganizationAttributeAlreadyExistsException(existingOrganizationAttribute.getAttributeKey() + " organizationAttribute already exists");
+            throw new com.example.HRMSAvisoft.service.OrganizationAttributeService.OrganizationAttributeAlreadyExistsException(existingOrganizationAttribute.getAttributeKey() + " organization attribute already exists.");
         }
 
         // Validate and update the attribute key
-        if (Objects.nonNull(organizationAttribute.getAttributeKey()) && !organizationAttribute.getAttributeKey().trim().equals("")) {
+        if (Objects.nonNull(organizationAttribute.getAttributeKey()) && !organizationAttribute.getAttributeKey().trim().isEmpty()) {
             if (!organizationAttribute.getAttributeKey().trim().matches(ATTRIBUTE_KEY_REGEX)) {
-                throw new IllegalArgumentException("Organization attribute key is invalid. It should only contain letters and spaces, with no spaces at the start, end, or in between.");
+                throw new IllegalArgumentException("Key cannot contain numbers or special characters");
             }
             organizationAttributeToUpdate.setAttributeKey(organizationAttribute.getAttributeKey());
         } else {
-            throw new IllegalArgumentException("Organization attribute can't be empty");
+            throw new IllegalArgumentException("key cannot be empty.");
         }
 
         // Save and return the updated organization attribute
         return organizationAttributeRepository.save(organizationAttributeToUpdate);
     }
+
     @Transactional
     public OrganizationAttribute deleteOrganizationAttribute(Long organizationAttributeId) throws EntityNotFoundException {
         OrganizationAttribute organizationAttributeToDelete = organizationAttributeRepository.findById(organizationAttributeId).orElseThrow((() -> new EntityNotFoundException(organizationAttributeId + "not found")));
