@@ -160,26 +160,22 @@ public class EmployeeService {
     public Page<Employee> getAllEmployees(int page, int size, String sortBy) throws DataAccessException {
         List<Employee> employeesList = employeeRepository.findAll();
 
-        // Sort the list based on the sortBy parameter
         if ("createdAt".equalsIgnoreCase(sortBy)) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-            // Sorting by parsing the string dates to LocalDateTime and handling nulls
+            // Sort based on parsed LocalDateTime, in descending order
             employeesList.sort((e1, e2) -> {
-                LocalDateTime date1 = null;
-                LocalDateTime date2 = null;
                 try {
-                    if (e1.getCreatedAt() != null && !e1.getCreatedAt().trim().isEmpty()) {
-                        date1 = LocalDateTime.parse(e1.getCreatedAt(), formatter);
-                    }
-                    if (e2.getCreatedAt() != null && !e2.getCreatedAt().trim().isEmpty()) {
-                        date2 = LocalDateTime.parse(e2.getCreatedAt(), formatter);
-                    }
+                    LocalDateTime date1 = (e1.getCreatedAt() != null && !e1.getCreatedAt().trim().isEmpty())
+                            ? LocalDateTime.parse(e1.getCreatedAt(), formatter) : null;
+                    LocalDateTime date2 = (e2.getCreatedAt() != null && !e2.getCreatedAt().trim().isEmpty())
+                            ? LocalDateTime.parse(e2.getCreatedAt(), formatter) : null;
+
+                    return Comparator.nullsLast(LocalDateTime::compareTo).reversed().compare(date1, date2);
                 } catch (DateTimeParseException e) {
                     System.err.println("Error parsing date: " + e.getMessage());
+                    return 0;
                 }
-                // Reverse order of comparison for descending order sorting
-                return Comparator.nullsLast(LocalDateTime::compareTo).reversed().compare(date1, date2);
             });
         } else if ("name".equalsIgnoreCase(sortBy)) {
             // Sorting by firstName and lastName alphabetically and handling nulls
@@ -195,6 +191,7 @@ public class EmployeeService {
 
         return new PageImpl<>(employeesList.subList(start, end), pageable, employeesList.size());
     }
+
 
     public Employee getEmployeeById(Long employeeId)throws EmployeeNotFoundException, NullPointerException,AccessDeniedException
     {
