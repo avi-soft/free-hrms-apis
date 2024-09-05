@@ -164,19 +164,7 @@ public class EmployeeService {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
             // Sort based on parsed LocalDateTime, in descending order
-            employeesList.sort((e1, e2) -> {
-                try {
-                    LocalDateTime date1 = (e1.getCreatedAt() != null && !e1.getCreatedAt().trim().isEmpty())
-                            ? LocalDateTime.parse(e1.getCreatedAt(), formatter) : null;
-                    LocalDateTime date2 = (e2.getCreatedAt() != null && !e2.getCreatedAt().trim().isEmpty())
-                            ? LocalDateTime.parse(e2.getCreatedAt(), formatter) : null;
-
-                    return Comparator.nullsLast(LocalDateTime::compareTo).reversed().compare(date1, date2);
-                } catch (DateTimeParseException e) {
-                    System.err.println("Error parsing date: " + e.getMessage());
-                    return 0;
-                }
-            });
+                employeesList.sort(Comparator.comparing(Employee::getEmployeeId, Comparator.nullsLast(Long::compareTo)).reversed());
         } else if ("name".equalsIgnoreCase(sortBy)) {
             // Sorting by firstName and lastName alphabetically and handling nulls
             employeesList.sort(Comparator.comparing(Employee::getFirstName, Comparator.nullsLast(String::compareTo))

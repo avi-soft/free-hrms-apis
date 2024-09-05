@@ -196,24 +196,13 @@ public class UserService {
 
         // Sort the list based on the sortBy parameter
         if ("createdAt".equalsIgnoreCase(sortBy)) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-
-            // Sorting by parsing the string dates to LocalDateTime and handling nulls
+            // Sorting based on userId in descending order
             employeesList.sort((e1, e2) -> {
-                LocalDateTime date1 = null;
-                LocalDateTime date2 = null;
-                try {
-                    if (e1.getCreatedAt() != null && !e1.getCreatedAt().trim().isEmpty()) {
-                        date1 = LocalDateTime.parse(e1.getCreatedAt(), formatter);
-                    }
-                    if (e2.getCreatedAt() != null && !e2.getCreatedAt().trim().isEmpty()) {
-                        date2 = LocalDateTime.parse(e2.getCreatedAt(), formatter);
-                    }
-                } catch (DateTimeParseException e) {
-                    System.err.println("Error parsing date: " + e.getMessage());
-                }
-                // Reverse order of comparison for descending order sorting
-                return Comparator.nullsLast(LocalDateTime::compareTo).reversed().compare(date1, date2);
+                User user1 = userRepository.findByEmployee(e1);
+                User user2 = userRepository.findByEmployee(e2);
+
+                // Compare userId in reverse order for descending sorting
+                return Comparator.nullsLast(Long::compareTo).reversed().compare(user1.getUserId(), user2.getUserId());
             });
         } else if ("name".equalsIgnoreCase(sortBy)) {
             // Sorting by firstName and lastName alphabetically and handling nulls
