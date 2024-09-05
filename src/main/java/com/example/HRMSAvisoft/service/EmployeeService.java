@@ -178,7 +178,8 @@ public class EmployeeService {
                 } catch (DateTimeParseException e) {
                     System.err.println("Error parsing date: " + e.getMessage());
                 }
-                return Comparator.nullsLast(LocalDateTime::compareTo).compare(date1, date2); // Nulls last, descending order
+                // Reverse order of comparison for descending order sorting
+                return Comparator.nullsLast(LocalDateTime::compareTo).reversed().compare(date1, date2);
             });
         } else if ("name".equalsIgnoreCase(sortBy)) {
             // Sorting by firstName and lastName alphabetically and handling nulls

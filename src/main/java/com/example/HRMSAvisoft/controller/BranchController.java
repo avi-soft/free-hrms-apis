@@ -47,6 +47,7 @@ public class BranchController {
         return ResponseEntity.status(200).body(Map.of("success", true, "message", "Branches fetched successfully", "Branches", branchListPage));
     }
 
+
     @GetMapping("/employeesInBranch/{branchId}")
     public ResponseEntity<Map<String, Object>> getEmployeesInBranch(
             @PathVariable Long branchId,

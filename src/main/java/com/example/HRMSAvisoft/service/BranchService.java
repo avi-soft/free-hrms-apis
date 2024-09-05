@@ -105,6 +105,25 @@ public class BranchService {
 
     }
 
+    public Page<Employee> sgetEmployeesInBranch(Long branchId, int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+
+        Branch branch = branchRepository.findById(branchId).orElseThrow(()-> new EntityNotFoundException("Branch not found."));
+
+        List<Employee> employeesInBranchList = new ArrayList<Employee>();
+
+        for(Department department : branch.getDepartments()){
+            for(Employee employee : department.getEmployees()){
+                employeesInBranchList.add(employee);
+            }
+        }
+        int start = (int)pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), employeesInBranchList.size());
+
+        return new PageImpl<>(employeesInBranchList.subList(start, end), pageable, employeesInBranchList.size());
+
+    }
+
     public Page<Department> getAllDepartmentsOfBranch(int page, int size, Long branchId){
         Pageable pageable = PageRequest.of(page, size);
 
