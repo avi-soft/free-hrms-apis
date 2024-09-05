@@ -76,7 +76,19 @@ public class DepartmentController {
     ){
         Page<Department> unassignedDepartmentsList = departmentService.getAllUnassignedDepartmentsOfBranch(page, size);
 
-        return ResponseEntity.status(200).body(Map.of("success", true, "message", "Departments fetched successfully", "Departments", unassignedDepartmentsList));
+        Page<DepartmentsResponseDTO> departmentsResponseDTOSPage = unassignedDepartmentsList.map(department ->{
+            DepartmentsResponseDTO departmentsResponseDTO = new DepartmentsResponseDTO();
+            departmentsResponseDTO.setDepartmentId(department.getDepartmentId());
+            departmentsResponseDTO.setDescription(department.getDescription());
+            departmentsResponseDTO.setDepartment(department.getDepartment());
+            departmentsResponseDTO.setManagerId(department.getManager().getEmployeeId());
+            departmentsResponseDTO.setManagerEmployeeCode(department.getManager().getEmployeeCode());
+            departmentsResponseDTO.setManagerFirstName(department.getManager().getFirstName());
+            departmentsResponseDTO.setManagerLastName(department.getManager().getLastName());
+            departmentsResponseDTO.setAttributes(department.getAttributes());
+            return departmentsResponseDTO;
+        });
+        return ResponseEntity.status(200).body(Map.of("success", true, "message", "Departments fetched successfully", "Departments", departmentsResponseDTOSPage));
     }
 
     @GetMapping("/unassignedDepartmentsOfOrganization")
@@ -86,7 +98,19 @@ public class DepartmentController {
     ){
         Page<Department> unassignedDepartmentsList = departmentService.getAllUnassignedDepartmentsOfOrganization(page, size);
 
-        return ResponseEntity.status(200).body(Map.of("success", true, "message", "Departments fetched successfully", "Departments", unassignedDepartmentsList));
+        Page<DepartmentsResponseDTO> departmentsResponseDTOSPage = unassignedDepartmentsList.map(department ->{
+            DepartmentsResponseDTO departmentsResponseDTO = new DepartmentsResponseDTO();
+            departmentsResponseDTO.setDepartmentId(department.getDepartmentId());
+            departmentsResponseDTO.setDescription(department.getDescription());
+            departmentsResponseDTO.setDepartment(department.getDepartment());
+            departmentsResponseDTO.setManagerId(department.getManager().getEmployeeId());
+            departmentsResponseDTO.setManagerEmployeeCode(department.getManager().getEmployeeCode());
+            departmentsResponseDTO.setManagerFirstName(department.getManager().getFirstName());
+            departmentsResponseDTO.setManagerLastName(department.getManager().getLastName());
+            departmentsResponseDTO.setAttributes(department.getAttributes());
+            return departmentsResponseDTO;
+        });
+        return ResponseEntity.status(200).body(Map.of("success", true, "message", "Departments fetched successfully", "Departments", departmentsResponseDTOSPage));
     }
 
     @PostMapping("")
