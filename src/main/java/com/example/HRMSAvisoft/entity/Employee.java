@@ -69,14 +69,11 @@ public class Employee {
 
 
     @OneToMany(mappedBy = "reviewer",cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
     private List<Performance> reviewedPerformances = new ArrayList<Performance>();
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
     private List<Performance> performanceList = new ArrayList<>();
 
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Payroll> payrollList = new ArrayList<Payroll>();
 
@@ -85,11 +82,9 @@ public class Employee {
     private Account account;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonIgnore
     private List<LeaveRequest> leaveRequests = new ArrayList<>();
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonIgnore
     private List<LeaveBalance> leaveBalances = new ArrayList<>();
 
 

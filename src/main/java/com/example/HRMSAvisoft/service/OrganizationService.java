@@ -2,6 +2,7 @@ package com.example.HRMSAvisoft.service;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.example.HRMSAvisoft.attribute.DepartmentAttribute;
 import com.example.HRMSAvisoft.attribute.OrganizationAttribute;
 import com.example.HRMSAvisoft.dto.AddNewOrganizationDTO;
 import com.example.HRMSAvisoft.dto.UpdateOrganizationDTO;
@@ -106,7 +107,14 @@ public Organization addOrganization(AddNewOrganizationDTO organizationDTO) throw
     return organizationRepository.save(organizationToAdd);
 }
 
-    public Organization updateOrganization(UpdateOrganizationDTO organizationDTO, Long organizationId) throws EntityNotFoundException, IllegalArgumentException{
+    public Organization updateOrganization(UpdateOrganizationDTO organizationDTO, Long organizationId) throws EntityNotFoundException, IllegalArgumentException, AttributeKeyDoesNotExistException{
+        organizationDTO.getAttributes().forEach((k,v)->{
+            OrganizationAttribute organizationAttribute = organizationAttributeRepository.findByAttributeKey(k).orElse(null);
+            if(organizationAttribute == null){
+                throw new AttributeKeyDoesNotExistException("Attribute "+ k + " does not exist");
+            }
+        });
+
         Organization organizationToUpdate = organizationRepository.findById(organizationId).orElseThrow((()-> new EntityNotFoundException("Organization not found")));
 
         Organization existingOrganization = organizationRepository.getByOrganizationName(organizationDTO.getOrganizationName()).orElse(null);
@@ -120,15 +128,20 @@ public Organization addOrganization(AddNewOrganizationDTO organizationDTO) throw
         if (Objects.nonNull(organizationDTO.getOrganizationDescription())) {
             organizationToUpdate.setOrganizationDescription(organizationDTO.getOrganizationDescription());
         }
+
         Map<OrganizationAttribute, String> attributeMap = new HashMap<>();
+
         for (Map.Entry<String, String> entry : organizationDTO.getAttributes().entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
+
             OrganizationAttribute organizationAttribute = organizationAttributeRepository.findByAttributeKey(key)
                     .orElseThrow(() -> new AttributeKeyDoesNotExistException("Attribute " + key + " does not exist"));
             attributeMap.put(organizationAttribute, value);
         }
-        organizationToUpdate.setAttributes(attributeMap);
+        Map<OrganizationAttribute, String> existingAttributes = organizationToUpdate.getAttributes();
+        existingAttributes.putAll(attributeMap);
+
         return organizationRepository.save(organizationToUpdate);
     }
 

@@ -20,16 +20,12 @@ import java.util.Objects;
 public class OrganizationAttributeService{
 
     private final OrganizationAttributeRepository organizationAttributeRepository;
-    private final ModelMapper modelMapper;
-    private Cloudinary cloudinary;
     private final OrganizationRepository organizationRepository;
     private static final String ATTRIBUTE_KEY_REGEX = "^[a-zA-Z]+(\\s[a-zA-Z]+)*$";
 
-    OrganizationAttributeService(OrganizationAttributeRepository organizationAttributeRepository, ModelMapper modelMapper, Cloudinary cloudinary, OrganizationRepository organizationRepository) {
+    OrganizationAttributeService(OrganizationAttributeRepository organizationAttributeRepository, OrganizationRepository organizationRepository) {
         this.organizationAttributeRepository = organizationAttributeRepository;
         this.organizationRepository = organizationRepository;
-        this.modelMapper = modelMapper;
-        this.cloudinary = cloudinary;
     }
 
     public List<OrganizationAttribute> getOrganizationAttributes() {
