@@ -1,6 +1,7 @@
 package com.example.HRMSAvisoft.controller;
 
 import com.example.HRMSAvisoft.dto.AddAccountDTO;
+import com.example.HRMSAvisoft.entity.Account;
 import com.example.HRMSAvisoft.entity.Employee;
 import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
 import com.example.HRMSAvisoft.service.AccountService;
@@ -32,6 +33,13 @@ public class AccountController {
         response.put("success", true);
         response.put("updatedUser", updatedEmployee);
         return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("{accountId}")
+    public ResponseEntity<Map<String, Object>> updateAccount(@PathVariable Long accountId, @Valid @RequestBody AddAccountDTO addAccountDTO){
+        Account updatedAccount = accountService.updateAccount(accountId,addAccountDTO);
+
+        return ResponseEntity.status(200).body(Map.of("success", true, "message", "Account updated successfully", "updatedAccount", updatedAccount));
     }
 
     @PreAuthorize("hasAuthority('REMOVE_ACCOUNT')")

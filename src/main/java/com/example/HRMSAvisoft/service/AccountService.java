@@ -6,7 +6,10 @@ import com.example.HRMSAvisoft.entity.Employee;
 import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
 import com.example.HRMSAvisoft.repository.AccountRepository;
 import com.example.HRMSAvisoft.repository.EmployeeRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 @Service
 public class AccountService {
@@ -31,7 +34,25 @@ public class AccountService {
         Account newAccount =accountRepository.save(account);
         employee.setAccount(newAccount);
         return employeeRepository.save(employee);
+    }
 
+    public Account updateAccount(Long accountId, AddAccountDTO addAccountDTO){
+        Account accountToUpdate = accountRepository.findById(accountId).orElseThrow(()-> new EntityNotFoundException("Account not found."));
+
+        if(Objects.nonNull(addAccountDTO.getAccountNumber()) && !addAccountDTO.getAccountNumber().equals("")){
+            accountToUpdate.setAccountNumber(addAccountDTO.getAccountNumber());
+        }
+        if(Objects.nonNull(addAccountDTO.getIfsc()) && !addAccountDTO.getIfsc().equals("")){
+            accountToUpdate.setIfsc(addAccountDTO.getIfsc());
+        }
+        if(Objects.nonNull(addAccountDTO.getBranch()) && !addAccountDTO.getBranch().equals("")){
+            accountToUpdate.setBranch(addAccountDTO.getBranch());
+        }
+        if(Objects.nonNull(addAccountDTO.getBankName()) && !addAccountDTO.getBankName().equals("")){
+            accountToUpdate.setBankName(addAccountDTO.getBankName());
+        }
+
+        return accountRepository.save(accountToUpdate);
     }
     public boolean removeAccountFromEmployee(Long employeeId)throws EmployeeNotFoundException {
         Employee employee = employeeRepository.findById(employeeId)

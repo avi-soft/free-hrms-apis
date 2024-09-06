@@ -41,21 +41,30 @@ public class ShiftDurationService {
         return shiftDurationList;
     }
 
-    public ShiftDuration updateShiftDuration(ShiftDurationDTO shiftDurationDTO, Long shiftDurationId)throws EntityNotFoundException{
-        ShiftDuration shiftDurationToUpdate = shiftDurationRepository.findById(shiftDurationId).orElseThrow(() -> new EntityNotFoundException("Shift Duration not found"));
+    public ShiftDuration updateShiftDuration(ShiftDurationDTO shiftDurationDTO)throws EntityNotFoundException{
+        List<ShiftDuration> shiftDurationList = shiftDurationRepository.findAll();
 
-        Duration updatedShiftDuration = Duration.ZERO;
+        ShiftDuration shiftDurationToUpdate = null;
 
-        if(Objects.nonNull(shiftDurationDTO.getShiftDurationHours())){
-            updatedShiftDuration = updatedShiftDuration.plusHours(shiftDurationDTO.getShiftDurationHours());
-        }
-        if(Objects.nonNull(shiftDurationDTO.getShiftDurationMinutes())){
-            updatedShiftDuration = updatedShiftDuration.plusMinutes(shiftDurationDTO.getShiftDurationMinutes());
+        if(shiftDurationList.size() != 0) {
+            shiftDurationToUpdate = shiftDurationList.get(0);
         }
 
-        shiftDurationToUpdate.setShiftDuration(updatedShiftDuration);
+        if(shiftDurationToUpdate != null) {
+            Duration updatedShiftDuration = Duration.ZERO;
 
-        return shiftDurationRepository.save(shiftDurationToUpdate);
+            if (Objects.nonNull(shiftDurationDTO.getShiftDurationHours())) {
+                updatedShiftDuration = updatedShiftDuration.plusHours(shiftDurationDTO.getShiftDurationHours());
+            }
+            if (Objects.nonNull(shiftDurationDTO.getShiftDurationMinutes())) {
+                updatedShiftDuration = updatedShiftDuration.plusMinutes(shiftDurationDTO.getShiftDurationMinutes());
+            }
+
+            shiftDurationToUpdate.setShiftDuration(updatedShiftDuration);
+
+            return shiftDurationRepository.save(shiftDurationToUpdate);
+        }
+        return null;
     }
 
     public void deleteShiftDuration(long shiftDurationId){

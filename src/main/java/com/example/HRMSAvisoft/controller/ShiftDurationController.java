@@ -38,11 +38,16 @@ public class ShiftDurationController {
         return ResponseEntity.status(200).body(Map.of("message", "Shift Duration Fetched", "success", true, "ShiftDurationList", shiftDurationList));
     }
 
-    @PatchMapping("/{shiftDurationId}")
-    public ResponseEntity<Map<String, Object>> updateShiftDuration(@PathVariable("shiftDurationId") Long shiftDurationId, @RequestBody ShiftDurationDTO shiftDurationDTO)throws EntityNotFoundException {
-        ShiftDuration updatedShiftDuration = shiftDurationService.updateShiftDuration(shiftDurationDTO, shiftDurationId);
+    @PatchMapping("")
+    public ResponseEntity<Map<String, Object>> updateShiftDuration(@RequestBody ShiftDurationDTO shiftDurationDTO)throws EntityNotFoundException {
+        ShiftDuration updatedShiftDuration = shiftDurationService.updateShiftDuration(shiftDurationDTO);
 
-        return ResponseEntity.status(200).body(Map.of("message", "Shift Duration updated successfully", "success", true, "UpdatedShiftDuration", updatedShiftDuration));
+        if(updatedShiftDuration != null) {
+            return ResponseEntity.status(200).body(Map.of("message", "Shift Duration updated successfully", "success", true, "UpdatedShiftDuration", updatedShiftDuration));
+        }
+        else{
+            return ResponseEntity.status(404).body(Map.of("message", "No Duration found Create a new Duration.", "success", "false"));
+        }
     }
 
     @DeleteMapping("/{shiftDurationId}")
