@@ -63,48 +63,6 @@ public class UserService {
         return user;
     }
 
-    public Employee saveUser(CreateUserDTO createUserDTO, User loggedInUser, Long organizationId) throws IOException {
-        Organization organization = organizationRepository.findById(organizationId).orElseThrow(()-> new EntityNotFoundException("Organization not found"));
-        User alreadyRegisteredUser = userRepository.getByEmail(createUserDTO.getEmail());
-
-        if(alreadyRegisteredUser!=null){
-            throw new EmailAlreadyExistsException(createUserDTO.getEmail());
-        }
-
-        User newUser=new User();
-        newUser.setEmail(createUserDTO.getEmail());
-        newUser.setPassword(passwordEncoder.encode(createUserDTO.getPassword()));
-
-        newUser.setCreatedBy(loggedInUser);
-        LocalDateTime createdAt = LocalDateTime.now();
-        DateTimeFormatter createdAtFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        newUser.setCreatedAt(createdAt.format(createdAtFormatter));
-
-        Role roleToAdd = roleRepository.getByRole(createUserDTO.getRole()).orElse(null);
-        if(roleToAdd != null) {
-            newUser.getRoles().clear();
-            newUser.getRoles().add(roleToAdd);
-        }
-
-        // make employee instance corresponding to the user and set some data of employee
-
-        Employee newEmployee = new Employee();
-        newEmployee.setFirstName(createUserDTO.getFirstName());
-        newEmployee.setLastName(createUserDTO.getLastName());
-//        newEmployee.setJoinDate(createUserDTO.getJoinDate());
-//        newEmployee.setGender(createUserDTO.getGender());
-//        newEmployee.setPosition(createUserDTO.getPosition());
-//        newEmployee.setSalary(createUserDTO.getSalary());
-//        newEmployee.setDateOfBirth(createUserDTO.getDateOfBirth());
-        newEmployee.setProfileImage("https://api.dicebear.com/5.x/initials/svg?seed="+createUserDTO.getFirstName()+" "+createUserDTO.getLastName());
-        Employee savedEmployee = employeeRepository.save(newEmployee);
-
-        newUser.setEmployee(savedEmployee);
-        organizationRepository.save(organization);
-        userRepository.save(newUser);
-        return savedEmployee;
-
-    }
 
     public User addNewUser(AddNewUserDTO addNewUserDTO, User loggedInUser, Long organizationId)throws IOException,EmailAlreadyExistsException, EntityNotFoundException{
         Organization organization = organizationRepository.findById(organizationId).orElseThrow(()-> new EntityNotFoundException("Organization not found"));
@@ -128,6 +86,7 @@ public class UserService {
         }
 
         Employee employee=new Employee();
+        employee.setEmail(addNewUserDTO.getEmail());
         Employee savedEmployee = employeeRepository.save(employee);
 
         newUser.setEmployee(savedEmployee);

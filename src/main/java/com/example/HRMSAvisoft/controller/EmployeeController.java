@@ -164,7 +164,6 @@ public class EmployeeController {
     @GetMapping("/{employeeId}")
     public ResponseEntity<Map<String,Object>> getEmployeeById(@PathVariable Long employeeId) throws NullPointerException, EmployeeNotFoundException, DataAccessException, AccessDeniedException {
         Employee employee= employeeService.getEmployeeById(employeeId);
-        Map<String, Object> responseData = new HashMap<>();
         return ResponseEntity.ok().body(Map.of("Employee", employee, "message", "Employee retrieved Successfully", "Status", true));
     }
 

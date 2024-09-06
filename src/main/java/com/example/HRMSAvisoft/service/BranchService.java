@@ -50,12 +50,14 @@ public class BranchService {
         });
 
         Branch newBranch = new Branch();
-        if(createBranchDTO.getOrganizationId() != null){
-            Branch existingBranchByName = branchRepository.findBranchByBranchName(createBranchDTO.getBranchName()).orElse(null);
-            if(existingBranchByName != null){
-                throw new BranchAlreadyExistsException(createBranchDTO.getBranchName());
-            }
-        }
+
+//        if(createBranchDTO.getOrganizationId() != null){
+//            Branch existingBranchByName = branchRepository.findBranchByBranchName(createBranchDTO.getBranchName()).orElse(null);
+//            if(existingBranchByName != null){
+//                throw new BranchAlreadyExistsException(createBranchDTO.getBranchName());
+//            }
+//        }
+
         newBranch.setBranchName(createBranchDTO.getBranchName());
         if(createBranchDTO.getOrganizationId() != null) {
             Organization organizationForBranch = organizationRepository.findById(createBranchDTO.getOrganizationId()).orElse(null);
@@ -87,25 +89,6 @@ public class BranchService {
     }
 
     public Page<Employee> getEmployeesInBranch(Long branchId, int page, int size){
-        Pageable pageable = PageRequest.of(page, size);
-
-        Branch branch = branchRepository.findById(branchId).orElseThrow(()-> new EntityNotFoundException("Branch not found."));
-
-        List<Employee> employeesInBranchList = new ArrayList<Employee>();
-
-        for(Department department : branch.getDepartments()){
-            for(Employee employee : department.getEmployees()){
-                employeesInBranchList.add(employee);
-            }
-        }
-        int start = (int)pageable.getOffset();
-        int end = Math.min((start + pageable.getPageSize()), employeesInBranchList.size());
-
-        return new PageImpl<>(employeesInBranchList.subList(start, end), pageable, employeesInBranchList.size());
-
-    }
-
-    public Page<Employee> sgetEmployeesInBranch(Long branchId, int page, int size){
         Pageable pageable = PageRequest.of(page, size);
 
         Branch branch = branchRepository.findById(branchId).orElseThrow(()-> new EntityNotFoundException("Branch not found."));

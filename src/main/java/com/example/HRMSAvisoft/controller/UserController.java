@@ -55,18 +55,6 @@ public class UserController {
         return "Hello ";
     }
 
-    @PostMapping("/saveUser/{organizationId}")
-    @PreAuthorize("hasAuthority('SAVE_USER')")
-    public ResponseEntity<CreateUserResponseDTO>saveUser(@AuthenticationPrincipal User loggedInUser,
-                                                         @RequestBody CreateUserDTO createUserDTO,@PathVariable Long organizationId) throws IOException {
-        Employee createdUserEmployee = userService.saveUser(createUserDTO, loggedInUser,organizationId);
-        CreateUserResponseDTO createUserResponseDTO = new CreateUserResponseDTO();
-        createUserResponseDTO.setMessage("User Created Successfully");
-        createUserResponseDTO.setEmployeeId(createdUserEmployee.getEmployeeId());
-        createUserResponseDTO.setProfileImage(createUserResponseDTO.getProfileImage());
-        return ResponseEntity.status(HttpStatus.CREATED).body(createUserResponseDTO);
-    }
-
 
     @Operation(
             tags = "createUser",

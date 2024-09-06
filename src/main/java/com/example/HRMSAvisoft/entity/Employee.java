@@ -35,13 +35,13 @@ public class Employee {
     private String firstName;
 //
     private String lastName;
+
+    private String email;
 //    private String contact;
 
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<EmergencyContact> emergencyContacts = new ArrayList<>();
 
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Address> addresses = new ArrayList<Address>();
 

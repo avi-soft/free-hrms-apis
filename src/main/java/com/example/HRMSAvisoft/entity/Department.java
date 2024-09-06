@@ -24,7 +24,6 @@ public class Department {
     @Column(nullable = false)
     private Long departmentId;
 
-    //    @Column(nullable = false)
     private String department;
 
     private String description;
