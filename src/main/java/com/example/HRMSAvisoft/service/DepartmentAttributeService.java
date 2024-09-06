@@ -98,7 +98,7 @@ public class DepartmentAttributeService {
 
     public static class DepartmentAlreadyExistsException extends Exception {
         public DepartmentAlreadyExistsException(String departmentName){
-            super(departmentName+ " department d exists");
+            super(departmentName+ " department already exists");
         }
     }
 

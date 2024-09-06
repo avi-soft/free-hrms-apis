@@ -36,7 +36,9 @@ public class Employee {
 //
     private String lastName;
 
-    private String email;
+
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private User user;
 //    private String contact;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)

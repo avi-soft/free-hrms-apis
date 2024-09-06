@@ -86,7 +86,7 @@ public class UserService {
         }
 
         Employee employee=new Employee();
-        employee.setEmail(addNewUserDTO.getEmail());
+        employee.setUser(newUser);
         Employee savedEmployee = employeeRepository.save(employee);
 
         newUser.setEmployee(savedEmployee);

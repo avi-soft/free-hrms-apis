@@ -66,7 +66,7 @@ public class DepartmentService {
         }
         Department newDepartment = new Department();
         if(createDepartmentDTO.getManagerId() != null) {
-            Employee manager = employeeRepository.findById(createDepartmentDTO.getManagerId()).orElseThrow(() -> new EmployeeNotFoundException(createDepartmentDTO.getManagerId()));
+            Employee manager = employeeRepository.findById(createDepartmentDTO.getManagerId()).orElseThrow(() -> new EntityNotFoundException("Manager not found"));
             newDepartment.setManager(manager);
         }
 
