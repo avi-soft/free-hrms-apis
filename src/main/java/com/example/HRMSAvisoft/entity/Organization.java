@@ -29,7 +29,7 @@ public class Organization
     private String organizationImage;
     private String organizationDescription;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JsonIgnore
     @JoinTable(
             name = "organization_department",
@@ -39,7 +39,7 @@ public class Organization
     private Set<Department> departments = new HashSet<>();
 
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnore
     @JoinTable(
             name = "organization_branch",

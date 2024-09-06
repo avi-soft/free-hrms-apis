@@ -51,7 +51,7 @@ public class Department {
     @JoinColumn(name = "managerId")
     private Employee manager;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "department_employee",
             joinColumns = @JoinColumn(name = "department_id"),

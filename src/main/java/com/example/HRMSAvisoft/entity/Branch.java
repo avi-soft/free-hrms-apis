@@ -26,7 +26,7 @@ public class Branch {
     @Column(nullable = false)
     private String branchName;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JsonIgnore
     @JoinTable(
             name = "branch_department",
