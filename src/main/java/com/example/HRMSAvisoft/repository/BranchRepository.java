@@ -13,7 +13,9 @@ import java.util.Optional;
 @Repository
 public interface BranchRepository extends JpaRepository<Branch, Long> {
 
-    Optional<Branch> findBranchByBranchName(String branchName);
+
+    @Query("SELECT b FROM Branch b JOIN b.organizations o WHERE b.branchName = :branchName AND o.organizationId = :organizationId")
+    Optional<Branch> findByBranchNameAndOrganizationId(@Param("branchName") String branchName, @Param("organizationId") Long organizationId);
 
 //    @Query("SELECT b FROM Branch b JOIN b.organizations o WHERE b.branch = :branch AND o.organizationId = :organizationId")
 //    Optional<Branch> findByBranchAndOrganizationId(@Param("branch") String branch, @Param("organizationId") Long organizationId);

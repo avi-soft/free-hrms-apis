@@ -51,12 +51,15 @@ public class BranchService {
 
         Branch newBranch = new Branch();
 
-//        if(createBranchDTO.getOrganizationId() != null){
-//            Branch existingBranchByName = branchRepository.findBranchByBranchName(createBranchDTO.getBranchName()).orElse(null);
-//            if(existingBranchByName != null){
-//                throw new BranchAlreadyExistsException(createBranchDTO.getBranchName());
-//            }
-//        }
+        if (createBranchDTO.getOrganizationId() != null) {
+            // Check if the branch with the same name exists in the organization
+            Branch existingBranch = branchRepository
+                    .findByBranchNameAndOrganizationId(createBranchDTO.getBranchName(), createBranchDTO.getOrganizationId())
+                    .orElse(null);
+            if (existingBranch != null) {
+                throw new BranchAlreadyExistsException(createBranchDTO.getBranchName());
+            }
+        }
 
         newBranch.setBranchName(createBranchDTO.getBranchName());
         if(createBranchDTO.getOrganizationId() != null) {
@@ -139,9 +142,17 @@ public class BranchService {
         });
 
         Branch branchFoundById = branchRepository.findById(branchId).orElseThrow(()-> new EntityNotFoundException("Branch not found."));
-        Branch existingBranchByName = branchRepository.findBranchByBranchName(createBranchDTO.getBranchName()).orElse(null);
-        if(existingBranchByName != null && !existingBranchByName.getBranchId().equals(branchId)){
-            throw new BranchAlreadyExistsException(createBranchDTO.getBranchName());
+
+        // Check if the branch with the same name already exists in the organization
+        if (createBranchDTO.getOrganizationId() != null) {
+            Branch existingBranchByName = branchRepository
+                    .findByBranchNameAndOrganizationId(createBranchDTO.getBranchName(), createBranchDTO.getOrganizationId())
+                    .orElse(null);
+
+            // If such a branch exists and it's not the current branch being updated, throw exception
+            if (existingBranchByName != null && !existingBranchByName.getBranchId().equals(branchId)) {
+                throw new BranchAlreadyExistsException(createBranchDTO.getBranchName());
+            }
         }
 
         if(createBranchDTO.getBranchName() != null){
