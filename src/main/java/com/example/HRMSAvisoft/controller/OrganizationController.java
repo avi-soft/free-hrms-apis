@@ -141,7 +141,7 @@ public class OrganizationController {
         if (exception instanceof OrganizationService.OrganizationAlreadyExistsException) {
             message = exception.getMessage();
             status = HttpStatus.BAD_REQUEST;
-        }git
+        }
         else if (exception instanceof IllegalStateException) {
         message = exception.getMessage();
         status = HttpStatus.BAD_REQUEST;
