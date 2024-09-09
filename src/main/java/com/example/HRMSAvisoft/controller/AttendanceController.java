@@ -7,10 +7,12 @@ import com.example.HRMSAvisoft.exception.AttributeKeyDoesNotExistException;
 import com.example.HRMSAvisoft.service.AttendanceService;
 import com.example.HRMSAvisoft.service.BranchService;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -38,6 +40,19 @@ public class AttendanceController {
             return ResponseEntity.status(400).body(Map.of("message", "Clock Out failed. Attendance not marked."));
         }
     }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<Page<Attendance>> getUserAttendanceByMonth(
+            @PathVariable("userId") Long userId,
+            @RequestParam(defaultValue = "1") int month,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        Page<Attendance> attendanceRecords = attendanceService.getUserAttendanceByMonth(userId, month, page, size);
+        return ResponseEntity.status(200).body(attendanceRecords);
+    }
+
+
     @ExceptionHandler({
             EntityNotFoundException.class,
             IllegalArgumentException.class,

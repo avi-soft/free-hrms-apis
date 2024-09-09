@@ -69,13 +69,16 @@ public class RoleService {
                 roleToUpdate.setRole(role.getRole());
             }
         }
-        roleToUpdate.getPrivilege().clear();
 
-        for (Privilege privilege : role.getPrivilege()) {
-            if (Privilege.valueOf(privilege.name()) != null) {
-                roleToUpdate.getPrivilege().add(privilege);
-            } else {
-                throw new IllegalArgumentException("Invalid privilege: " + privilege);
+        if(role.getPrivilege() != null) {
+            roleToUpdate.getPrivilege().clear();
+
+            for (Privilege privilege : role.getPrivilege()) {
+                if (Privilege.valueOf(privilege.name()) != null) {
+                    roleToUpdate.getPrivilege().add(privilege);
+                } else {
+                    throw new IllegalArgumentException("Invalid privilege: " + privilege);
+                }
             }
         }
         return roleRepository.save(roleToUpdate);

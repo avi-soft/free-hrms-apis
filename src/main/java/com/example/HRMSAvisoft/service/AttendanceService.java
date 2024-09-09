@@ -7,6 +7,10 @@ import com.example.HRMSAvisoft.entity.ShiftDuration;
 import com.example.HRMSAvisoft.repository.AttendanceLocationRepository;
 import com.example.HRMSAvisoft.repository.AttendanceRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -122,6 +126,18 @@ public class AttendanceService {
         attendanceRepository.save(optionalAttendance);
 
         return optionalAttendance; // Return or handle the result as needed
+    }
+
+    public Page<Attendance> getUserAttendanceByMonth(Long userId, int month, int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+
+        List<Attendance> attendanceList = attendanceRepository.findByUserIdAndMonth(userId, month);
+
+        int start = (int)pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), attendanceList.size());
+
+        return new PageImpl<>(attendanceList.subList(start, end), pageable, attendanceList.size());
+
     }
 
     public static class InsufficientTimeForAttendanceException extends RuntimeException{

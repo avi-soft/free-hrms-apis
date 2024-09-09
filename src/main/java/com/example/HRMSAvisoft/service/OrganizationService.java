@@ -82,9 +82,14 @@ public class OrganizationService {
     }
 
 
-    public List<Organization> getOrganizations() {
+    public Page<Organization> getOrganizations(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+
         List<Organization> organizations = organizationRepository.findAll();
-        return organizations;
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), organizations.size());
+
+        return new PageImpl<>(organizations.subList(start, end), pageable, organizations.size());
     }
 
 public Organization addOrganization(AddNewOrganizationDTO organizationDTO) throws OrganizationAlreadyExistsException, IllegalArgumentException {

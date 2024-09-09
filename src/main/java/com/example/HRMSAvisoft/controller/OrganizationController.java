@@ -90,8 +90,12 @@ public class OrganizationController {
 
     @PreAuthorize("hasAnyAuthority('GET_ALL_ORGANIZATIONS')")
     @GetMapping("")
-    public ResponseEntity<List<Organization>> getOrganizations(){
-        List<Organization> organizations = organizationService.getOrganizations();
+    public ResponseEntity<Page<Organization>> getOrganizations(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ){
+        Page<Organization> organizations = organizationService.getOrganizations(page, size);
+
         return ResponseEntity.status(HttpStatus.OK).body(organizations);
     }
 
