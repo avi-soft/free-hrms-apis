@@ -30,8 +30,8 @@ public class EmployeeTests {
         String profileImage = "";
         List<Address> addresses = new ArrayList<Address>();
         List<Performance> performanceList = new ArrayList<Performance>();
-        List<LeaveRequest> leaveRequests = new ArrayList<LeaveRequest>();
-        List<LeaveBalance> leaveBalanceList = new ArrayList<LeaveBalance>();
+//        List<LeaveRequest> leaveRequests = new ArrayList<LeaveRequest>();
+//        List<LeaveBalance> leaveBalanceList = new ArrayList<LeaveBalance>();
 
         Employee employeeByConstructor =  Employee.builder().employeeId(empId).employeeCode(employeeCode).firstName(firstName).lastName(lastName).emergencyContacts(emergencyContacts).addresses(addresses).gender(gender).account(account).profileImage(profileImage).build();
 
