@@ -63,8 +63,6 @@ public class Employee {
     //
         private String profileImage;
 
-        private String createdAt;
-    //
     //    private String dateOfBirth;
     //
     //    private BigDecimal salary;
@@ -117,8 +115,7 @@ public class Employee {
     )
     private List<Skill> skills = new ArrayList<>();
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "employees", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "employees", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Department> departments = new HashSet<>();
 
 }

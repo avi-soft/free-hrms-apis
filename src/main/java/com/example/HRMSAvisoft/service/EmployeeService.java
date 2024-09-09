@@ -109,10 +109,6 @@ public class EmployeeService {
             }
         }
 
-        LocalDateTime createdAt = LocalDateTime.now();
-        DateTimeFormatter createdAtFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        employeeToAddInfo.setCreatedAt(createdAt.format(createdAtFormatter));
-
 //        employeeToAddInfo.setFirstName(createEmployeeDTO.getFirstName());
 //        employeeToAddInfo.setLastName(createEmployeeDTO.getLastName());
 //        employeeToAddInfo.setContact(createEmployeeDTO.getContact());

@@ -85,6 +85,7 @@ public class DepartmentController {
             departmentsResponseDTO.setManagerEmployeeCode(department.getManager().getEmployeeCode());
             departmentsResponseDTO.setManagerFirstName(department.getManager().getFirstName());
             departmentsResponseDTO.setManagerLastName(department.getManager().getLastName());
+            departmentsResponseDTO.setBranches(department.getBranches());
             departmentsResponseDTO.setAttributes(department.getAttributes());
             return departmentsResponseDTO;
         });
@@ -107,6 +108,7 @@ public class DepartmentController {
             departmentsResponseDTO.setManagerEmployeeCode(department.getManager().getEmployeeCode());
             departmentsResponseDTO.setManagerFirstName(department.getManager().getFirstName());
             departmentsResponseDTO.setManagerLastName(department.getManager().getLastName());
+            departmentsResponseDTO.setBranches(department.getBranches());
             departmentsResponseDTO.setAttributes(department.getAttributes());
             return departmentsResponseDTO;
         });

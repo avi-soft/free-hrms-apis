@@ -48,6 +48,7 @@ public class Department {
 
     @ManyToOne(fetch =  FetchType.EAGER)
     @JoinColumn(name = "managerId")
+    @JsonIgnore
     private Employee manager;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)

@@ -126,13 +126,19 @@ public class UserService {
         }
     }
 
-    public boolean deleteUser(Long userId)throws EmployeeNotFoundException {
+    @Transactional
+    public void deleteUser(Long userId)throws EmployeeNotFoundException {
 
 
         User userToDelete = userRepository.findById(userId).orElseThrow(()-> new EntityNotFoundException("User not found"));
+
+        // Clear the roles before deleting the user
+        if (userToDelete.getRoles() != null && !userToDelete.getRoles().isEmpty()) {
+            userToDelete.getRoles().clear();  // This will update the join table and remove the association
+        }
+
         userRepository.delete(userToDelete);
 
-        return true;
     }
 
     public Collection<Role> getUserRoles(Long userId) {

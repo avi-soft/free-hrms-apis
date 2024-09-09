@@ -12,6 +12,7 @@ import lombok.Setter;
 import utils.AttributesSerializer;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -35,9 +36,9 @@ public class DepartmentsResponseDTO {
 
     private String managerLastName;
 
-    private Set<Organization> organizations;
+    private Set<Organization> organizations = new HashSet<>();
 
-    private Set<Branch> branches;
+    private Set<Branch> branches = new HashSet<>();
 
     @JsonSerialize(using = AttributesSerializer.class)
     private Map<DepartmentAttribute, String> attributes = new HashMap<>();

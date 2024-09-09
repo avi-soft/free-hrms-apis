@@ -139,10 +139,8 @@ public class UserController {
     @PreAuthorize("hasAuthority('DELETE_EMPLOYEE')")
     @DeleteMapping("/{userId}")
     public ResponseEntity deleteEmployee(@PathVariable("userId") Long userId)throws EmployeeNotFoundException {
-        if(userService.deleteUser(userId))
+            userService.deleteUser(userId);
             return ResponseEntity.status(204).body(null);
-        else
-            return ResponseEntity.status(500).body(null);
     }
 
     @PreAuthorize("hasAuthority('GET_ALL_USERS')")
