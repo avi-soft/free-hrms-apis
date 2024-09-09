@@ -45,11 +45,11 @@ public class OrganizationAttributeService{
         // Validate the attribute key
         if (organizationAttribute.getAttributeKey() != null && !organizationAttribute.getAttributeKey().trim().isEmpty()) {
             if (!organizationAttribute.getAttributeKey().trim().matches(ATTRIBUTE_KEY_REGEX)) {
-                throw new IllegalArgumentException("Key cannot contain numbers or special characters");
+                throw new IllegalArgumentException("Attribute name cannot contain numbers or special characters");
             }
             return organizationAttributeRepository.save(organizationAttribute);
         } else {
-            throw new IllegalArgumentException("key cannot be empty.");
+            throw new IllegalArgumentException("Attribute name cannot be empty.");
         }
     }
 
@@ -70,11 +70,11 @@ public class OrganizationAttributeService{
         // Validate and update the attribute key
         if (Objects.nonNull(organizationAttribute.getAttributeKey()) && !organizationAttribute.getAttributeKey().trim().isEmpty()) {
             if (!organizationAttribute.getAttributeKey().trim().matches(ATTRIBUTE_KEY_REGEX)) {
-                throw new IllegalArgumentException("Key cannot contain numbers or special characters");
+                throw new IllegalArgumentException("Attribute name cannot contain numbers or special characters");
             }
             organizationAttributeToUpdate.setAttributeKey(organizationAttribute.getAttributeKey());
         } else {
-            throw new IllegalArgumentException("key cannot be empty.");
+            throw new IllegalArgumentException("Attribute name cannot be empty.");
         }
 
         // Save and return the updated organization attribute

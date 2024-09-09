@@ -19,7 +19,7 @@ public class Performance {
     @Column(nullable = false)
     private Long performanceId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "employee_employee_id")
     @JsonIgnore
     private Employee employee;

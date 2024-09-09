@@ -44,11 +44,11 @@ public class DepartmentAttributeService {
         // Validate the attribute key
         if (departmentAttribute.getAttributeKey() != null && !departmentAttribute.getAttributeKey().trim().isEmpty()) {
             if (!departmentAttribute.getAttributeKey().trim().matches(ATTRIBUTE_KEY_REGEX)) {
-                throw new IllegalArgumentException("Key cannot contain numbers or special characters");
+                throw new IllegalArgumentException("Attribute name cannot contain numbers or special characters");
             }
             return departmentAttributeRepository.save(departmentAttribute);
         } else {
-            throw new IllegalArgumentException("key cannot be empty.");
+            throw new IllegalArgumentException("Attribute name cannot be empty.");
         }
     }
 
@@ -68,11 +68,11 @@ public class DepartmentAttributeService {
         // Validate and update the attribute key
         if (Objects.nonNull(departmentAttribute.getAttributeKey()) && !departmentAttribute.getAttributeKey().trim().isEmpty()) {
             if (!departmentAttribute.getAttributeKey().trim().matches(ATTRIBUTE_KEY_REGEX)) {
-                throw new IllegalArgumentException("Key cannot contain numbers or special characters");
+                throw new IllegalArgumentException("Attribute name cannot contain numbers or special characters");
             }
             departmentAttributeToUpdate.setAttributeKey(departmentAttribute.getAttributeKey());
         } else {
-            throw new IllegalArgumentException("key cannot be empty.");
+            throw new IllegalArgumentException("Attribute name cannot be empty.");
         }
 
         // Save and return the updated department attribute

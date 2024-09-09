@@ -39,11 +39,11 @@ public class BranchAttributeService {
         // Validate the attribute key
         if (branchAttribute.getAttributeKey() != null && !branchAttribute.getAttributeKey().trim().isEmpty()) {
             if (!branchAttribute.getAttributeKey().trim().matches(ATTRIBUTE_KEY_REGEX)) {
-                throw new IllegalArgumentException("Key cannot contain numbers or special characters");
+                throw new IllegalArgumentException("Attribute name cannot contain numbers or special characters");
             }
             return branchAttributeRepository.save(branchAttribute);
         } else {
-            throw new IllegalArgumentException("key cannot be empty.");
+            throw new IllegalArgumentException("Attribute name cannot be empty.");
         }
     }
 
@@ -68,11 +68,11 @@ public class BranchAttributeService {
         // Validate and update the attribute key
         if (Objects.nonNull(branchAttribute.getAttributeKey()) && !branchAttribute.getAttributeKey().trim().isEmpty()) {
             if (!branchAttribute.getAttributeKey().trim().matches(ATTRIBUTE_KEY_REGEX)) {
-                throw new IllegalArgumentException("key cannot contain numbers or special characters");
+                throw new IllegalArgumentException("Attribute name cannot contain numbers or special characters");
             }
             branchAttributeToUpdate.setAttributeKey(branchAttribute.getAttributeKey());
         } else {
-            throw new IllegalArgumentException("key cannot be empty.");
+            throw new IllegalArgumentException("Attribute name cannot be empty.");
         }
 
         // Save and return the updated branch attribute

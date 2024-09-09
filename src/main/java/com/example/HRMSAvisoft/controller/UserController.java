@@ -6,7 +6,6 @@ import com.example.HRMSAvisoft.entity.User;
 import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
 import com.example.HRMSAvisoft.repository.UserRepository;
 import com.example.HRMSAvisoft.service.JWTService;
-import com.example.HRMSAvisoft.service.LeaveBalanceService;
 import com.example.HRMSAvisoft.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -41,13 +40,11 @@ public class UserController {
     private JWTService jwtService;
     private ModelMapper modelMapper;
 
-    private LeaveBalanceService leaveBalanceService;
-    public UserController(UserService userService, JWTService jwtService, ModelMapper modelMapper, LeaveBalanceService leaveBalanceService)
+    public UserController(UserService userService, JWTService jwtService, ModelMapper modelMapper)
     {
         this.userService=userService;
         this.jwtService=jwtService;
         this.modelMapper=modelMapper;
-        this.leaveBalanceService=leaveBalanceService;
     }
 
     @GetMapping("/hello")
@@ -80,7 +77,7 @@ public class UserController {
         newUser.setEmail(createdUser.getEmail());
         newUser.setCreatedAt(createdUser.getCreatedAt());
         newUser.setEmployeeId(createdUser.getEmployee().getEmployeeId());
-        leaveBalanceService.initializeLeaveBalancesForEmployee(createdUser.getEmployee());
+//        leaveBalanceService.initializeLeaveBalancesForEmployee(createdUser.getEmployee());
         Map<String, Object> response = new HashMap<String, Object>();
         response.put("message", "New User Created!!");
         response.put("success", true);

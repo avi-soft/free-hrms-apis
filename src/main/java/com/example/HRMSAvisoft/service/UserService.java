@@ -4,10 +4,7 @@ import com.example.HRMSAvisoft.dto.AddNewUserDTO;
 import com.example.HRMSAvisoft.dto.CreateUserDTO;
 import com.example.HRMSAvisoft.dto.LoginUserDTO;
 import com.example.HRMSAvisoft.dto.UserInfoDTO;
-import com.example.HRMSAvisoft.entity.Employee;
-import com.example.HRMSAvisoft.entity.Organization;
-import com.example.HRMSAvisoft.entity.Role;
-import com.example.HRMSAvisoft.entity.User;
+import com.example.HRMSAvisoft.entity.*;
 import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
 import com.example.HRMSAvisoft.repository.EmployeeRepository;
 import com.example.HRMSAvisoft.repository.OrganizationRepository;
@@ -35,7 +32,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
 public class UserService {
 
     final private UserRepository userRepository;
@@ -134,26 +130,39 @@ public class UserService {
 
         // Clear the roles before deleting the user
         if (userToDelete.getRoles() != null && !userToDelete.getRoles().isEmpty()) {
-            userToDelete.getRoles().clear();  // This will update the join table and remove the association
+            userToDelete.getRoles().clear();// This will update the join table and remove the association
+        }
+        Employee employee = userToDelete.getEmployee();
+        if (employee != null) {
+            // Clear relationships for the employee
+            employee.getAddresses().clear();
+            employee.getEmergencyContacts().clear();
+            employee.getSkills().clear();
+            for(Department department : employee.getDepartments()){
+                if(department.getEmployees().contains(employee)){
+                    department.getEmployees().remove(employee);
+                }
+            }
+            employee.getDesignations().clear();
+            employee.getAttributes().clear();
+            employee.getPerformanceList().clear();
+            employee.getReviewedPerformances().clear();
+
+
+            // Delete employee entity
+            employeeRepository.delete(employee);  // This will also remove any orphaned records because of `orphanRemoval = true`
         }
 
         userRepository.delete(userToDelete);
+
+        // Force the database to synchronize changes
+        entityManager.flush();
 
     }
 
     public Collection<Role> getUserRoles(Long userId) {
         User user = getUserById(userId);
         return user.getRoles();
-    }
-
-    private void enableForeignKeyChecks() {
-        Query query = entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS = 1");
-        query.executeUpdate();
-    }
-
-    private void disableForeignKeyChecks() {
-        Query query = entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS = 0");
-        query.executeUpdate();
     }
 
     public Page<UserInfoDTO> getAllUserInfo(int page, int size, String sortBy)  {

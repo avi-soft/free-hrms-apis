@@ -53,12 +53,12 @@ public class EmployeeAttributeService {
 
         // Validate that the attributeKey is not empty
         if (attributeKey == null || attributeKey.equals("")) {
-            throw new IllegalArgumentException("key cannot be empty.");
+            throw new IllegalArgumentException("Attribute name cannot be empty.");
         }
 
         // Validate that the attributeKey matches the regex (no numbers or special characters)
         if (!matcher.matches()) {
-            throw new IllegalArgumentException("key cannot contain numbers or special characters.");
+            throw new IllegalArgumentException("Attribute name cannot contain numbers or special characters.");
         }
 
         // If all validations pass, save the EmployeeAttribute
@@ -79,12 +79,12 @@ public class EmployeeAttributeService {
         // Validate and update the attribute key
         String attributeKey = employeeAttribute.getAttributeKey();
         if (attributeKey == null || attributeKey.trim().isEmpty()) {
-            throw new IllegalArgumentException("key cannot be empty.");
+            throw new IllegalArgumentException("Attribute name cannot be empty.");
         }
 
         // Check for invalid attribute key
         if (!attributeKey.trim().matches(ATTRIBUTE_KEY_REGEX)) {
-            throw new IllegalArgumentException("key cannot contain numbers or special characters");
+            throw new IllegalArgumentException("Attribute name cannot contain numbers or special characters");
         }
 
         // Set the attribute key if valid
