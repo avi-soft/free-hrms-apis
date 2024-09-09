@@ -40,6 +40,13 @@ public class OrganizationController {
         return ResponseEntity.ok().body(message);
     }
 
+    @DeleteMapping("/{organizationId}/removeImage")
+    public ResponseEntity<String> removeOrganizationImage(@PathVariable("organizationId") Long organizationId) throws EmployeeNotFoundException {
+        organizationService.removeOrganizationImage(organizationId);
+        String message = "{\"message\": \"Organization image removed successfully\"}";
+        return ResponseEntity.ok().body(message);
+    }
+
 
     @GetMapping("/{organizationId}")
     @PreAuthorize("hasAuthority('GET_DEPARTMENTS_OF_ORGANIZATION')")
@@ -134,7 +141,7 @@ public class OrganizationController {
         if (exception instanceof OrganizationService.OrganizationAlreadyExistsException) {
             message = exception.getMessage();
             status = HttpStatus.BAD_REQUEST;
-        }
+        }git
         else if (exception instanceof IllegalStateException) {
         message = exception.getMessage();
         status = HttpStatus.BAD_REQUEST;

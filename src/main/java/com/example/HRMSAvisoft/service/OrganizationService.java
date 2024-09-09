@@ -2,7 +2,6 @@ package com.example.HRMSAvisoft.service;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.example.HRMSAvisoft.attribute.DepartmentAttribute;
 import com.example.HRMSAvisoft.attribute.OrganizationAttribute;
 import com.example.HRMSAvisoft.dto.AddNewOrganizationDTO;
 import com.example.HRMSAvisoft.dto.UpdateOrganizationDTO;
@@ -60,6 +59,15 @@ public class OrganizationService {
         // Set the image URL to the employee object and save it
         organization.setOrganizationImage(imageUrl);
         organizationRepository.save(organization);
+    }
+
+    public void removeOrganizationImage(Long organizationId) throws EntityNotFoundException {
+        Organization organization = organizationRepository.findById(organizationId)
+                .orElseThrow(() -> new EntityNotFoundException("No such organization"));
+
+        organization.setOrganizationImage(null);
+        organizationRepository.save(organization);
+
     }
 
     public Page<Department> getDepartmentsOfOrganization(Long organizationId, int page, int size) throws EntityNotFoundException {
