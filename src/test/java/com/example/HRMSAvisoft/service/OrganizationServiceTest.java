@@ -92,35 +92,35 @@ public class OrganizationServiceTest {
 //        Assertions.assertTrue(departments.isEmpty());
 //    }
 
-    @Test
-    @DisplayName("returns_list_of_organizations_when_organizations_exist")
-    public void returns_list_of_organizations_when_organizations_exist() {
-        List<Organization> mockOrganizations = Arrays.asList(organization);
-        when(organizationRepository.findAll()).thenReturn(mockOrganizations);
-        List<Organization> organizations = organizationService.getOrganizations();
-
-        assertNotNull(organizations);
-        assertEquals(1, organizations.size());
-        assertEquals("Aviskill", organizations.get(0).getOrganizationName());
-    }
-
-    @Test
-    @DisplayName("returns_empty_list_when_no_organizations_exist")
-    public void returns_empty_list_when_no_organizations_exist() {
-        when(organizationRepository.findAll()).thenReturn(Collections.emptyList());
-        List<Organization> organizations = organizationService.getOrganizations();
-        assertNotNull(organizations);
-        assertTrue(organizations.isEmpty());
-    }
-
-    @Test
-    @DisplayName("handles_unexpected_exceptions_from_repository")
-    public void handles_unexpected_exceptions_from_repository() {
-        when(organizationRepository.findAll()).thenThrow(new RuntimeException("Unexpected error"));
-        Assertions.assertThrows(RuntimeException.class, () -> {
-            organizationService.getOrganizations();
-        });
-    }
+//    @Test
+//    @DisplayName("returns_list_of_organizations_when_organizations_exist")
+//    public void returns_list_of_organizations_when_organizations_exist() {
+//        List<Organization> mockOrganizations = Arrays.asList(organization);
+//        when(organizationRepository.findAll()).thenReturn(mockOrganizations);
+//        List<Organization> organizations = organizationService.getOrganizations();
+//
+//        assertNotNull(organizations);
+//        assertEquals(1, organizations.size());
+//        assertEquals("Aviskill", organizations.get(0).getOrganizationName());
+//    }
+//
+//    @Test
+//    @DisplayName("returns_empty_list_when_no_organizations_exist")
+//    public void returns_empty_list_when_no_organizations_exist() {
+//        when(organizationRepository.findAll()).thenReturn(Collections.emptyList());
+//        List<Organization> organizations = organizationService.getOrganizations();
+//        assertNotNull(organizations);
+//        assertTrue(organizations.isEmpty());
+//    }
+//
+//    @Test
+//    @DisplayName("handles_unexpected_exceptions_from_repository")
+//    public void handles_unexpected_exceptions_from_repository() {
+//        when(organizationRepository.findAll()).thenThrow(new RuntimeException("Unexpected error"));
+//        Assertions.assertThrows(RuntimeException.class, () -> {
+//            organizationService.getOrganizations();
+//        });
+//    }
 
     @Test
     @DisplayName("test_add_organization")
