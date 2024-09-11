@@ -7,6 +7,7 @@ import com.example.HRMSAvisoft.service.ShiftDurationService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
@@ -23,6 +24,7 @@ public class ShiftDurationController {
         this.shiftDurationService = shiftDurationService;
     }
 
+    @PreAuthorize("hasAuthority('ADD_SHIFT_DURATION')")
     @PostMapping("")
     public ResponseEntity<Map<String, Object>> saveShiftDuration(@RequestBody ShiftDurationDTO shiftDurationDTO)throws IllegalStateException{
         ShiftDuration newShiftDuration = shiftDurationService.saveShiftDuration(shiftDurationDTO);
@@ -30,6 +32,7 @@ public class ShiftDurationController {
         return ResponseEntity.status(201).body(Map.of("success", true, "message", "Shift Duration added", "ShiftDuration", newShiftDuration));
     }
 
+    @PreAuthorize("hasAuthority('GET_SHIFT_DURATION')")
     @GetMapping("")
     public ResponseEntity<Map<String, Object>> getShiftDuration() {
 
@@ -38,6 +41,7 @@ public class ShiftDurationController {
         return ResponseEntity.status(200).body(Map.of("message", "Shift Duration Fetched", "success", true, "ShiftDurationList", shiftDurationList));
     }
 
+    @PreAuthorize("hasAuthority('UPDATE_SHIFT_DURATION')")
     @PatchMapping("")
     public ResponseEntity<Map<String, Object>> updateShiftDuration(@RequestBody ShiftDurationDTO shiftDurationDTO)throws EntityNotFoundException {
         ShiftDuration updatedShiftDuration = shiftDurationService.updateShiftDuration(shiftDurationDTO);
@@ -50,6 +54,7 @@ public class ShiftDurationController {
         }
     }
 
+    @PreAuthorize("hasAuthority('DELETE_SHIFT_DURATION')")
     @DeleteMapping("/{shiftDurationId}")
     public ResponseEntity<Map<String, Object>> deleteShiftDuration(@PathVariable("shiftDurationId") Long shiftDurationId){
         shiftDurationService.deleteShiftDuration(shiftDurationId);

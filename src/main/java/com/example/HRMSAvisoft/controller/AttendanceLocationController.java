@@ -7,6 +7,7 @@ import com.example.HRMSAvisoft.service.AttendanceLocationService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,12 +23,15 @@ public class AttendanceLocationController {
         this.attendanceLocationService = attendanceLocationService;
     }
 
+    @PreAuthorize("hasAuthority('ADD_ATTENDANCE_LOCATION')")
     @PostMapping("")
     public ResponseEntity<Map<String, Object>> addAttendanceLocation(@RequestBody AttendanceLocation attendanceLocation)throws IllegalArgumentException{
         AttendanceLocation newAttendanceLocation = attendanceLocationService.addAttendanceLocation(attendanceLocation);
 
         return  ResponseEntity.status(201).body(Map.of("success", true, "message", "New Location added successfully", "attendanceLocation", newAttendanceLocation));
     }
+
+    @PreAuthorize("hasAuthority('GET_ALL_ATTENDANCE_LOCATION')")
 
     @GetMapping("")
     public ResponseEntity<Map<String, Object>> getAllAttendanceLocation(){
@@ -36,6 +40,7 @@ public class AttendanceLocationController {
         return ResponseEntity.status(200).body(Map.of("success", true, "message", "Attendance Locations fetched successfully", "AttendanceLocations", attendanceLocationList));
     }
 
+    @PreAuthorize("hasAuthority('UPDATE_ATTENDANCE_LOCATION')")
     @PatchMapping("/{attendanceLocationId}")
     public ResponseEntity<Map<String, Object>> updateAttendanceLocation(@PathVariable("attendanceLocationId") Long attendanceLocationId, @RequestBody AttendanceLocation attendanceLocation)throws EntityNotFoundException, IllegalArgumentException{
         AttendanceLocation updatedAttendanceLocation = attendanceLocationService.updateAttendanceLocation(attendanceLocationId, attendanceLocation);
@@ -43,6 +48,7 @@ public class AttendanceLocationController {
         return ResponseEntity.status(200).body(Map.of("success", true, "message", "Attendance Location updated", "updatedLocation", updatedAttendanceLocation));
     }
 
+    @PreAuthorize("hasAuthority('DELETE_ATTENDANCE_LOCATION')")
     @DeleteMapping("/{attendanceLocationId}")
     public ResponseEntity<Map<String, Object>> deleteAttendanceLocation(@PathVariable("attendanceLocationId") Long attendanceLocationId)throws EntityNotFoundException {
         attendanceLocationService.deleteAttendanceLocation(attendanceLocationId);

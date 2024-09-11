@@ -22,4 +22,6 @@ public interface BranchRepository extends JpaRepository<Branch, Long> {
 
     @Query("SELECT b FROM Branch b WHERE b.organizations IS EMPTY")
     List<Branch> findAllBranchesWhereOrganizationsIsEmpty();
+
+    Optional<Branch> findByBranchName(String branchName);
 }

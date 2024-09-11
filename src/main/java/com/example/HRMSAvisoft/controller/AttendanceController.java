@@ -10,6 +10,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -52,6 +53,7 @@ public class AttendanceController {
         return ResponseEntity.status(200).body(attendancePage);
     }
 
+    @PreAuthorize("hasAuthority('GET_ALL_ATTENDANCE')")
     @GetMapping("")
     public ResponseEntity<Page<Attendance>> getAllAttendanceByMonth(
             @RequestParam(defaultValue = "1") int month,
@@ -63,6 +65,7 @@ public class AttendanceController {
         return ResponseEntity.status(200).body(attendancePage);
     }
 
+    @PreAuthorize("hasAuthority('UPDATE_ATTENDANCE_RECORD')")
     @PatchMapping("/{attendanceId}")
     public ResponseEntity<Map<String, Object>> updateAttendanceRecord(@PathVariable("attendanceId") Long attendanceId, @RequestBody Attendance attendance){
         attendanceService.updateAttendanceRecord(attendanceId, attendance);
