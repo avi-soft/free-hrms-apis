@@ -137,7 +137,27 @@ public class AttendanceService {
         int end = Math.min((start + pageable.getPageSize()), attendanceList.size());
 
         return new PageImpl<>(attendanceList.subList(start, end), pageable, attendanceList.size());
+    }
 
+    public Page<Attendance> getAllAttendanceByMonth(int month, int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+
+        List<Attendance> attendanceList = attendanceRepository.findByMonth(month);
+
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), attendanceList.size());
+
+        return new PageImpl<>(attendanceList.subList(start, end), pageable, attendanceList.size());
+    }
+
+    public void updateAttendanceRecord(Long attendanceId, Attendance attendance){
+        Attendance attendanceRecordToUpdate = attendanceRepository.findById(attendanceId).orElseThrow(()-> new EntityNotFoundException("Attendance record not found"));
+
+        if(attendance.getAttendanceMarked() != null){
+            attendanceRecordToUpdate.setAttendanceMarked(attendance.getAttendanceMarked());
+        }
+
+        attendanceRepository.save(attendanceRecordToUpdate);
     }
 
     public static class InsufficientTimeForAttendanceException extends RuntimeException{

@@ -8,17 +8,19 @@ import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
 import com.example.HRMSAvisoft.service.OrganizationService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
+import jakarta.validation.ValidationException;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 import utils.ResponseGenerator;
 
 import java.io.IOException;
-import java.nio.file.AccessDeniedException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Map;
@@ -27,17 +29,44 @@ import java.util.Map;
 @RequestMapping("/api/v1/organization")
 public class OrganizationController {
 
+    private static final long MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB in bytes
+    private static final List<String> ACCEPTED_CONTENT_TYPES = Arrays.asList("image/jpeg", "image/png");
+
+
     private final OrganizationService organizationService;
+
     OrganizationController(ModelMapper modelMapper, OrganizationService organizationService){
         this.organizationService = organizationService;
     }
 
     @PreAuthorize("hasAuthority('UPLOAD_ORGANIZATION_IMAGE')")
     @PostMapping("/{organizationId}/uploadImage")
-    public ResponseEntity<String> uploadOrganizationImage(@PathVariable("organizationId") Long organizationId, @RequestParam("file") MultipartFile file) throws EmployeeNotFoundException, IOException, NullPointerException, RuntimeException , AccessDeniedException {
+    public ResponseEntity<String> uploadOrganizationImage(@PathVariable("organizationId") Long organizationId, @RequestParam("file") MultipartFile file) throws EntityNotFoundException, ValidationException, MaxUploadSizeExceededException, IOException, RuntimeException  {
+
+        // Validate the file
+        validateImage(file);
+
         organizationService.uploadOrganizationImage(organizationId, file);
         String message = "{\"message\": \"Profile Uploaded Successfully\"}";
         return ResponseEntity.ok().body(message);
+    }
+
+
+    // Validation method for file
+    private void validateImage(MultipartFile file) throws ValidationException {
+        // Check if file is empty
+        if (file.isEmpty()) {
+            throw new ValidationException("File is empty. Please upload a valid image.");
+        }
+
+        if (file.getSize() > MAX_FILE_SIZE) {
+            throw new MaxUploadSizeExceededException(file.getSize());
+        }
+
+        // Check file content type (e.g., only JPEG, PNG)
+        if (!ACCEPTED_CONTENT_TYPES.contains(file.getContentType())) {
+            throw new ValidationException("Invalid file type. Only JPEG and PNG files are allowed.");
+        }
     }
 
     @DeleteMapping("/{organizationId}/removeImage")
@@ -133,12 +162,22 @@ public class OrganizationController {
             IllegalArgumentException.class,
             IllegalStateException.class,
             EntityNotFoundException.class,
+            ValidationException.class,
+            MaxUploadSizeExceededException.class
     })
 
     public ResponseEntity<ErrorResponseDTO> handleErrors(Exception exception) {
         String message;
         HttpStatus status;
         if (exception instanceof OrganizationService.OrganizationAlreadyExistsException) {
+            message = exception.getMessage();
+            status = HttpStatus.BAD_REQUEST;
+        }
+        else if (exception instanceof MaxUploadSizeExceededException) {
+            message = "File size should be less than 5Mb";
+            status = HttpStatus.PAYLOAD_TOO_LARGE;
+        }
+        else if (exception instanceof ValidationException) {
             message = exception.getMessage();
             status = HttpStatus.BAD_REQUEST;
         }

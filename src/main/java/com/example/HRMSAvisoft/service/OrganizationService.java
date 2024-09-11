@@ -13,7 +13,9 @@ import com.example.HRMSAvisoft.exception.AttributeKeyDoesNotExistException;
 import com.example.HRMSAvisoft.repository.OrganizationAttributeRepository;
 import com.example.HRMSAvisoft.repository.OrganizationRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.ValidationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -43,7 +45,7 @@ public class OrganizationService {
         this.organizationAttributeRepository = organizationAttributeRepository;
     }
 
-    public void uploadOrganizationImage(Long organizationId, MultipartFile file)throws EntityNotFoundException, IOException, NullPointerException, RuntimeException , AccessDeniedException {
+    public void uploadOrganizationImage(Long organizationId, MultipartFile file)throws EntityNotFoundException, IOException, RuntimeException {
         Organization organization = organizationRepository.findById(organizationId).orElseThrow(() -> new EntityNotFoundException("No such organization"));
 
         // Upload file to Cloudinary

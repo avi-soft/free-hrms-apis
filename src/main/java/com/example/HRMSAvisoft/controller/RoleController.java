@@ -73,6 +73,7 @@ public class RoleController {
         Role changedRole = roleService.changeRoleOfUser(userId,oldRoleId,newRoleId);
         return ResponseGenerator.generateResponse(HttpStatus.OK,true,"Role of User is changed with new Role",changedRole);
     }
+
     @PreAuthorize("hasAnyAuthority('ASSIGN_ROLE_TO_USER')")
     @PatchMapping("/{userId}/assignRole/{roleId}")
     public ResponseEntity<Object> assignRoleToExistingUser(@PathVariable Long userId, @PathVariable Long roleId)

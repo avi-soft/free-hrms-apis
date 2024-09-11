@@ -48,8 +48,26 @@ public class AttendanceController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
 
-        Page<Attendance> attendanceRecords = attendanceService.getUserAttendanceByMonth(userId, month, page, size);
-        return ResponseEntity.status(200).body(attendanceRecords);
+        Page<Attendance> attendancePage = attendanceService.getUserAttendanceByMonth(userId, month, page, size);
+        return ResponseEntity.status(200).body(attendancePage);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<Page<Attendance>> getAllAttendanceByMonth(
+            @RequestParam(defaultValue = "1") int month,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ){
+        Page<Attendance> attendancePage = attendanceService.getAllAttendanceByMonth(month, page, size);
+
+        return ResponseEntity.status(200).body(attendancePage);
+    }
+
+    @PatchMapping("/{attendanceId}")
+    public ResponseEntity<Map<String, Object>> updateAttendanceRecord(@PathVariable("attendanceId") Long attendanceId, @RequestBody Attendance attendance){
+        attendanceService.updateAttendanceRecord(attendanceId, attendance);
+
+        return ResponseEntity.status(200).body(Map.of("success", true, "message", "Attendance updated successfully."));
     }
 
 

@@ -16,6 +16,7 @@ import com.example.HRMSAvisoft.repository.UserRepository;
 import com.example.HRMSAvisoft.service.EmployeeService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
+import jakarta.validation.ValidationException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -28,10 +29,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.AccessDeniedException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +43,9 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/employee")
 public class EmployeeController {
+
+    private static final long MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB in bytes
+    private static final List<String> ACCEPTED_CONTENT_TYPES = Arrays.asList("image/jpeg", "image/png");
 
     private final EmployeeService employeeService;
 
@@ -55,10 +61,27 @@ public class EmployeeController {
 
     @PreAuthorize("hasAuthority('UPLOAD_EMPLOYEE_IMAGE')")
     @PostMapping("/{employeeId}/uploadImage")
-    public ResponseEntity<String> uploadProfileImage(@PathVariable("employeeId") Long employeeId, @RequestParam("file") MultipartFile file) throws EmployeeNotFoundException, IOException, NullPointerException, RuntimeException ,AccessDeniedException{
+    public ResponseEntity<String> uploadProfileImage(@PathVariable("employeeId") Long employeeId, @RequestParam("file") MultipartFile file) throws EmployeeNotFoundException, IOException, NullPointerException, RuntimeException ,AccessDeniedException, ValidationException{
         employeeService.uploadProfileImage(employeeId, file);
         String message = "{\"message\": \"Profile Uploaded Successfully\"}";
         return ResponseEntity.ok().body(message);
+    }
+
+    // Validation method for file
+    private void validateImage(MultipartFile file) throws ValidationException {
+        // Check if file is empty
+        if (file.isEmpty()) {
+            throw new ValidationException("File is empty. Please upload a valid image.");
+        }
+
+        if (file.getSize() > MAX_FILE_SIZE) {
+            throw new MaxUploadSizeExceededException(file.getSize());
+        }
+
+        // Check file content type (e.g., only JPEG, PNG)
+        if (!ACCEPTED_CONTENT_TYPES.contains(file.getContentType())) {
+            throw new ValidationException("Invalid file type. Only JPEG and PNG files are allowed.");
+        }
     }
 
     @PreAuthorize("hasAuthority('SEARCH_EMPLOYEE_BY_NAME')")
@@ -190,7 +213,9 @@ public class EmployeeController {
             IllegalArgumentException.class,
             EmployeeService.EmployeeCodeAlreadyExistsException.class,
             AttributeKeyDoesNotExistException.class,
-            EntityNotFoundException.class
+            EntityNotFoundException.class,
+            MaxUploadSizeExceededException.class,
+            ValidationException.class
 
     })
 
@@ -201,6 +226,14 @@ public class EmployeeController {
         {
             message = exception.getMessage();
             status = HttpStatus.NOT_FOUND;
+        }
+        else if (exception instanceof MaxUploadSizeExceededException) {
+            message = "File size should be less than 5Mb";
+            status = HttpStatus.PAYLOAD_TOO_LARGE;
+        }
+        else if (exception instanceof ValidationException) {
+            message = exception.getMessage();
+            status = HttpStatus.BAD_REQUEST;
         }
         else if(exception instanceof EntityNotFoundException){
             message = exception.getMessage();

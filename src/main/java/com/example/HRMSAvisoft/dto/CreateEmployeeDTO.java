@@ -40,6 +40,7 @@ public class CreateEmployeeDTO {
 
     private String employeeCode;
 
+
     private Gender gender;
 //    private String contact;
 //    private Position position;
