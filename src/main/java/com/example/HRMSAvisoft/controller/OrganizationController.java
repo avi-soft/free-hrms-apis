@@ -6,12 +6,14 @@ import com.example.HRMSAvisoft.entity.Department;
 import com.example.HRMSAvisoft.entity.Organization;
 import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
 import com.example.HRMSAvisoft.service.OrganizationService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import jakarta.validation.ValidationException;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -39,17 +41,17 @@ public class OrganizationController {
         this.organizationService = organizationService;
     }
 
-    @PreAuthorize("hasAuthority('UPLOAD_ORGANIZATION_IMAGE')")
-    @PostMapping("/{organizationId}/uploadImage")
-    public ResponseEntity<String> uploadOrganizationImage(@PathVariable("organizationId") Long organizationId, @RequestParam("file") MultipartFile file) throws EntityNotFoundException, ValidationException, MaxUploadSizeExceededException, IOException, RuntimeException  {
-
-        // Validate the file
-        validateImage(file);
-
-        organizationService.uploadOrganizationImage(organizationId, file);
-        String message = "{\"message\": \"Profile Uploaded Successfully\"}";
-        return ResponseEntity.ok().body(message);
-    }
+//    @PreAuthorize("hasAuthority('UPLOAD_ORGANIZATION_IMAGE')")
+//    @PostMapping("/{organizationId}/uploadImage")
+//    public ResponseEntity<String> uploadOrganizationImage(@PathVariable("organizationId") Long organizationId, @RequestParam("file") MultipartFile file) throws EntityNotFoundException, ValidationException, MaxUploadSizeExceededException, IOException, RuntimeException  {
+//
+//        // Validate the file
+//        validateImage(file);
+//
+//        organizationService.uploadOrganizationImage(organizationId, file);
+//        String message = "{\"message\": \"Profile Uploaded Successfully\"}";
+//        return ResponseEntity.ok().body(message);
+//    }
 
 
     // Validation method for file
@@ -143,12 +145,40 @@ public class OrganizationController {
         return ResponseEntity.status(HttpStatus.OK).body(organizations);
     }
 
+//    @PreAuthorize("hasAnyAuthority('CREATE_ORGANIZATION')")
+//    @PostMapping("")
+//    public ResponseEntity<Object> saveOrganization(@Valid @RequestBody AddNewOrganizationDTO organizationDTO) throws OrganizationService.OrganizationAlreadyExistsException, IllegalArgumentException {
+//        Organization organizationAdded = organizationService.addOrganization(organizationDTO);
+//        return ResponseGenerator.generateResponse(HttpStatus.CREATED,true,"Organization is created successfully",organizationAdded);
+//    }
+
     @PreAuthorize("hasAnyAuthority('CREATE_ORGANIZATION')")
-    @PostMapping("")
-    public ResponseEntity<Object> saveOrganization(@Valid @RequestBody AddNewOrganizationDTO organizationDTO) throws OrganizationService.OrganizationAlreadyExistsException, IllegalArgumentException {
+    @PostMapping(value = "", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<Object> saveOrganization(
+            @RequestParam("organizationData") String organizationData,
+            @RequestParam("file") MultipartFile file)
+            throws OrganizationService.OrganizationAlreadyExistsException,
+            IllegalArgumentException,
+            ValidationException,
+            MaxUploadSizeExceededException,
+            IOException {
+
+        // Convert the organizationData (JSON) to AddNewOrganizationDTO
+        ObjectMapper objectMapper = new ObjectMapper();
+        AddNewOrganizationDTO organizationDTO = objectMapper.readValue(organizationData, AddNewOrganizationDTO.class);
+
+        // Validate and process the image
+        validateImage(file);
+
+        // Save the organization
         Organization organizationAdded = organizationService.addOrganization(organizationDTO);
+
+        // Save the image (You can modify this to suit your use case, e.g., saving to a file system or database)
+        organizationService.uploadOrganizationImage(organizationAdded.getOrganizationId(), file);
+
         return ResponseGenerator.generateResponse(HttpStatus.CREATED,true,"Organization is created successfully",organizationAdded);
     }
+
 
     @PreAuthorize("hasAnyAuthority('UPDATE_ORGANIZATION')")
     @PatchMapping("/{organizationId}")

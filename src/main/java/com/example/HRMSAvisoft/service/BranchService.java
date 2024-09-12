@@ -61,10 +61,10 @@ public class BranchService {
             }
         }
 
-        Branch existingBranchByName = branchRepository.findByBranchName(createBranchDTO.getBranchName()).orElse(null);
-        if(existingBranchByName != null) {
-            throw new BranchAlreadyExistsException(createBranchDTO.getBranchName());
-        }
+//        Branch existingBranchByName = branchRepository.findByBranchName(createBranchDTO.getBranchName()).orElse(null);
+//        if(existingBranchByName != null) {
+//            throw new BranchAlreadyExistsException(createBranchDTO.getBranchName());
+//        }
 
         newBranch.setBranchName(createBranchDTO.getBranchName());
         if(createBranchDTO.getOrganizationId() != null) {
