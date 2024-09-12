@@ -137,7 +137,5 @@ public enum Privilege {
     GET_SHIFT_DURATION,
     UPDATE_SHIFT_DURATION,
     DELETE_SHIFT_DURATION
-
-
 }
 

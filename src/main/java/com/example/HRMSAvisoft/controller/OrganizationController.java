@@ -67,6 +67,14 @@ public class OrganizationController {
         if (!ACCEPTED_CONTENT_TYPES.contains(file.getContentType())) {
             throw new ValidationException("Invalid file type. Only JPEG and PNG files are allowed.");
         }
+
+        String originalFilename = file.getOriginalFilename();
+        if (originalFilename != null && !originalFilename.isEmpty()) {
+            String extension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1).toLowerCase();
+            if (!Arrays.asList("jpg", "jpeg", "png").contains(extension)) {
+                throw new ValidationException("Invalid file extension. Only .jpg and .png files are allowed.");
+            }
+        }
     }
 
     @DeleteMapping("/{organizationId}/removeImage")

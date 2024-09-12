@@ -5,6 +5,7 @@ import com.example.HRMSAvisoft.entity.AttendanceLocation;
 import com.example.HRMSAvisoft.exception.AttributeKeyAlreadyExistsException;
 import com.example.HRMSAvisoft.service.AttendanceLocationService;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -34,8 +35,11 @@ public class AttendanceLocationController {
     @PreAuthorize("hasAuthority('GET_ALL_ATTENDANCE_LOCATION')")
 
     @GetMapping("")
-    public ResponseEntity<Map<String, Object>> getAllAttendanceLocation(){
-        List<AttendanceLocation> attendanceLocationList = attendanceLocationService.getAllAttendanceLocation();
+    public ResponseEntity<Map<String, Object>> getAllAttendanceLocation(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ){
+        Page<AttendanceLocation> attendanceLocationList = attendanceLocationService.getAllAttendanceLocation(page, size);
 
         return ResponseEntity.status(200).body(Map.of("success", true, "message", "Attendance Locations fetched successfully", "AttendanceLocations", attendanceLocationList));
     }

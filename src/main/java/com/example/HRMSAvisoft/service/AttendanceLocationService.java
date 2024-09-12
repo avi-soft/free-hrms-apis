@@ -4,6 +4,10 @@ package com.example.HRMSAvisoft.service;
 import com.example.HRMSAvisoft.entity.AttendanceLocation;
 import com.example.HRMSAvisoft.repository.AttendanceLocationRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,8 +33,15 @@ public class AttendanceLocationService {
         return attendanceLocationRepository.save(attendanceLocation);
     }
 
-    public List<AttendanceLocation> getAllAttendanceLocation(){
-        return attendanceLocationRepository.findAll();
+    public Page<AttendanceLocation> getAllAttendanceLocation(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+
+        List<AttendanceLocation> attendanceLocationList = attendanceLocationRepository.findAll();
+
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), attendanceLocationList.size());
+
+        return new PageImpl<>(attendanceLocationList.subList(start, end), pageable, attendanceLocationList.size());
     }
 
     public AttendanceLocation updateAttendanceLocation(Long attendanceLocationId, AttendanceLocation attendanceLocation)throws EntityNotFoundException, IllegalArgumentException{
