@@ -156,7 +156,7 @@ public class OrganizationController {
     @PostMapping(value = "", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<Object> saveOrganization(
             @RequestParam("organizationData") String organizationData,
-            @RequestParam("file") MultipartFile file)
+            @RequestParam(value = "file", required = false) MultipartFile file)
             throws OrganizationService.OrganizationAlreadyExistsException,
             IllegalArgumentException,
             ValidationException,
@@ -167,15 +167,16 @@ public class OrganizationController {
         ObjectMapper objectMapper = new ObjectMapper();
         AddNewOrganizationDTO organizationDTO = objectMapper.readValue(organizationData, AddNewOrganizationDTO.class);
 
-        // Validate and process the image
-        validateImage(file);
-
         // Save the organization
         Organization organizationAdded = organizationService.addOrganization(organizationDTO);
 
-        // Save the image (You can modify this to suit your use case, e.g., saving to a file system or database)
-        organizationService.uploadOrganizationImage(organizationAdded.getOrganizationId(), file);
+        if(file != null) {
+            // Validate and process the image
+            validateImage(file);
 
+            // Save the image (You can modify this to suit your use case, e.g., saving to a file system or database)
+            organizationService.uploadOrganizationImage(organizationAdded.getOrganizationId(), file);
+        }
         return ResponseGenerator.generateResponse(HttpStatus.CREATED,true,"Organization is created successfully",organizationAdded);
     }
 
