@@ -170,7 +170,7 @@ public class OrganizationController {
         // Save the organization
         Organization organizationAdded = organizationService.addOrganization(organizationDTO);
 
-        if(file != null) {
+        if(file != null && !file.isEmpty()) {
             // Validate and process the image
             validateImage(file);
 
@@ -180,13 +180,33 @@ public class OrganizationController {
         return ResponseGenerator.generateResponse(HttpStatus.CREATED,true,"Organization is created successfully",organizationAdded);
     }
 
-
     @PreAuthorize("hasAnyAuthority('UPDATE_ORGANIZATION')")
-    @PatchMapping("/{organizationId}")
-    public ResponseEntity<Object> updateOrganization(@Valid @RequestBody UpdateOrganizationDTO organizationDTO, @PathVariable Long organizationId) throws EntityNotFoundException, IllegalArgumentException{
-        Organization updatedOrganization = organizationService.updateOrganization(organizationDTO, organizationId);
-        return ResponseGenerator.generateResponse(HttpStatus.OK, true, "Organization Updated successfully.",updatedOrganization);
+    @PatchMapping(value = "/{organizationId}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<Object> updateOrganization(
+            @PathVariable("organizationId") Long organizationId,
+            @RequestParam("organizationData") String organizationData,
+            @RequestParam(value = "file", required = false) MultipartFile file)
+            throws EntityNotFoundException, ValidationException, MaxUploadSizeExceededException, IOException {
+
+        // Convert the organizationData (JSON) to UpdateOrganizationDTO
+        ObjectMapper objectMapper = new ObjectMapper();
+        UpdateOrganizationDTO organizationDTO = objectMapper.readValue(organizationData, UpdateOrganizationDTO.class);
+
+        // Update the organization
+        Organization organizationUpdated = organizationService.updateOrganization(organizationDTO, organizationId);
+
+        // Handle the file upload if a file is provided
+        if (file != null && !file.isEmpty()) {
+            // Validate and process the image
+            validateImage(file);
+
+            // Update the organization's image (You can modify this to suit your use case, e.g., saving to a file system or database)
+            organizationService.uploadOrganizationImage(organizationUpdated.getOrganizationId(), file);
+        }
+
+        return ResponseGenerator.generateResponse(HttpStatus.OK, true, "Organization updated successfully", organizationUpdated);
     }
+
 
     @PreAuthorize("hasAnyAuthority('DELETE_ORGANIZATION')")
     @DeleteMapping("/{organizationId}")
