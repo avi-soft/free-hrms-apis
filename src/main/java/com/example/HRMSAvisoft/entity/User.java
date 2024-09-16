@@ -36,6 +36,8 @@ public class User {
     @JoinColumn(name="created_by")
     private User createdBy;
 
+    private Boolean active = true;
+
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "employeeId")
     @JsonIgnore

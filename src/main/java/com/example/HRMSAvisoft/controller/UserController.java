@@ -86,7 +86,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, Object>> userLogin(@RequestBody LoginUserDTO loginUserDTO)throws EntityNotFoundException, IllegalArgumentException, UserService.WrongPasswordCredentialsException, UserService.IllegalAccessRoleException {
+    public ResponseEntity<Map<String, Object>> userLogin(@RequestBody LoginUserDTO loginUserDTO)throws EntityNotFoundException, IllegalAccessException, IllegalArgumentException, UserService.WrongPasswordCredentialsException {
         User loggedInUser = userService.userLogin(loginUserDTO);
 
         String token = null;
@@ -101,6 +101,7 @@ public class UserController {
             userResponse.setEmployeeId(employee.getEmployeeId());
             userResponse.setFirstName(employee.getFirstName());
             userResponse.setLastName(employee.getLastName());
+            userResponse.setActive(loggedInUser.getActive());
 //            userResponse.setContact(employee.getContact());
             userResponse.setDepartments(employee.getDepartments());
             userResponse.setEmployeeCode(employee.getEmployeeCode());
@@ -160,6 +161,13 @@ public class UserController {
         return ResponseEntity.ok().body(responseData);
     }
 
+    @PatchMapping("/setActiveStatus/{userId}")
+    public ResponseEntity<Map<String, Object>> setActiveStatus(@RequestParam Boolean activeStatus, @PathVariable("userId") Long userId){
+        userService.setActiveStatus(activeStatus, userId);
+
+        return ResponseEntity.status(200).body(Map.of("success", true, "message", "Active status set"));
+    }
+
 
 
 //    @PostMapping("/logout")
@@ -178,9 +186,11 @@ public class UserController {
 
     @ExceptionHandler(
             {UserService.WrongPasswordCredentialsException.class
-                    ,UserService.EmailAlreadyExistsException.class, IOException.class,
-                    UserService.IllegalAccessRoleException.class, IllegalArgumentException.class
-                    ,EntityNotFoundException.class
+                    ,UserService.EmailAlreadyExistsException.class,
+                    IOException.class,
+                    IllegalArgumentException.class,
+                    EntityNotFoundException.class,
+                    IllegalAccessException.class
             })
     public ResponseEntity<ErrorResponseDTO> handleErrors(Exception exception){
         String message;
@@ -193,7 +203,7 @@ public class UserController {
             message = exception.getMessage();
             status = HttpStatus.BAD_REQUEST;
         }
-        else if(exception instanceof UserService.IllegalAccessRoleException){
+        else if(exception instanceof IllegalAccessException){
             message = exception.getMessage();
             status = HttpStatus.UNAUTHORIZED;
         }

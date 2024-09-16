@@ -24,6 +24,7 @@ public class LoginUserResponseDTO {
     private Long userId;
     private Long employeeId;
     private String employeeCode;
+    private Boolean active;
 //    private String email;
     private String createdAt;
     private Set<Role> roles;

@@ -190,8 +190,8 @@ public class EmployeeController {
         return ResponseEntity.ok().body(Map.of("Employee", employee, "message", "Employee retrieved Successfully", "Status", true));
     }
 
-    @GetMapping("/unassignedEmployeesOfBranch")
-    public ResponseEntity<Map<String, Object>> getAllUnassignedEmployeesOfBranch(
+    @GetMapping("/unassignedEmployeesOfDepartment")
+    public ResponseEntity<Map<String, Object>> getAllUnassignedEmployeesOfDepartment(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ){

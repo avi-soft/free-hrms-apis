@@ -22,6 +22,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -33,6 +34,9 @@ import java.util.stream.Collectors;
 @Transactional
 public class OrganizationService {
 
+    private static final long MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB in bytes
+    private static final List<String> ACCEPTED_CONTENT_TYPES = Arrays.asList("image/jpeg", "image/png");
+
     private final OrganizationRepository organizationRepository;
     private final ModelMapper modelMapper;
     private Cloudinary cloudinary;
@@ -43,6 +47,41 @@ public class OrganizationService {
         this.modelMapper = modelMapper;
         this.cloudinary = cloudinary;
         this.organizationAttributeRepository = organizationAttributeRepository;
+    }
+
+    @Transactional(rollbackFor = {Exception.class})
+    public Organization addOrganizationWithImage(AddNewOrganizationDTO organizationDTO, MultipartFile file)
+            throws OrganizationAlreadyExistsException, ValidationException, IOException, EntityNotFoundException, IllegalArgumentException, MaxUploadSizeExceededException {
+        // Step 1: Add organization
+        Organization organizationAdded = addOrganization(organizationDTO);
+
+        // Step 2: Upload organization image if the file is present
+        if (file != null && !file.isEmpty()) {
+            // Validate the image
+            validateImage(file);
+            // Upload the image
+            uploadOrganizationImage(organizationAdded.getOrganizationId(), file);
+        }
+
+
+        return organizationAdded;
+    }
+
+    // Validation method for file
+    public void validateImage(MultipartFile file) throws jakarta.validation.ValidationException {
+        // Check if file is empty
+        if (file.isEmpty()) {
+            throw new jakarta.validation.ValidationException("File is empty. Please upload a valid image.");
+        }
+
+        if (file.getSize() > MAX_FILE_SIZE) {
+            throw new MaxUploadSizeExceededException(file.getSize());
+        }
+
+        // Check file content type (e.g., only JPEG, PNG)
+        if (!ACCEPTED_CONTENT_TYPES.contains(file.getContentType())) {
+            throw new jakarta.validation.ValidationException("Invalid file type. Only JPEG and PNG files are allowed.");
+        }
     }
 
     public void uploadOrganizationImage(Long organizationId, MultipartFile file)throws EntityNotFoundException, IOException, RuntimeException {

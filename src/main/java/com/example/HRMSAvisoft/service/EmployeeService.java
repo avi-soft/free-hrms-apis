@@ -211,7 +211,12 @@ public class EmployeeService {
 
         if(updateEmployeeDetailsDTO.getFirstName()!=null) existingEmployee.setFirstName(updateEmployeeDetailsDTO.getFirstName());
         if(updateEmployeeDetailsDTO.getLastName()!=null) existingEmployee.setLastName(updateEmployeeDetailsDTO.getLastName());
+        if(updateEmployeeDetailsDTO.getDepartmentId() != null){
+            Department departmentToUpdate = departmentRepository.findById(updateEmployeeDetailsDTO.getDepartmentId()).orElseThrow(()-> new EntityNotFoundException("Department not found."));
+            existingEmployee.getDepartments().clear();
+            existingEmployee.getDepartments().add(departmentToUpdate);
 
+        }
         if(updateEmployeeDetailsDTO.getGender()!=null)existingEmployee.setGender(updateEmployeeDetailsDTO.getGender());
 //        if(updateEmployeeDetailsDTO.getDateOfBirth()!=null)existingEmployee.setDateOfBirth(updateEmployeeDetailsDTO.getDateOfBirth());
 //        if(updateEmployeeDetailsDTO.getJoinDate()!=null)existingEmployee.setJoinDate(updateEmployeeDetailsDTO.getJoinDate());

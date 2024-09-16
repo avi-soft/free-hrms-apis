@@ -56,6 +56,8 @@ public class DepartmentController {
         return ResponseEntity.ok(departmentsResponseDTOSPage);
     }
 
+
+
     @GetMapping("/{departmentId}")
     @PreAuthorize("hasAuthority('GET_EMPLOYEES_OF_DEPARTMENT')")
     public ResponseEntity getEmployeesOfDepartment(

@@ -28,7 +28,8 @@ public class UpdateEmployeeDetailsDTO {
     private Gender gender;
     private List<String> designationList;
     private List<String> skillList;
-//    private String contact;
+    private Long departmentId;
+    //    private String contact;
 //    private Position position;
 //    private String adhaarNumber;
 //    private String panNumber;

@@ -90,7 +90,7 @@ public class UserService {
         return userRepository.save(newUser);
     }
 
-    public User userLogin(LoginUserDTO loginUserDTO) throws EntityNotFoundException, WrongPasswordCredentialsException, IllegalAccessRoleException, IllegalArgumentException{
+    public User userLogin(LoginUserDTO loginUserDTO) throws EntityNotFoundException, WrongPasswordCredentialsException, IllegalAccessException, IllegalArgumentException{
 
         if (loginUserDTO.getEmail() == null || loginUserDTO.getEmail().isEmpty()) {
             throw new IllegalArgumentException("Email cannot be null or empty");
@@ -102,6 +102,10 @@ public class UserService {
         User loggedInUser = userRepository.getByEmail(loginUserDTO.getEmail());
         if(loggedInUser == null){
             throw new EntityNotFoundException("User with email " + loginUserDTO.getEmail()+" not found");
+        }
+
+        if(!loggedInUser.getActive()){
+            throw new IllegalAccessException("Your Account is currently inactive");
         }
 //        Role roleUserWantToLoginWith = roleRepository.getByRole(loginUserDTO.getRole());
 //
@@ -207,7 +211,15 @@ public class UserService {
         return new PageImpl<>(userInfoDTOList, pageable, employeesList.size());
     }
 
-    public static class WrongPasswordCredentialsException extends IllegalAccessException{
+    public void setActiveStatus(Boolean activeStatus, Long userId){
+        User userToSetStatusFor = userRepository.findById(userId).orElseThrow(()-> new EntityNotFoundException("User not found"));
+
+        userToSetStatusFor.setActive(activeStatus);
+
+        userRepository.save(userToSetStatusFor);
+    }
+
+    public static class WrongPasswordCredentialsException extends RuntimeException{
         public WrongPasswordCredentialsException(String email){
             super("Wrong password for " + email);
         }

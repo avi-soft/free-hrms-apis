@@ -24,16 +24,13 @@ import utils.ResponseGenerator;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/organization")
 public class OrganizationController {
-
-    private static final long MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB in bytes
-    private static final List<String> ACCEPTED_CONTENT_TYPES = Arrays.asList("image/jpeg", "image/png");
-
 
     private final OrganizationService organizationService;
 
@@ -52,32 +49,6 @@ public class OrganizationController {
 //        String message = "{\"message\": \"Profile Uploaded Successfully\"}";
 //        return ResponseEntity.ok().body(message);
 //    }
-
-
-    // Validation method for file
-    private void validateImage(MultipartFile file) throws ValidationException {
-        // Check if file is empty
-        if (file.isEmpty()) {
-            throw new ValidationException("File is empty. Please upload a valid image.");
-        }
-
-        if (file.getSize() > MAX_FILE_SIZE) {
-            throw new MaxUploadSizeExceededException(file.getSize());
-        }
-
-        // Check file content type (e.g., only JPEG, PNG)
-        if (!ACCEPTED_CONTENT_TYPES.contains(file.getContentType())) {
-            throw new ValidationException("Invalid file type. Only JPEG and PNG files are allowed.");
-        }
-
-        String originalFilename = file.getOriginalFilename();
-        if (originalFilename != null && !originalFilename.isEmpty()) {
-            String extension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1).toLowerCase();
-            if (!Arrays.asList("jpg", "jpeg", "png").contains(extension)) {
-                throw new ValidationException("Invalid file extension. Only .jpg and .png files are allowed.");
-            }
-        }
-    }
 
     @DeleteMapping("/{organizationId}/removeImage")
     public ResponseEntity<String> removeOrganizationImage(@PathVariable("organizationId") Long organizationId) throws EmployeeNotFoundException {
@@ -167,16 +138,9 @@ public class OrganizationController {
         ObjectMapper objectMapper = new ObjectMapper();
         AddNewOrganizationDTO organizationDTO = objectMapper.readValue(organizationData, AddNewOrganizationDTO.class);
 
-        // Save the organization
-        Organization organizationAdded = organizationService.addOrganization(organizationDTO);
+        // Call the service method to handle both organization creation and image upload transactionally
+        Organization organizationAdded = organizationService.addOrganizationWithImage(organizationDTO, file);
 
-        if(file != null && !file.isEmpty()) {
-            // Validate and process the image
-            validateImage(file);
-
-            // Save the image (You can modify this to suit your use case, e.g., saving to a file system or database)
-            organizationService.uploadOrganizationImage(organizationAdded.getOrganizationId(), file);
-        }
         return ResponseGenerator.generateResponse(HttpStatus.CREATED,true,"Organization is created successfully",organizationAdded);
     }
 
@@ -198,11 +162,15 @@ public class OrganizationController {
         // Handle the file upload if a file is provided
         if (file != null && !file.isEmpty()) {
             // Validate and process the image
-            validateImage(file);
+            organizationService.validateImage(file);
 
             // Update the organization's image (You can modify this to suit your use case, e.g., saving to a file system or database)
             organizationService.uploadOrganizationImage(organizationUpdated.getOrganizationId(), file);
         }
+        else{
+            organizationService.removeOrganizationImage(organizationUpdated.getOrganizationId());
+        }
+
 
         return ResponseGenerator.generateResponse(HttpStatus.OK, true, "Organization updated successfully", organizationUpdated);
     }
