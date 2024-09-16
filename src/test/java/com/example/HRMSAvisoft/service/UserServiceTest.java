@@ -131,8 +131,7 @@ class UserServiceTest {
 //    }
 
     @Test
-    public void test_valid_login() throws EntityNotFoundException, UserService.WrongPasswordCredentialsException, UserService.IllegalAccessRoleException {
-
+    public void test_valid_login() throws EntityNotFoundException, UserService.WrongPasswordCredentialsException, IllegalAccessException{
         Mockito.when(passwordEncoder.encode("password")).thenReturn(new BCryptPasswordEncoder().encode("password"));
 
         LoginUserDTO loginUserDTO = new LoginUserDTO();
