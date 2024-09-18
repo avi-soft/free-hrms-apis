@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface LeaveTypeRepository extends JpaRepository<LeaveType, String > {
+public interface LeaveTypeRepository extends JpaRepository<LeaveType, Long> {
 
 }

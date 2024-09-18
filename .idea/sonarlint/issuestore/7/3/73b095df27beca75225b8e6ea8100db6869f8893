@@ -1,4 +1,2 @@
 
-΅	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(φ»ϋÿÿÿÿ8»υ³¶ώ1J$9915b2d4-8b1c-4acb-92f8-69a4b1d4765d
-y
-java:S1128"7Remove this unused import 'jakarta.persistence.Column'.(Σ‰ΩE8Ρυ³¶ώ1J$49441b1a-5385-49f1-8bda-e257f4231378
+΅	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(φ»ϋÿÿÿÿ8σμε‰’2J$576c74a0-6a03-40fc-97d3-46ecdfca7902

@@ -1,14 +1,19 @@
 package com.example.HRMSAvisoft.config;
 
+import com.example.HRMSAvisoft.dto.ErrorResponseDTO;
 import com.example.HRMSAvisoft.exception.*;
 import com.example.HRMSAvisoft.service.AddressService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import utils.ResponseGenerator;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +22,20 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(value = HttpStatus.FORBIDDEN)
+    public ResponseEntity<Object> accessDeniedHandler()
+    {
+        return ResponseGenerator.generateResponse(HttpStatus.FORBIDDEN,false,"Access is denied for current user",null);
+    }
+    
+    @ExceptionHandler(EntityNotFoundException.class)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public ResponseEntity<Object> entityNotFoundException()
+    {
+        return ResponseGenerator.generateResponse(HttpStatus.NOT_FOUND,false,"Entity does not exists",null);
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String,Object>>handlesValidationErrors(MethodArgumentNotValidException exception) {
@@ -28,6 +47,22 @@ public class GlobalExceptionHandler {
         status= HttpStatus.BAD_REQUEST;
         responseData.put("Success",false);
         return ResponseEntity.status(status).body(responseData);
+    }
+
+    @ExceptionHandler(AttributeKeyDoesNotExistException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity <Object> handleAttributeKeyDoesNotExistException(AttributeKeyDoesNotExistException exception)
+    {
+        return ResponseGenerator.generateResponse(HttpStatus.FORBIDDEN,false,"Access is denied for current user",null);
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<ErrorResponseDTO> handleMaxSizeException(MaxUploadSizeExceededException ex) {
+        String message = "File size should be less than 5MB";
+        ErrorResponseDTO errorResponse = ErrorResponseDTO.builder()
+                .message(message)
+                .build();
+        return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE).body(errorResponse);
     }
 
     @ExceptionHandler({
@@ -80,7 +115,4 @@ public class GlobalExceptionHandler {
         responseData.put("Success",false);
         return ResponseEntity.status(httpStatus).body(responseData);
     }
-
-
-
 }

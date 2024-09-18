@@ -1,4 +1,10 @@
 
-š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ÐœÏùÿÿÿÿJ$10a27969-0c4a-4689-8f03-3dc7e14fb14c
-u
-java:S1128"SRemove this unused import 'org.springframework.beans.factory.annotation.Autowired'.(¡ž¸Îùÿÿÿÿ8«åàèø1
+¥
+java:S1488"]Immediately return this expression instead of assigning it to the temporary variable "roles".(÷Œ—Ãøÿÿÿÿ8êú§±‹2J$3c5016cb-6a37-4d41-92cd-a9d641b4337d
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ÐœÏùÿÿÿÿ8Üî ±‹2J$3d073451-e1f6-41bc-af23-eeb8c301e2d5
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ8þú§±‹2J$32fa8b0e-616d-470f-b2d3-9e3a014bf77b
+m
+java:S1764$"KCorrect one of the identical sub-expressions on both sides of operator "||"(’œ­½úÿÿÿÿ8äó¨±‹2
+’
+java:S1128"JRemove this unused import 'com.example.HRMSAvisoft.dto.ChangeUserRoleDTO'.(ÜÁî”üÿÿÿÿ8‰û§±‹2J$ca70bf7e-21c9-42eb-b7d9-29888c24bb48

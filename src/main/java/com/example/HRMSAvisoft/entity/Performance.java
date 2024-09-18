@@ -1,5 +1,6 @@
 package com.example.HRMSAvisoft.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,13 +19,16 @@ public class Performance {
     @Column(nullable = false)
     private Long performanceId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "employee_employee_id")
+    @JsonIgnore
     private Employee employee;
 
     private String reviewDate;
 
-    @ManyToOne()
-    @JoinColumn(name = "reviewerId", referencedColumnName = "employeeId")
+    @ManyToOne
+    @JoinColumn(name = "reviewer_id", referencedColumnName = "employeeId")
+    @JsonIgnore
     private Employee reviewer;
 
     @Enumerated(EnumType.STRING)

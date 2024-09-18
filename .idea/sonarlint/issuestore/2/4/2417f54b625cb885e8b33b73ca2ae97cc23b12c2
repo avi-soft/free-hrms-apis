@@ -1,2 +1,7 @@
 
-œ	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÁûÌ8´·È²ö1J$d9a517d3-ea06-460c-a2b8-358e85783c76
+œ	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÁûÌ8¦ê°ì2J$19fd1b49-9b67-40fb-8a6f-fbda8d3e77da
+
+java:S1128"HRemove this unused import 'com.example.HRMSAvisoft.entity.Organization'.(Õò²…şÿÿÿÿ8Ë†Æ‹’2J$02107e73-7357-4fbc-b83b-bfb0eb228d4b
+s
+java:S1128
+"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8û«Ë‹’2J$6cf95d12-3a7b-4173-815f-93d3e39e4b41

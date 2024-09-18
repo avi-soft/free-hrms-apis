@@ -1,10 +1,17 @@
 
-œ
-java:S2293%"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÕÄŞã8ÚëŒ©2J$195f51c7-68e1-4917-a023-7565268fbb6d
-¡
-java:S2293("YReplace the type specification in this constructor call with the diamond operator ("<>").(ú‡ÍÇıÿÿÿÿ8ÚëŒ©2J$b50a178c-d98d-4acf-9268-ec788222c97e
-¡
-java:S2293B"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÒûŠ¢úÿÿÿÿ8ÚëŒ©2J$481e58bd-636c-4956-8a31-2c3fb7b7ca6b
-¡
-java:S2293E"YReplace the type specification in this constructor call with the diamond operator ("<>").(ş±ªÁøÿÿÿÿ8ÛëŒ©2J$59e5f8a2-b36e-4155-afc2-ceaeed628dbf
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(—üïïøÿÿÿÿ8ÜëŒ©2J$497ef3c6-3042-400d-a0ef-999205bd73c1
+{
+java:S2293*"YReplace the type specification in this constructor call with the diamond operator ("<>").(ú‡ÍÇıÿÿÿÿ8€ş‹’2
+{
+java:S2293E"YReplace the type specification in this constructor call with the diamond operator ("<>").(è“É÷úÿÿÿÿ8Ÿ€ş‹’2
+{
+java:S2293L"YReplace the type specification in this constructor call with the diamond operator ("<>").(ş±ªÁøÿÿÿÿ8 €ş‹’2
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(—üïïøÿÿÿÿ8ôÁ¼2J$e3382cff-f870-4910-b05f-c5fbb5cfc095
+X	java:S125"<This block of commented-out lines of code should be removed.(ÃŠ“¶8®€ş‹’2
+W	java:S125$"<This block of commented-out lines of code should be removed.(ñê¿8¹€ş‹’2
+X	java:S125-"<This block of commented-out lines of code should be removed.(æü¬–8¼€ş‹’2
+X	java:S1254"<This block of commented-out lines of code should be removed.(œÍŸâ8½€ş‹’2
+]	java:S125<"<This block of commented-out lines of code should be removed.(ÜºŸ‰üÿÿÿÿ8¾€ş‹’2
+e
+java:S1128"HRemove this unused import 'com.example.HRMSAvisoft.attribute.Attribute'.(Û¼ºå8È€ş‹’2
+m
+java:S1128"KRemove this unused import 'com.fasterxml.jackson.annotation.JsonAnyGetter'.(‹¿«™ùÿÿÿÿ8É€ş‹’2

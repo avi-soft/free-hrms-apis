@@ -1,19 +1,37 @@
 
-g	java:S1124"FDefine and throw a dedicated exception instead of using a generic one.(÷ÍÍæøÿÿÿÿ8Šˆ ©ü1
-‹
-java:S1488N"iImmediately return this expression instead of assigning it to the temporary variable "searchedEmployees".(÷ò…Ÿûÿÿÿÿ8’ˆ ©ü1
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ8ÁƒĞû1J$f0de1012-c05c-46d6-977c-5bccb4111949
-Z
-java:S2589H"8Remove this expression which always evaluates to "false"(Šú¦éúÿÿÿÿ8ûˆ ©ü1
-_
-java:S6813&"BRemove this field injection and use constructor injection instead.(êæÄŞ8‚‰ ©ü1
-_
-java:S6813)"BRemove this field injection and use constructor injection instead.(êæÄŞ8‚‰ ©ü1
-ˆ
-java:S1128"@Remove this unused import 'com.example.HRMSAvisoft.entity.User'.(ÎÜ¬úÿÿÿÿ8Šø…Ğû1J$55eeaf93-f4fa-4747-83b7-81f37ec2f5e3
+ˆ	java:S112<"FDefine and throw a dedicated exception instead of using a generic one.(‹—¢¹8ğä©ä2J$90eb3767-cab6-4bfe-b899-a86a34cd2c3f
+±
+java:S1488V"iImmediately return this expression instead of assigning it to the temporary variable "searchedEmployees".(÷ò…Ÿûÿÿÿÿ8óä©ä2J$6b37fafc-8905-418b-bbc6-d92690633ac3
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ĞœÏùÿÿÿÿ8Ü­Á¼2J$b5d2ebc1-aea6-4d25-a681-766a8d9e7327
+€
+java:S2589P"8Remove this expression which always evaluates to "false"(Šú¦éúÿÿÿÿ8˜å©ä2J$63e05714-8373-4679-a8ea-1d1b4afcd2d8
+…
+java:S6813%"BRemove this field injection and use constructor injection instead.(êæÄŞ8šå©ä2J$4067d56d-5580-44b8-b200-d1e1223dec5c
+…
+java:S6813("BRemove this field injection and use constructor injection instead.(êæÄŞ8›å©ä2J$3edfc4f5-e870-4526-b3da-fe1cb2b840cd
+…
+java:S6813+"BRemove this field injection and use constructor injection instead.(êæÄŞ8›å©ä2J$921b4b8f-3032-4f2a-ab72-6f2f09bc1cbf
+…
+java:S6813."BRemove this field injection and use constructor injection instead.(êæÄŞ8›å©ä2J$7e998133-6bbd-456c-a3ef-420655197c97
+…
+java:S68131"BRemove this field injection and use constructor injection instead.(êæÄŞ8›å©ä2J$6e156f5b-cf12-465d-b4b9-67ccf2acee63
+Á
+java:S1130<"~Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException' which is a subclass of 'java.io.IOException'.(‹—¢¹8ø­Á¼2J$552941c8-678b-4e90-b024-9f00147937f4
+¿
+java:S1130O"|Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException', as it cannot be thrown from method's body.(ôì²8ù­Á¼2J$9e59bd6e-2ba5-44d0-bb04-a093b7733d22
+¿
+java:S1130Z"|Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException', as it cannot be thrown from method's body.(Ü÷İß8ú­Á¼2J$263af20a-4195-4fc6-bc3a-ff2439c61b6f
+~	java:S125k"<This block of commented-out lines of code should be removed.(Æ»Öô8õ­Á¼2J$252178a9-d6a8-43b0-86d3-11097c4fede2
+À
+java:S1130‘"|Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException', as it cannot be thrown from method's body.(ª‡8û­Á¼2J$bb560d9e-67b5-43e1-84cf-ba983ca737af
+¿
+java:S1130š"|Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException', as it cannot be thrown from method's body.(›ğ¤B8¶å©ä2J$2dc8df12-5757-4d93-a857-20f9e22dce4d
+Å
+java:S1130£"|Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException', as it cannot be thrown from method's body.(÷èœÎúÿÿÿÿ8·å©ä2J$19da3a5e-c8d6-48dd-90e5-f85528cbae41
+À
+java:S1130§"|Remove the declaration of thrown exception 'java.nio.file.AccessDeniedException', as it cannot be thrown from method's body.(ËÆ‘ô8·å©ä2J$016fbeb7-e8ec-4d74-b923-84608939501d
 †
-java:S1128">Remove this unused import 'jakarta.persistence.EntityManager'.(·ïŸéúÿÿÿÿ8Šø…Ğû1J$fc903ea7-2c2e-482a-97b9-041da72b8238
-‹
-java:S1128"HRemove this unused import 'jakarta.persistence.EntityNotFoundException'.(†œşè8‹ø…Ğû1J$1be370c1-df38-489f-bb1e-ad95709e5f21
+java:S1128
+">Remove this unused import 'jakarta.persistence.EntityManager'.(·ïŸéúÿÿÿÿ8ñ¢–æ2J$a5f4cdad-1368-459e-b3dc-d0b2d33ae5e7
 y
-java:S1128"6Remove this unused import 'jakarta.persistence.Query'.(³¸³æ8‹ø…Ğû1J$aa4d20b6-2758-467d-90b7-11386cd77d11
+java:S1128"6Remove this unused import 'jakarta.persistence.Query'.(³¸³æ8ñ¢–æ2J$4832caaf-2ce5-4c3b-9aab-b3077f0e8752

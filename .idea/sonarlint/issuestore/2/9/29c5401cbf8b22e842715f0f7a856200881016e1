@@ -1,14 +1,16 @@
 
-š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(œÁ®ïüÿÿÿÿJ$fe436446-fc5e-4167-a28a-5dcebc24a154
-½
-java:S1186E"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(áíäúJ$33c9a916-8127-48c7-9d6e-b1ab63ba08ec
-~
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞJ$4298eebf-1d57-4c83-8c85-fa91e0a6a3a3
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(œÁ®ïüÿÿÿÿ8÷€ÚŠ2J$d1552005-4b07-4785-b25e-cf381ef1f023
+Ä
+java:S1186F"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(áíäú8ÿ€ÚŠ2J$16b9c787-844e-4c26-b499-cac46822607b
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8€ÚŠ2J$fe72ca1b-8636-4690-8f12-1b1f823e8a77
 t
-java:S1948",Make "userEntity" transient or serializable.(Ììà³ıÿÿÿÿ8¢»Ùèø1J$8763657c-3017-46f5-ad3b-620a99c9edff
+java:S1948",Make "userEntity" transient or serializable.(Ììà³ıÿÿÿÿ8ÚŠ2J$69a3ca68-1215-433c-be04-5d0a100e15dc
 t
-java:S1948",Make "jwtService" transient or serializable.(í¾Ûüøÿÿÿÿ8ÔÔÙèø1J$ba49bbc2-6ddb-4523-834a-37d6360a239a
+java:S1948",Make "jwtService" transient or serializable.(í¾Ûüøÿÿÿÿ8ÚŠ2J$6e152779-f648-4b57-b24b-134aabdc34b1
 x
-java:S2209"5Change this instance-reference to a static reference.(ºÈº•8ØÔÙèø1J$411f64c6-e1de-42ca-aa2e-45bb6ead40f8
-
-java:S6204""RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹J$d0a38b31-0ce2-4879-86cb-144c83e675e5
+java:S2209"5Change this instance-reference to a static reference.(ºÈº•8†ÚŠ2J$eaaa5a3d-0a4b-498c-89a3-f35aa8d928d8
+•
+java:S6204#"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹8‡ÚŠ2J$a72e1bb3-cd40-458b-a621-c85a7d3bcc98
+‹
+java:S1612""HReplace this lambda with method reference 'SimpleGrantedAuthority::new'.(°Öæå8ˆÚŠ2J$85690a0c-dfea-4287-9825-62e62b44799e

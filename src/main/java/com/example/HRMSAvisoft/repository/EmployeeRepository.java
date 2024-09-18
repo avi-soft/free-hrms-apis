@@ -1,7 +1,6 @@
 package com.example.HRMSAvisoft.repository;
 
-import com.example.HRMSAvisoft.entity.Department;
-import com.example.HRMSAvisoft.entity.Employee;
+import com.example.HRMSAvisoft.entity.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -21,9 +20,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     boolean existsByEmployeeCode(String employeeCode);
 
-    List<Employee> findByDepartment(Department department);
+    List<Employee> findAllByDesignationsContaining(Designation designation);
 
-    @Query("SELECT e FROM Employee e WHERE e.department.manager.employeeId = :managerId")
-    List<Employee> findEmployeesByManagerId(@Param("managerId") Long managerId);
+    List<Employee> findAllBySkillsContaining(Skill skill);
 
+    @Query("SELECT e FROM Employee e WHERE e.departments IS EMPTY")
+    List<Employee> findAllEmployeeWhereDepartmentsIsEmpty();
 }

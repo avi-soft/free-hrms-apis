@@ -18,8 +18,6 @@ import org.springframework.security.web.authentication.AnonymousAuthenticationFi
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
-
-
     private JWTAuthenticationFilter jwtAuthenticationFilter;
 
     public SecurityConfig(JWTService jwtService, UserService userService) {

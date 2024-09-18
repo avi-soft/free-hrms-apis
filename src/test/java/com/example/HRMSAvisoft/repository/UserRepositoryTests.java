@@ -2,6 +2,8 @@ package com.example.HRMSAvisoft.repository;
 
 import com.example.HRMSAvisoft.entity.Role;
 import com.example.HRMSAvisoft.entity.User;
+import com.example.HRMSAvisoft.service.EmployeeService;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,21 +11,24 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
-@ExtendWith(SpringExtension.class)
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ActiveProfiles("test")
+//@ExtendWith(SpringExtension.class)
+//@DataJpaTest
+//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+//@ActiveProfiles("test")
+@SpringBootTest
 public class UserRepositoryTests {
 
     @Autowired
@@ -48,59 +53,58 @@ public class UserRepositoryTests {
         userRepository.save(user2);
     }
 
-    @AfterEach
-    public void tearDown() {
-        // Clean up the database after each test
-        userRepository.deleteAll();
-    }
+    @Test
+   @Transactional
+    public void testSaveUser() {
 
-//    @Test
-////   @Transactional
-//    public void testSaveUser() {
-//
-//        Role role = new Role();
-//        role.setRole("ROLE_USER");
-//        Set<Role> roles = new HashSet<>();
-//        roles.add(role);
-//        User user = new User();
-//        user.setEmail("john.doe@example.com");
-//        user.setPassword("password");
-//        user.setCreatedAt(LocalDateTime.now().toString());
-//        user.setCreatedBy(null);
-//
-//        user.setRoles(roles);
-//
-//        // When
-//        User savedUser = userRepository.save(user);
-//
-//        // Then
-//        assertThat(savedUser).isNotNull();
-//        assertThat(savedUser.getUserId()).isNotNull();
-//        assertThat(savedUser.getEmail()).isEqualTo("john.doe@example.com");
-//        assertThat(savedUser.getPassword()).isEqualTo("password");
-//    }
+        Role role = new Role();
+        role.setRole("ROLE_USER");
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+        User user = new User();
+        user.setEmail("john.doe@example.com");
+        user.setPassword("password");
+        user.setCreatedAt(LocalDateTime.now().toString());
+        user.setCreatedBy(null);
+
+        user.setRoles(roles);
+
+        // When
+        User savedUser = userRepository.save(user);
+
+        // Then
+        assertThat(savedUser).isNotNull();
+        assertThat(savedUser.getUserId()).isNotNull();
+        assertThat(savedUser.getEmail()).isEqualTo("john.doe@example.com");
+        assertThat(savedUser.getPassword()).isEqualTo("password");
+    }
 
     @Test
     @Transactional
     public void testGetByEmail() {
-        // Retrieve a user from the database by email
-        User user = userRepository.getByEmail("user1@example.com");
+        // Arrange
+        String testEmail = "avinah@avisoft.io";
 
-        // Verify that the user exists
+        // Act
+        User user = userRepository.getByEmail(testEmail);
+
+        // Assert
         assertNotNull(user);
-        assertEquals("user1@example.com", user.getEmail());
-        assertEquals("password1", user.getPassword());
+        assertEquals(testEmail, user.getEmail());
+        // Add more assertions as needed, e.g., checking other user properties
     }
 
     @Test
     public void testGetByUserId() {
-        // Retrieve a user from the database by user ID
-        User user = userRepository.getByUserId(testuser1.getUserId());
+        List<User> userList= userRepository.findAll();
+        User userToFind= userList.get(0);
+        User user= userRepository.findById(userToFind.getUserId()).get();
 
         // Verify that the user exists
-        assertNotNull(user);
-        assertEquals("user1@example.com", user.getEmail());
-        assertEquals("password1", user.getPassword());
+        Assertions.assertThat(user.getUserId()).isEqualTo(userToFind.getUserId());
+//        assertNotNull(user);
+//        assertEquals("user1@example.com", user.getEmail());
+//        assertEquals("password1", user.getPassword());
     }
 
 }

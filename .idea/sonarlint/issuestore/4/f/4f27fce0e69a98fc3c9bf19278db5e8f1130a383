@@ -1,4 +1,18 @@
 
-t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ö»ûÿÿÿÿ
-F
-java:S1128	"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ
+š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ö»ûÿÿÿÿJ$7ac966ed-61bc-4e4b-bc7b-eb6f459d3033
+W	java:S125"<This block of commented-out lines of code should be removed.(ñê¿8¦ô¶ä2
+o
+java:S1128"MRemove this unused import 'com.example.HRMSAvisoft.entity.EmployeeAttribute'.(›ŸĞëúÿÿÿÿ8¦ô¶ä2
+d
+java:S1128"BRemove this unused import 'com.example.HRMSAvisoft.entity.Gender'.(¯ê¾ßùÿÿÿÿ8§ô¶ä2
+v
+java:S1128"TRemove this unused import 'com.fasterxml.jackson.databind.annotation.JsonSerialize'.(ÖÎèöúÿÿÿÿ8§ô¶ä2
+a
+java:S1128
+"?Remove this unused import 'utils.EmployeeAttributesSerializer'.(£Íˆ×ıÿÿÿÿ8§ô¶ä2
+P
+java:S1128".Remove this unused import 'java.util.HashMap'.(™˜”€ùÿÿÿÿ8§ô¶ä2
+M
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8§ô¶ä2
+L
+java:S1128"*Remove this unused import 'java.util.Map'.(¼è½Òşÿÿÿÿ8§ô¶ä2

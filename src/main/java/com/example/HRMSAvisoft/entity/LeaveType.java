@@ -1,9 +1,6 @@
 package com.example.HRMSAvisoft.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,10 +12,23 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LeaveType {
-    @Id
-    private String leaveType;
-    private String description;
-    private int leavesPerMonth;
-    private int totalLeaves;
-    private int carryForwardLimit;
+
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+private Long leaveTypeId;
+
+@Column(nullable = false, unique = true)
+private String name;
+
+private String description;
+
+@Column(nullable = false)
+private Integer allowedDaysPerYear;
+
+@Column(nullable = false)
+private Boolean isPaidLeave;
+
+//@ManyToOne
+//@JoinColumn(name = "organization_id", nullable = false)
+//private Organization organization;
 }
