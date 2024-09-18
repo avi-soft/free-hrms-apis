@@ -1,6 +1,7 @@
 package com.example.HRMSAvisoft.entity;
 
 import com.example.HRMSAvisoft.attribute.DepartmentAttribute;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,7 +24,6 @@ public class Department {
     @Column(nullable = false)
     private Long departmentId;
 
-    //    @Column(nullable = false)
     private String department;
 
     private String description;
@@ -38,10 +38,25 @@ public class Department {
     @JsonSerialize(using = AttributesSerializer.class)
     private Map<DepartmentAttribute, String> attributes = new HashMap<>();
 
+    @JsonIgnore
+    @ManyToMany(mappedBy = "departments", fetch = FetchType.EAGER)
+    private Set<Branch> branches = new HashSet<>();
+
+    @JsonIgnore
     @ManyToMany(mappedBy = "departments", fetch = FetchType.EAGER)
     private Set<Organization> organizations = new HashSet<>();
 
     @ManyToOne(fetch =  FetchType.EAGER)
     @JoinColumn(name = "managerId")
+    @JsonIgnore
     private Employee manager;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "department_employee",
+            joinColumns = @JoinColumn(name = "department_id"),
+            inverseJoinColumns = @JoinColumn(name = "employee_id")
+    )
+    @JsonIgnore
+    private Set<Employee> employees = new HashSet<>();
 }

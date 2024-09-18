@@ -43,7 +43,6 @@ class OrganizationTest {
 
         userList= new ArrayList<>();
         userList.add(mockUser);
-        organization.setUsers(userList);
     }
 
     @Test
@@ -52,7 +51,6 @@ class OrganizationTest {
         Assertions.assertEquals(organizationName, organization.getOrganizationName());
         Assertions.assertEquals(organizationDescription, organization.getOrganizationDescription());
         Assertions.assertEquals(departments, organization.getDepartments());
-        Assertions.assertEquals(userList, organization.getUsers());
     }
 
     @Test
@@ -61,7 +59,6 @@ class OrganizationTest {
         Assertions.assertEquals(organizationName, organization.getOrganizationName());
         Assertions.assertEquals(organizationDescription, organization.getOrganizationDescription());
         Assertions.assertEquals(departments, organization.getDepartments());
-        Assertions.assertEquals(userList, organization.getUsers());
     }
 
     @Test
@@ -70,11 +67,9 @@ class OrganizationTest {
         organization.setOrganizationName("Updated Organization");
         organization.setOrganizationDescription("This is an updated organization");
         organization.setDepartments(departments);
-        organization.setUsers(userList);
         Assertions.assertEquals(2L, organization.getOrganizationId());
         Assertions.assertEquals("Updated Organization", organization.getOrganizationName());
         Assertions.assertEquals("This is an updated organization", organization.getOrganizationDescription());
         Assertions.assertEquals(departments, organization.getDepartments());
-        Assertions.assertEquals(userList, organization.getUsers());
     }
 }

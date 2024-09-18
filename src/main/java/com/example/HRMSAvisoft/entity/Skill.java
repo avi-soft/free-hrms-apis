@@ -20,4 +20,5 @@ public class Skill {
     private Long skillId;
 
     private String skill;
+
 }

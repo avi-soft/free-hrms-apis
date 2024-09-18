@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import utils.ResponseGenerator;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +32,15 @@ public class RoleController {
     @GetMapping("")
     public ResponseEntity<List<Role>> getRoles(){
         List<Role> roles = roleService.getRoles();
+
+        Iterator<Role> iterator = roles.iterator();
+        while(iterator.hasNext()) {
+            Role role = iterator.next();
+            if(role.getRole().equals("SuperAdmin")) {
+                iterator.remove();
+            }
+        }
+
         return ResponseEntity.status(HttpStatus.OK).body(roles);
     }
 
@@ -63,6 +73,7 @@ public class RoleController {
         Role changedRole = roleService.changeRoleOfUser(userId,oldRoleId,newRoleId);
         return ResponseGenerator.generateResponse(HttpStatus.OK,true,"Role of User is changed with new Role",changedRole);
     }
+
     @PreAuthorize("hasAnyAuthority('ASSIGN_ROLE_TO_USER')")
     @PatchMapping("/{userId}/assignRole/{roleId}")
     public ResponseEntity<Object> assignRoleToExistingUser(@PathVariable Long userId, @PathVariable Long roleId)

@@ -2,8 +2,14 @@ package com.example.HRMSAvisoft.service;
 
 
 import com.example.HRMSAvisoft.entity.Designation;
+import com.example.HRMSAvisoft.entity.Employee;
 import com.example.HRMSAvisoft.repository.DesignationRepository;
+import com.example.HRMSAvisoft.repository.EmployeeRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,8 +21,11 @@ public class DesignationService {
 
     private final DesignationRepository designationRepository;
 
-    DesignationService(DesignationRepository designationRepository) {
+    private final EmployeeRepository employeeRepository;
+
+    DesignationService(DesignationRepository designationRepository, EmployeeRepository employeeRepository) {
         this.designationRepository = designationRepository;
+        this.employeeRepository = employeeRepository;
     }
 
     public Designation addDesignation(Designation designation)throws IllegalArgumentException{
@@ -29,8 +38,14 @@ public class DesignationService {
         return designationRepository.save(newDesignation);
     }
 
-    public List<Designation> getAllDesignations(){
-        return designationRepository.findAll();
+    public Page<Designation> getAllDesignations(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        List<Designation> designationsList = designationRepository.findAll();
+
+        int start = (int)pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), designationsList.size());
+
+        return new PageImpl<>(designationsList.subList(start, end), pageable, designationsList.size());
     }
 
     public void updateDesignation(Designation designation, Long designationId) throws EntityNotFoundException, IllegalArgumentException{
@@ -47,6 +62,13 @@ public class DesignationService {
 
     public void deleteDesignation(Long designationId) throws EntityNotFoundException{
         Designation designationToDelete = designationRepository.findById(designationId).orElseThrow(()-> new EntityNotFoundException("Designation not found"));
+
+        List<Employee> employeeList = employeeRepository.findAllByDesignationsContaining(designationToDelete);
+
+        for(Employee employee : employeeList){
+            if(employee.getDesignations().contains(designationToDelete))
+                employee.getDesignations().remove(designationToDelete);
+        }
 
         designationRepository.delete(designationToDelete);
     }

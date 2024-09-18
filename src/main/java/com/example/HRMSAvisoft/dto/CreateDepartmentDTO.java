@@ -1,12 +1,13 @@
 package com.example.HRMSAvisoft.dto;
 
-import jakarta.validation.constraints.NotNull;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import utils.AttributesSerializer;
 
 import java.util.Map;
 
@@ -28,6 +29,9 @@ public class CreateDepartmentDTO {
 
     private Long organizationId;
 
+    private Long branchId;
+
+    @JsonSerialize(using = AttributesSerializer.class)
     private Map<String, String> attributes;
 
 }

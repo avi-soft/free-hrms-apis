@@ -1,5 +1,6 @@
 package com.example.HRMSAvisoft.config;
 
+import com.example.HRMSAvisoft.dto.ErrorResponseDTO;
 import com.example.HRMSAvisoft.exception.*;
 import com.example.HRMSAvisoft.service.AddressService;
 import jakarta.persistence.EntityNotFoundException;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import utils.ResponseGenerator;
 
 import java.util.HashMap;
@@ -52,6 +54,15 @@ public class GlobalExceptionHandler {
     public ResponseEntity <Object> handleAttributeKeyDoesNotExistException(AttributeKeyDoesNotExistException exception)
     {
         return ResponseGenerator.generateResponse(HttpStatus.FORBIDDEN,false,"Access is denied for current user",null);
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<ErrorResponseDTO> handleMaxSizeException(MaxUploadSizeExceededException ex) {
+        String message = "File size should be less than 5MB";
+        ErrorResponseDTO errorResponse = ErrorResponseDTO.builder()
+                .message(message)
+                .build();
+        return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE).body(errorResponse);
     }
 
     @ExceptionHandler({

@@ -8,7 +8,7 @@ import com.example.HRMSAvisoft.entity.Privilege;
 import com.example.HRMSAvisoft.entity.Role;
 import com.example.HRMSAvisoft.entity.User;
 import com.example.HRMSAvisoft.service.JWTService;
-import com.example.HRMSAvisoft.service.LeaveBalanceService;
+//import com.example.HRMSAvisoft.service.LeaveBalanceService;
 import com.example.HRMSAvisoft.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,8 +47,8 @@ class UserControllerTest {
     @MockBean
     private JWTService jwtService;
 
-    @MockBean
-    private LeaveBalanceService leaveBalanceService;
+//    @MockBean
+//    private LeaveBalanceService leaveBalanceService;
 
     @InjectMocks
     private UserController userController;

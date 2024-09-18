@@ -2,6 +2,8 @@ package com.example.HRMSAvisoft.dto;
 
 
 import com.example.HRMSAvisoft.attribute.DepartmentAttribute;
+import com.example.HRMSAvisoft.entity.Branch;
+import com.example.HRMSAvisoft.entity.Organization;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +12,7 @@ import lombok.Setter;
 import utils.AttributesSerializer;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -33,14 +36,9 @@ public class DepartmentsResponseDTO {
 
     private String managerLastName;
 
-    private Long organizationId;
+    private Set<Organization> organizations = new HashSet<>();
 
-    private String organizationName;
-
-    private String organizationImage;
-
-    private String organizationDescription;
-
+    private Set<Branch> branches = new HashSet<>();
 
     @JsonSerialize(using = AttributesSerializer.class)
     private Map<DepartmentAttribute, String> attributes = new HashMap<>();

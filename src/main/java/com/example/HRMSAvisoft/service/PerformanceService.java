@@ -32,9 +32,9 @@ public class PerformanceService {
 
     public Performance addPerformanceOfEmployee(Long employeeId, Long reviewerId, CreatePerformanceDTO createPerformanceDTO)throws EmployeeNotFoundException, IllegalAccessException{
         Employee employeeToAddPerformance = employeeRepository.findById(employeeId).orElseThrow(()-> new EmployeeNotFoundException(employeeId));
-        if(employeeToAddPerformance.getDepartment().getManager().getEmployeeId() != reviewerId){
-            throw new IllegalAccessException("Forbidden to give Performance Report.");
-        }
+//        if(employeeToAddPerformance.getDepartment().getManager().getEmployeeId() != reviewerId){
+//            throw new IllegalAccessException("Forbidden to give Performance Report.");
+//        }
         Employee reviewer = employeeRepository.findById(reviewerId).orElse(null);
         Performance newPerformanceRecord = new Performance();
         newPerformanceRecord.setComment(createPerformanceDTO.getComment());

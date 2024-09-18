@@ -4,6 +4,7 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.example.HRMSAvisoft.attribute.EmployeeAttribute;
 import com.example.HRMSAvisoft.dto.CreateEmployeeDTO;
+import com.example.HRMSAvisoft.dto.UpdateEmployeeDetailsDTO;
 import com.example.HRMSAvisoft.entity.*;
 import com.example.HRMSAvisoft.exception.AttributeKeyDoesNotExistException;
 import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
@@ -11,14 +12,17 @@ import com.example.HRMSAvisoft.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -45,6 +49,8 @@ public class EmployeeService {
     @Autowired
     private DepartmentRepository departmentRepository;
 
+    @Autowired
+    private BranchRepository branchRepository;
 
 
     EmployeeService(EmployeeRepository employeeRepository, Cloudinary cloudinary){
@@ -94,10 +100,13 @@ public class EmployeeService {
             throw new EmployeeCodeAlreadyExistsException("Employee code already exists: " + createEmployeeDTO.getEmployeeCode());
         }
         Employee employeeToAddInfo = employeeRepository.findById(employeeId).orElseThrow(()-> new EmployeeNotFoundException(employeeId));
-
+        employeeToAddInfo.setGender(createEmployeeDTO.getGender());
         if(createEmployeeDTO.getDepartmentId() != null) {
-            Department departmentOfEmployee = departmentRepository.findById(createEmployeeDTO.getDepartmentId()).orElse(null);
-            employeeToAddInfo.setDepartment(departmentOfEmployee);
+            Department departmentToAssign = departmentRepository.findById(createEmployeeDTO.getDepartmentId()).orElse(null);
+            if(departmentToAssign != null) {
+                employeeToAddInfo.getDepartments().add(departmentToAssign);
+                departmentToAssign.getEmployees().add(employeeToAddInfo);
+            }
         }
 
 //        employeeToAddInfo.setFirstName(createEmployeeDTO.getFirstName());
@@ -120,11 +129,15 @@ public class EmployeeService {
         employeeToAddInfo.setLastName(createEmployeeDTO.getLastName());
         for(String designation : createEmployeeDTO.getDesignationList()){
             Designation designationToAdd = designationRepository.findByDesignation(designation).orElseThrow(()->new EntityNotFoundException("Designation "+ designation + " not found"));
-            employeeToAddInfo.getDesignations().add(designationToAdd);
+            if(!employeeToAddInfo.getDesignations().contains(designationToAdd)) {
+                employeeToAddInfo.getDesignations().add(designationToAdd);
+            }
         }
         for(String skill : createEmployeeDTO.getSkillList()){
             Skill skillToAdd = skillRepository.findBySkill(skill).orElseThrow(()->new EntityNotFoundException("Skill "+ skill + " not found"));
-            employeeToAddInfo.getSkills().add(skillToAdd);
+            if(!employeeToAddInfo.getSkills().contains(skillToAdd)) {
+                employeeToAddInfo.getSkills().add(skillToAdd);
+            }
         }
         // Create a list of EmployeeAttributeValue
         Map<EmployeeAttribute, String> employeeAttributes = createEmployeeDTO.getAttributes().entrySet().stream()
@@ -135,34 +148,126 @@ public class EmployeeService {
                 ));
 
         employeeToAddInfo.setAttributes(employeeAttributes);
+
         return employeeRepository.save(employeeToAddInfo);
     }
 
-    public Page<Employee> getAllEmployees(Pageable pageable)throws DataAccessException,AccessDeniedException
-    {
-       Page<Employee> pageOfEmployees= employeeRepository.findAll(pageable);
-        if (pageOfEmployees.isEmpty() && pageable.getPageNumber() > 0) {
-            pageable = PageRequest.of(pageOfEmployees.getTotalPages() - 1, pageable.getPageSize(), pageable.getSort());
-            pageOfEmployees = employeeRepository.findAll(pageable);
+
+    public Page<Employee> getAllEmployees(int page, int size, String sortBy) throws DataAccessException {
+        List<Employee> employeesList = employeeRepository.findAll();
+        if(!"noSort".equalsIgnoreCase(sortBy)) {
+            if ("createdAt".equalsIgnoreCase(sortBy)) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+                // Sort based on parsed LocalDateTime, in descending order
+                employeesList.sort(Comparator.comparing(Employee::getEmployeeId, Comparator.nullsLast(Long::compareTo)).reversed());
+            } else if ("name".equalsIgnoreCase(sortBy)) {
+                // Sorting by firstName and lastName alphabetically and handling nulls
+                employeesList.sort(Comparator.comparing(Employee::getFirstName, Comparator.nullsLast(String::compareTo))
+                        .thenComparing(Employee::getLastName, Comparator.nullsLast(String::compareTo)));
+            }
         }
-        return pageOfEmployees;
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        // Paginate the sorted list
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), employeesList.size());
+
+        return new PageImpl<>(employeesList.subList(start, end), pageable, employeesList.size());
     }
+
+
     public Employee getEmployeeById(Long employeeId)throws EmployeeNotFoundException, NullPointerException,AccessDeniedException
     {
         Employee employee= employeeRepository.getByEmployeeId(employeeId);
-        if(employee!=null)return employee;
+        if(employee!=null)
+            return employee;
         else {
             throw new EmployeeNotFoundException(employeeId);
         }
     }
 
-    public Employee updateEmployee(Employee updatedEmployee) throws AccessDeniedException,AttributeKeyDoesNotExistException {
-        return employeeRepository.save(updatedEmployee);
+    public Page<Employee> getUnassignedEmployeesOfDepartment(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+
+        List<Employee> unassignedEmployeesList = employeeRepository.findAllEmployeeWhereDepartmentsIsEmpty();
+
+        int start = (int)pageable.getOffset();
+        int end = Math.min((start+pageable.getPageSize()), unassignedEmployeesList.size());
+
+        return new PageImpl<>(unassignedEmployeesList.subList(start, end), pageable, unassignedEmployeesList.size());
     }
 
-    public List<Employee> searchEmployeeByManagerId(Long managerId) throws AccessDeniedException{
-        return employeeRepository.findEmployeesByManagerId(managerId);
+    public Employee updateEmployee(Long employeeId, UpdateEmployeeDetailsDTO updateEmployeeDetailsDTO) throws AccessDeniedException,AttributeKeyDoesNotExistException, EntityNotFoundException {
+        updateEmployeeDetailsDTO.getAttributes()
+                .forEach((k,v)->{
+                    EmployeeAttribute employeeAttribute = employeeAttributeRepository.findByAttributeKey(k).orElse(null);
+                    if(employeeAttribute == null){
+                        throw new AttributeKeyDoesNotExistException("Attribute "+ k + " does not exist");
+                    }
+                });
+        Employee existingEmployee = employeeRepository.findById(employeeId).orElseThrow(()-> new EntityNotFoundException("Employee not found"));
+
+        if(updateEmployeeDetailsDTO.getFirstName()!=null) existingEmployee.setFirstName(updateEmployeeDetailsDTO.getFirstName());
+        if(updateEmployeeDetailsDTO.getLastName()!=null) existingEmployee.setLastName(updateEmployeeDetailsDTO.getLastName());
+        if(updateEmployeeDetailsDTO.getDepartmentId() != null){
+            Department departmentToUpdate = departmentRepository.findById(updateEmployeeDetailsDTO.getDepartmentId()).orElseThrow(()-> new EntityNotFoundException("Department not found."));
+            existingEmployee.getDepartments().clear();
+            existingEmployee.getDepartments().add(departmentToUpdate);
+
+        }
+        if(updateEmployeeDetailsDTO.getGender()!=null)existingEmployee.setGender(updateEmployeeDetailsDTO.getGender());
+//        if(updateEmployeeDetailsDTO.getDateOfBirth()!=null)existingEmployee.setDateOfBirth(updateEmployeeDetailsDTO.getDateOfBirth());
+//        if(updateEmployeeDetailsDTO.getJoinDate()!=null)existingEmployee.setJoinDate(updateEmployeeDetailsDTO.getJoinDate());
+//        if(updateEmployeeDetailsDTO.getAdhaarNumber()!=null)existingEmployee.setAdhaarNumber(updateEmployeeDetailsDTO.getAdhaarNumber());
+//        if(updateEmployeeDetailsDTO.getUanNumber()!=null)existingEmployee.setUanNumber(updateEmployeeDetailsDTO.getUanNumber());
+//        if(updateEmployeeDetailsDTO.getPanNumber()!=null)existingEmployee.setPanNumber(updateEmployeeDetailsDTO.getPanNumber());
+//        if(updateEmployeeDetailsDTO.getPosition()!=null)existingEmployee.setPosition(updateEmployeeDetailsDTO.getPosition());
+//        if(updateEmployeeDetailsDTO.getSalary()!=0)existingEmployee.setSalary(BigDecimal.valueOf(updateEmployeeDetailsDTO.getSalary()));
+        Map<String, String> updatedAttributes = new HashMap<String, String>();
+        updateEmployeeDetailsDTO.getAttributes().forEach((k, v)->{
+            employeeAttributeRepository.findByAttributeKey(k).orElseThrow(()-> new AttributeKeyDoesNotExistException(k +" does not exist"));
+            updatedAttributes.put(k, v);
+        });
+
+        if(updateEmployeeDetailsDTO.getDesignationList() != null) {
+            existingEmployee.getDesignations().clear();
+            for (String designation : updateEmployeeDetailsDTO.getDesignationList()) {
+                Designation designationToAdd = designationRepository.findByDesignation(designation).orElseThrow(() -> new EntityNotFoundException("Designation " + designation + " not found"));
+                if (!existingEmployee.getDesignations().contains(designationToAdd)) {
+                    existingEmployee.getDesignations().add(designationToAdd);
+                }
+            }
+        }
+
+        if(updateEmployeeDetailsDTO.getSkillList() != null) {
+            existingEmployee.getSkills().clear();
+            for (String skill : updateEmployeeDetailsDTO.getSkillList()) {
+                Skill skillToAdd = skillRepository.findBySkill(skill).orElseThrow(() -> new EntityNotFoundException("Skill " + skill + " not found"));
+                if (!existingEmployee.getSkills().contains(skillToAdd)) {
+                    existingEmployee.getSkills().add(skillToAdd);
+                }
+            }
+        }
+
+        Map<EmployeeAttribute, String> attributeMap = new HashMap<>();
+
+        for (Map.Entry<String, String> entry : updateEmployeeDetailsDTO.getAttributes().entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+
+            EmployeeAttribute employeeAttribute= employeeAttributeRepository.findByAttributeKey(key).orElseThrow(() -> new AttributeKeyDoesNotExistException("Attribute " + key + " does not exist"));
+            attributeMap.put(employeeAttribute, value);
+        }
+        Map<EmployeeAttribute, String> existingAttributes = existingEmployee.getAttributes();
+        existingAttributes.putAll(attributeMap);
+        return employeeRepository.save(existingEmployee);
     }
+
+//    public List<Employee> searchEmployeeByManagerId(Long managerId) throws AccessDeniedException{
+//        return employeeRepository.findEmployeesByManagerId(managerId);
+//    }
 
     private boolean validateSearchTerm(String term) {
         String pattern = "^[a-zA-Z\\s]+$";

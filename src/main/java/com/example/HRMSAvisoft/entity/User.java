@@ -1,5 +1,6 @@
 package com.example.HRMSAvisoft.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +15,6 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @Table(name = "users")
-//@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,17 +36,17 @@ public class User {
     @JoinColumn(name="created_by")
     private User createdBy;
 
+    private Boolean active = true;
+
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "employeeId")
+    @JsonIgnore
     private Employee employee;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonIgnore
     @JoinTable(name = "users_role", joinColumns = @JoinColumn(name = "userId", referencedColumnName = "userId"),
             inverseJoinColumns = @JoinColumn(name = "roleId", referencedColumnName = "roleId") )
     Set<Role> roles = new HashSet<Role>();
-
-    @ManyToOne(fetch =  FetchType.EAGER)
-    @JoinColumn(name = "organizationId")
-    private Organization organization;
 
 }

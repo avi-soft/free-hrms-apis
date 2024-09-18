@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.engine.internal.Cascade;
 import utils.AttributesSerializer;
 //import utils.;
 
@@ -34,11 +35,15 @@ public class Employee {
     private String firstName;
 //
     private String lastName;
+
+
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private User user;
 //    private String contact;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<EmergencyContact> emergencyContacts = new ArrayList<>();
-    
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Address> addresses = new ArrayList<Address>();
 
@@ -57,37 +62,33 @@ public class Employee {
     //    private String uanNumber;
     //
         private String profileImage;
-    //
+
     //    private String dateOfBirth;
     //
     //    private BigDecimal salary;
 
-    @ManyToOne
-    private Department department;
 
     @OneToMany(mappedBy = "reviewer",cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
     private List<Performance> reviewedPerformances = new ArrayList<Performance>();
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
     private List<Performance> performanceList = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<Payroll> payrollList = new ArrayList<Payroll>();
+//    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+//    private List<Payroll> payrollList = new ArrayList<Payroll>();
 
     @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name = "account_id", referencedColumnName = "accountId")
     private Account account;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<LeaveRequest> leaveRequests = new ArrayList<>();
+//    @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+//    private List<LeaveRequest> leaveRequests = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+//    private List<LeaveBalance> leaveBalances = new ArrayList<>();
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<LeaveBalance> leaveBalances = new ArrayList<>();
-    
+
+
     @ElementCollection
     @CollectionTable(
             name = "employee_attributes",
@@ -98,7 +99,7 @@ public class Employee {
     @JsonSerialize(using = AttributesSerializer.class)
     private Map<EmployeeAttribute, String> attributes = new HashMap<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinTable(
             name = "employee_designation",
             joinColumns = @JoinColumn(name = "employee_id"),
@@ -106,12 +107,15 @@ public class Employee {
     )
     private List<Designation> designations = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinTable(
             name = "employee_skill",
             joinColumns = @JoinColumn(name = "employee_id"),
             inverseJoinColumns = @JoinColumn(name = "skill_id")
     )
     private List<Skill> skills = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "employees", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Department> departments = new HashSet<>();
 
 }

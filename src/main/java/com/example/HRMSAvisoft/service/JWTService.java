@@ -45,9 +45,6 @@ public class JWTService {
         }
 
 
-        for(int i = 0; i < privilegeNames.size(); ++i){
-            System.out.println(privilegeNames.get(i));
-        }
         return JWT.create()
                 .withSubject(userId.toString())
                 .withClaim("roles", privilegeList)

@@ -6,7 +6,6 @@ import com.example.HRMSAvisoft.entity.User;
 import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
 import com.example.HRMSAvisoft.repository.UserRepository;
 import com.example.HRMSAvisoft.service.JWTService;
-import com.example.HRMSAvisoft.service.LeaveBalanceService;
 import com.example.HRMSAvisoft.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -41,30 +40,16 @@ public class UserController {
     private JWTService jwtService;
     private ModelMapper modelMapper;
 
-    private LeaveBalanceService leaveBalanceService;
-    public UserController(UserService userService, JWTService jwtService, ModelMapper modelMapper, LeaveBalanceService leaveBalanceService)
+    public UserController(UserService userService, JWTService jwtService, ModelMapper modelMapper)
     {
         this.userService=userService;
         this.jwtService=jwtService;
         this.modelMapper=modelMapper;
-        this.leaveBalanceService=leaveBalanceService;
     }
 
     @GetMapping("/hello")
     public String hello(){
         return "Hello ";
-    }
-
-    @PostMapping("/saveUser/{organizationId}")
-    @PreAuthorize("hasAuthority('SAVE_USER')")
-    public ResponseEntity<CreateUserResponseDTO>saveUser(@AuthenticationPrincipal User loggedInUser,
-                                                         @RequestBody CreateUserDTO createUserDTO,@PathVariable Long organizationId) throws IOException {
-        Employee createdUserEmployee = userService.saveUser(createUserDTO, loggedInUser,organizationId);
-        CreateUserResponseDTO createUserResponseDTO = new CreateUserResponseDTO();
-        createUserResponseDTO.setMessage("User Created Successfully");
-        createUserResponseDTO.setEmployeeId(createdUserEmployee.getEmployeeId());
-        createUserResponseDTO.setProfileImage(createUserResponseDTO.getProfileImage());
-        return ResponseEntity.status(HttpStatus.CREATED).body(createUserResponseDTO);
     }
 
 
@@ -85,14 +70,14 @@ public class UserController {
     @PostMapping("/addNewUser/{organizationId}")
     @PreAuthorize("hasAuthority('CREATE_NEW_USER')")
     public ResponseEntity<Map<String ,Object>>addNewUser(@AuthenticationPrincipal User loggedInUser,
-                                                         @RequestBody @Valid AddNewUserDTO addNewUserDTO,@PathVariable Long organizationId)throws IOException,UserService.EmailAlreadyExistsException {
+                                                         @RequestBody @Valid AddNewUserDTO addNewUserDTO,@PathVariable Long organizationId)throws IOException,UserService.EmailAlreadyExistsException, EntityNotFoundException{
         User createdUser=userService.addNewUser(addNewUserDTO,loggedInUser,organizationId);
         NewUserResponseDTO newUser=new NewUserResponseDTO();
         newUser.setUserId(createdUser.getUserId());
         newUser.setEmail(createdUser.getEmail());
         newUser.setCreatedAt(createdUser.getCreatedAt());
         newUser.setEmployeeId(createdUser.getEmployee().getEmployeeId());
-        leaveBalanceService.initializeLeaveBalancesForEmployee(createdUser.getEmployee());
+//        leaveBalanceService.initializeLeaveBalancesForEmployee(createdUser.getEmployee());
         Map<String, Object> response = new HashMap<String, Object>();
         response.put("message", "New User Created!!");
         response.put("success", true);
@@ -101,7 +86,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, Object>> userLogin(@RequestBody LoginUserDTO loginUserDTO)throws EntityNotFoundException, IllegalArgumentException, UserService.WrongPasswordCredentialsException, UserService.IllegalAccessRoleException {
+    public ResponseEntity<Map<String, Object>> userLogin(@RequestBody LoginUserDTO loginUserDTO)throws EntityNotFoundException, IllegalAccessException, IllegalArgumentException, UserService.WrongPasswordCredentialsException {
         User loggedInUser = userService.userLogin(loginUserDTO);
 
         String token = null;
@@ -116,13 +101,9 @@ public class UserController {
             userResponse.setEmployeeId(employee.getEmployeeId());
             userResponse.setFirstName(employee.getFirstName());
             userResponse.setLastName(employee.getLastName());
+            userResponse.setActive(loggedInUser.getActive());
 //            userResponse.setContact(employee.getContact());
-            if(employee.getDepartment() != null) {
-                userResponse.setDepartment(employee.getDepartment().getDepartment());
-                userResponse.setDepartmentId(employee.getDepartment().getDepartmentId());
-                userResponse.setDepartmentDescription(employee.getDepartment().getDescription());
-                userResponse.setManagerId(employee.getDepartment().getManager().getEmployeeId());
-            }
+            userResponse.setDepartments(employee.getDepartments());
             userResponse.setEmployeeCode(employee.getEmployeeCode());
 //            userResponse.setAdhaarNumber(employee.getAdhaarNumber());
 //            userResponse.setPanNumber(employee.getPanNumber());
@@ -156,20 +137,18 @@ public class UserController {
     @PreAuthorize("hasAuthority('DELETE_EMPLOYEE')")
     @DeleteMapping("/{userId}")
     public ResponseEntity deleteEmployee(@PathVariable("userId") Long userId)throws EmployeeNotFoundException {
-        if(userService.deleteUser(userId))
+            userService.deleteUser(userId);
             return ResponseEntity.status(204).body(null);
-        else
-            return ResponseEntity.status(500).body(null);
     }
+
     @PreAuthorize("hasAuthority('GET_ALL_USERS')")
     @GetMapping("/getAllUserInfo")
     public ResponseEntity<Map<String, Object>> getAllUserInfo(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size,
-            @RequestParam(defaultValue = "employeeId") String sortBy) {
+            @RequestParam(defaultValue = "noSort") String sortBy) {
 
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
-        Page<UserInfoDTO> pageOfUsers = userService.getAllUserInfo(pageable);
+        Page<UserInfoDTO> pageOfUsers = userService.getAllUserInfo(page, size, sortBy);
 
         Map<String, Object> responseData = new HashMap<>();
         responseData.put("Users", pageOfUsers.getContent());
@@ -180,6 +159,13 @@ public class UserController {
         responseData.put("Success", true);
 
         return ResponseEntity.ok().body(responseData);
+    }
+
+    @PatchMapping("/setActiveStatus/{userId}")
+    public ResponseEntity<Map<String, Object>> setActiveStatus(@RequestParam Boolean activeStatus, @PathVariable("userId") Long userId){
+        userService.setActiveStatus(activeStatus, userId);
+
+        return ResponseEntity.status(200).body(Map.of("success", true, "message", "Active status set"));
     }
 
 
@@ -200,9 +186,11 @@ public class UserController {
 
     @ExceptionHandler(
             {UserService.WrongPasswordCredentialsException.class
-                    ,UserService.EmailAlreadyExistsException.class, IOException.class,
-                    UserService.IllegalAccessRoleException.class, IllegalArgumentException.class
-                    ,EntityNotFoundException.class
+                    ,UserService.EmailAlreadyExistsException.class,
+                    IOException.class,
+                    IllegalArgumentException.class,
+                    EntityNotFoundException.class,
+                    IllegalAccessException.class
             })
     public ResponseEntity<ErrorResponseDTO> handleErrors(Exception exception){
         String message;
@@ -215,7 +203,7 @@ public class UserController {
             message = exception.getMessage();
             status = HttpStatus.BAD_REQUEST;
         }
-        else if(exception instanceof UserService.IllegalAccessRoleException){
+        else if(exception instanceof IllegalAccessException){
             message = exception.getMessage();
             status = HttpStatus.UNAUTHORIZED;
         }

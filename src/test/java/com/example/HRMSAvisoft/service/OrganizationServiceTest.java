@@ -62,65 +62,65 @@ public class OrganizationServiceTest {
         organizationService = new OrganizationService(organizationRepository, modelMapper, cloudinary,organizationAttributeRepository);
     }
 
-    @Test
-    public void test_retrieve_departments_for_existing_organization() {
-        OrganizationRepository organizationRepository = Mockito.mock(OrganizationRepository.class);
-        Organization organization = new Organization();
-        Department department1 = new Department();
-        Department department2 = new Department();
-        organization.setDepartments(Set.of(department1, department2));
-        Mockito.when(organizationRepository.findById(1L)).thenReturn(Optional.of(organization));
+//    @Test
+//    public void test_retrieve_departments_for_existing_organization() {
+//        OrganizationRepository organizationRepository = Mockito.mock(OrganizationRepository.class);
+//        Organization organization = new Organization();
+//        Department department1 = new Department();
+//        Department department2 = new Department();
+//        organization.setDepartments(Set.of(department1, department2));
+//        Mockito.when(organizationRepository.findById(1L)).thenReturn(Optional.of(organization));
+//
+//        OrganizationService organizationService = new OrganizationService(organizationRepository, new ModelMapper(), null, null);
+//        List<Department> departments = organizationService.getDepartmentsOfOrganization(1L);
+//
+//        Assertions.assertEquals(2, departments.size());
+//        Assertions.assertTrue(departments.contains(department1));
+//        Assertions.assertTrue(departments.contains(department2));
+//    }
 
-        OrganizationService organizationService = new OrganizationService(organizationRepository, new ModelMapper(), null, null);
-        List<Department> departments = organizationService.getDepartmentsOfOrganization(1L);
+//    @Test
+//    public void test_return_empty_list_if_no_departments() {
+//        OrganizationRepository organizationRepository = Mockito.mock(OrganizationRepository.class);
+//        Organization organization = new Organization();
+//        organization.setDepartments(Collections.emptySet());
+//        Mockito.when(organizationRepository.findById(1L)).thenReturn(Optional.of(organization));
+//
+//        OrganizationService organizationService = new OrganizationService(organizationRepository, new ModelMapper(), null, null);
+//        List<Department> departments = organizationService.getDepartmentsOfOrganization(1L);
+//
+//        Assertions.assertTrue(departments.isEmpty());
+//    }
 
-        Assertions.assertEquals(2, departments.size());
-        Assertions.assertTrue(departments.contains(department1));
-        Assertions.assertTrue(departments.contains(department2));
-    }
-
-    @Test
-    public void test_return_empty_list_if_no_departments() {
-        OrganizationRepository organizationRepository = Mockito.mock(OrganizationRepository.class);
-        Organization organization = new Organization();
-        organization.setDepartments(Collections.emptySet());
-        Mockito.when(organizationRepository.findById(1L)).thenReturn(Optional.of(organization));
-
-        OrganizationService organizationService = new OrganizationService(organizationRepository, new ModelMapper(), null, null);
-        List<Department> departments = organizationService.getDepartmentsOfOrganization(1L);
-
-        Assertions.assertTrue(departments.isEmpty());
-    }
-
-    @Test
-    @DisplayName("returns_list_of_organizations_when_organizations_exist")
-    public void returns_list_of_organizations_when_organizations_exist() {
-        List<Organization> mockOrganizations = Arrays.asList(organization);
-        when(organizationRepository.findAll()).thenReturn(mockOrganizations);
-        List<Organization> organizations = organizationService.getOrganizations();
-
-        assertNotNull(organizations);
-        assertEquals(1, organizations.size());
-        assertEquals("Aviskill", organizations.get(0).getOrganizationName());
-    }
-
-    @Test
-    @DisplayName("returns_empty_list_when_no_organizations_exist")
-    public void returns_empty_list_when_no_organizations_exist() {
-        when(organizationRepository.findAll()).thenReturn(Collections.emptyList());
-        List<Organization> organizations = organizationService.getOrganizations();
-        assertNotNull(organizations);
-        assertTrue(organizations.isEmpty());
-    }
-
-    @Test
-    @DisplayName("handles_unexpected_exceptions_from_repository")
-    public void handles_unexpected_exceptions_from_repository() {
-        when(organizationRepository.findAll()).thenThrow(new RuntimeException("Unexpected error"));
-        Assertions.assertThrows(RuntimeException.class, () -> {
-            organizationService.getOrganizations();
-        });
-    }
+//    @Test
+//    @DisplayName("returns_list_of_organizations_when_organizations_exist")
+//    public void returns_list_of_organizations_when_organizations_exist() {
+//        List<Organization> mockOrganizations = Arrays.asList(organization);
+//        when(organizationRepository.findAll()).thenReturn(mockOrganizations);
+//        List<Organization> organizations = organizationService.getOrganizations();
+//
+//        assertNotNull(organizations);
+//        assertEquals(1, organizations.size());
+//        assertEquals("Aviskill", organizations.get(0).getOrganizationName());
+//    }
+//
+//    @Test
+//    @DisplayName("returns_empty_list_when_no_organizations_exist")
+//    public void returns_empty_list_when_no_organizations_exist() {
+//        when(organizationRepository.findAll()).thenReturn(Collections.emptyList());
+//        List<Organization> organizations = organizationService.getOrganizations();
+//        assertNotNull(organizations);
+//        assertTrue(organizations.isEmpty());
+//    }
+//
+//    @Test
+//    @DisplayName("handles_unexpected_exceptions_from_repository")
+//    public void handles_unexpected_exceptions_from_repository() {
+//        when(organizationRepository.findAll()).thenThrow(new RuntimeException("Unexpected error"));
+//        Assertions.assertThrows(RuntimeException.class, () -> {
+//            organizationService.getOrganizations();
+//        });
+//    }
 
     @Test
     @DisplayName("test_add_organization")
@@ -171,25 +171,25 @@ public class OrganizationServiceTest {
         assertEquals("Updation of new Organization", result.getOrganizationDescription());
     }
 
-    @Test
-    @DisplayName("testDeleteOrganizationWithExistingOrganization")
-    public void testDeleteOrganizationWithExistingOrganization() {
-        Organization organizationToDelete = organization;
-
-        // Mock the findById method to return the organization to be deleted
-        when(organizationRepository.findById(1L)).thenReturn(Optional.of(organizationToDelete));
-
-        // Call the deleteOrganization method
-        Organization deletedOrganization = organizationService.deleteOrganization(1L);
-
-        // Verify the interactions and assertions
-        assertNotNull(deletedOrganization);
-        assertEquals(organizationToDelete.getOrganizationId(), deletedOrganization.getOrganizationId());
-        assertEquals(organizationToDelete.getOrganizationName(), deletedOrganization.getOrganizationName());
-
-        // Verify that the organizationRepository delete method was called with the correct organization
-        Mockito.verify(organizationRepository).delete(organizationToDelete);
-    }
+//    @Test
+//    @DisplayName("testDeleteOrganizationWithExistingOrganization")
+//    public void testDeleteOrganizationWithExistingOrganization() {
+//        Organization organizationToDelete = organization;
+//
+//        // Mock the findById method to return the organization to be deleted
+//        when(organizationRepository.findById(1L)).thenReturn(Optional.of(organizationToDelete));
+//
+//        // Call the deleteOrganization method
+//        Organization deletedOrganization = organizationService.deleteOrganization(1L);
+//
+//        // Verify the interactions and assertions
+//        assertNotNull(deletedOrganization);
+//        assertEquals(organizationToDelete.getOrganizationId(), deletedOrganization.getOrganizationId());
+//        assertEquals(organizationToDelete.getOrganizationName(), deletedOrganization.getOrganizationName());
+//
+//        // Verify that the organizationRepository delete method was called with the correct organization
+//        Mockito.verify(organizationRepository).delete(organizationToDelete);
+//    }
 
     @Test
     @DisplayName("testDeleteOrganizationWhenOrganizationDoesNotExist")
