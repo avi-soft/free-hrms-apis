@@ -150,6 +150,15 @@ public class AttendanceService {
         return new PageImpl<>(attendanceList.subList(start, end), pageable, attendanceList.size());
     }
 
+    public boolean userClockedIn(Long userId) {
+        Attendance attendanceForUserOnDate = attendanceRepository.findByUserIdAndDate(userId, LocalDate.now()).orElse(null);
+
+        if(attendanceForUserOnDate == null)
+            return false;
+
+        return true;
+    }
+
     public void updateAttendanceRecord(Long attendanceId, Attendance attendance){
         Attendance attendanceRecordToUpdate = attendanceRepository.findById(attendanceId).orElseThrow(()-> new EntityNotFoundException("Attendance record not found"));
 

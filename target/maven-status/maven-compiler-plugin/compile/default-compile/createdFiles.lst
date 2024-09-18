@@ -4,6 +4,7 @@ com/example/HRMSAvisoft/controller/OrganizationController.class
 com/example/HRMSAvisoft/dto/CreateDepartmentDTO.class
 com/example/HRMSAvisoft/repository/ZipCodeRepository.class
 com/example/HRMSAvisoft/service/EmployeeAttributeService.class
+com/example/HRMSAvisoft/repository/LeaveTypeRepository.class
 com/example/HRMSAvisoft/service/AddressService$AddressNotFoundException.class
 com/example/HRMSAvisoft/security/JWTAuthentication.class
 com/example/HRMSAvisoft/repository/EmployeeRepository.class
@@ -36,6 +37,7 @@ com/example/HRMSAvisoft/repository/AddressRepository.class
 com/example/HRMSAvisoft/service/AttendanceService$InsufficientTimeForAttendanceException.class
 com/example/HRMSAvisoft/service/SkillService.class
 com/example/HRMSAvisoft/security/JWTAuthenticationConverter.class
+com/example/HRMSAvisoft/entity/LeaveType.class
 com/example/HRMSAvisoft/service/EmergencyContactService$ValidationException.class
 com/example/HRMSAvisoft/entity/Deduction.class
 com/example/HRMSAvisoft/service/OrganizationAttributeService.class
@@ -101,6 +103,7 @@ com/example/HRMSAvisoft/entity/Employee$EmployeeBuilder.class
 com/example/HRMSAvisoft/dto/ShiftDurationDTO.class
 com/example/HRMSAvisoft/dto/AddNewOrganizationDTO.class
 com/example/HRMSAvisoft/repository/AttendanceLocationRepository.class
+com/example/HRMSAvisoft/service/LeaveTypeService.class
 com/example/HRMSAvisoft/dto/UpdateEmployeeDetailsDTO.class
 com/example/HRMSAvisoft/attribute/Attribute.class
 com/example/HRMSAvisoft/dto/ErrorResponseDTO.class
@@ -137,6 +140,7 @@ com/example/HRMSAvisoft/exception/AttributeKeyDoesNotExistException.class
 com/example/HRMSAvisoft/controller/BranchAttributeController.class
 com/example/HRMSAvisoft/dto/AddAccountDTO.class
 com/example/HRMSAvisoft/service/AttendanceService.class
+com/example/HRMSAvisoft/controller/LeaveTypeController.class
 com/example/HRMSAvisoft/dto/UpdateOrganizationDTO.class
 com/example/HRMSAvisoft/security/JWTAuthenticationFilter.class
 com/example/HRMSAvisoft/repository/UserRepository.class

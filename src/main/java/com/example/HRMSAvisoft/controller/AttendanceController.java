@@ -65,9 +65,16 @@ public class AttendanceController {
         return ResponseEntity.status(200).body(attendancePage);
     }
 
+    @GetMapping("/userStatus/{userId}")
+    public ResponseEntity<Map<String, Object>> userClockedIn(@PathVariable Long userId){
+        boolean isUserClockedIn = attendanceService.userClockedIn(userId);
+
+        return ResponseEntity.status(200).body(Map.of("success", true, "message", "User status fetched", "isUserClockedIn", isUserClockedIn));
+    }
+
     @PreAuthorize("hasAuthority('UPDATE_ATTENDANCE_RECORD')")
     @PatchMapping("/{attendanceId}")
-    public ResponseEntity<Map<String, Object>> updateAttendanceRecord(@PathVariable("attendanceId") Long attendanceId, @RequestBody Attendance attendance){
+    public ResponseEntity<Map<String, Object>> updateAttendanceRecord(@PathVariable("attendanceId") Long attendanceId, @RequestBody Attendance attendance) {
         attendanceService.updateAttendanceRecord(attendanceId, attendance);
 
         return ResponseEntity.status(200).body(Map.of("success", true, "message", "Attendance updated successfully."));

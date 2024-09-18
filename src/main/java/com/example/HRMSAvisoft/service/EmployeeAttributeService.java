@@ -10,7 +10,10 @@ import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -96,21 +99,29 @@ public class EmployeeAttributeService {
 
     @Transactional
     public EmployeeAttribute deleteEmployeeAttribute(Long employeeAttributeId) throws EntityNotFoundException {
-        EmployeeAttribute employeeAttributeToDelete = employeeAttributeRepository.findById(employeeAttributeId).orElseThrow((() -> new EntityNotFoundException(employeeAttributeId + "not found")));
+        // Find the EmployeeAttribute to delete, or throw an exception if not found
+        EmployeeAttribute employeeAttributeToDelete = employeeAttributeRepository.findById(employeeAttributeId)
+                .orElseThrow(() -> new EntityNotFoundException(employeeAttributeId + " not found"));
 
+        // Find all employees and update their attribute map
         List<Employee> employeeList = employeeRepository.findAll();
-        for(Employee employee : employeeList){
-            employee.getAttributes().forEach((k, v)->{
-                if(k.equals(employeeAttributeToDelete)){
-                    employee.getAttributes().remove(employeeAttributeToDelete);
+        for (Employee employee : employeeList) {
+            // Use an iterator to avoid ConcurrentModificationException
+            Iterator<Map.Entry<EmployeeAttribute, String>> iterator = employee.getAttributes().entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<EmployeeAttribute, String> entry = iterator.next();
+                if (entry.getKey().equals(employeeAttributeToDelete)) {
+                    iterator.remove();  // Safely remove the entry using the iterator
                 }
-            });
+            }
+            // Persist the changes by saving the employee entity
+            employeeRepository.save(employee);
         }
 
+        // After removing the attribute from all employees, delete the attribute from the database
         employeeAttributeRepository.delete(employeeAttributeToDelete);
         return employeeAttributeToDelete;
     }
-
     public static class EmployeeAttributeAlreadyExistsException extends RuntimeException {
         public EmployeeAttributeAlreadyExistsException(String message) {
             super(message);
