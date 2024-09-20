@@ -1,5 +1,6 @@
 package com.example.HRMSAvisoft.config;
 
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.example.HRMSAvisoft.dto.ErrorResponseDTO;
 import com.example.HRMSAvisoft.exception.*;
 import com.example.HRMSAvisoft.service.AddressService;
@@ -35,6 +36,13 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Object> entityNotFoundException()
     {
         return ResponseGenerator.generateResponse(HttpStatus.NOT_FOUND,false,"Entity does not exists",null);
+    }
+
+    @ExceptionHandler(TokenExpiredException.class)
+    @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+    public ResponseEntity<Object> TokenExpiredException()
+    {
+        return ResponseGenerator.generateResponse(HttpStatus.UNAUTHORIZED,false,"Session expired. Please login again",null);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

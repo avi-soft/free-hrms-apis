@@ -1,16 +1,11 @@
 package com.example.HRMSAvisoft.entity;
 
-import com.example.HRMSAvisoft.attribute.Attribute;
 import com.example.HRMSAvisoft.attribute.EmployeeAttribute;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.engine.internal.Cascade;
 import utils.AttributesSerializer;
-//import utils.;
 
 import java.util.*;
 
@@ -69,7 +64,7 @@ public class Employee {
 
 
     @OneToMany(mappedBy = "reviewer",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Performance> reviewedPerformances = new ArrayList<Performance>();
+    private List<Performance> reviewedPerformances = new ArrayList<>();
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Performance> performanceList = new ArrayList<>();

@@ -18,6 +18,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -150,13 +151,24 @@ public class AttendanceService {
         return new PageImpl<>(attendanceList.subList(start, end), pageable, attendanceList.size());
     }
 
-    public boolean userClockedIn(Long userId) {
+    public Map<String, Object> userClockedIn(Long userId) {
         Attendance attendanceForUserOnDate = attendanceRepository.findByUserIdAndDate(userId, LocalDate.now()).orElse(null);
 
-        if(attendanceForUserOnDate == null)
-            return false;
+        if (attendanceForUserOnDate == null) {
+            return Map.of("userClockedIn", false, "clockedTime", null);
+        } else {
+            LocalDateTime clockInTime = attendanceForUserOnDate.getClockInTime();
+            LocalDateTime currentTime = LocalDateTime.now();
 
-        return true;
+            // Calculate the duration between clock-in time and the current time
+            Duration duration = Duration.between(clockInTime, currentTime);
+            long minutes = duration.toMinutes();
+            long seconds = duration.getSeconds() % 60;
+
+            String clockedTime = minutes + " minutes and " + seconds + " seconds";
+
+            return Map.of("userClockedIn", true, "clockedTime", clockedTime);
+        }
     }
 
     public void updateAttendanceRecord(Long attendanceId, Attendance attendance){
