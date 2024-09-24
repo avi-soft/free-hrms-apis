@@ -37,6 +37,12 @@ public class GlobalExceptionHandler {
     {
         return ResponseGenerator.generateResponse(HttpStatus.NOT_FOUND,false,"Entity does not exists",null);
     }
+    @ExceptionHandler(TokenExpiredException.class)
+    @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+    public ResponseEntity<Object> TokenExpiredException()
+    {
+        return ResponseGenerator.generateResponse(HttpStatus.UNAUTHORIZED,false,"Session Expired. Please login again.",null);
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String,Object>>handlesValidationErrors(MethodArgumentNotValidException exception) {
@@ -71,7 +77,6 @@ public class GlobalExceptionHandler {
             NullPointerException.class,
             AddressService.AddressNotFoundException.class,
             EmergencyContactNotFoundException.class
-
     })
     public ResponseEntity<Map<String,Object>> handleErrors(Exception exception){
         Map<String ,Object> responseData = new HashMap<>();
@@ -87,7 +92,8 @@ public class GlobalExceptionHandler {
         }else if(exception instanceof NullPointerException) {
             responseData.put("message", exception.getMessage());
             status=HttpStatus.BAD_REQUEST;
-        }else if(exception instanceof EmergencyContactNotFoundException)
+        }
+       else if(exception instanceof EmergencyContactNotFoundException)
         {
             responseData.put("message", exception.getMessage());
             status=HttpStatus.BAD_REQUEST;

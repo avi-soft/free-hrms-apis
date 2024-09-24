@@ -39,14 +39,17 @@ public class LeaveTypeService {
         Optional<LeaveType> existingLeaveTypeOpt = leaveTypeRepository.findById(leaveTypeId);
         if (existingLeaveTypeOpt.isPresent()) {
             LeaveType existingLeaveType = existingLeaveTypeOpt.get();
-            if(updatedLeaveType.getName() != null)
-                existingLeaveType.setName(updatedLeaveType.getName());
+            if(updatedLeaveType.getLeaveType() != null)
+                existingLeaveType.setLeaveType(updatedLeaveType.getLeaveType());
             if(updatedLeaveType.getDescription() != null)
                 existingLeaveType.setDescription(updatedLeaveType.getDescription());
-            if(updatedLeaveType.getIsPaidLeave() != null)
-                existingLeaveType.setIsPaidLeave(updatedLeaveType.getIsPaidLeave());
-            if(updatedLeaveType.getAllowedDaysPerYear() != null)
-                existingLeaveType.setAllowedDaysPerYear(updatedLeaveType.getAllowedDaysPerYear());
+
+            existingLeaveType.setTotalLeaves(updatedLeaveType.getTotalLeaves());
+
+            existingLeaveType.setLeavesPerMonth(updatedLeaveType.getLeavesPerMonth());
+
+            existingLeaveType.setCarryForwardLimit(updatedLeaveType.getCarryForwardLimit());
+
             return leaveTypeRepository.save(existingLeaveType);
         }
         return null;

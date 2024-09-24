@@ -199,10 +199,18 @@ public class BranchService {
         branchRepository.delete(branchFoundById);
     }
 
-    public void assignBranchToOrganization(Long organizationId, Long branchId)throws EntityNotFoundException{
+    public void assignBranchToOrganization(Long organizationId, Long branchId)throws EntityNotFoundException, BranchAlreadyExistsException{
         Organization organizationToAddBranch = organizationRepository.findById(organizationId).orElseThrow(()-> new EntityNotFoundException("Organization not found"));
 
         Branch branchToAdd = branchRepository.findById(branchId).orElseThrow(()-> new EntityNotFoundException("Branch not found"));
+
+            // Check if the branch with the same name exists in the organization
+            Branch existingBranch = branchRepository
+                    .findByBranchNameAndOrganizationId(branchToAdd.getBranchName(), organizationId)
+                    .orElse(null);
+            if (existingBranch != null) {
+                throw new BranchAlreadyExistsException(branchToAdd.getBranchName());
+            }
 
         if(!organizationToAddBranch.getBranches().contains(branchToAdd)){
             organizationToAddBranch.getBranches().add(branchToAdd);

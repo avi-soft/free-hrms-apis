@@ -13,22 +13,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class LeaveType {
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Long leaveTypeId;
-
-@Column(nullable = false, unique = true)
-private String name;
-
-private String description;
-
-@Column(nullable = false)
-private Integer allowedDaysPerYear;
-
-@Column(nullable = false)
-private Boolean isPaidLeave;
-
-//@ManyToOne
-//@JoinColumn(name = "organization_id", nullable = false)
-//private Organization organization;
+    @Id
+    private String leaveType;
+    private String description;
+    private int leavesPerMonth;
+    private int totalLeaves;
+    private int carryForwardLimit;
 }

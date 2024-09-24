@@ -18,7 +18,6 @@ com/example/HRMSAvisoft/entity/EmergencyContactTests.class
 com/example/HRMSAvisoft/entity/UserTests.class
 com/example/HRMSAvisoft/repository/UserRepositoryTests.class
 com/example/HRMSAvisoft/repository/OrganizationRepositoryTest.class
-com/example/HRMSAvisoft/entity/LeaveTypeTest.class
 com/example/HRMSAvisoft/repository/DesignationRepositoryTests.class
 com/example/HRMSAvisoft/service/AddressServiceTest.class
 com/example/HRMSAvisoft/controller/AccountControllerTest.class

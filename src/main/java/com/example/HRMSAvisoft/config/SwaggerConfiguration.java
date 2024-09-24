@@ -18,6 +18,4 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 @SecurityScheme(name = "hrmsSecurity",in = SecuritySchemeIn.HEADER,type = SecuritySchemeType.HTTP,bearerFormat = "JWT",scheme = "bearer",description = "This is security for HRMS application")
 
 public class SwaggerConfiguration {
-
-
 }

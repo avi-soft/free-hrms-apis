@@ -98,7 +98,7 @@ public class BranchController {
 
     @PatchMapping("/{organizationId}/assignBranch/{branchId}")
     @PreAuthorize("hasAuthority('ASSIGN_BRANCH')")
-    public ResponseEntity<Map<String, Object>> assignBranchToOrganization(@PathVariable("organizationId") Long organizationId, @PathVariable("branchId") Long branchId)throws EntityNotFoundException{
+    public ResponseEntity<Map<String, Object>> assignBranchToOrganization(@PathVariable("organizationId") Long organizationId, @PathVariable("branchId") Long branchId)throws EntityNotFoundException, BranchService.BranchAlreadyExistsException {
         branchService.assignBranchToOrganization(organizationId, branchId);
 
         return ResponseEntity.status(200).body(Map.of("message", "Branch assigned successfully", "success", true));

@@ -1,6 +1,5 @@
 package com.example.HRMSAvisoft.security;
 
-
 import com.example.HRMSAvisoft.service.JWTService;
 import com.example.HRMSAvisoft.service.UserService;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
+
+
 
 
 @Configuration
@@ -39,3 +40,17 @@ public class SecurityConfig {
         return http.build();
     }
 }
+
+
+// Code to Throw Token Expiratio exception
+
+//var jwt = jwtAuthentication.getCredentials();
+//DecodedJWT decodedJWT = JWTService.retrieveJWT(jwt);
+//
+//Date expirationDate = decodedJWT.getExpiresAt();
+//
+//            if (expirationDate != null && expirationDate.before(new Date())) {
+//// Throw the exception with the actual expiration date of the token
+//Instant expirationInstant = expirationDate.toInstant();
+//                throw new TokenExpiredException("Session expired. Please login again", expirationInstant);
+//            }
