@@ -149,7 +149,8 @@ public class OrganizationController {
     public ResponseEntity<Object> updateOrganization(
             @PathVariable("organizationId") Long organizationId,
             @RequestParam("organizationData") String organizationData,
-            @RequestParam(value = "file", required = false) MultipartFile file)
+            @RequestParam(value = "file", required = false) MultipartFile file,
+            @RequestParam(value = "removeImage", required = false, defaultValue = "false") boolean removeImage)
             throws EntityNotFoundException, ValidationException, MaxUploadSizeExceededException, IOException {
 
         // Convert the organizationData (JSON) to UpdateOrganizationDTO
@@ -167,9 +168,10 @@ public class OrganizationController {
             // Update the organization's image (You can modify this to suit your use case, e.g., saving to a file system or database)
             organizationService.uploadOrganizationImage(organizationUpdated.getOrganizationId(), file);
         }
-//        else{
-//            organizationService.removeOrganizationImage(organizationUpdated.getOrganizationId());
-//        }
+        // Handle the case when removeImage is true (explicit request to remove the image)
+        else if (removeImage) {
+            organizationService.removeOrganizationImage(organizationUpdated.getOrganizationId());
+        }
 
         return ResponseGenerator.generateResponse(HttpStatus.OK, true, "Organization updated successfully", organizationUpdated);
     }
