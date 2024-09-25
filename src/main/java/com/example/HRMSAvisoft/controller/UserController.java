@@ -136,9 +136,9 @@ public class UserController {
     @Transactional
     @PreAuthorize("hasAuthority('DELETE_EMPLOYEE')")
     @DeleteMapping("/{userId}")
-    public ResponseEntity deleteEmployee(@PathVariable("userId") Long userId)throws EmployeeNotFoundException {
+    public ResponseEntity<Map<String, Object>> deleteEmployee(@PathVariable("userId") Long userId)throws EmployeeNotFoundException {
             userService.deleteUser(userId);
-            return ResponseEntity.status(204).body(null);
+            return ResponseEntity.status(204).body(Map.of("success",true, "message", "Employee Deleted successfully"));
     }
 
     @PreAuthorize("hasAuthority('GET_ALL_USERS')")
