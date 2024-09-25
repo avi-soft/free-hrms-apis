@@ -167,10 +167,9 @@ public class OrganizationController {
             // Update the organization's image (You can modify this to suit your use case, e.g., saving to a file system or database)
             organizationService.uploadOrganizationImage(organizationUpdated.getOrganizationId(), file);
         }
-        else{
-            organizationService.removeOrganizationImage(organizationUpdated.getOrganizationId());
-        }
-
+//        else{
+//            organizationService.removeOrganizationImage(organizationUpdated.getOrganizationId());
+//        }
 
         return ResponseGenerator.generateResponse(HttpStatus.OK, true, "Organization updated successfully", organizationUpdated);
     }
