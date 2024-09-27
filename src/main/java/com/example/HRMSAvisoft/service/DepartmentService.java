@@ -47,12 +47,9 @@ public class DepartmentService {
 
     public Page<Department> getAllDepartments(int page, int size) {
 
-        Pageable pageable = PageRequest.of(page, size);
-        List<Department> departments = departmentRepository.findAll();
+        Pageable pageable = PageRequest.of(page, size);  // page is 0 based index
 
-        int start = (int) pageable.getOffset();
-        int end = Math.min((start + pageable.getPageSize()), departments.size());
-        return new PageImpl<>(departments.subList(start, end), pageable, departments.size());
+        return departmentRepository.findAll(pageable);
     }
 
     public Department addDepartment(@RequestBody CreateDepartmentDTO createDepartmentDTO) throws EmployeeNotFoundException, EntityNotFoundException, DepartmentAttributeService.DepartmentAlreadyExistsException, AttributeKeyDoesNotExistException{

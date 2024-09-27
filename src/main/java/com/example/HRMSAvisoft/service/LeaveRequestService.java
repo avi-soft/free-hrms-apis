@@ -11,6 +11,7 @@ import com.example.HRMSAvisoft.exception.OverlappingLeaveRequestException;
 import com.example.HRMSAvisoft.repository.EmployeeRepository;
 import com.example.HRMSAvisoft.repository.LeaveBalanceRepository;
 import com.example.HRMSAvisoft.repository.LeaveRequestRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -37,7 +38,7 @@ public class LeaveRequestService {
         this.leaveBalanceRepository = leaveBalanceRepository;
     }
 
-    public LeaveRequest createLeaveRequest(Long employeeId, LeaveRequest leaveRequest)throws EmployeeNotFoundException ,OverlappingLeaveRequestException,InsufficientLeaveBalanceException{
+    public LeaveRequest createLeaveRequest(Long employeeId, LeaveRequest leaveRequest)throws EmployeeNotFoundException ,OverlappingLeaveRequestException,InsufficientLeaveBalanceException, EntityNotFoundException{
     Employee employee=employeeRepository.findById(employeeId).orElseThrow(()->new EmployeeNotFoundException(employeeId));
         leaveRequest.setEmployee(employee);
         List<LeaveRequest> overlappingRequests = leaveRequestRepository.findOverlappingLeaveRequests(employeeId, leaveRequest.getStartDate(), leaveRequest.getEndDate());
@@ -48,7 +49,7 @@ public class LeaveRequestService {
         LeaveBalance leaveBalance = leaveBalanceRepository.findByEmployeeEmployeeIdAndLeaveTypeLeaveType(
                 leaveRequest.getEmployee().getEmployeeId(),
                 leaveRequest.getLeaveType()
-        ).orElseThrow(() -> new IllegalStateException("Leave balance not found for the employee and leave type"));
+        ).orElseThrow(() -> new EntityNotFoundException("Leave balance not found for the employee and leave type"));
 
         int totalAvailableLeave = leaveBalance.getAccruedLeave() + leaveBalance.getCarryForward();
         if (leaveRequest.getNumberOfDays() > totalAvailableLeave) {

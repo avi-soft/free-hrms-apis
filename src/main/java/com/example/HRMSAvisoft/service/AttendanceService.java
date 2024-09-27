@@ -151,11 +151,11 @@ public class AttendanceService {
         return new PageImpl<>(attendanceList.subList(start, end), pageable, attendanceList.size());
     }
 
-    public Map<String, Object> userClockedIn(Long userId) {
+    public Map<String, Object> userClockedIn(Long userId)throws EntityNotFoundException {
         Attendance attendanceForUserOnDate = attendanceRepository.findByUserIdAndDate(userId, LocalDate.now()).orElse(null);
 
         if (attendanceForUserOnDate == null) {
-            return Map.of("userClockedIn", false, "clockedTime", null);
+            throw new EntityNotFoundException("Please clock in first.");
         } else {
             LocalDateTime clockInTime = attendanceForUserOnDate.getClockInTime();
             LocalDateTime currentTime = LocalDateTime.now();

@@ -76,11 +76,11 @@ public class Employee {
     @JoinColumn(name = "account_id", referencedColumnName = "accountId")
     private Account account;
 
-//    @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-//    private List<LeaveRequest> leaveRequests = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-//    private List<LeaveBalance> leaveBalances = new ArrayList<>();
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<LeaveRequest> leaveRequests = new ArrayList<>();
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<LeaveBalance> leaveBalances = new ArrayList<>();
 
 
 

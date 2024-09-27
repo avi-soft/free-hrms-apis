@@ -1,10 +1,15 @@
 package com.example.HRMSAvisoft.controller;
 
+import com.example.HRMSAvisoft.dto.ErrorResponseDTO;
 import com.example.HRMSAvisoft.dto.LeaveRequestDTO;
 import com.example.HRMSAvisoft.entity.LeaveRequest;
 import com.example.HRMSAvisoft.exception.EmployeeNotFoundException;
+import com.example.HRMSAvisoft.exception.InsufficientLeaveBalanceException;
 import com.example.HRMSAvisoft.exception.LeaveRequestNotFoundException;
+import com.example.HRMSAvisoft.exception.OverlappingLeaveRequestException;
+import com.example.HRMSAvisoft.service.EmergencyContactService;
 import com.example.HRMSAvisoft.service.LeaveRequestService;
+import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,18 +37,15 @@ public class LeaveRequestController
 
     @PreAuthorize("hasAuthority('CREATE_LEAVE_REQUEST')")
     @PostMapping("/{employeeId}/leaveRequest")
-    public ResponseEntity<Map<String,Object>>createLeaveRequest(@PathVariable Long employeeId, @RequestBody LeaveRequestDTO leaveRequestDTO)throws Exception{
+    public ResponseEntity<Map<String,Object>>createLeaveRequest(@PathVariable Long employeeId, @RequestBody LeaveRequest leaveRequest)throws EntityNotFoundException, EmployeeNotFoundException, OverlappingLeaveRequestException, InsufficientLeaveBalanceException {
         Map<String,Object>response=new HashMap<>();
-        LeaveRequest leaveRequest=modelMapper.map(leaveRequestDTO,LeaveRequest.class);
         LeaveRequest sentRequest=leaveService.createLeaveRequest(employeeId,leaveRequest);
-        if(sentRequest!=null) {
-            response.put("Message", "Leave Request successfully sent");
-            response.put("Success", true);
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        }
-        response.put("Message","Unexpected Error occurred");
-        response.put("Success",false);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+
+        response.put("Message", "Leave Request successfully sent");
+        response.put("Success", true);
+        response.put("leaveRequest", sentRequest);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PreAuthorize("hasAuthority('GET_ALL_LEAVE_REQUESTS')")
@@ -261,5 +263,41 @@ public class LeaveRequestController
         response.put("success", true);
 
         return ResponseEntity.ok(response);
+    }
+
+    @ExceptionHandler({
+            EmployeeNotFoundException.class,
+            EntityNotFoundException.class,
+            OverlappingLeaveRequestException.class,
+            InsufficientLeaveBalanceException.class
+    })
+
+    public ResponseEntity<ErrorResponseDTO> handleErrors(Exception exception){
+        String message;
+        HttpStatus status;
+        if(exception instanceof EntityNotFoundException) {
+            message = exception.getMessage();
+            status = HttpStatus.NOT_FOUND;
+        }
+        else if(exception instanceof EmployeeNotFoundException){
+            message = exception.getMessage();
+            status = HttpStatus.NOT_FOUND;
+        }
+        else if(exception instanceof OverlappingLeaveRequestException){
+            message = exception.getMessage();
+            status = HttpStatus.BAD_REQUEST;
+        }
+        else if(exception instanceof InsufficientLeaveBalanceException){
+            message = exception.getMessage();
+            status = HttpStatus.NOT_ACCEPTABLE;
+        }
+        else{
+            message = "something went wrong";
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        ErrorResponseDTO errorResponse = ErrorResponseDTO.builder()
+                .message(message)
+                .build();
+        return ResponseEntity.status(status).body(errorResponse);
     }
 }

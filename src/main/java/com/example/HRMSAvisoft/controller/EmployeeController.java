@@ -186,8 +186,8 @@ public class EmployeeController {
     @PreAuthorize("hasAuthority('FIND_EMPLOYEE_BY_ID')")
     @GetMapping("/{employeeId}")
     public ResponseEntity<Map<String,Object>> getEmployeeById(@PathVariable Long employeeId) throws NullPointerException, EmployeeNotFoundException, DataAccessException, AccessDeniedException {
-        Employee employee= employeeService.getEmployeeById(employeeId);
-        return ResponseEntity.ok().body(Map.of("Employee", employee, "message", "Employee retrieved Successfully", "Status", true));
+        EmployeeWithOrganizationResponseDTO employeeWithOrganizationResponseDTO= employeeService.getEmployeeById(employeeId);
+        return ResponseEntity.ok().body(Map.of("Employee", employeeWithOrganizationResponseDTO, "message", "Employee retrieved Successfully", "Status", true));
     }
 
     @GetMapping("/unassignedEmployeesOfDepartment")

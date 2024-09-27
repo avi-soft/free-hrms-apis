@@ -2,6 +2,8 @@ package com.example.HRMSAvisoft.repository;
 
 import com.example.HRMSAvisoft.entity.Branch;
 import com.example.HRMSAvisoft.entity.Organization;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.HRMSAvisoft.entity.Department;
 import org.springframework.data.jpa.repository.Query;
@@ -27,4 +29,5 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
     @Query("SELECT d FROM Department d JOIN d.branches b WHERE d.department = :department AND b.branchId = :branchId")
     Optional<Department> findByDepartmentAndBranchId(@Param("department") String department, @Param("branchId") Long branchId);
 
+    Page<Department> findAll(Pageable pageable);
 }

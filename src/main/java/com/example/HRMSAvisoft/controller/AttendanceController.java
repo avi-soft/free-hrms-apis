@@ -66,7 +66,7 @@ public class AttendanceController {
     }
 
     @GetMapping("/userStatus/{userId}")
-    public ResponseEntity<Map<String, Object>> userClockedIn(@PathVariable Long userId){
+    public ResponseEntity<Map<String, Object>> userClockedIn(@PathVariable Long userId)throws EntityNotFoundException{
         Map<String, Object> isUserClockedIn = attendanceService.userClockedIn(userId);
 
         return ResponseEntity.status(200).body(Map.of("success", true, "message", "User status fetched", "isUserClockedIn", isUserClockedIn.get("userClockedIn"), "clockedTime", isUserClockedIn.get("clockedTime")));

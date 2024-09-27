@@ -17,7 +17,7 @@ import java.time.LocalDate;
 public class LeaveRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long leaveId;
     @ManyToOne
     @JoinColumn(name = "employee_id")
     @JsonIgnore

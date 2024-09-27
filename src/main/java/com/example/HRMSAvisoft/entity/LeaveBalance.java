@@ -15,7 +15,7 @@ import lombok.Setter;
 public class LeaveBalance {
     @Id
     @GeneratedValue
-    private Long id;
+    private Long leaveBalanceId;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "employee_id")
     @JsonIgnore

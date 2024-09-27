@@ -4,6 +4,7 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.example.HRMSAvisoft.attribute.EmployeeAttribute;
 import com.example.HRMSAvisoft.dto.CreateEmployeeDTO;
+import com.example.HRMSAvisoft.dto.EmployeeWithOrganizationResponseDTO;
 import com.example.HRMSAvisoft.dto.UpdateEmployeeDetailsDTO;
 import com.example.HRMSAvisoft.entity.*;
 import com.example.HRMSAvisoft.exception.AttributeKeyDoesNotExistException;
@@ -21,10 +22,7 @@ import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -52,11 +50,13 @@ public class EmployeeService {
     @Autowired
     private BranchRepository branchRepository;
 
+    private final LeaveBalanceService leaveBalanceService;
 
-    EmployeeService(EmployeeRepository employeeRepository, Cloudinary cloudinary){
 
+    EmployeeService(EmployeeRepository employeeRepository, Cloudinary cloudinary, LeaveBalanceService leaveBalanceService) {
         this.employeeRepository = employeeRepository;
         this.cloudinary = cloudinary;
+        this.leaveBalanceService = leaveBalanceService;
     }
 
     public void uploadProfileImage(Long employeeId, MultipartFile file)throws EmployeeNotFoundException, IOException, NullPointerException, RuntimeException ,AccessDeniedException{
@@ -149,6 +149,8 @@ public class EmployeeService {
 
         employeeToAddInfo.setAttributes(employeeAttributes);
 
+        leaveBalanceService.initializeLeaveBalancesForEmployee(employeeToAddInfo);
+
         return employeeRepository.save(employeeToAddInfo);
     }
 
@@ -178,15 +180,23 @@ public class EmployeeService {
     }
 
 
-    public Employee getEmployeeById(Long employeeId)throws EmployeeNotFoundException, NullPointerException,AccessDeniedException
-    {
-        Employee employee= employeeRepository.getByEmployeeId(employeeId);
-        if(employee!=null)
-            return employee;
-        else {
+    public EmployeeWithOrganizationResponseDTO getEmployeeById(Long employeeId)
+            throws EmployeeNotFoundException, NullPointerException, AccessDeniedException {
+
+        Employee employee = employeeRepository.getByEmployeeId(employeeId);
+
+        if (employee != null) {
+            Set<Organization> organizations = new HashSet<>();
+            for (Department department : employee.getDepartments()) {
+                organizations.addAll(department.getOrganizations());
+            }
+
+            return new EmployeeWithOrganizationResponseDTO(employee, organizations);
+        } else {
             throw new EmployeeNotFoundException(employeeId);
         }
     }
+
 
     public Page<Employee> getUnassignedEmployeesOfDepartment(int page, int size){
         Pageable pageable = PageRequest.of(page, size);
