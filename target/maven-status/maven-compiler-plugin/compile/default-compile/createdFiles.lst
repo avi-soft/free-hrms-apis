@@ -113,6 +113,7 @@ com/example/HRMSAvisoft/repository/AttendanceLocationRepository.class
 com/example/HRMSAvisoft/service/LeaveTypeService.class
 com/example/HRMSAvisoft/dto/UpdateEmployeeDetailsDTO.class
 com/example/HRMSAvisoft/attribute/Attribute.class
+com/example/HRMSAvisoft/dto/EmployeeWithOrganizationResponseDTO.class
 com/example/HRMSAvisoft/dto/ErrorResponseDTO.class
 com/example/HRMSAvisoft/attribute/OrganizationAttribute.class
 com/example/HRMSAvisoft/dto/CreatePerformanceDTO.class
